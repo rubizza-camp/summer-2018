@@ -15,7 +15,10 @@
 #
 def triangle(a, b, c)
   raise TriangleError if invalid_dimensions?(a, b, c) || invalid_triangle?(a, b, c)
+  classify_valid_triangle(a, b, c)
+end
 
+def classify_valid_triangle(a, b, c)
   if a == b && a == c
     :equilateral
   elsif a == b || b == c || a == c
