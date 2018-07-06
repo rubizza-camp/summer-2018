@@ -95,12 +95,12 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
 
-    assert_equal ["CODE", "MASH", "2009"], result
+    assert_equal ['CODE', 'MASH', '2009'], result
     assert_equal [:upcase!, :split], proxy.messages
   end
 end

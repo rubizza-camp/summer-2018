@@ -23,15 +23,15 @@ def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
 
-in_ruby_version("1.8") do
+in_ruby_version('1.8') do
   class KeyError < StandardError
   end
 end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
-def __(value="FILL ME IN", value19=:mu)
-  if RUBY_VERSION < "1.9"
+def __(value='FILL ME IN', value19=:mu)
+  if RUBY_VERSION < '1.9'
     value
   else
     (value19 == :mu) ? value : value19
@@ -40,7 +40,7 @@ end
 
 # Numeric replacement value.
 def _n_(value=999999, value19=:mu)
-  if RUBY_VERSION < "1.9"
+  if RUBY_VERSION < '1.9'
     value
   else
     (value19 == :mu) ? value : value19
@@ -49,7 +49,7 @@ end
 
 # Error object replacement value.
 def ___(value=FillMeInError, value19=:mu)
-  if RUBY_VERSION < "1.9"
+  if RUBY_VERSION < '1.9'
     value
   else
     (value19 == :mu) ? value : value19
@@ -64,7 +64,7 @@ class Object
     end
   end
 
-  in_ruby_version("1.9", "2") do
+  in_ruby_version('1.9', '2') do
     public :method_missing
   end
 end
@@ -77,7 +77,7 @@ class String
     else
       left_padding = extra / 2
       right_padding = (extra+1)/2
-      (" " * left_padding) + self + (" " *right_padding)
+      (' ' * left_padding) + self + (' ' *right_padding)
     end
   end
 end
@@ -146,7 +146,7 @@ module Neo
     end
 
     def assert(condition, msg=nil)
-      msg ||= "Failed assertion."
+      msg ||= 'Failed assertion.'
       flunk(msg) unless condition
       true
     end
@@ -270,7 +270,7 @@ module Neo
       bar_width = 50
       total_tests = Neo::Koan.total_tests
       scale = bar_width.to_f/total_tests
-      print Color.green("your path thus far [")
+      print Color.green('your path thus far [')
       happy_steps = (pass_count*scale).to_i
       happy_steps = 1 if happy_steps == 0 && pass_count > 0
       print Color.green('.'*happy_steps)
@@ -292,11 +292,11 @@ module Neo
     end
 
     def boring_end_screen
-      puts "Mountains are again merely mountains"
+      puts 'Mountains are again merely mountains'
     end
 
     def artistic_end_screen
-      "JRuby 1.9.x Koans"
+      'JRuby 1.9.x Koans'
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
         completed = <<-ENDTEXT
@@ -339,12 +339,12 @@ ENDTEXT
 
     def encourage
       puts
-      puts "The Master says:"
-      puts Color.cyan("  You have not yet reached enlightenment.")
+      puts 'The Master says:'
+      puts Color.cyan('  You have not yet reached enlightenment.')
       if ((recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1)
-        puts Color.cyan("  I sense frustration. Do not be afraid to ask for help.")
+        puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
-        puts Color.cyan("  Do not lose hope.")
+        puts Color.cyan('  Do not lose hope.')
       elsif progress.last.to_i > 0
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
@@ -352,10 +352,10 @@ ENDTEXT
 
     def guide_through_error
       puts
-      puts "The answers you seek..."
+      puts 'The answers you seek...'
       puts Color.red(indent(failure.message).join)
       puts
-      puts "Please meditate on the following code:"
+      puts 'Please meditate on the following code:'
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
       puts
     end
@@ -387,21 +387,21 @@ ENDTEXT
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     def a_zenlike_statement
       if !failed?
-        zen_statement =  "Mountains are again merely mountains"
+        zen_statement = 'Mountains are again merely mountains'
       else
         zen_statement = case (@pass_count % 10)
         when 0
-          "mountains are merely mountains"
+          'mountains are merely mountains'
         when 1, 2
-          "learn the rules so you know how to break them properly"
+          'learn the rules so you know how to break them properly'
         when 3, 4
-          "remember that silence is sometimes the best answer"
+          'remember that silence is sometimes the best answer'
         when 5, 6
-          "sleep is the best meditation"
+          'sleep is the best meditation'
         when 7, 8
           "when you lose, don't lose the lesson"
         else
-          "things are not what they appear to be: nor are they otherwise"
+          'things are not what they appear to be: nor are they otherwise'
         end
       end
       puts Color.green(zen_statement)
