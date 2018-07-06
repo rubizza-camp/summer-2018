@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: db
+  username: postgres
+  password: my_password
+  pool: 5
+
+development:
+  <<: *default
+  database: redmine_development
+
+test:
+  <<: *default
+  database: redmine_test
+
+production:
+  <<: *default
+  database: redmine_production
