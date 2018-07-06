@@ -1,0 +1,13 @@
+diff --git a/config/application.rb b/config/application.rb
+index cb848bee6..8addb0d72 100644
+--- a/config/application.rb
++++ b/config/application.rb
+@@ -64,6 +64,8 @@ module RedmineApp
+     # Configure log level here so that additional environment file
+     # can change it (environments/ENV.rb would take precedence over it)
+     config.log_level = Rails.env.production? ? :info : :debug
++    config.log_tags  = [:subdomain, :uuid]
++    config.logger    = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+ 
+     config.session_store :cookie_store,
+       :key => '_redmine_session',
