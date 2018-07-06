@@ -50,8 +50,8 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_character_classes_give_options_for_a_character
-    animals = ['cat', 'bat', 'rat', 'zat']
-    assert_equal ['cat', 'bat', 'rat'], animals.select { |a| a[/[cbr]at/] }
+    animals = %w(cat bat rat zat)
+    assert_equal %w(cat bat rat), animals.select { |a| a[/[cbr]at/] }
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -148,7 +148,7 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all
-    assert_equal ['one', 'two', 'three'], 'one two-three'.scan(/\w+/)
+    assert_equal %w(one two three), 'one two-three'.scan(/\w+/)
   end
 
   def test_sub_is_like_find_and_replace

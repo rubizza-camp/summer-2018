@@ -100,7 +100,7 @@ class AboutProxyObjectProject < Neo::Koan
     proxy.upcase!
     result = proxy.split
 
-    assert_equal ['CODE', 'MASH', '2009'], result
+    assert_equal %w(CODE MASH 2009), result
     assert_equal [:upcase!, :split], proxy.messages
   end
 end
