@@ -20,9 +20,8 @@ class Proxy
   end
 
   # rubocop:disable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective
-  # rubocop:disable Style/MissingRespondToMissing
   # :reek:ManualDispatch
-  def method_missing(method_name, *args, &block)
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
     if @object.respond_to?(method_name)
       @times_called[method_name] += 1
       unless @messages.include?(method_name) # rubocop:disable Style/IfUnlessModifier
@@ -34,7 +33,6 @@ class Proxy
     end
   end
   # rubocop:enable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective
-  # rubocop:enable Style/MissingRespondToMissing
 
   def called?(method_name)
     @times_called.key?(method_name)

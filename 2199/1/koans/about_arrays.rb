@@ -85,6 +85,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 
+  # :reek:TooManyStatements
   def test_shifting_arrays
     array = [1, 2]
     array.unshift(:first)
