@@ -1,1 +1,1 @@
-puts 'Chunky  bacon'
+puts 'Chunky bacon'
