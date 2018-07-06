@@ -7,13 +7,14 @@ RUN apt-get update && apt-get install -qq -y build-essential nodejs libpq-dev po
 RUN git clone https://github.com/redmine/redmine.git
 COPY config/secrets.yml redmine/config/secrets.yml
 COPY config/database.yml redmine/config/database.yml
-COPY config/application.rb redmine/config/application.rb
-COPY config/Gemfile redmine/Gemfile
+COPY config/application.patch redmine/application.patch
 
 ENV INSTALL_PATH /redmine
 ENV RAILS_ENV=production
 
 WORKDIR $INSTALL_PATH
+
+RUN git apply application.patch
 
 RUN bundle install --without development test
 
