@@ -471,7 +471,7 @@ ENDTEXT
         case arg
         when %r{/^-n\/(.*)\///}
           @test_pattern = Regexp.new($1)
-        when /^-n(.*)//
+        when /^-n(.*)/
           @test_pattern = Regexp.new(Regexp.quote($1))
         else
           existing_file(arg)
@@ -491,7 +491,7 @@ ENDTEXT
         @subclasses ||= []
       end
 
-       # Lazy initialize list of test methods.
+      # Lazy initialize list of test methods.
       def testmethods
         @testmethods ||= []
       end
@@ -533,7 +533,7 @@ ENDTEXT
   end
 end
 
-END {
+at_exit {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }

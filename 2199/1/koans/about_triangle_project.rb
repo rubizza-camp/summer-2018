@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # You need to write the triangle method in the file 'triangle.rb'
 require './triangle'
 # Test for triangle class

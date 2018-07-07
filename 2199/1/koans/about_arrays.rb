@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# About arrays
+
 class AboutArrays < Neo::Koan
   def test_creating_arrays
     empty_array = Array.new
@@ -67,18 +67,17 @@ class AboutArrays < Neo::Koan
 
     popped_value = array.pop
     assert_equal :last, popped_value
-    assert_equal [1, 2], array
+    assert_equal [1,2], array
   end
 
   def test_shifting_arrays
-    array = [1, 2]
+    array = [1,2]
     array.unshift(:first)
 
     assert_equal [:first, 1, 2], array
 
     shifted_value = array.shift
     assert_equal :first, shifted_value
-    assert_equal [1, 2], array
+    assert_equal [1,2], array
   end
-
 end
