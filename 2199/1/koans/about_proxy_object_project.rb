@@ -17,11 +17,12 @@ class Proxy
     @object = target_object
     @messages = []
   end
-
+  # rubocop:disable Style/MethodMissingSuper
   def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send method_name, *args, &block
   end
+  # rubocop:disable Style/MethodMissingSuper
 
   def called?(method_name)
     @messages.include? method_name
@@ -59,7 +60,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal [:power, :channel=], tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages
@@ -77,7 +78,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
@@ -98,11 +99,10 @@ class AboutProxyObjectProject < Neo::Koan
     proxy.upcase!
     result = proxy.split
 
-    assert_equal %w(CODE MASH 2009), result
-    assert_equal [:upcase!, :split], proxy.messages
+    assert_equal %w[CODE MASH 2009], result
+    assert_equal %i[upcase! split], proxy.messages
   end
 end
-
 
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
@@ -113,11 +113,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+               :off
+            else
+              :on
+            end
   end
 
   def on?
@@ -140,7 +140,7 @@ class TelevisionTest < Neo::Koan
     tv.power
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_edge_case_on_off
@@ -154,7 +154,7 @@ class TelevisionTest < Neo::Koan
 
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_can_set_the_channel

@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-PRICE = [0, 100, 0, 0, 0, 50, 0]
+PRICE = [0, 100, 0, 0, 0, 50, 0].freeze
 def score(dice)
   result = 0
   (1..6).each do |number|
