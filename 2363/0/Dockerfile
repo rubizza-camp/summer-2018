@@ -4,5 +4,4 @@ COPY init.sql /docker-entrypoint-initdb.d/
 COPY . /redmine
 WORKDIR /redmine
 RUN bundle install
-RUN rake db:create
-RUN rake db:migrate
+RUN chmod +x db_create_migrate.sh
