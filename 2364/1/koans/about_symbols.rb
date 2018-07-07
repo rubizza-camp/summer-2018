@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Class about symbols
+# Class about symbols
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
@@ -36,6 +36,7 @@ class AboutSymbols < Neo::Koan
 
   in_ruby_version('mri') do
     RUBY_CONSTANT = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
@@ -55,17 +56,21 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_interpolation_can_be_built
+    # rubocop:disable Lint/UselessAssignment
     value = 'and'
     symbol = :'cats #{value} dogs'
 
     assert_equal 'cats and dogs'.to_sym, symbol
+    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_to_s_is_called_on_interpolated_symbols
+    # rubocop:disable Lint/UselessAssignment
     symbol = :cats
-    string = 'It is raining #{symbol} and dogs.'
+    string = "It is raining #{symbol} and dogs."
 
     assert_equal 'It is raining cats and dogs.', string
+    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_symbols_are_not_strings
