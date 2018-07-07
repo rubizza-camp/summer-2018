@@ -1,5 +1,5 @@
 class Absolute
-  def initialize()
+  def initialize
     puts 'initialized'
   end
 end
