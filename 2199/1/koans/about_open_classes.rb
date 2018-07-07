@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# About open classes
 class AboutOpenClasses < Neo::Koan
   class Dog
     def bark

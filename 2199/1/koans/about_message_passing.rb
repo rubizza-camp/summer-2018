@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# About message passing
 class AboutMessagePassing < Neo::Koan
 
   class MessageCatcher

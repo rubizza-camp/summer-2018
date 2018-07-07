@@ -36,6 +36,6 @@ def invalid_triangle?(first, second, third)
   first + second <= third || second + third <= first || first + third <= second
 end
 
-# Error class used in part 2.  No need to change this code.
+# Error class used in part 2. No need to change this code.
 class TriangleError < StandardError
 end

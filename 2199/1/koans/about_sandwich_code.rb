@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# About sandwich code
 class AboutSandwichCode < Neo::Koan
 
   def count_lines(file_name)

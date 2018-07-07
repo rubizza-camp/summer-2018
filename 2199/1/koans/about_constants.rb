@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'
-
+#About constants
 class AboutConstants < Neo::Koan
 
   C = 'nested'
@@ -20,7 +20,7 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # About animal
   class Animal
     LEGS = 4
     def legs_in_animal
@@ -37,9 +37,8 @@ class AboutConstants < Neo::Koan
   def test_nested_classes_inherit_constants_from_enclosing_classes
     assert_equal 4, Animal::NestedAnimal.new.legs_in_nested_animal
   end
-
   # ------------------------------------------------------------------
-
+  # About Reptile
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -51,7 +50,7 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # Class MyAnimals
   class MyAnimals
     LEGS = 2
 
@@ -70,7 +69,7 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-
+  # About oyster
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
@@ -80,7 +79,6 @@ class AboutConstants < Neo::Koan
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end
-
   # QUESTION: Now which has precedence: The constant in the lexical
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?

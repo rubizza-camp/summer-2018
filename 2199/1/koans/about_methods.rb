@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def my_global_method(a,b)
   a + b
 end
-
+# About methods
 class AboutMethods < Neo::Koan
 
   def test_calling_global_methods

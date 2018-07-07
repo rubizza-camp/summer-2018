@@ -10,7 +10,7 @@ include Java
 # * Ruby Strings  VS Java Strings
 # * Calling custom java class
 # * Calling Ruby from java???
-
+# About java
 class AboutJavaInterop < Neo::Koan
   def test_using_a_java_library_class
     java_array = java.util.ArrayList.new
