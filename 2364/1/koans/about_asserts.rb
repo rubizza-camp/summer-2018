@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#Class about asserts
 class AboutAsserts < Neo::Koan
 
   # We shall contemplate truth by testing reality, via asserts.
@@ -13,7 +14,7 @@ class AboutAsserts < Neo::Koan
   # Enlightenment may be more easily achieved with appropriate
   # messages.
   def test_assert_with_message
-    assert true, "This should be true -- Please fix this"
+    assert true, 'This should be true -- Please fix this'
   end
 
   # To understand reality, we must compare our expectations against

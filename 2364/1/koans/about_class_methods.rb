@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#Class about class methods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -80,8 +81,8 @@ class AboutClassMethods < Neo::Koan
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
-    assert_equal "Fido", fido.name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
     assert_equal nil, Dog.name
   end
 
@@ -99,22 +100,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSIONIN_ClASS_STATEMENT = class Dog
+                                        21
+                                      end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSIONIN_ClASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_INSIDEOF_CLASS_STATEMENT = class Dog
+                                    self
+                                  end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDEOF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------

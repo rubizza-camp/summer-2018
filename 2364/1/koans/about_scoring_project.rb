@@ -35,17 +35,18 @@ def score(dice)
     score = 0
     (1..6).each do |number|
         roll_count = dice.count { |dice| dice == number }
-        
+
         if roll_count >= 3
             score += number == 1 ? 1000 : 100 * number
             roll_count -= 3
         end
-        
+
         score += roll_count * SINGLE_ROLL_MULTIPLIERS[number]
     end
     score
 end
 
+#Class about scoring project
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

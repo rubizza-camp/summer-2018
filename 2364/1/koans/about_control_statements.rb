@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#Class about control statements
 class AboutControlStatements < Neo::Koan
 
   def test_if_then_else_statements
@@ -123,12 +124,12 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_for_statement
-    array = ["fish", "and", "chips"]
+    array = ['fish', 'and', 'chips']
     result = []
     for item in array
       result << item.upcase
     end
-    assert_equal ["FISH", "AND", "CHIPS"], result
+    assert_equal ['FISH', 'AND', 'CHIPS'], result
   end
 
   def test_times_statement

@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#Class about clocks
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -19,12 +20,12 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_block_arguments
-    yield("Jim")
+    yield('Jim')
   end
 
   def test_blocks_can_take_arguments
     method_with_block_arguments do |argument|
-      assert_equal "Jim", argument
+      assert_equal 'Jim', argument
     end
   end
 
@@ -77,7 +78,7 @@ class AboutBlocks < Neo::Koan
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
     make_upper = lambda { |n| n.upcase }
     result = method_with_block_arguments(&make_upper)
-    assert_equal "JIM", result
+    assert_equal 'JIM', result
   end
 
   # ------------------------------------------------------------------

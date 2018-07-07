@@ -12,7 +12,6 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
 def triangle(a, b, c)
     sides = [a,b,c].sort
     raise TriangleError if sides.any? { |side| side <= 0 }

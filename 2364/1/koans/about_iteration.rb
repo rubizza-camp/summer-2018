@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#Class about iteration
 class AboutIteration < Neo::Koan
 
   # -- An Aside ------------------------------------------------------
@@ -8,13 +9,13 @@ class AboutIteration < Neo::Koan
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
 
-  in_ruby_version("1.8") do
+  in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
 
-  in_ruby_version("1.9", "2") do
+  in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
     end
@@ -75,9 +76,9 @@ class AboutIteration < Neo::Koan
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
-    array = ["Jim", "Bill", "Clarence", "Doug", "Eli"]
+    array = ['Jim', 'Bill', 'Clarence', 'Doug', 'Eli']
 
-    assert_equal "Clarence", array.find { |item| item.size > 4 }
+    assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
 
   def test_inject_will_blow_your_mind
@@ -97,7 +98,7 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
-    File.open("example_file.txt") do |file|
+    File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal %w{THIS IS A TEST}, upcase_lines
     end
