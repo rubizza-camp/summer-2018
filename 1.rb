@@ -1,3 +1,4 @@
+
 class Absolute
   def initialize
     puts 'initialized'
