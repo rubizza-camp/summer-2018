@@ -3,7 +3,6 @@
 
 inherit_from:
   - .enabled.yml
-  - .disabled.yml
 
 # Common configuration.
 AllCops:
@@ -1728,3 +1727,18 @@ Bundler/OrderedGems:
 
 Gemspec/OrderedDependencies:
   TreatCommentsAsGroupSeparators: true
+
+Style/FrozenStringLiteralComment:
+  Description: >-
+                 Add the frozen_string_literal comment to the top of files
+                 to help transition from Ruby 2.3.0 to Ruby 3.0.
+  Enabled: false
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Description: 'Use `%`-literal delimiters consistently'
+  StyleGuide: '#percent-literal-braces'
+  Enabled: false
