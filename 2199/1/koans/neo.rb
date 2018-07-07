@@ -387,26 +387,22 @@ ENDTEXT
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
       else
-        numbers_for_case(zen_statement)
+        zen_statement = case (@pass_count % 10)
+                        when 0
+                          'mountains are merely mountains'
+                        when 1, 2
+                          'learn the rules so you know how to break them properly'
+                        when 3, 4
+                          'remember that silence is sometimes the best answer'
+                        when 5, 6
+                          'sleep is the best meditation'
+                        when 7, 8
+                          "when you lose, don't lose the lesson"
+                        else
+                          'things are not what they appear to be: nor are they otherwise'
+                        end
       end
       puts Color.green(zen_statement)
-    end
-
-    def numbers_for_case(zen_statement)
-      zen_statement = case (@pass_count % 10)
-                      when 0
-                        'mountains are merely mountains'
-                      when 1, 2
-                        'learn the rules so you know how to break them properly'
-                      when 3, 4
-                        'remember that silence is sometimes the best answer'
-                      when 5, 6
-                        'sleep is the best meditation'
-                      when 7, 8
-                        "when you lose, don't lose the lesson"
-                      else
-                        'things are not what they appear to be: nor are they otherwise'
-                      end
     end
   end
   # Class Koan
@@ -467,14 +463,18 @@ ENDTEXT
 
       def command_line(args)
         args.each do |arg|
-          case arg
-          when %r{/^-n\/(.*)\///}
-            @test_pattern = Regexp.new($1)
-          when /^-n(.*)$/
-            @test_pattern = Regexp.new(Regexp.quote($1))
-          else
-            existing_file(arg)
-          end
+          for_case(arg)
+        end
+      end
+
+      def for_case(arg)
+        case arg
+        when %r{/^-n\/(.*)\///}
+          @test_pattern = Regexp.new($1)
+        when /^-n(.*)$/
+          @test_pattern = Regexp.new(Regexp.quote($1))
+        else
+          existing_file(arg)
         end
       end
 
