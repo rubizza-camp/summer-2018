@@ -341,7 +341,7 @@ ENDTEXT
       puts
       puts 'The Master says:'
       puts Color.cyan('  You have not yet reached enlightenment.')
-      if ((recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1)
+      if (recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
@@ -362,25 +362,23 @@ ENDTEXT
 
     def embolden_first_line_only(text)
       first_line = true
-      text.collect { |t|
+      text.collect do |t|
         if first_line
           first_line = false
           Color.red(t)
         else
           Color.cyan(t)
         end
-      }
+      end
     end
 
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
-      text.collect{|t| "  #{t}"}
+      text.collect { |t| " #{t}" }
     end
 
     def find_interesting_lines(backtrace)
-      backtrace.reject { |line|
-        line =~ /neo\.rb/
-      }
+      backtrace.reject { |line| line =~ /neo\.rb/ }
     end
 
     # Hat's tip to Ara T. Howard for the zen statements from his
@@ -389,22 +387,26 @@ ENDTEXT
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
       else
-        zen_statement = case (@pass_count % 10)
-                        when 0
-                          'mountains are merely mountains'
-                        when 1, 2
-                          'learn the rules so you know how to break them properly'
-                        when 3, 4
-                          'remember that silence is sometimes the best answer'
-                        when 5, 6
-                          'sleep is the best meditation'
-                        when 7, 8
-                          "when you lose, don't lose the lesson"
-                        else
-                          'things are not what they appear to be: nor are they otherwise'
-                        end
+        numbers_for_case(zen_statement)
       end
       puts Color.green(zen_statement)
+    end
+
+    def numbers_for_case(zen_statement)
+      zen_statement = case (@pass_count % 10)
+                      when 0
+                        'mountains are merely mountains'
+                      when 1, 2
+                        'learn the rules so you know how to break them properly'
+                      when 3, 4
+                        'remember that silence is sometimes the best answer'
+                      when 5, 6
+                        'sleep is the best meditation'
+                      when 7, 8
+                        "when you lose, don't lose the lesson"
+                      else
+                        'things are not what they appear to be: nor are they otherwise'
+                      end
     end
   end
   # Class Koan
@@ -480,7 +482,7 @@ ENDTEXT
         if File.exist?(arg)
           load(arg)
         else
-          fail "Unknown command line argument '#{arg}'"
+          raise "Unknown command line argument '#{arg}'"
         end
       end
 
@@ -518,7 +520,7 @@ ENDTEXT
     end
 
     def each_step
-      catch(:neo_exit) {
+      catch(:neo_exit) do
         step_count = 0
         Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
@@ -526,7 +528,7 @@ ENDTEXT
             yield step
           end
         end
-      }
+      end
     end
   end
 end
