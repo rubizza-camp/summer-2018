@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# Class about strings
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -31,7 +31,7 @@ class AboutStrings < Neo::Koan
     a = %(flexible quotes can handle both ' and " characters)
     b = %(!flexible quotes can handle both ' and " characters!)
     c = %{flexible quotes can handle both ' and " characters}
-    assert_equal true, a == b
+    assert_equal false, a == b
     assert_equal true, a == c
   end
 
@@ -63,7 +63,6 @@ SQL
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end

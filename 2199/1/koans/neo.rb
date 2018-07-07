@@ -471,7 +471,7 @@ ENDTEXT
         case arg
         when %r{/^-n\/(.*)\///}
           @test_pattern = Regexp.new($1)
-        when /^-n(.*)$/
+        when /^-n(.*)//
           @test_pattern = Regexp.new(Regexp.quote($1))
         else
           existing_file(arg)

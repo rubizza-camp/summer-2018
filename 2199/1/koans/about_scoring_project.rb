@@ -28,24 +28,20 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+PRICE = [0, 100, 0, 0, 0, 50, 0]
 def score(dice)
-  price = [0, 100, 0, 0, 0, 50, 0]
   result = 0
-
   (1..6).each do |number|
-    throw_count = dice.count { |dice| dice == number }
-
+    throw_count = dice.count { |cast| cast == number }
     if throw_count >= 3
       result += number == 1 ? 1000 : 100 * number
       throw_count -= 3
     end
-
-    result += throw_count * price[number]
+    result += throw_count * PRICE[number]
   end
   result
 end
-
+# Tests for score
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
