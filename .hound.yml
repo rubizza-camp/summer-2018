@@ -1,7 +1,7 @@
 fail_on_violations: true
 
 rubocop:
-  config_file: .rubocop/rubocop.yml
+  config_file: .rubocop.yml
 
 reek:
   enabled: true
