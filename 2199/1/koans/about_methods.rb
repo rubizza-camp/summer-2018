@@ -73,7 +73,7 @@ class AboutMethods < Neo::Koan
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
-    :another_non_return_value
+    #:another_non_return_value
   end
 
   def test_method_with_explicit_return
@@ -83,7 +83,7 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
+    #:a_non_return_value
     :return_value
   end
 
@@ -93,16 +93,16 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(first, second)
+    first * second
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -124,7 +124,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # Class Dog with methods name and tail
   class Dog
     def name
       'Fido'
