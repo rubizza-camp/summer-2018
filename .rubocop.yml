@@ -2,8 +2,8 @@
 # in separate files. This file adds all other parameters apart from Enabled.
 
 inherit_from:
-  - enabled.yml
-  - disabled.yml
+  - .enabled.yml
+  - .disabled.yml
 
 # Common configuration.
 AllCops:
