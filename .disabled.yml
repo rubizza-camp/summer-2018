@@ -4,10 +4,6 @@ Style/FrozenStringLiteralComment:
                  to help transition from Ruby 2.3.0 to Ruby 3.0.
   Enabled: false
 
-Style/Documentation:
-  Description: 'Document classes and non-namespace modules.'
-  Enabled: false
-
 Style/PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
   StyleGuide: '#percent-literal-braces'
