@@ -77,7 +77,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = Hash.new
+    hash1 = {}
     hash1[:one] = 1
 
     assert_equal 1, hash1[:one]
@@ -104,7 +104,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    hash = Hash.new {|hash, key| hash[key] = [] }
+    hash = Hash.new { |hash1, key| hash1[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

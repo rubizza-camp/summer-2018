@@ -429,11 +429,9 @@ ENDTEXT
       @failure = failure
     end
 
-    def setup
-    end
+    def setup ;end
 
-    def teardown
-    end
+    def teardown ;end
 
     def meditate
       setup
@@ -468,17 +466,21 @@ ENDTEXT
       def command_line(args)
         args.each do |arg|
           case arg
-          when /^-n\/(.*)\/$/
+          when %r/^-n\/(.*)\/$/
             @test_pattern = Regexp.new($1)
           when /^-n(.*)$/
             @test_pattern = Regexp.new(Regexp.quote($1))
           else
-            if File.exist?(arg)
-              load(arg)
-            else
-              fail "Unknown command line argument '#{arg}'"
-            end
+            existing_file(arg)
           end
+        end
+      end
+
+      def existing_file(arg)
+        if File.exist?(arg)
+          load(arg)
+        else
+          fail "Unknown command line argument '#{arg}'"
         end
       end
 
@@ -489,7 +491,7 @@ ENDTEXT
 
        # Lazy initialize list of test methods.
       def testmethods
-        @test_methods ||= []
+        @testmethods ||= []
       end
 
       def tests_disabled?
@@ -501,11 +503,11 @@ ENDTEXT
       end
 
       def total_tests
-        self.subclasses.inject(0){|total, k| total + k.testmethods.size }
+        self.subclasses.inject(0) { |total, k| total + k.testmethods.size }
       end
     end
   end
-
+ # Class the path
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -518,9 +520,9 @@ ENDTEXT
     def each_step
       catch(:neo_exit) {
         step_count = 0
-        Neo::Koan.subclasses.each_with_index do |koan,koan_index|
+        Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
-            step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
+            step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end
