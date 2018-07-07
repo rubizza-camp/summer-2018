@@ -9,12 +9,10 @@ default: &default
 development:
   <<: *default
   database: redmine_development
-
-
 test:
   <<: *default
   database: redmine_test
-  
+
 production:
-  <<: *default                                       
+  <<: *default
   database: redmine_production
