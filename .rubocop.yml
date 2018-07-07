@@ -1711,3 +1711,7 @@ Bundler/OrderedGems:
 
 Gemspec/OrderedDependencies:
   TreatCommentsAsGroupSeparators: true
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
