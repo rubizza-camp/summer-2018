@@ -95,12 +95,13 @@ class AboutHashes < Neo::Koan
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
+    hashes_are_equal = hash[:one].object_id == hash[:two].object_id
 
     assert_equal %w(uno dos), hash[:one]
     assert_equal %w(uno dos), hash[:two]
     assert_equal %w(uno dos), hash[:three]
 
-    assert_equal true, hash[:one].object_id == hash[:two].object_id
+    assert_equal true,  hashes_are_equal
   end
 
   def test_default_value_with_block
