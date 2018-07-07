@@ -1,0 +1,17 @@
+version: '3'
+services:
+  redmine:
+    build: .
+    links:
+      - db
+    volumes:
+      - .:/app
+    command: [ "sh", "-c", "rm -f /app/tmp/pids/server.pid \
+      && ls \
+      && bundle exec rake db:create \
+      && bundle exec rake db:migrate \
+      && bundle exec rails s -p 3000 -b '0.0.0.0'" ]
+    ports:
+      - "3000:3000"
+  db:
+    image: postgres
