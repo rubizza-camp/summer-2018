@@ -21,7 +21,7 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :nodoc:
   class CanBeTreatedAsString
     def to_s
       'string-like'
