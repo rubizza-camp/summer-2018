@@ -90,7 +90,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
@@ -124,9 +124,9 @@ class Television
   attr_accessor :channel
 
   def power
-    @power =  if @power == :on
+    @power = if @power == :on
       :off
-    else
+    elsif
       @power = :on
     end
   end
