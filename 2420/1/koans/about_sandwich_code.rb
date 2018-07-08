@@ -18,9 +18,9 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file.open(file_name)
-    while line == file.gets
-      return line if line.match(/e/)
+    file = open(file_name)
+    while line = file.gets
+      return line if line =~ /e/
     end
   ensure
     file.close if file
