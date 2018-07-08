@@ -488,7 +488,7 @@ ENDTEXT
       end
 
        # Lazy initialize list of test methods.
-      def testmethods
+      def @testmethods
         @test_methods ||= []
       end
 
