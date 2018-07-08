@@ -19,7 +19,7 @@ class AboutToStr < Neo::Koan
     end
   end
 
-  # ------------------------------------------------------------------
+# ------------------------------------------------------------------
 # I was born in Minsk
   class CanBeTreatedAsString
     def to_s
