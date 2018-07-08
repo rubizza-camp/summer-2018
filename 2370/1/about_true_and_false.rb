@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#Comment for Rubocop
+# Comment for Rubocop
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition
