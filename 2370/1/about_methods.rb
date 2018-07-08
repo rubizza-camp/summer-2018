@@ -71,15 +71,19 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
     :another_non_return_value
   end
+  # rubocop:enable Lint/UnreachableCode
 
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
+
 
   # ------------------------------------------------------------------
 
