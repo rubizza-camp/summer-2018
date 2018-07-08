@@ -13,8 +13,8 @@ class AboutOpenClasses < Neo::Koan # class AboutOpenClasses
   end
 
   # ------------------------------------------------------------------
-
-  class Dog # Open the existing Dog class and add a new method.
+  # Open the existing Dog class and add a new method.
+  class Dog 
     def wag
       'HAPPY'
     end
@@ -27,8 +27,8 @@ class AboutOpenClasses < Neo::Koan # class AboutOpenClasses
   end
 
   # ------------------------------------------------------------------
-
-  class ::Integer # class 
+  # class 
+  class ::Integer 
     def even?
       (self % 2).zero?
     end
