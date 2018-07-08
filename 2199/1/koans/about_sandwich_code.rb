@@ -16,7 +16,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Lint/AssignmentInCondition
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets

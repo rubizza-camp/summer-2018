@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class about strings
 class AboutStrings < Neo::Koan
+  # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -63,6 +64,7 @@ SQL
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
+    # rubocop:disable Lint/UselessAssignment
     string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
@@ -79,6 +81,7 @@ SQL
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
+    # rubocop:disable Lint/UselessAssignment
     hi += there
     assert_equal 'Hello, ', original_string
   end
@@ -128,6 +131,7 @@ SQL
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
+    # rubocop:disable Lint/UselessAssignment
     string = "The value is #{value}"
     assert_equal "The value is #{value}", string
   end
