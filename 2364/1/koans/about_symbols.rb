@@ -56,21 +56,17 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_interpolation_can_be_built
-    # rubocop:disable Lint/UselessAssignment
     value = 'and'
     symbol = :'cats #{value} dogs'
 
     assert_equal 'cats and dogs'.to_sym, symbol
-    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_to_s_is_called_on_interpolated_symbols
-    # rubocop:disable Lint/UselessAssignment
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
 
     assert_equal 'It is raining cats and dogs.', string
-    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_symbols_are_not_strings

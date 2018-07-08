@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Class about open classes
+# Class about open classes
 class AboutOpenClasses < Neo::Koan
   class Dog
     def bark
@@ -30,11 +30,13 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
-      (self % 2) == 0
+      (self % 2).zero?
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?

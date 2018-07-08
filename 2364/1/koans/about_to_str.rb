@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about str
 class AboutToStr < Neo::Koan
-
   # Class about str
   class CanNotBeTreatedAsString
     def to_s

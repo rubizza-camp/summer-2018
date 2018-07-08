@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Def global
+# Def global
 def my_global_method(a,b)
   a + b
 end
 
-#Class about methods
+# Class about methods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2,3)
@@ -47,8 +47,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
-    [a, b]
+  def method_with_defaults(first_item, second_item = :default_value)
+    [first_item, second_item]
   end
 
   def test_calling_with_default_values
@@ -65,12 +65,14 @@ class AboutMethods < Neo::Koan
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one], method_with_var_args(:one)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
@@ -80,6 +82,7 @@ class AboutMethods < Neo::Koan
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
+  # rubocop:enable Lint/UnreachableCode
 
   # ------------------------------------------------------------------
 
@@ -87,6 +90,7 @@ class AboutMethods < Neo::Koan
     :a_non_return_value
     :return_value
   end
+  # rubocop:enable Lint/Void
 
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
@@ -94,8 +98,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(first_term, second_term)
+    first_term * second_term
   end
 
   def test_calling_methods_in_same_class
@@ -108,10 +112,11 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  private
+
   def my_private_method
     'a secret'
   end
-  private :my_private_method
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method

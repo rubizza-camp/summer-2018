@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Class about inheritance
+# Class about inheritance
 class AboutInheritance < Neo::Koan
   class Dog
     attr_reader :name
@@ -82,5 +82,4 @@ class AboutInheritance < Neo::Koan
       george.growl
     end
   end
-
 end
