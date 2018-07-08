@@ -188,10 +188,10 @@ EOS
   end
 
   def test_strings_are_unique_objects
-    a = "a string"
-    b = "a string"
+    a = 'a string'
+    b = 'a string'
 
-    assert_equal true, a           == b
+    assert_equal true, a == b
     assert_equal false, a.object_id == b.object_id
   end
 end
