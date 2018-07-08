@@ -17,22 +17,30 @@ class Proxy # class Proxy
 
   def initialize(target_object)
     @object = target_object
-    @messages = []
+    @messages = Hash.new(0)
   end
   
   # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
-    @messages << method_name
+    @messages[method_name] += 1
     @object.send method_name, *args, &block
   end
   # rubocop:enable Style/MethodMissing
   
   def called?(method_name)
-    @messages.include? method_name
+    @messages.key?(method_name)
   end
 
   def number_of_times_called(method_name)
-    @messages.find_all { |m| m === method_name }.count
+    @messages[method_name]
+  end
+
+  def messages
+    @messages.keys
+  end
+
+  def respond_to_missing?
+    true
   end
 end
 
