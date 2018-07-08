@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Class about class methods
+# Class about class methods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -20,11 +20,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 1
+    assert !fido.methods.empty?
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 0
+    assert !Dog.methods.empty?
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -75,9 +75,11 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
+  # rubocop:disable Style/TrivialAccessors
   def Dog.name
     @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -166,5 +168,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end

@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Class about classes
+# rubocop:disable Naming/AccessorMethodName
+# Class about classes
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -23,7 +24,7 @@ class AboutClasses < Neo::Koan
     assert_equal [], fido.instance_variables
 
     fido.set_name('Fido')
-    assert_equal [:@name], fido.instance_variables
+    assert_equal %i[@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
@@ -47,13 +48,15 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
+  # rubocop:disable Style/EvalWithLocation
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal('Fido', fido.instance_eval { @name }) # block version
   end
+  # rubocop:enable Style/EvalWithLocation
 
   # ------------------------------------------------------------------
 
@@ -61,9 +64,8 @@ class AboutClasses < Neo::Koan
     def set_name(a_name)
       @name = a_name
     end
-    def name
-      @name
-    end
+
+    attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
@@ -83,7 +85,6 @@ class AboutClasses < Neo::Koan
     end
   end
 
-
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.set_name('Fido')
@@ -96,7 +97,6 @@ class AboutClasses < Neo::Koan
   class Dog5
     attr_accessor :name
   end
-
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
@@ -165,12 +165,12 @@ class AboutClasses < Neo::Koan
 
   def test_to_s_provides_a_string_version_of_the_object
     fido = Dog7.new('Fido')
-    assert_equal "Fido", fido.to_s
+    assert_equal 'Fido', fido.to_s
   end
 
   def test_to_s_is_used_in_string_interpolation
     fido = Dog7.new('Fido')
-    assert_equal 'My dog is Fido', 'My dog is #{fido}'
+    assert_equal 'My dog is Fido', "My dog is #{fido}"
   end
 
   def test_inspect_provides_a_more_complete_string_version
@@ -179,13 +179,13 @@ class AboutClasses < Neo::Koan
   end
 
   def test_all_objects_support_to_s_and_inspect
-    array = [1,2,3]
+    array = [1, 2, 3]
 
     assert_equal '[1, 2, 3]', array.to_s
     assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
-    assert_equal '\"STRING\"', 'STRING'.inspect
+    assert_equal '"STRING"', 'STRING'.inspect
   end
-
 end
+# rubocop:enable Naming/AccessorMethodName

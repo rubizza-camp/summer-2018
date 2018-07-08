@@ -3,12 +3,11 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Class about asserts
+# Class about asserts
 class AboutAsserts < Neo::Koan
-
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth
-    assert true                # This should be true
+    assert true # This should be true
   end
 
   # Enlightenment may be more easily achieved with appropriate
