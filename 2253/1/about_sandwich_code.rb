@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutSandwichCode < Neo::Koan
 
   def count_lines(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     count = 0
     while file.gets
       count += 1
@@ -20,7 +20,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     while (line = file.gets)
       return line if line =~ /e/
     end
@@ -55,7 +55,7 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     yield(file)
   ensure
     file.close if file
