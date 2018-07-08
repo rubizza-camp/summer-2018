@@ -13,13 +13,22 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle_type(a, b, c)
-  raise TriangleError if a <=0 or b <=0 || c <=0
-  raise TriangleError if a + b<=c or b + c<=a || a + c<=b
-  return :equilateral if a==b and a==c                 
-  return :isosceles if a==b or b==c or a==c
-  :scalene                                                                                                       
-end 
+def triangle_type(side_a, side_b, side_c)
+  if (side_a == side_b) && (side_b == side_c)
+    :equilateral
+  elsif (side_a != side_b) && (side_a != side_c) && (side_b != side_c)
+    :scalene
+  else
+    :isosceles
+  end
+end
+
+def triangle(side_a, side_b, side_c)
+  # WRITE THIS CODE
+  raise TriangleError if (side_a >= side_b + side_c) || (side_b >= side_a + side_c) || (side_c >= side_a + side_b)
+
+  triangle_type(side_a, side_b, side_c)
+end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
