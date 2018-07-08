@@ -13,8 +13,8 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-	sides = [a, b, c].sort
+def triangle(sid_a, side_b, side_c)
+	sides = [sid_a, side_b, side_c].sort
 	raise TriangleError,"triangle should't have a negative side " if sides.any? { |side| side <= 0 }
 	raise TriangleError, "wrong triangle" unless (sides[0] + sides[1]) > sides[2]
 	sides.uniq!
