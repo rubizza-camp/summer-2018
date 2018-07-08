@@ -1,68 +1,47 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-
-# A greed roll is scored as follows:
-#
-# * s 1-1000
-#
-# * 555- 500, 111 - 100. 
-# * A one (that is not part of a set of three) is worth 100 points.
-#
-# * A five (that is not part of a set of three) is worth 50 points.
-#
-# * Everything else is worth 0 points.
-#
-#
-# Examples:
-#
-# score([1,1,1,5,1]) => 1150 points
-# score([2,3,4,6,2]) => 0 points
-# score([3,4,5,3,3]) => 350 points
-# score([1,5,1,2,4]) => 250 points
-
 def score(dice)
- 
   total = 0
   count = [0, 0, 0, 0, 0, 0]
 
   dice.each do |die|
-    count[ die - 1 ] += 1
+    count[die - 1] += 1
   end
 
   # iterate over each, and handle points for singles and triples
   count.each_with_index do |count, index|
     if count == 3
-      total = doTriples(index + 1, total )
+      total = doTriples(index + 1, total)
     elsif count < 3
-      total = doSingles(index + 1, count, total )
+      total = doSingles(index + 1, count, total)
     elsif count > 3
-      total = doTriples(index + 1, total )
-      total = doSingles(index + 1, count % 3, total )
+      total = doTriples(index + 1, total)
+      total = doSingles(index + 1, count % 3, total)
     end
   end
 
   total
 end
 
-def doTriples(number, total )
+def doTriples(number, total)
   if number == 1
     total += 1000
   else
-    total += (number ) * 100
+    total += (number) * 100
   end
   total
 end
 
-def doSingles(number, count, total )
+def doSingles(number, count, total)
   if number == 1
-    total += (100 * count )
+    total += (100 * count)
   elsif number == 5
-    total += (50 * count )
+    total += (50 * count)
   end
   total
 end
 
-class AboutScoringProject < Neo::Koan #class AboutScoringProject
+class AboutScoringProject < Neo::Koan # class AboutScoringProject
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
