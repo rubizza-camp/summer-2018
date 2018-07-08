@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#Biber sucks
+# Biber sucks
 class AboutToStr < Neo::Koan
-#I'm a pokemon
+# I'm a pokemon
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -20,7 +20,7 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-#I was born in Minsk
+# I was born in Minsk
   class CanBeTreatedAsString
     def to_s
       'string-like'
