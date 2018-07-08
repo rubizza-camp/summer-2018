@@ -1,21 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutScope < Neo::Koan 
-# AboutScope
-  module Jims 
-  # module Jims
-    class Dog
-    # class Dog whith identify dog Jims
+class AboutScope < Neo::Koan # AboutScope
+  module Jims  # module Jims
+    class Dog # class Dog whith identify dog Jims
       def identify
         :jims_dog
       end
     end
   end
 
-  module Joes 
-  # module Joes
-    class Dog 
-    # class Dog whith identify dog Joes
+  module Joes # module Joes
+    class Dog  # class Dog whith identify dog Joes
       def identify
         :joes_dog
       end
@@ -40,7 +35,7 @@ class AboutScope < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class String
+  class String # String
   end
 
   def test_bare_bones_class_names_assume_the_current_scope
