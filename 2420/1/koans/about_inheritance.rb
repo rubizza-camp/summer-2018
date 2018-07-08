@@ -32,7 +32,7 @@ class AboutInheritance < Neo::Koan
   end
 
   def test_subclasses_inherit_behavior_from_parent_class
-    chico = Chihuahua.new("Chico")
+    chico = Chihuahua.new('Chico')
     assert_equal 'Chico', chico.name
   end
 
