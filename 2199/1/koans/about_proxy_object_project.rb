@@ -19,10 +19,11 @@ class Proxy
     @times_called = Hash.new(0)
   end
 
+  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to?(method_name)
       @times_called[method_name] += 1
-      unless @messages.include?(method_name)
+      unless @messages.include?(method_name) # rubocop:disable Style/IfUnlessModifier
         @messages << method_name
       end
       @object.send(method_name, *args)
@@ -30,6 +31,7 @@ class Proxy
       super(method_name, *args, &block)
     end
   end
+  # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
   def called?(method_name)
     @times_called.key?(method_name)

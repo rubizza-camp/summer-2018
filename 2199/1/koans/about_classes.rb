@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#About classes
+# About classes
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -22,7 +22,7 @@ class AboutClasses < Neo::Koan
     assert_equal [], fido.instance_variables
 
     fido.setname('Fido')
-    assert_equal [:@name], fido.instance_variables
+    assert_equal %i[@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
@@ -34,7 +34,7 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval('fido.@name', binding, __FILE__, __LINE__)
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
@@ -50,18 +50,17 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.setname('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name', __FILE__, __LINE__) # string version
+    assert_equal('Fido', fido.instance_eval { @name }) # block version
   end
 
   # ------------------------------------------------------------------
   # About dog3
   class Dog3
+    attr_reader :name
+
     def setname(a_name)
       @name = a_name
-    end
-    def name
-      @name
     end
   end
 
@@ -181,6 +180,6 @@ class AboutClasses < Neo::Koan
     assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
-    assert_equal "\"STRING\"", 'STRING'.inspect
+    assert_equal '"STRING"', 'STRING'.inspect
   end
 end

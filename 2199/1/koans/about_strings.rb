@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class about strings
-class AboutStrings < Neo::Koan
-  # rubocop:disable Metrics/ClassLength
+class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -47,10 +46,12 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
+    # rubocop:disable Layout/IndentHeredoc
     long_string =  <<SQL
 It was the best of times,
 It was the worst of times.
 SQL
+    # rubocop:enable Layout/IndentHeredoc
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -64,8 +65,7 @@ SQL
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    # rubocop:disable Lint/UselessAssignment
-    string = hi + there
+    string = hi + there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -81,8 +81,7 @@ SQL
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    # rubocop:disable Lint/UselessAssignment
-    hi += there
+    hi += there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', original_string
   end
 
@@ -131,7 +130,6 @@ SQL
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    # rubocop:disable Lint/UselessAssignment
     string = "The value is #{value}"
     assert_equal "The value is #{value}", string
   end

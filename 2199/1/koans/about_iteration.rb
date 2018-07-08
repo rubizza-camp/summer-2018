@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # About iteration
 class AboutIteration < Neo::Koan
-
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
   # as symbols. So we use a version dependent method "as_name" to
@@ -77,7 +76,7 @@ class AboutIteration < Neo::Koan
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
 
-    assert_equal 'Clarence', array.find { |item| item.size > 4 }
+    assert_equal('Clarence', array.find { |item| item.size > 4 })
   end
 
   def test_inject_will_blow_your_mind

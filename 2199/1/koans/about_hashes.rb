@@ -90,7 +90,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object
+  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -110,8 +110,8 @@ class AboutHashes < Neo::Koan
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal ['uno'], hash[:one]
-    assert_equal ['dos'], hash[:two]
+    assert_equal %w[uno], hash[:one]
+    assert_equal %w[dos], hash[:two]
     assert_equal [], hash[:three]
   end
 end

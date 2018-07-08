@@ -12,7 +12,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  def test_rescue_clause
+  def test_rescue_clause # rubocop:disable Metrics/MethodLength
     result = nil
     begin
       raise 'Oops'
@@ -45,10 +45,10 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    result = nil
+    result = nil # rubocop:disable Lint/UselessAssignment
     begin
       raise 'Oops'
-    rescue StandardError
+    rescue StandardError # rubocop:disable Lint/HandleExceptions
       # no code here
     ensure
       result = :always_run
@@ -61,7 +61,7 @@ class AboutExceptions < Neo::Koan
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do
-      raise MySpecialError.new('New instances can be raised directly.')
+      raise MySpecialError, 'New instances can be raised directly.'
     end
   end
 end
