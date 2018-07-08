@@ -51,8 +51,8 @@ class AboutSandwichCode < Neo::Koan
   # the problem of sandwich code for resource allocation.)
   #
   # Consider the following code:
-  #
-
+  
+  # rubocop:disable Security/Open
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
@@ -79,7 +79,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
-      while line = file.gets
+      while (line = file.gets)
         return line if line =~ /e/
       end
     end
@@ -91,6 +91,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Security/Open
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
