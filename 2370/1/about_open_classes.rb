@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#London is the capital of Great Britain
+# London is the capital of Great Britain
 class AboutOpenClasses < Neo::Koan
-  #dog, not pony
+# Dog, not pony
   class Dog
     def bark
       'WOOF'
@@ -30,7 +30,7 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Style/ClassAndModuleChildren
-  #hello world
+  # Hello world
   class ::Integer
     def even?
       (self % 2).zero?
