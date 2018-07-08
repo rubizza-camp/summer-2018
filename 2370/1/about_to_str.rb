@@ -1,16 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#Biber sucks
 class AboutToStr < Neo::Koan
-
+#I'm a pokemon
   class CanNotBeTreatedAsString
     def to_s
-      "non-string-like"
+      'non-string-like'
     end
   end
 
   def test_to_s_returns_a_string_representation
     not_like_a_string = CanNotBeTreatedAsString.new
-    assert_equal "non-string-like", not_like_a_string.to_s
+    assert_equal 'non-string-like', not_like_a_string.to_s
   end
 
   def test_normally_objects_cannot_be_used_where_strings_are_expected
@@ -20,10 +20,10 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+#I was born in Minsk
   class CanBeTreatedAsString
     def to_s
-      "string-like"
+      'string-like'
     end
 
     def to_str
