@@ -86,7 +86,7 @@ class AboutMethods < Neo::Koan
 
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Lint/Void
   def method_without_explicit_return
     :a_non_return_value
     :return_value
