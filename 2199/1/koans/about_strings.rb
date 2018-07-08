@@ -22,17 +22,17 @@ class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    first = "He said, \"Don't\""
+    second = 'He said, "Don\'t"'
+    assert_equal true, first == second
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(!flexible quotes can handle both ' and " characters!)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal false, a == b
-    assert_equal true, a == c
+    first = %(flexible quotes can handle both ' and " characters)
+    second = %(!flexible quotes can handle both ' and " characters!)
+    third = %(flexible quotes can handle both ' and " characters)
+    assert_equal false, first == second
+    assert_equal true, first == third
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -190,10 +190,10 @@ SQL
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    first = 'a string'
+    second = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, first           == second
+    assert_equal false, first.object_id == second.object_id
   end
 end

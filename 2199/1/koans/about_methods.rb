@@ -5,9 +5,8 @@ def my_global_method(first, second)
 end
 # About methods
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
@@ -18,7 +17,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
+    eval 'assert_equal 5, my_global_method(2, 3)' # rubocop:disable Style/EvalWithLocation
     #
     # Ruby doesn't know if you mean:
     #
@@ -63,16 +62,16 @@ class AboutMethods < Neo::Koan
 
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
-    assert_equal %i(), method_with_var_args
-    assert_equal %i(one), method_with_var_args(:one)
-    assert_equal %i(one two), method_with_var_args(:one, :two)
+    assert_equal %i[], method_with_var_args
+    assert_equal %i[one], method_with_var_args(:one)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
+    :a_non_return_value # rubocop:disable Lint/Void
+    return :return_value # rubocop:disable Style/RedundantReturn
     #:another_non_return_value
   end
 
@@ -110,7 +109,7 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
-  private :my_private_method
+  private :my_private_method # rubocop:disable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
