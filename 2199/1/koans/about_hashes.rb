@@ -2,26 +2,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # About hashes
 class AboutHashes < Neo::Koan
   def test_creating_hashes
-    empty_hash = Hash.new
+    empty_hash = {}
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
   end
 
   def test_hash_literals
-    hash = {one: 'uno', two: 'dos'}
+    hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.size
   end
 
   def test_accessing_hashes
-    hash = {one: 'uno', two: 'dos'}
+    hash = { one: 'uno', two: 'dos' }
     assert_equal 'uno', hash[:one]
     assert_equal 'dos', hash[:two]
     assert_equal nil, hash[:doesnt_exist]
   end
 
   def test_accessing_hashes_with_fetch
-    hash = {one: 'uno'}
+    hash = { one: 'uno' }
     assert_equal 'uno', hash.fetch(:one)
     assert_raise(KeyError) do
       hash.fetch(:doesnt_exist)
@@ -33,10 +33,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_changing_hashes
-    hash = {one: 'uno', two: 'dos'}
+    hash = { one: 'uno', two: 'dos' }
     hash[:one] = 'eins'
 
-    expected = {one: 'eins', two: 'dos'}
+    expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
     # Bonus Question: Why was "expected" broken out into a variable
@@ -44,35 +44,35 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-    hash1 = {one: 'uno', two: 'dos'}
-    hash2 = {two: 'dos', one: 'uno'}
+    hash1 = { one: 'uno', two: 'dos' }
+    hash2 = { two: 'dos', one: 'uno' }
 
     assert_equal true, hash1 == hash2
   end
 
   def test_hash_keys
-    hash = {one: 'uno', two: 'dos'}
+    hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
-    assert_equal true, hash.keys.include?(:one)
-    assert_equal true, hash.keys.include?(:two)
+    assert_equal true, hash.key?(:one)
+    assert_equal true, hash.key?(:two)
     assert_equal Array, hash.keys.class
   end
 
   def test_hash_values
-    hash = {one: 'uno', two: 'dos'}
+    hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
-    assert_equal true, hash.values.include?('uno')
-    assert_equal true, hash.values.include?('dos')
+    assert_equal true, hash.value?('uno')
+    assert_equal true, hash.value?('dos')
     assert_equal Array, hash.values.class
   end
 
   def test_combining_hashes
-    hash = {jim: 53, amy: 20, dan: 23}
-    new_hash = hash.merge({jim: 54, jenny: 26})
+    hash = { jim: 53, amy: 20, dan: 23 }
+    new_hash = hash.merge(jim: 54, jenny: 26)
 
     assert_equal true, hash != new_hash
 
-    expected = {jim: 53, amy: 20, dan: 23, jenny: 26}
+    expected = { jim: 53, amy: 20, dan: 23, jenny: 26 }
     assert_equal false, expected == new_hash
   end
 
@@ -89,7 +89,7 @@ class AboutHashes < Neo::Koan
     assert_equal 1, hash2[:one]
     assert_equal 'dos', hash2[:two]
   end
-  # rubocop:disable Metrics/AbcSize
+
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -97,9 +97,9 @@ class AboutHashes < Neo::Koan
     hash[:two] << 'dos'
     hashes_are_equal = hash[:one].object_id == hash[:two].object_id
 
-    assert_equal %w(uno dos), hash[:one]
-    assert_equal %w(uno dos), hash[:two]
-    assert_equal %w(uno dos), hash[:three]
+    assert_equal %w[uno dos], hash[:one]
+    assert_equal %w[uno dos], hash[:two]
+    assert_equal %w[uno dos], hash[:three]
 
     assert_equal true,  hashes_are_equal
   end

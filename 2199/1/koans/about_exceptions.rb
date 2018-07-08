@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#About exceptions
+# About exceptions
 class AboutExceptions < Neo::Koan
-
+  # about my special error
   class MySpecialError < RuntimeError
   end
 
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
@@ -15,7 +15,7 @@ class AboutExceptions < Neo::Koan
   def test_rescue_clause
     result = nil
     begin
-      fail 'Oops'
+      raise 'Oops'
     rescue StandardError => ex
       result = :exception_handled
     end
@@ -47,7 +47,7 @@ class AboutExceptions < Neo::Koan
   def test_ensure_clause
     result = nil
     begin
-      fail 'Oops'
+      raise 'Oops'
     rescue StandardError
       # no code here
     ensure
@@ -64,5 +64,4 @@ class AboutExceptions < Neo::Koan
       raise MySpecialError.new('New instances can be raised directly.')
     end
   end
-
 end

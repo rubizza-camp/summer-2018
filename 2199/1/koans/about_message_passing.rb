@@ -24,8 +24,10 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?')    # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase )      # What would you need to do to the string?
+    assert mc.send('caught' + '?')
+    # What do you need to add to the first string?
+    assert mc.send('CAUGHT?'.downcase)
+    # What would you need to do to the string?
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -46,7 +48,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class message catcher
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -111,9 +113,9 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class all message catcher
   class AllMessageCatcher
-    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
+    def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
@@ -123,7 +125,8 @@ class AboutMessagePassing < Neo::Koan
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>',
+                 catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -138,7 +141,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
   # class well behaved
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+    def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else

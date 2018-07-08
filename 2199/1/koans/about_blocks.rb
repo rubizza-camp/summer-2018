@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# class about blocks
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -92,5 +92,4 @@ class AboutBlocks < Neo::Koan
     add_one = lambda { |n| n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
-
 end

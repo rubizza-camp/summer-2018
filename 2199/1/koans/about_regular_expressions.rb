@@ -50,8 +50,8 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_character_classes_give_options_for_a_character
-    animals = %w(cat bat rat zat)
-    assert_equal %w(cat bat rat), animals.select { |a| a[/[cbr]at/] }
+    animals = %w[cat bat rat zat]
+    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -78,14 +78,15 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_character_class_can_be_negated
-    assert_equal 'the number is ', 'the number is 42'[/[^0-9]+/]
+    assert_equal 'the number is ',
+                 'the number is 42'[/[^0-9]+/]
   end
 
   def test_shortcut_character_classes_are_negated_with_capitals
     assert_equal 'the number is ', 'the number is 42'[/\D+/]
     assert_equal 'space:', "space: \t\n"[/\S+/]
     # ... a programmer would most likely do
-    #assert_equal " = ", "variable_1 = 42"[/[^a-zA-Z0-9_]+/]
+    # assert_equal " = ", "variable_1 = 42"[/[^a-zA-Z0-9_]+/]
     assert_equal ' = ', 'variable_1 = 42'[/\W+/]
   end
 
@@ -148,7 +149,7 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all
-    assert_equal %w(one two three), 'one two-three'.scan(/\w+/)
+    assert_equal %w[one two three], 'one two-three'.scan(/\w+/)
   end
 
   def test_sub_is_like_find_and_replace

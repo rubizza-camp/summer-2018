@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(first,second)
+def my_global_method(first, second)
   first + second
 end
 # About methods
@@ -39,7 +39,7 @@ class AboutMethods < Neo::Koan
     assert_match(/wrong number of arguments/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/wrong number of arguments/, exception.message)
   end

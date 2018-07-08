@@ -47,7 +47,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # dog2
   class Dog2
     def wag
       :instance_level_wag
@@ -64,12 +64,12 @@ class AboutClassMethods < Neo::Koan
 
   def test_class_methods_are_independent_of_instance_methods
     fido = Dog2.new
-    assert_equal  :instance_level_wag, fido.wag
+    assert_equal :instance_level_wag, fido.wag
     assert_equal :class_level_wag, Dog2.wag
   end
 
   # ------------------------------------------------------------------
-
+  # dog
   class Dog
     attr_accessor :name
   end
@@ -86,7 +86,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # dog
   class Dog
     def Dog.a_class_method
       :dogs_class_method
@@ -98,7 +98,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class
   LastExpressionInClassStatement = class Dog
                                      21
                                    end
@@ -108,7 +108,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class
   SelfInsideOfClassStatement = class Dog
                                  self
                                end
@@ -118,7 +118,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class dog
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -130,7 +130,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class dog
   class Dog
     class << self
       def another_class_method
@@ -165,5 +165,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end

@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # About inheritance
 class AboutInheritance < Neo::Koan
+  # class dog
   class Dog
     attr_reader :name
 
@@ -12,7 +13,7 @@ class AboutInheritance < Neo::Koan
       'WOOF'
     end
   end
-
+  # class chihuahua
   class Chihuahua < Dog
     def wag
       :happy
@@ -38,7 +39,7 @@ class AboutInheritance < Neo::Koan
 
   def test_subclasses_add_new_behavior
     chico = Chihuahua.new('Chico')
-    assert_equal  :happy, chico.wag
+    assert_equal :happy, chico.wag
 
     assert_raise(NoMethodError) do
       fido = Dog.new('Fido')
@@ -55,7 +56,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class bull dog
   class BullDog < Dog
     def bark
       super + ', GROWL'
@@ -68,7 +69,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class great dane
   class GreatDane < Dog
     def growl
       super.bark + ', GROWL'
@@ -81,5 +82,4 @@ class AboutInheritance < Neo::Koan
       george.growl
     end
   end
-
 end
