@@ -18,7 +18,8 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval "assert_equal 5, my_global_method(2, 3)" # ENABLE CHECK
+    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+           assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -39,14 +40,14 @@ class AboutMethods < Neo::Koan
     assert_match(/wrong number/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/wrong number/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
+  def method_with_defaults(first_item, second_item = :default_value)
     [a, b]
   end
 
@@ -64,8 +65,8 @@ class AboutMethods < Neo::Koan
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one], method_with_var_args(:one)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
@@ -92,23 +93,23 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  def my_method_in_the_same_class(a, b)
-    a * b
+  
+  def my_method_in_the_same_class(first_term, second_term)
+    first_term * second_term
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
-  end
+    assert_equal 12, my_method_in_the_same_class(3, 4)
+end
 
   # ------------------------------------------------------------------
 
   def my_private_method
-    "a secret"
+    'a secret'
   end
   private :my_private_method
 
@@ -120,20 +121,20 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method/, exception.message
-  end
+    assert_match(/private method \`my_private_method\' called for/, exception.message)
+end
 
   # ------------------------------------------------------------------
-
+#dog
   class Dog
     def name
-      "Fido"
+      'Fido'
     end
 
     private
 
     def tail
-      "tail"
+      'tail'
     end
   end
 
