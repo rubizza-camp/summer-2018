@@ -120,13 +120,13 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
   # class dog
   class Dog
-    def self.class_method2
+    def self.class_method_two
       :another_way_to_write_class_methods
     end
   end
 
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method2
+    assert_equal :another_way_to_write_class_methods, Dog.class_method_two
   end
 
   # ------------------------------------------------------------------
