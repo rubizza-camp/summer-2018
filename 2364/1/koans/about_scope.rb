@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about scope
+
+# rubocop:disable Style/Documentation
 class AboutScope < Neo::Koan
   module Jims
     class Dog
@@ -78,3 +79,4 @@ class AboutScope < Neo::Koan
     assert Object.constants.size > 1
   end
 end
+# rubocop:enable Style/Documentation

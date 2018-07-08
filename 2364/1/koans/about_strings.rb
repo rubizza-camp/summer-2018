@@ -30,6 +30,7 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
   end
 
+  # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %!flexible quotes can handle both ' and " characters!
@@ -37,25 +38,26 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
     assert_equal true, a == c
   end
+  # rubocop:enable Style/PercentLiteralDelimiters
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %{
+    long_string = %(
 It was the best of times,
 It was the worst of times.
-}
+)
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0,1]
+    assert_equal "\n", long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<EOS
-It was the best of times,
-It was the worst of times.
-EOS
+    long_string = <<MEANINGFUL
+                    It was the best of times,
+                    It was the worst of times.
+MEANINGFUL
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0,1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings

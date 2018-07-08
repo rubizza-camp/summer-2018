@@ -29,12 +29,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-SINGLE_ROLL_MULTIPLIERS = [0, 100, 0, 0, 0, 50, 0]
+SINGLE_ROLL_MULTIPLIERS = [0, 100, 0, 0, 0, 50, 0].freeze
 
-def score(dice)
+def score(dices)
   score = 0
   (1..6).each do |number|
-    roll_count = dice.count { |dice| dice == number }
+    roll_count = dices.count { |dice| dice == number }
 
     if roll_count >= 3
       score += number == 1 ? 1000 : 100 * number
@@ -46,7 +46,7 @@ def score(dice)
   score
 end
 
-#Class about scoring project
+# Class about scoring project
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
