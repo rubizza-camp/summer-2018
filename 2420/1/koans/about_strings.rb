@@ -18,7 +18,7 @@ class AboutStrings < Neo::Koan
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal 'Don't', string
+    assert_equal "Don't", string
   end
 
   def test_use_backslash_for_those_hard_cases
