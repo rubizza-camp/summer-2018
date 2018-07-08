@@ -2,8 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 require './triangle'
 
-class AboutTriangleProject < Neo::Koan 
-# You need to write the triangle method in the file 'triangle.rb'
+class AboutTriangleProject < Neo::Koan # class AboutTriangle
   def test_equilateral_triangles_have_equal_sides
     assert_equal :equilateral, triangle(2, 2, 2)
     assert_equal :equilateral, triangle(10, 10, 10)
