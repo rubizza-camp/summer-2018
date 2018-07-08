@@ -16,20 +16,27 @@ class Proxy
   def initialize(target_object)
     @object = target_object
     @messages = []
+   @times_called = Hash.new(0)
   end
-  # rubocop:disable Style/MethodMissingSuper
+
   def method_missing(method_name, *args, &block)
-    @messages << method_name
-    @object.send method_name, *args, &block
+    if @object.respond_to?(method_name)
+      @times_called[method_name] += 1
+      unless @messages.include?(method_name)
+        @messages << method_name
+      end
+      @object.send(method_name, *args)
+    else
+      super(method_name, *args, &block)
+    end
   end
-  # rubocop:disable Style/MethodMissingSuper
 
   def called?(method_name)
-    @messages.include? method_name
+    @times_called.key?(method_name)
   end
 
   def number_of_times_called(method_name)
-    @messages.find_all { |m| m === method_name }.count
+    called?(method_name) ? @times_called[method_name] : 0
   end
 end
 
@@ -115,9 +122,9 @@ class Television
   def power
     @power = if @power == :on
                :off
-            else
-              :on
-            end
+             else
+               :on
+             end
   end
 
   def on?
