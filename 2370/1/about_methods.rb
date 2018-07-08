@@ -91,7 +91,7 @@ class AboutMethods < Neo::Koan
     :a_non_return_value
     :return_value
   end
-# rubocop:enable Lint/Void
+  # rubocop:enable Lint/Void
 
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
