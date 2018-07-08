@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/Documentation
 # Class about inheritance
 class AboutInheritance < Neo::Koan
   class Dog
@@ -83,3 +84,4 @@ class AboutInheritance < Neo::Koan
     end
   end
 end
+# rubocop:enable Style/Documentation

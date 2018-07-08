@@ -6,10 +6,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
-              :true_value
-            else
-              :false_value
-            end
+               :true_value
+             else
+               :false_value
+             end
     assert_equal :true_value, result
   end
 
@@ -19,6 +19,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -37,6 +38,7 @@ class AboutControlStatements < Neo::Koan
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
     # just if statements.
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_if_statements_with_no_else_with_false_condition_return_value
     value = (:true_value if false)
@@ -78,7 +80,7 @@ class AboutControlStatements < Neo::Koan
     i = 1
     result = 1
     while i <= 10
-      result = result * i
+      result *= i
       i += 1
     end
     assert_equal 3_628_800, result
@@ -87,7 +89,7 @@ class AboutControlStatements < Neo::Koan
   def test_break_statement
     i = 1
     result = 1
-    while true
+    loop do
       break unless i <= 10
       result *= i
       i += 1
