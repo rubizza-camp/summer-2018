@@ -32,38 +32,37 @@ def score(dice)
   # iterate over each, and handle points for singles and triples
   count.each_with_index do |count, index|
     if count == 3
-      total = doTriples( index + 1, total )
+      total = doTriples(index + 1, total )
     elsif count < 3
-      total = doSingles( index + 1, count, total )
+      total = doSingles(index + 1, count, total )
     elsif count > 3
-      total = doTriples( index + 1, total )
-      total = doSingles( index + 1, count % 3, total )
+      total = doTriples(index + 1, total )
+      total = doSingles(index + 1, count % 3, total )
     end
   end
 
   total
-
 end
 
-def doTriples( number, total )
+def doTriples(number, total )
   if number == 1
     total += 1000
   else
-    total += ( number ) * 100
+    total += (number ) * 100
   end
   total
 end
 
-def doSingles( number, count, total )
+def doSingles(number, count, total )
   if number == 1
-    total += ( 100 * count )
+    total += (100 * count )
   elsif number == 5
-    total += ( 50 * count )
+    total += (50 * count )
   end
   total
 end
 
-class AboutScoringProject < Neo::Koan
+class AboutScoringProject < Neo::Koan #class AboutScoringProject
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
@@ -77,7 +76,7 @@ class AboutScoringProject < Neo::Koan
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
-    assert_equal 300, score([1,5,5,1])
+    assert_equal 300, score([1, 5, 5, 1])
   end
 
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
