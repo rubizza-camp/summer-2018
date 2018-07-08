@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a,b)
-  a + b
+def my_global_method(first,second)
+  first + second
 end
 # About methods
 class AboutMethods < Neo::Koan
@@ -46,8 +46,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
-    [a, b]
+  def method_with_defaults(first, second = :default_value)
+    [first, second]
   end
 
   def test_calling_with_default_values
@@ -63,9 +63,9 @@ class AboutMethods < Neo::Koan
 
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
-    assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i(), method_with_var_args
+    assert_equal %i(one), method_with_var_args(:one)
+    assert_equal %i(one two), method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
@@ -115,6 +115,7 @@ class AboutMethods < Neo::Koan
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
+
   # rubocop:disable Style/RedundantSelf
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do

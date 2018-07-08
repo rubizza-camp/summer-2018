@@ -16,7 +16,7 @@ class Proxy
   def initialize(target_object)
     @object = target_object
     @messages = []
-   @times_called = Hash.new(0)
+    @times_called = Hash.new(0)
   end
 
   def method_missing(method_name, *args, &block)
