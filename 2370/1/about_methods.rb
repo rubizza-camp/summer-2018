@@ -91,6 +91,7 @@ class AboutMethods < Neo::Koan
     :a_non_return_value
     :return_value
   end
+  # rubocop:enable Lint/Void
 
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
@@ -120,13 +121,15 @@ end
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
-
+  
+  # rubocop:disable Style/RedundantSelf
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
     assert_match(/private method \`my_private_method\' called for/, exception.message)
-end
+  end
+# rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 #dog
