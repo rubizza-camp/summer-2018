@@ -17,6 +17,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Security/Open
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets
@@ -102,3 +103,5 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable Security/Open
+    
