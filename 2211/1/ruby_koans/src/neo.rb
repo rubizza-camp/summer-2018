@@ -234,19 +234,36 @@ module Neo
       @_contents
     end
 
-    def observe(step)
+        def observe(step)
       if step.passed?
-        @pass_count += 1
-        if @pass_count > progress.last.to_i
-          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
-        end
+        passeded_steps
+#        @pass_count += 1
+#        if @pass_count > progress.last.to_i
+#          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
+#        end
       else
-        @failed_test = step
-        @failure = step.failure
-        add_progress(@pass_count)
-        @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
-        throw :neo_exit
+        not_passeded_steps
+#        @failed_test = step
+#        @failure = step.failure
+#        add_progress(@pass_count)
+#        @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
+#        throw :neo_exit
       end
+    end
+
+    def passeded_steps
+      @pass_count += 1
+      if @pass_count > progress.last.to_i
+        @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
+      end  
+    end
+
+    def not_passeded_steps
+      @failed_test = step
+      @failure = step.failure
+      add_progress(@pass_count)
+      @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
+      throw :neo_exit  
     end
 
     def failed?
