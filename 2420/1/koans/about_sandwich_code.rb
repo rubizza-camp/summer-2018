@@ -1,8 +1,8 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo') 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Security/Open
 # class AboutSandwichCode
-class AboutSandwichCode < Neo::Koan  
+class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -17,7 +17,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
 
   def find_line(file_name)
     file = open(file_name)
@@ -52,7 +51,6 @@ class AboutSandwichCode < Neo::Koan
   # the problem of sandwich code for resource allocation.)
   #
   # Consider the following code:
-  
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
@@ -73,7 +71,7 @@ class AboutSandwichCode < Neo::Koan
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
   end
-    
+ 
   # ------------------------------------------------------------------
 
   def find_line2(file_name)
