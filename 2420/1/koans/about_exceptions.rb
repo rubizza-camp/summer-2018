@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutExceptions < Neo::Koan # class AboutExceptions
-  class MySpecialError < RuntimeError # class MySpecialError
+# class AboutExceptions
+class AboutExceptions < Neo::Koan
+  # class MySpecialError
+  class MySpecialError < RuntimeError
   end
 
   def test_exceptions_inherit_from_Exception
