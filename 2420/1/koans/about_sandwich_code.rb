@@ -73,7 +73,6 @@ class AboutSandwichCode < Neo::Koan
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
   end
-  # rubocop:enable Security/Open
     
   # ------------------------------------------------------------------
 
@@ -92,7 +91,6 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Security/Open
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
