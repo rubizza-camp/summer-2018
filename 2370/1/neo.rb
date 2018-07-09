@@ -489,7 +489,7 @@ ENDTEXT
 
        # Lazy initialize list of test methods.
       def @testmethods
-        @test_methods ||= []
+        @testmethods ||= []
       end
 
       def tests_disabled?
@@ -501,11 +501,11 @@ ENDTEXT
       end
 
       def total_tests
-        self.subclasses.inject(0){|total, k| total + k.testmethods.size }
+        self.subclasses.inject(0) { |total, k| total + k.testmethods.size }
       end
     end
   end
-
+  # Comment
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -520,7 +520,7 @@ ENDTEXT
         step_count = 0
         Neo::Koan.subclasses.each_with_index do |koan,koan_index|
           koan.testmethods.each do |method_name|
-            step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
+            step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end
