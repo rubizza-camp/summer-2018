@@ -77,7 +77,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
-    make_upper = ->(n) { n.upcase }
+    make_upper = ->(number) { number.upcase }
     result = method_with_block_arguments(&make_upper)
     assert_equal 'JIM', result
   end

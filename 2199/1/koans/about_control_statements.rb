@@ -18,23 +18,25 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal :true_value, result
   end
 
-  def test_if_statements_return_values # rubocop:disable Metrics/MethodLength
+  def test_if_statements_return_values
     value = if true # rubocop:disable Lint/LiteralAsCondition
               :true_value
             else
               :false_value
             end
     assert_equal :true_value, value
+    if_statements_return_values
+    # NOTE: Actually, EVERY statement in Ruby will return a value, not
+    # just if statements.
+  end
 
+  def if_statements_return_values
     value = if false # rubocop:disable Lint/LiteralAsCondition
               :true_value
             else
               :false_value
             end
     assert_equal :false_value, value
-
-    # NOTE: Actually, EVERY statement in Ruby will return a value, not
-    # just if statements.
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
@@ -80,45 +82,49 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
   end
 
   def test_while_statement
-    i = 1
+    integer = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while integer <= 10
+      result *= integer
+      integer += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    integer = 1
     result = 1
     loop do
-      break unless i <= 10
-      result *= i
-      i += 1
+      break unless integer <= 10
+      result *= integer
+      integer += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if (i % 2).zero?
-               i += 1
+    integer = 1
+    result = while integer <= 10
+               break integer if (integer % 2).zero?
+               integer += 1
              end
 
     assert_equal 2, result
   end
 
   def test_next_statement
-    i = 0
+    integer = 0
     result = []
-    while i < 10
-      i += 1
-      next if (i % 2).zero?
-      result << i
-    end
+    while_integer(integer, result)
     assert_equal [1, 3, 5, 7, 9], result
+  end
+
+  def while_integer(integer, result)
+    while integer < 10
+      integer += 1
+      next if (integer % 2).zero?
+      result << integer
+    end
   end
 
   def test_for_statement

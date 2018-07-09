@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # about methods
 class AboutClassMethods < Neo::Koan
+  # class dog
   class Dog
   end
 

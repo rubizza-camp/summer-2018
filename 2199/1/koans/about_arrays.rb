@@ -13,7 +13,10 @@ class AboutArrays < Neo::Koan
 
     array[0] = 1
     assert_equal [1], array
+    array_literals(array)
+  end
 
+  def array_literals(array)
     array[1] = 2
     assert_equal [1, 2], array
 
@@ -26,6 +29,10 @@ class AboutArrays < Neo::Koan
 
     assert_equal :peanut, array[0]
     assert_equal :peanut, array.first
+    accessing_array_elements(array)
+  end
+
+  def accessing_array_elements(array)
     assert_equal :jelly, array[3]
     assert_equal :jelly, array.last
     assert_equal :jelly, array[-1]
@@ -37,6 +44,10 @@ class AboutArrays < Neo::Koan
 
     assert_equal %i[peanut], array[0, 1]
     assert_equal %i[peanut butter], array[0, 2]
+    slicing_arrays(array)
+  end
+
+  def slicing_arrays(array)
     assert_equal %i[and jelly], array[2, 2]
     assert_equal %i[and jelly], array[2, 20]
     assert_equal [], array[4, 0]
@@ -64,7 +75,10 @@ class AboutArrays < Neo::Koan
     array.push(:last)
 
     assert_equal [1, 2, :last], array
+    popping_arrays(array)
+  end
 
+  def popping_arrays(array)
     popped_value = array.pop
     assert_equal :last, popped_value
     assert_equal [1, 2], array
@@ -75,7 +89,10 @@ class AboutArrays < Neo::Koan
     array.unshift(:first)
 
     assert_equal [:first, 1, 2], array
+    shifting_arrays(array)
+  end
 
+  def shifting_arrays(array)
     shifted_value = array.shift
     assert_equal :first, shifted_value
     assert_equal [1, 2], array
