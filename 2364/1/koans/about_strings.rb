@@ -168,8 +168,8 @@ MEANINGFUL
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', ?a
-      assert_equal false, ?a == 97
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
     end
   end
 
