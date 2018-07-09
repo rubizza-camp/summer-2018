@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 
+# This method smells of :reek:UtilityFunction
 def triangle_type(side_a, side_b, side_c)
   if (side_a == side_b) && (side_b == side_c)
     :equilateral
@@ -23,6 +24,7 @@ def triangle_type(side_a, side_b, side_c)
   end
 end
 
+# This method smells of :reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
   # WRITE THIS CODE
   raise TriangleError if (side_a >= side_b + side_c) || (side_b >= side_a + side_c) || (side_c >= side_a + side_b)
