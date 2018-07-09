@@ -68,7 +68,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal %i[:power :channel=], tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages

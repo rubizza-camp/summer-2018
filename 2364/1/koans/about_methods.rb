@@ -8,7 +8,7 @@ end
 # Class about methods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
@@ -40,7 +40,7 @@ class AboutMethods < Neo::Koan
     assert_match(/(given 0, expected 2)/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/(given 3, expected 2)/, exception.message)
   end
@@ -103,11 +103,11 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -124,13 +124,14 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      my_private_method
     end
-    assert_match /private method/, exception.message
+    assert_match(/private method/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     def name
       'Fido'

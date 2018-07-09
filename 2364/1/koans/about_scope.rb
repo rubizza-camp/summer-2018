@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-
 # rubocop:disable Style/Documentation
 class AboutScope < Neo::Koan
   module Jims

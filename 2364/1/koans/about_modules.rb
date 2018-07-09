@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about modules
 class AboutModules < Neo::Koan
+  # Module nameable
   module Nameable
     # rubocop:disable Naming/AccessorMethodName
     def set_name(new_name)
@@ -22,6 +23,7 @@ class AboutModules < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     include Nameable
 
