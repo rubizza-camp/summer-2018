@@ -111,78 +111,102 @@ class AboutMessagePassing < Neo::Koan
     # Koans.
   end
 
-  # ------------------------------------------------------------------
-  # rubocop:disable Style/SingleLineMethods
-  # Comment
-  class AllMessageCatcher
-    def method_missing(method_name, *args)
-      "Someone called #{method_name} with <#{args.join(', ')}>"
-  # rubocop:enable Style/SingleLineMethods
-    end
-  end
-  def test_all_messages_are_caught
-    catcher = AllMessageCatcher.new
-
-    assert_equal 'Someone called foobar with <>', catcher.foobar
-    assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
-  end
-
-  def test_catching_messages_makes_respond_to_lie
-    catcher = AllMessageCatcher.new
-
-    assert_nothing_raised do
-      catcher.any_method
-    end
-    assert_equal false, catcher.respond_to?(:any_method)
-  end
-
-  # ------------------------------------------------------------------
-  # rubocop:disable Style/MethodMissingSuper
-  # Comment
-  class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block)
-      if method_name.to_s[0, 3] == 'foo'
-        'Foo to you too'
-      else
-        super(method_name, *args, &block)
-      end
-  # rubocop:enable Style/MethodMissingSuper
-    end
-  end
-
-  def test_foo_method_are_caught
-    catcher = WellBehavedFooCatcher.new
-
-    assert_equal 'Foo to you too', catcher.foo_bar
-    assert_equal 'Foo to you too', catcher.foo_baz
-  end
-
-  def test_non_foo_messages_are_treated_normally
-    catcher = WellBehavedFooCatcher.new
-
-    assert_raise(NoMethodError) do
-      catcher.normal_undefined_method
-    end
-  end
-
-  # ------------------------------------------------------------------
-
-  # (note: just reopening class from above)
-  class WellBehavedFooCatcher
-    def respond_to?(method_name)
-      if method_name.to_s[0, 3] == 'foo'
-        true
-      else
-        super(method_name)
-      end
-    end
-  end
-
-  def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
-    catcher = WellBehavedFooCatcher.new
-
-    assert_equal true, catcher.respond_to?(:foo_bar)
-    assert_equal false, catcher.respond_to?(:something_else)
-  end
-end
+   # ------------------------------------------------------------------
++  # rubocop:disable Style/MethodMissing
++  # :reek:UtilityFunction
++  # Comment
++  class AllMessageCatcher
++    def method_missing(method_name, *args)
++      "Someone called #{method_name} with <#{args.join(', ')}>"
++    end
++  end
++  # rubocop:enable Style/MethodMissing
++
++  # This method smells of :reek:UncommunicativeMethodName
++  # This method smells of :reek:UncommunicativeVariableName
++  # This method smells of :reek:TooManyStatements
++  # This method smells of :reek:FeatureEnvy
++  def test_all_messages_are_caught
++    catcher = AllMessageCatcher.new
++
++    assert_equal 'Someone called foobar with <>', catcher.foobar
++    assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
++    assert_equal 'Someone called sum with <1, 2, 3>', catcher.sum(1, 2, 3)
++  end
++
++  # :reek:ManualDispatch
++  # This method smells of :reek:UncommunicativeMethodName
++  # This method smells of :reek:UncommunicativeVariableName
++  # This method smells of :reek:TooManyStatements
++  # This method smells of :reek:FeatureEnvy
++  def test_catching_messages_makes_respond_to_lie
++    catcher = AllMessageCatcher.new
++
++    assert_nothing_raised do
++      catcher.any_method
++    end
++    assert_equal false, catcher.respond_to?(:any_method)
++  end
++
++  # ------------------------------------------------------------------
++  # rubocop:disable Style/MethodMissing
++  # Comment
++  class WellBehavedFooCatcher
++    def method_missing(method_name, *args, &block)
++      if method_name.to_s[0, 3] == 'foo'
++        'Foo to you too'
++      else
++        super(method_name, *args, &block)
++      end
++    end
++  end
++  # rubocop:enable Style/MethodMissing
++
++  # This method smells of :reek:UncommunicativeMethodName
++  # This method smells of :reek:UncommunicativeVariableName
++  # This method smells of :reek:TooManyStatements
++  # This method smells of :reek:FeatureEnvy
++  def test_foo_method_are_caught
++    catcher = WellBehavedFooCatcher.new
++
++    assert_equal 'Foo to you too', catcher.foo_bar
++    assert_equal 'Foo to you too', catcher.foo_baz
++  end
++
++  # This method smells of :reek:UncommunicativeMethodName
++  # This method smells of :reek:UncommunicativeVariableName
++  # This method smells of :reek:TooManyStatements
++  # This method smells of :reek:FeatureEnvy
++  def test_non_foo_messages_are_treated_normally
++    catcher = WellBehavedFooCatcher.new
++
++    assert_raise(NoMethodError) do
++      catcher.normal_undefined_method
++    end
++  end
++
++  # ------------------------------------------------------------------
++
++  # (note: just reopening class from above)
++  class WellBehavedFooCatcher
++    def respond_to?(method_name)
++      if method_name.to_s[0, 3] == 'foo'
++        true
++      else
++        super(method_name)
++      end
++    end
++  end
++
++  # :reek:ManualDispatch
++  # This method smells of :reek:UncommunicativeMethodName
++  # This method smells of :reek:UncommunicativeVariableName
++  # This method smells of :reek:TooManyStatements
++  # This method smells of :reek:FeatureEnvy
++  def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
++    catcher = WellBehavedFooCatcher.new
++
++    assert_equal true, catcher.respond_to?(:foo_bar)
++    assert_equal false, catcher.respond_to?(:something_else)
++  end
++end
