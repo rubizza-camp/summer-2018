@@ -2,12 +2,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_are_symbols
     symbol = :ruby
     assert_equal true, symbol.is_a?(Symbol)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_can_be_compared
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -18,6 +20,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_identical_symbols_are_a_single_internal_object
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -27,6 +30,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
@@ -40,6 +44,7 @@ class AboutSymbols < Neo::Koan
   in_ruby_version('mri') do
     RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     # This method smells of :reek:UncommunicativeMethodName
+    # This method smells of :reek:UncommunicativeVariableName
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
@@ -48,12 +53,14 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_can_be_made_from_strings
     string = 'catsAndDogs'
     assert_equal :catsAndDogs, string.to_sym
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_with_spaces_can_be_built
     symbol = :"cats and dogs"
 
@@ -61,6 +68,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
     symbol = :"cats #{value} dogs"
@@ -69,6 +77,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
@@ -77,6 +86,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_are_not_strings
     symbol = :ruby
     assert_equal false, symbol.is_a?(String)
@@ -84,6 +94,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
@@ -95,6 +106,7 @@ class AboutSymbols < Neo::Koan
   # interesting string operations are available on symbols.
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_cannot_be_concatenated
     # Exceptions will be pondered further down the path
     assert_raise(NoMethodError) do
@@ -103,6 +115,7 @@ class AboutSymbols < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_can_be_dynamically_created
     assert_equal :catsdogs, ('cats' + 'dogs').to_sym
   end
