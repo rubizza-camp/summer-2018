@@ -126,13 +126,13 @@ BOUNDARY
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = "The value is #{value}"
-    assert_equal "The value is 123", string
+    assert_equal 'The value is 123', string
   end
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal 'The value is #{value}', string
+    string = "The value is #{value}"
+    assert_equal "The value is #{value}", string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -158,7 +158,7 @@ BOUNDARY
       assert_equal 97, 'a'
       assert_equal true, 'a' == 97
 
-      assert_equal true, 'b' == ('a' + 1)
+      assert_equal true, ('a' + 1) == 'b'
     end
   end
 
