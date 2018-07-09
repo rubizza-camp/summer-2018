@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyStatements
 # class AboutArrays
 class AboutArrays < Neo::Koan
   def test_creating_arrays
@@ -36,7 +37,6 @@ class AboutArrays < Neo::Koan
 
   def test_slicing_arrays
     array = %i[peanut butter and jelly]
-
     assert_equal [:peanut], array[0, 1]
     assert_equal %i[peanut butter], array[0, 2]
     assert_equal %i[and jelly], array[2, 2]
@@ -64,9 +64,7 @@ class AboutArrays < Neo::Koan
   def test_pushing_and_popping_arrays
     array = [1, 2]
     array.push(:last)
-
     assert_equal [1, 2, :last], array
-
     popped_value = array.pop
     assert_equal :last, popped_value
     assert_equal [1, 2], array

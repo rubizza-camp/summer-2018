@@ -13,7 +13,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
+
 # class Proxy
+# This class smells of :reek:Attribute and :reek:ControlParameter
 class Proxy
   attr_accessor :messages
   def initialize(target_object)
@@ -45,6 +47,8 @@ end
 
 # The proxy object should pass the following Koan:
 # class AboutProxyObjectProject
+# This class smells of :reek:DuplicateMethodCall and :reek:FeatureEnvy
+# This class smells of :reek:TooManyStatements
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -121,9 +125,10 @@ end
 
 # Example class using in the proxy testing above.
 # class Television
+# This class smells of :reek:Attribute and :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
-
+  # This method smells of :reek:InstanceVariableAssumption
   def power
     @power = if @power == :on
                :off
@@ -139,6 +144,8 @@ end
 
 # Tests for the Television class.  All of theses tests should pass.
 # class TelevisionTest
+# This class smells of :reek:DuplicateMethodCall and :reek:FeatureEnvy
+# This class smells of :reek:TooManyStatements
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new

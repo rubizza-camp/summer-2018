@@ -3,6 +3,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/LineLength
 # class AboutClassMethods
+# This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   # class Dog
   class Dog
@@ -52,6 +53,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # class Dog2
+  # This class smells of :reek:UncommunicativeModuleName
   class Dog2
     def wag
       :instance_level_wag
@@ -73,7 +75,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This class smells of :reek:Attribute
   # class Dog
   class Dog
     attr_accessor :name
@@ -105,9 +107,11 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Style/Documentation
-  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
-                                         21
-                                       end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT =
+                                         class Dog
+                                           21
+                                           # :reek:IrresponsibleModule
+                                         end
   # rubocop:enable Style/Documentation
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
@@ -117,6 +121,7 @@ class AboutClassMethods < Neo::Koan
   # rubocop:disable Style/Documentation
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
+                                     # :reek:IrresponsibleModule
                                    end
   # rubocop:enable Style/Documentation
   def test_self_while_inside_class_is_class_object_not_instance
@@ -126,6 +131,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
   # class Dog
   class Dog
+    # This method smells of :reek:UncommunicativeMethodName
     def self.class_method2
       :another_way_to_write_class_methods
     end

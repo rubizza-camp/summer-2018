@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Naming/UncommunicativeMethodParamName
 # rubocop:disable Style/EvalWithLocation
-# rubocop:disable Metrics/LineLength
-def my_global_method(a, b)
-  a + b
+# This method smells of :reek:UtilityFunction
+def my_global_method(a_val, b_val)
+  a_val + b_val
 end
+
 # class AboutMethods
+# This class smells of :reek:DuplicateMethodCall and :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -35,6 +36,7 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # This method smells of :reek:TooManyStatements
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -49,8 +51,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(a_val, b_val = :default_value)
+    [a_val, b_val]
   end
 
   def test_calling_with_default_values
@@ -99,9 +101,9 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  def my_method_in_the_same_class(a, b)
-    a * b
+  # This method smells of :reek:UtilityFunction
+  def my_method_in_the_same_class(a_val, b_val)
+    a_val * b_val
   end
 
   def test_calling_methods_in_same_class
@@ -156,6 +158,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Naming/UncommunicativeMethodParamName
 # rubocop:enable Style/EvalWithLocation
-# rubocop:enable Metrics/LineLength

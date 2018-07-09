@@ -2,6 +2,8 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class AboutHashes
+# This class smells of :reek:DuplicateMethodCall and :reek:UncommunicativeVariableName
+# This class smells of :reek:FeatureEnvy and :reek:TooManyStatements
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}

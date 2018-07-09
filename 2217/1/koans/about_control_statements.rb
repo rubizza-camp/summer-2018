@@ -4,7 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
+# This class smells of :reek:FeatureEnvy and :reek:RepeatedConditional
+# This class smells of :reek:TooManyStatements
 # class AboutControlStatements
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
@@ -78,43 +79,43 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_while_statement
-    i = 1
+    test_value = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while test_value <= 10
+      result *= test_value
+      test_value += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    test_value = 1
     result = 1
     loop do
-      break unless i <= 10
-      result *= i
-      i += 1
+      break unless test_value <= 10
+      result *= test_value
+      test_value += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if i.even?
-               i += 1
+    test_value = 1
+    result = while test_value <= 10
+               break test_value if i.even?
+               test_value += 1
              end
 
     assert_equal 2, result
   end
 
   def test_next_statement
-    i = 0
+    test_value = 0
     result = []
-    while i < 10
-      i += 1
-      next if i.even?
-      result << i
+    while test_value < 10
+      test_value += 1
+      next if test_value.even?
+      result << test_value
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
@@ -139,4 +140,3 @@ end
 # rubocop:enable Metrics/ClassLength
 # rubocop:enable Lint/LiteralAsCondition
 # rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/LineLength
