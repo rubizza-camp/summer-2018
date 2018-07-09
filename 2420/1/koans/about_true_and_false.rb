@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutTrueAndFalse < Neo::Koan # class AboutTrueAndFalse
+# class AboutTrueAndFalse
+class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition
       :true_stuff
