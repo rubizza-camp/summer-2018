@@ -34,9 +34,14 @@ def score(dice)
   result = 0
   for i in 1..6
     temp = dice.find_all { |item| item == i }
-    result += i == 1 ? (temp.size / 3) * 1000 + (temp.size % 3) * 100 :
-    i == 5 ? (temp.size / 3) * 500 + (temp.size % 3) * 50 : (temp.size / 3) * i * 100
-  end	
+    result += if i == 1
+                (temp.size / 3) * 1000 + (temp.size % 3) * 100
+              elsif i == 5
+                (temp.size / 3) * 500 + (temp.size % 3) * 50
+              else
+                (temp.size / 3) * i * 100
+              end
+  end
   result
 end
 
