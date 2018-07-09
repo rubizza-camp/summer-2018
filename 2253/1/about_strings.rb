@@ -49,10 +49,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<EOS
-It was the best of times,
-It was the worst of times.
-EOS
+    long_string = <<BOUNDARY
+                    It was the best of times,
+                    It was the worst of times.
+BOUNDARY
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -142,7 +142,7 @@ EOS
 
   def test_you_can_get_a_substring_from_a_string
     string = 'Bacon, lettuce and tomato'
-    assert_equal 'let', string[7,3]
+    assert_equal 'let', string[7, 3]
     assert_equal 'let', string[7..9]
   end
 
@@ -176,7 +176,7 @@ EOS
   end
 
   def test_strings_can_be_split_with_different_patterns
-    string = "the:rain:in:spain"
+    string = 'the:rain:in:spain'
     words = string.split(/:/)
     assert_equal %w[the rain in spain], words
 
