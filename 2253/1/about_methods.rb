@@ -70,10 +70,12 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
-    :another_non_return_value
+    #:another_non_return_value
   end
 
   def test_method_with_explicit_return
@@ -83,63 +85,66 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
+    #:a_non_return_value
     :return_value
   end
-
+  # rubocop:enable Lint/Void
+  # rubocop:enable Lint/UnreachableCode
+  
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(first, second)
+    first * second
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
-
   # ------------------------------------------------------------------
 
+  private
+
   def my_private_method
-    "a secret"
+    'a secret'
   end
-  private :my_private_method
 
   def test_calling_private_methods_without_receiver
-    assert_equal "a secret", my_private_method
+    assert_equal 'a secret', my_private_method
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /method/, exception.message
+    assert_match (/method/), exception.message
   end
 
   # ------------------------------------------------------------------
-
+  
+  # :nodoc:
   class Dog
     def name
-      "Fido"
+      'Fido'
     end
 
     private
 
     def tail
-      "tail"
+      'tail'
     end
   end
 
   def test_calling_methods_in_other_objects_require_explicit_receiver
     rover = Dog.new
-    assert_equal "Fido", rover.name
+    assert_equal 'Fido', rover.name
   end
 
   def test_calling_private_methods_in_other_objects
