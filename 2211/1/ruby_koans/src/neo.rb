@@ -13,14 +13,17 @@ end
 class FillMeInError < StandardError
 end
 
-def ruby_version?(version)
-  RUBY_VERSION =~ /^#{version}/ ||
-    (version == 'jruby' && defined?(JRUBY_VERSION)) ||
-    (version == 'mri' && ! defined?(JRUBY_VERSION))
-end
+#def ruby_version?(version)
+#  RUBY_VERSION =~ /^#{version}/ ||
+#    (version == 'jruby' && defined?(JRUBY_VERSION)) ||
+#    (version == 'mri' && ! defined?(JRUBY_VERSION))
+#end
 
 def in_ruby_version(*versions)
-  yield if versions.any? { |v| ruby_version?(v) }
+  yield if versions.any? { |version| RUBY_VERSION =~ /^#{version}/ ||
+    (version == 'jruby' && defined?(JRUBY_VERSION)) ||
+    (version == 'mri' && ! defined?(JRUBY_VERSION))
+ruby_version?(version) }
 end
 
 in_ruby_version("1.8") do
