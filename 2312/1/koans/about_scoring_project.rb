@@ -28,6 +28,13 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+=======
+>>>>>>> Done all koans + checked rubocop & reek
 # :reek:ControlParameter
 def cond_one(ins)
   if ins == 1
@@ -36,6 +43,10 @@ def cond_one(ins)
     100 * i
   end
 end
+<<<<<<< HEAD
+=======
+>>>>>>> Done all koans + checked rubocop & reek
+>>>>>>> Done all koans + checked rubocop & reek
 
 # :reek:TooManyStatements
 # :reek:DuplicateMethodCall
@@ -46,11 +57,32 @@ def score(dice)
   dice.map { |ins| totals[ins] += 1 }
   (1..6).each do |ins|
     next unless totals[ins] >= 3
+<<<<<<< HEAD
+    score += cond_one(ins)
+=======
+<<<<<<< HEAD
+    score += if ins == 1
+               1000
+             else
+               100 * i
+             end
+>>>>>>> Done all koans + checked rubocop & reek
+    totals[ins] -= 3
+  end
+  score += totals[1] * 100 + totals[5] * 50
+end
+<<<<<<< HEAD
+=======
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
+=======
     score += cond_one(ins)
     totals[ins] -= 3
   end
   score += totals[1] * 100 + totals[5] * 50
 end
+>>>>>>> Done all koans + checked rubocop & reek
+>>>>>>> Done all koans + checked rubocop & reek
 # com
 # This class smells of :reek:UncommunicativeModuleName
 class AboutScoringProject < Neo::Koan
