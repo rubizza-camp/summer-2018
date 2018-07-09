@@ -13,21 +13,21 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-	if [a,b,c].any? {|x| x <= 0}
+def triangle(first_side, second_side, third_side)
+	if [first_side, second_side,third_side].any? {|x| x <= 0}
    	raise TriangleError, 'Sides must have positive length' 
 	end
 
-	sides = [a,b,c].sort
+	sides = [first_side, second_side, third_side].sort
 
    unless sides[0] + sides[1] > sides[2]
    	raise TriangleError, 'Does not satisfy triangle inequality'
 	end
 
 	case 
-		when a == b&&b == c
+		when first_side == second_side && second_side == third_side
 			return :equilateral
-		when a == b||b == c||a == c
+		when first_side == second_side || second_side == third_side || first_side == third_side
 			return :isosceles
 		else
 			return :scalene
