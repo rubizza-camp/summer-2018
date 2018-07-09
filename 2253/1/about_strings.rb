@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = "Hello, World"
+    string = 'Hello, World'
     assert_equal true, string.is_a?(String)
   end
 
@@ -152,24 +152,24 @@ EOS
 
   in_ruby_version("1.8") do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal "a", ?a
-      assert_equal true, ?a == 97
+      assert_equal 97, 'a'
+      assert_equal true, 'a' == 97
 
-      assert_equal __, ?b == (?a + 1)
+      assert_equal true, 'b' == ('a' + 1)
     end
   end
 
-  in_ruby_version("1.9", "2") do
+  in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal "a", ?a
-      assert_equal false, ?a == 97
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
     end
   end
 
   def test_strings_can_be_split
-    string = "Sausage Egg Cheese"
+    string = 'Sausage Egg Cheese'
     words = string.split
-    assert_equal ["Sausage", "Egg", "Cheese"], words
+    assert_equal %w[Sausage Egg Cheese], words
   end
 
   def test_strings_can_be_split_with_different_patterns
