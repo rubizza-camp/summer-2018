@@ -1,9 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/MissingRespondToMissing
 
-# Message for you
+# Comment
 class AboutMessagePassing < Neo::Koan
-  # Message for me
+  # Comment
   class MessageCatcher
     def caught?
       true
@@ -184,4 +183,3 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable Style/MissingRespondToMissing
