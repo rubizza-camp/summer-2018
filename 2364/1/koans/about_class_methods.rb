@@ -107,12 +107,12 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   # rubocop:disable Style/Documentation
-  LAST_EXPRESSION_ClASS = class Dog
+  LAST_EXPRESSION_CLASS = class Dog
                             21
                           end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSION_ClASS
+    assert_equal 21, LAST_EXPRESSION_CLASS
   end
 
   # ------------------------------------------------------------------
