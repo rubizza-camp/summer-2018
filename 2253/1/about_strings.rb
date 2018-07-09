@@ -138,13 +138,13 @@ EOS
   end
 
   def test_you_can_get_a_substring_from_a_string
-    string = "Bacon, lettuce and tomato"
-    assert_equal "let", string[7,3]
-    assert_equal "let", string[7..9]
+    string = 'Bacon, lettuce and tomato'
+    assert_equal 'let', string[7,3]
+    assert_equal 'let', string[7..9]
   end
 
   def test_you_can_get_a_single_character_from_a_string
-    string = "Bacon, lettuce and tomato"
+    string = 'Bacon, lettuce and tomato'
     assert_equal 'a', string[1]
 
     # Surprised?
@@ -175,7 +175,7 @@ EOS
   def test_strings_can_be_split_with_different_patterns
     string = "the:rain:in:spain"
     words = string.split(/:/)
-    assert_equal %w(the rain in spain), words
+    assert_equal %w[the rain in spain], words
 
     # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
     # very powerful Regular Expression library.  We will become
