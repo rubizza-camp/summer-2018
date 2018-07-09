@@ -16,7 +16,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # class Chihuahua
-  class Chihuahua < Dog 
+  class Chihuahua < Dog
     def wag
       :happy
     end
@@ -60,7 +60,7 @@ class AboutInheritance < Neo::Koan
   # ------------------------------------------------------------------
 
   # class BullDog
-  class BullDog < Dog 
+  class BullDog < Dog
     def bark
       super + ', GROWL'
     end
@@ -74,7 +74,7 @@ class AboutInheritance < Neo::Koan
   # ------------------------------------------------------------------
 
   # class GreatDane
-  class GreatDane < Dog 
+  class GreatDane < Dog
     def growl
       super.bark + ', GROWL'
     end
