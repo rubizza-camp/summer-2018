@@ -12,7 +12,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
+# rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/MethodMissing
 # rubocop:disable Style/MissingRespondToMissing
 # rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Performance/InefficientHashSearch
@@ -226,3 +228,5 @@ end
 # rubocop:enable Style/MissingRespondToMissing
 # rubocop:enable Style/ConditionalAssignment
 # rubocop:enable Performance/InefficientHashSearch
+# rubocop:enable Style/MethodMissing
+# rubocop:enable Lint/UnneededCopDisableDirective

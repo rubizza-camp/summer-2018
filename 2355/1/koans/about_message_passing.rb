@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/MethodMissing
 # rubocop:disable Style/MissingRespondToMissing
 # rubocop:disable Lint/UnusedMethodArgument
 # Class docs
@@ -268,3 +270,5 @@ end
 # rubocop:enable Style/MethodMissingSuper
 # rubocop:enable Style/MissingRespondToMissing
 # rubocop:enable Lint/UnusedMethodArgument
+# rubocop:enable Style/MethodMissing
+# rubocop:enable Lint/UnneededCopDisableDirective

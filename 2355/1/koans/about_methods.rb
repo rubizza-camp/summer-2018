@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Lint/Void
 # rubocop:disable Lint/UnreachableCode
 # rubocop:disable Style/AccessModifierDeclarations
@@ -241,3 +242,4 @@ end
 # rubocop:enable Lint/Void
 # rubocop:enable Lint/UnreachableCode
 # rubocop:enable Style/AccessModifierDeclarations
+# rubocop:enable Lint/UnneededCopDisableDirective
