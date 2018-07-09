@@ -187,6 +187,7 @@ class AboutMethods < Neo::Koan
     assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable Style/RedundantSelf
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -197,10 +198,11 @@ class AboutMethods < Neo::Koan
     end
     assert_match(/my_private_method/, exception.message)
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
-  #Class Dog
+  # Class Dog
   # This class smells of :reek:UncommunicativeModuleName
   class Dog
     def name
