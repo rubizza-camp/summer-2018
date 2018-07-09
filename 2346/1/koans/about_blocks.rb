@@ -19,22 +19,22 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_block_arguments
-    yield("Jim")
+    yield('Jim')
   end
 
   def test_blocks_can_take_arguments
     method_with_block_arguments do |argument|
-      assert_equal "Jim", argument
+      assert_equal 'Jim', argument
     end
   end
 
   # ------------------------------------------------------------------
 
   def many_yields
-    yield(:peanut)
-    yield(:butter)
-    yield(:and)
-    yield(:jelly)
+    yield (:peanut)
+    yield (:butter)
+    yield (:and)
+    yield (:jelly)
   end
 
   def test_methods_can_call_yield_many_times
@@ -71,7 +71,7 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax
-    assert_equal 11, add_one[10]
+    assert_equal 11, add_one [10]
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
@@ -83,7 +83,7 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_block(&block)
-    block.call(10)
+    block.call (10)
   end
 
   def test_methods_can_take_an_explicit_block_argument

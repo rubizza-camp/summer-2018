@@ -15,7 +15,7 @@
 #
 def triangle(a, b, c)
   x, y, z = [a, b, c].sort
-  raise TriangleError if x<=0 || x+y<=z
+  raise TriangleError if x <= 0 || x + y <= z
   if a == b && b == c then
     :equilateral
   elsif a == b || a == c || b == c then

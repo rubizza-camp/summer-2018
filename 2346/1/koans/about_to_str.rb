@@ -4,7 +4,7 @@ class AboutToStr < Neo::Koan
 
   class CanNotBeTreatedAsString
     def to_s
-      "non-string-like"
+      'non-string-like'
     end
   end
 
@@ -23,7 +23,7 @@ class AboutToStr < Neo::Koan
 
   class CanBeTreatedAsString
     def to_s
-      "string-like"
+      'string-like'
     end
 
     def to_str
