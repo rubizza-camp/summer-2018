@@ -3,7 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Metrics/ClassLength
 # Class about control statements
+# This class smells of :reek:UncommunicativeModuleName
 class AboutControlStatements < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_if_then_else_statements
     result = if true
                :true_value
@@ -13,6 +18,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_if_then_statements
     result = :default_value
     result = :true_value if true
@@ -20,6 +29,10 @@ class AboutControlStatements < Neo::Koan
   end
 
   # rubocop:disable Metrics/MethodLength
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -40,16 +53,28 @@ class AboutControlStatements < Neo::Koan
   end
   # rubocop:enable Metrics/MethodLength
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_if_statements_with_no_else_with_false_condition_return_value
     value = (:true_value if false)
     assert_equal nil, value
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_condition_operators
     assert_equal :true_value, (true ? :true_value : :false_value)
     assert_equal :false_value, (false ? :true_value : :false_value)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_if_statement_modifiers
     result = :default_value
     result = :true_value if true
@@ -57,18 +82,30 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_unless_statement
     result = :default_value
     result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
     assert_equal :false_value, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_unless_statement_evaluate_true
     result = :default_value
     result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
     assert_equal :default_value, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_unless_statement_modifier
     result = :default_value
     result = :false_value unless false
@@ -76,6 +113,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal :false_value, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_while_statement
     i = 1
     result = 1
@@ -86,6 +127,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_break_statement
     i = 1
     result = 1
@@ -97,6 +142,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
@@ -107,6 +156,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal 2, result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_next_statement
     i = 0
     result = []
@@ -118,6 +171,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal [1, 3, 5, 7, 9], result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_for_statement
     array = %w[fish and chips]
     result = []
@@ -127,6 +184,10 @@ class AboutControlStatements < Neo::Koan
     assert_equal %w[FISH AND CHIPS], result
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_times_statement
     sum = 0
     10.times do
