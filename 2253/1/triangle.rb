@@ -8,17 +8,17 @@
 #   :isosceles    if exactly 2 sides are equal
 #   :scalene      if no sides are equal
 #
-def triangle(a, b, c)
-  raise TriangleError if [a,b,c].min <= 0 or a + b <= c or a + c <= b or b + c <= a	
-  if a == b 
-    if a == c
+def triangle(first, second, third)
+  raise TriangleError if [first,second,third].min <= 0 || first + second <= third || first + third <= second || second + third <= first
+  if first == second
+    if first == third
       :equilateral
     else
       :isosceles
     end
-  elsif a == c
+  elsif first == third
     :isosceles
-  elsif b == c
+  elsif second == third
     :isosceles
   else
     :scalene
