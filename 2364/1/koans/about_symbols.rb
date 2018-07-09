@@ -49,7 +49,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_spaces_can_be_built
-    symbol = :'cats and dogs'
+    symbol = :"cats and dogs"
 
     assert_equal 'cats and dogs'.to_sym, symbol
   end
@@ -57,11 +57,11 @@ class AboutSymbols < Neo::Koan
   # rubocop:disable Lint/UselessAssignment
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
-    symbol = :'cats #{value} dogs'
+    symbol = :"cats #{value} dogs"
 
     assert_equal 'cats and dogs'.to_sym, symbol
   end
-  
+
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
