@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#comment
 class AboutModules < Neo::Koan
+  #comment
   module Nameable
     def set_name(new_name)
       @name = new_name

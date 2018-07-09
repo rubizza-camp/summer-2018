@@ -112,6 +112,7 @@ class AboutMethods < Neo::Koan
   end
   private :my_private_method
 
+  # rubocop:disable Style/RedundantSelf
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
@@ -120,11 +121,11 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method/, exception.message
+    assert_match /private method/ , exception.message
   end
+  # rubocop:enable Style/RedundantSelf
 
-  # ------------------------------------------------------------------
-
+  # comment--------------------------------------------------------
   class Dog
     def name
       'Fido'

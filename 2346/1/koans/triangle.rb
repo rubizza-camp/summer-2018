@@ -13,12 +13,13 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  x, y, z = [a, b, c].sort
-  raise TriangleError if x <= 0 || x + y <= z
-  if a == b && b == c then
+def triangle(side_a, side_b, side_c)
+  raise TriangleError if (side_a >= side_b + side_c) || 
+                         (side_b >= side_a + side_c) ||
+                         (side_c >= side_a + side_b)
+  if side_a == side_b && side_b == side_c then
     :equilateral
-  elsif a == b || a == c || b == c then
+  elsif side_a == side_b || side_a == side_c || side_b == side_c then
     :isosceles
   else
     :scalene
