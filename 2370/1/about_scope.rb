@@ -1,7 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# AboutScope
 class AboutScope < Neo::Koan
   module Jims
+# Dog
     class Dog
       def identify
         :jims_dog
@@ -43,11 +44,11 @@ class AboutScope < Neo::Koan
   end
 
   def test_nested_string_is_not_the_same_as_the_system_string
-    assert_equal false, String == "HI".class
+    assert_equal false, String == 'HI'.class
   end
 
   def test_use_the_prefix_scope_operator_to_force_the_global_scope
-    assert_equal true, ::String == "HI".class
+    assert_equal true, ::String == 'HI'.class
   end
 
   # ------------------------------------------------------------------
@@ -64,16 +65,16 @@ class AboutScope < Neo::Koan
 
   def test_class_names_are_just_constants
     assert_equal true, MyString == ::String
-    assert_equal true, MyString == "HI".class
+    assert_equal true, MyString == 'HI'.class
   end
 
   def test_constants_can_be_looked_up_explicitly
-    assert_equal true, PI == AboutScope.const_get("PI")
-    assert_equal true, MyString == AboutScope.const_get("MyString")
+    assert_equal true, PI == AboutScope.const_get('PI')
+    assert_equal true, MyString == AboutScope.const_get('MyString')
   end
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal [:Dog], Jims.constants
-    assert Object.constants.size > 0
+    assert Object.constants.size > 127
   end
 end
