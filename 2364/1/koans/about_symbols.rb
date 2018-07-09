@@ -61,9 +61,7 @@ class AboutSymbols < Neo::Koan
 
     assert_equal 'cats and dogs'.to_sym, symbol
   end
-  # rubocop:enable Lint/UselessAssignment
-
-  # rubocop:disable Lint/UselessAssignment
+  
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
