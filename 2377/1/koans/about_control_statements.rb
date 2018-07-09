@@ -123,12 +123,12 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_for_statement
-    array = ["fish", "and", "chips"]
+    array = ['fish', 'and', 'chips']
     result = []
     for item in array
       result << item.upcase
     end
-    assert_equal ["FISH", "AND", "CHIPS"], result
+    assert_equal ['FISH', 'AND', 'CHIPS'], result
   end
 
   def test_times_statement
