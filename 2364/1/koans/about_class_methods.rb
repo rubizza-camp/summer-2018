@@ -107,7 +107,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   # rubocop:disable Style/Documentation
-  LAST_EXPRESSIONIN_ClASSSTATEMENT = class Dog
+  LAST_EXPRESSION_IN_ClASS_STATEMENT = class Dog
                                        21
                                      end
 
@@ -117,7 +117,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  SELF_INSIDEOF_CLASSSTATEMENT = class Dog
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                    self
                                  end
   # rubocop:enable Style/Documentation
