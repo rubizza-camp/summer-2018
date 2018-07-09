@@ -10,9 +10,12 @@ class DiceSet
   end
 end
 
+# This class smells of :reek:UncommunicativeModuleName
 class AboutDiceProject < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_can_create_a_dice_set
     dice = DiceSet.new
     assert_not_nil dice
@@ -20,6 +23,8 @@ class AboutDiceProject < Neo::Koan
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
 
@@ -33,6 +38,8 @@ class AboutDiceProject < Neo::Koan
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
     dice.roll(5)
@@ -43,6 +50,8 @@ class AboutDiceProject < Neo::Koan
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
 
@@ -64,6 +73,8 @@ class AboutDiceProject < Neo::Koan
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new
 
