@@ -4,10 +4,10 @@ def my_global_method(a,b)
   a + b
 end
 
+# :nodoc:
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
@@ -18,7 +18,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval "assert_equal(5, my_global_method(2, 3))" # ENABLE CHECK
+    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -39,15 +39,15 @@ class AboutMethods < Neo::Koan
     assert_match(/wrong number/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/wrong number/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
-    [a, b]
+  def method_with_defaults(first, second = :default_value)
+    [first, second]
   end
 
   def test_calling_with_default_values
@@ -65,7 +65,7 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
@@ -90,7 +90,7 @@ class AboutMethods < Neo::Koan
   end
   # rubocop:enable Lint/Void
   # rubocop:enable Lint/UnreachableCode
-  
+
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
@@ -124,11 +124,11 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match (/method/), exception.message
+    assert_match (/method/, exception.message)
   end
 
   # ------------------------------------------------------------------
-  
+
   # :nodoc:
   class Dog
     def name
