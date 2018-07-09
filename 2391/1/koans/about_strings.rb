@@ -3,32 +3,38 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/UselessAssignment
 # rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_single_quoted_strings_are_also_strings
     string = 'Goodbye, World'
     assert_equal true, string.is_a?(String)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
     assert_equal 'He said, "Go Away."', string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
     assert_equal "Don't", string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_use_backslash_for_those_hard_cases
     a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %!flexible quotes can handle both ' and " characters!
@@ -37,6 +43,7 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == c
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_flexible_quotes_can_handle_multiple_lines
     long_string = %{
 It was the best of times,
@@ -47,6 +54,7 @@ It was the worst of times.
     assert_equal "\n", long_string[0, 1]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<MEANINGFUL
                     It was the best of times,
@@ -57,11 +65,13 @@ MEANINGFUL
     assert_equal ' ', long_string[0, 1]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_plus_will_concatenate_two_strings
     string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
@@ -70,6 +80,7 @@ MEANINGFUL
     assert_equal 'World', there
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
     there = 'World'
@@ -77,6 +88,7 @@ MEANINGFUL
     assert_equal 'Hello, World', hi
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
     hi = original_string
@@ -85,6 +97,7 @@ MEANINGFUL
     assert_equal 'Hello, ', original_string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
     there = 'World'
@@ -93,6 +106,7 @@ MEANINGFUL
     assert_equal 'World', there
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_the_shovel_operator_modifies_the_original_string
     original_string = 'Hello, '
     hi = original_string
@@ -106,22 +120,26 @@ MEANINGFUL
     # plus equals operator (+=) when building up strings.  Why?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_double_quoted_string_interpret_escape_characters
     string = "\n"
     assert_equal 1, string.size
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_single_quoted_string_do_not_interpret_escape_characters
     string = '\n'
     assert_equal 2, string.size
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
     assert_equal 2, string.size
     assert_equal "\\'", string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = "The value is #{value}"
@@ -129,6 +147,7 @@ MEANINGFUL
   end
 
   # rubocop:disable Lint/InterpolationCheck
+  # This method smells of :reek:UncommunicativeMethodName
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = 'The value is #{value}'
@@ -136,17 +155,20 @@ MEANINGFUL
   end
   # rubocop:enable Lint/InterpolationCheck
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
     assert_equal 'The square root of 5 is 2.23606797749979', string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_you_can_get_a_substring_from_a_string
     string = 'Bacon, lettuce and tomato'
     assert_equal 'let', string[7, 3]
     assert_equal 'let', string[7..9]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_you_can_get_a_single_character_from_a_string
     string = 'Bacon, lettuce and tomato'
     assert_equal 'a', string[1]
@@ -155,6 +177,7 @@ MEANINGFUL
   end
 
   in_ruby_version('1.8') do
+    # This method smells of :reek:UncommunicativeMethodName
     def test_in_older_ruby_single_characters_are_represented_by_integers
       assert_equal 97, 'a'
       assert_equal true, 'a' == 97
@@ -164,18 +187,21 @@ MEANINGFUL
   end
 
   in_ruby_version('1.9', '2') do
+    # This method smells of :reek:UncommunicativeMethodName
     def test_in_modern_ruby_single_characters_are_represented_by_strings
       assert_equal 'a', 'a'
       assert_equal false, 'a' == 97
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
     words = string.split
     assert_equal %w[Sausage Egg Cheese], words
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_strings_can_be_split_with_different_patterns
     string = 'the:rain:in:spain'
     words = string.split(/:/)
@@ -186,11 +212,13 @@ MEANINGFUL
     # enlightened about them soon.
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_strings_can_be_joined
     words = %w[Now is the time]
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'
