@@ -1,13 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :nodoc:
 class AboutSandwichCode < Neo::Koan
-
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
-    while file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file.close if file
