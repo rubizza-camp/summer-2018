@@ -1,7 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class AboutMessagePassing
 class AboutMessagePassing < Neo::Koan
-
+# class MessageCatcher
   class MessageCatcher
     def caught?
       true
@@ -24,7 +25,7 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught'+ '?' )    # What do you need to add to the first string?
+    assert mc.send('caught' + '?' )    # What do you need to add to the first string?
     assert mc.send('CAUGHT?'.downcase )      # What would you need to do to the string?
   end
 
@@ -47,6 +48,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class MessageCatcher
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -72,6 +74,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class TypicalObject
   class TypicalObject
   end
 
@@ -112,6 +115,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class AllMessageCatcher
   class AllMessageCatcher
     def method_missing(method_name, *args, &block)
       "Someone called #{method_name} with <#{args.join(", ")}>"
@@ -137,6 +141,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class WellBehavedFooCatcher
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0,3] == 'foo'
