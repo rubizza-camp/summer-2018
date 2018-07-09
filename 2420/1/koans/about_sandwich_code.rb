@@ -1,5 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+require File.expand_path(File.dirname(__FILE__) + '/neo') 
 
+# rubocop:disable Security/Open
 # class AboutSandwichCode
 class AboutSandwichCode < Neo::Koan  
   def count_lines(file_name)
@@ -17,7 +18,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Security/Open
+
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets
@@ -103,4 +104,3 @@ class AboutSandwichCode < Neo::Koan
   end
 end
 # rubocop:enable Security/Open
-    
