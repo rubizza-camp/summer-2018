@@ -6,11 +6,20 @@ def my_global_method(param1, param2)
 end
 
 # Class about methods
+# This class smells of :reek:UncommunicativeModuleName
 class AboutMethods < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_global_methods_without_parentheses
     result = my_global_method 2, 3
     assert_equal 5, result
@@ -18,6 +27,10 @@ class AboutMethods < Neo::Koan
 
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_sometimes_missing_parentheses_are_ambiguous
     eval <<-RUBY, binding, __FILE__, __LINE__ + 1
            assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
@@ -35,6 +48,10 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -53,6 +70,10 @@ class AboutMethods < Neo::Koan
     [first_item, second_item]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_with_default_values
     assert_equal [1, :default_value], method_with_defaults(1)
     assert_equal [1, 2], method_with_defaults(1, 2)
@@ -64,6 +85,10 @@ class AboutMethods < Neo::Koan
     args
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
@@ -81,6 +106,10 @@ class AboutMethods < Neo::Koan
     :another_non_return_value
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
@@ -94,6 +123,10 @@ class AboutMethods < Neo::Koan
   end
   # rubocop:enable Lint/Void
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
@@ -104,10 +137,18 @@ class AboutMethods < Neo::Koan
     first_term * second_term
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_same_class
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_same_class_with_explicit_receiver
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
@@ -120,10 +161,18 @@ class AboutMethods < Neo::Koan
     'a secret'
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       my_private_method
@@ -146,11 +195,19 @@ class AboutMethods < Neo::Koan
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_other_objects_require_explicit_receiver
     rover = Dog.new
     assert_equal 'Fido', rover.name
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_private_methods_in_other_objects
     rover = Dog.new
     assert_raise(NoMethodError) do
