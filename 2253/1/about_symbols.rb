@@ -35,11 +35,11 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    Ruby_Constant = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?(__)
+      assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
   end
 
