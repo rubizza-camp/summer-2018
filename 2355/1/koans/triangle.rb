@@ -13,6 +13,10 @@
 # and
 #   about_triangle_project_2.rb
 #
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:FeatureEnvy
 def triangle(first_side, second_side, third_side)
 	if [first_side, second_side,third_side].any? {|x| x <= 0}
    	raise TriangleError, 'Sides must have positive length' 
@@ -35,5 +39,6 @@ def triangle(first_side, second_side, third_side)
 end
 
 # Error class used in part 2.  No need to change this code.
+# This class smells of :reek:UncommunicativeModuleName
 class TriangleError < StandardError
 end

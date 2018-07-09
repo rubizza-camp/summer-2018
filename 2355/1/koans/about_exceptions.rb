@@ -1,10 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This class smells of :reek:UncommunicativeModuleName
 # Class docs
 class AboutExceptions < Neo::Koan
+  # This class smells of :reek:UncommunicativeModuleName
   class MySpecialError < RuntimeError
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_exceptions_inherit_from_Exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
@@ -12,7 +18,10 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_rescue_clause
     result = nil
     begin
@@ -31,8 +40,11 @@ class AboutExceptions < Neo::Koan
 
     assert_equal 'Oops', ex.message
   end
-  # rubocop:enable Metrics/MethodLength
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_raising_a_particular_error
     result = nil
     begin
@@ -46,7 +58,10 @@ class AboutExceptions < Neo::Koan
     assert_equal 'My Message', ex.message
   end
 
-  # rubocop:disable Lint/HandleExceptions
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_ensure_clause
     begin
       fail 'Oops'
@@ -58,9 +73,12 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
-  # rubocop:enable Lint/HandleExceptions
 
   # Sometimes, we must know about the unknown
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do
