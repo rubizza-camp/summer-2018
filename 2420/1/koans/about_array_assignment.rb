@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class AboutArrayAssignment
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = ['John', 'Smith']
