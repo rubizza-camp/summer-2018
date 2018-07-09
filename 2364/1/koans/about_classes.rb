@@ -130,6 +130,7 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   # Class dog5
+  # This class smells of :reek:Attribute
   class Dog5
     attr_accessor :name
   end

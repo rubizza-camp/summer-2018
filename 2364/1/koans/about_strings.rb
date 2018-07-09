@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
 # Class about strings
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

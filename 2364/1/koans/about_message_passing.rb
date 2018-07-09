@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/MethodMissing
 # Class about message passing
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:ManualDispatch
 class AboutMessagePassing < Neo::Koan
   # Class messagecatcher
   class MessageCatcher
@@ -151,6 +152,7 @@ class AboutMessagePassing < Neo::Koan
 
   # Class allmessagecatcher
   class AllMessageCatcher
+    # This method smells of :reek:UtilityFunction
     def method_missing(method_name, *args, &_block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end

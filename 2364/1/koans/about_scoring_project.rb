@@ -31,6 +31,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 SINGLE_ROLL_MULTIPLIERS = [0, 100, 0, 0, 0, 50, 0].freeze
 
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:TooManyStatements
 def score(dices)
   score = 0
   (1..6).each do |number|

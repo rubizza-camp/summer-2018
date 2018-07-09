@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about class methods
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   # Class dog
   class Dog
@@ -111,6 +112,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   # Class dog
+  # This class smells of :reek:Attribute
   class Dog
     attr_accessor :name
   end
@@ -183,6 +185,7 @@ class AboutClassMethods < Neo::Koan
 
   # Class dog
   class Dog
+    # This method smells of :reek:UncommunicativeMethodName
     def self.class_method2
       :another_way_to_write_class_methods
     end
