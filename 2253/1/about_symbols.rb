@@ -92,7 +92,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_can_be_dynamically_created
-    assert_equal :catsdogs, ('cats' + "dogs').to_sym
+    assert_equal :catsdogs, ('cats' + 'dogs').to_sym
   end
 
   # THINK ABOUT IT:
