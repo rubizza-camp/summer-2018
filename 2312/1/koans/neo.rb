@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 # -*- ruby -*-
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/CyclomaticComplexity
@@ -10,7 +10,6 @@
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Layout/IndentHeredoc
 # rubocop:disable Lint/Void
-# rubocop:disable Style/AccessModifierDeclarations
 # rubocop:disable Lint/HandleExceptions
 begin
   require 'win32console'
@@ -339,6 +338,7 @@ module Neo
       puts 'Mountains are again merely mountains'
     end
 
+    # rubocop:disable Naming/HeredocDelimiterNaming
     # :reek:TooManyStatements
     def artistic_end_screen
       'JRuby 1.9.x Koans'
@@ -381,6 +381,7 @@ module Neo
       ENDTEXT
       puts completed
     end
+    # rubocop:enable Naming/HeredocDelimiterNaming
 
     # :reek:DuplicateMethodCall
     # :reek:TooManyStatements
@@ -435,6 +436,7 @@ module Neo
       end
     end
 
+    # rubocop:disable Style/ConditionalAssignment
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     # :reek:TooManyStatements
@@ -461,6 +463,7 @@ module Neo
       end
       puts Color.green(zen_statement)
     end
+    # rubocop:enable Style/ConditionalAssignment
   end
   # rubocop:enable Metrics/ClassLength
   # :reek:TooManyInstanceVariables
@@ -610,5 +613,4 @@ end
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Layout/IndentHeredoc
 # rubocop:enable Lint/Void
-# rubocop:enable Style/AccessModifierDeclarations
 # rubocop:enable Lint/HandleExceptions
