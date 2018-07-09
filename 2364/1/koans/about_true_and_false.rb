@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class about true and false
 # This class smells of :reek:UncommunicativeModuleName
 class AboutTrueAndFalse < Neo::Koan
+  # This method smells of :reek:ControlParameter
   def truth_value(condition)
     if condition
       :true_stuff

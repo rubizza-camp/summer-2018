@@ -153,7 +153,6 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Style/Documentation
   LAST_EXPRESSION_CLASS = class Dog
                             21
                           end
@@ -171,7 +170,6 @@ class AboutClassMethods < Neo::Koan
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
-  # rubocop:enable Style/Documentation
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

@@ -52,7 +52,6 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
   end
 
-  # rubocop:disable Style/PercentLiteralDelimiters
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -64,7 +63,6 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
     assert_equal true, a == c
   end
-  # rubocop:enable Style/PercentLiteralDelimiters
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -89,9 +87,9 @@ It was the worst of times.
                     It was the best of times,
                     It was the worst of times.
 MEANINGFUL
-    assert_equal 53, long_string.length
+    assert_equal 93, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+    assert_equal ' ', long_string[0, 1]
   end
 
   # This method smells of :reek:UncommunicativeMethodName

@@ -3,6 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Naming/AccessorMethodName
 # Class about classes
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:TooManyMethods
+# This class smells of :reek:InstanceVariableAssumption
 class AboutClasses < Neo::Koan
   # Class dog
   class Dog

@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Def global
 # This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeParameterName
 def my_global_method(param1, param2)
   param1 + param2
 end
@@ -136,6 +137,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UtilityFunction
   def my_method_in_the_same_class(first_term, second_term)
     first_term * second_term
   end
@@ -172,16 +174,18 @@ class AboutMethods < Neo::Koan
     assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable Style/RedundantSelf
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      my_private_method
+      self.my_private_method
     end
     assert_match(/private method/, exception.message)
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
