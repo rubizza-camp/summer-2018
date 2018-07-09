@@ -19,13 +19,13 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Class for animal
+  # Comment
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
-  # ClassforNestedAnimal
+  # rubocop:disable Style/Documentation
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -36,9 +36,9 @@ class AboutConstants < Neo::Koan
   def test_nested_classes_inherit_constants_from_enclosing_classes
     assert_equal 4, Animal::NestedAnimal.new.legs_in_nested_animal
   end
-
+  # rubocop:enable Style/Documentation
   # ------------------------------------------------------------------
-  # Frog is Reptile
+  # Comment
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -53,7 +53,7 @@ class AboutConstants < Neo::Koan
 
   class MyAnimals
     LEGS = 2
-  # Elephantisabird
+  # Comment
     class Bird < Animal
       def legs_in_bird
         LEGS
