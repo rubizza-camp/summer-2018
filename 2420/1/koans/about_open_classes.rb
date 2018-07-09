@@ -27,6 +27,7 @@ class AboutOpenClasses < Neo::Koan # class AboutOpenClasses
   end
 
   # ------------------------------------------------------------------
+  
   # class 
   class ::Integer 
     def even?
