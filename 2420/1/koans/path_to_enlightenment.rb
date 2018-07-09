@@ -1,4 +1,4 @@
-# The path to Ruby Enlightenment starts with the following:
+# The path to Ruby Enlightenment starts with the following; frozen_string_literal: true -*-
 
 $LOAD_PATH << File.dirname(__FILE__)
 
