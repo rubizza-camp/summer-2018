@@ -37,7 +37,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 +    @messages[method_name]
 +  end
 +end
-+
+
 +# The proxy object should pass the following Koan:
 +#
 +# This class smells of :reek:UncommunicativeModuleName
