@@ -32,9 +32,11 @@ class Proxy
     @messages.include? method_name
   end
 
+  # rubocop:disable Style/CaseEquality
   def number_of_times_called(method_name)
-    @messages.find_all { |m| m =~ method_name }.count
+    @messages.find_all { |method| method === method_name }.count
   end
+  # rubocop:enable Style/CaseEquality
 
   def respond_to_missing?
     true
@@ -146,6 +148,8 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# This class smells of :reek:InstanceVariableAssumption
+# This class smells of :reek:Attribute
 class Television
   attr_accessor :channel
 
