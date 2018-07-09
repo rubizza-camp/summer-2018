@@ -58,7 +58,6 @@ class AboutConstants < Neo::Koan
   # Class myanimals
   class MyAnimals
     LEGS = 2
-
     # Class bird
     class Bird < Animal
       def legs_in_bird
