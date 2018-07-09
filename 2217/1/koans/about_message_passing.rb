@@ -120,7 +120,7 @@ class AboutMessagePassing < Neo::Koan
   # class AllMessageCatcher
   class AllMessageCatcher
     # This method smells of :reek:UtilityFunction
-    def method_missing(method_name, *args, &_block)
+    def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
@@ -145,10 +145,10 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/MethodMissing  
+  # rubocop:disable Style/MethodMissing
   # class WellBehavedFooCatcher
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &_block)
+    def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
