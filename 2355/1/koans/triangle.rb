@@ -29,8 +29,8 @@ def triangle(a, b, c)
 			return :equilateral
 		when a == b||b == c||a == c
 			return :isosceles
-	else
-		return :scalene
+		else
+			return :scalene
 	end
 end
 
