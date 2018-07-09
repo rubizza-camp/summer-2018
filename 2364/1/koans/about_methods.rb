@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Def global
-def my_global_method(a,b)
-  a + b
+def my_global_method(param1, param2)
+  param1 + param2
 end
 
 # Class about methods

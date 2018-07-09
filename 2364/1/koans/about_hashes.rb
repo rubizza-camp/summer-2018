@@ -107,7 +107,7 @@ class AboutHashes < Neo::Koan
   # rubocop:enable Metrics/AbcSize
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |item, key| item[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

@@ -21,12 +21,14 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class animal
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
 
+    # Class nestedanimal
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -40,6 +42,7 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class reptile
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -52,9 +55,11 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class myanimals
   class MyAnimals
     LEGS = 2
 
+    # Class bird
     class Bird < Animal
       def legs_in_bird
         LEGS
@@ -72,6 +77,7 @@ class AboutConstants < Neo::Koan
   # ------------------------------------------------------------------
 
   # rubocop:disable ClassAndModuleChildren
+  # Class myanimals
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
