@@ -88,7 +88,7 @@ class AboutJavaInterop < Neo::Koan
     # How would you do it?
   end
 
-  def test_however_most_methods_returning_strings_return_ruby_strings
+  def test_however_most_methods
     java_array = java.util.ArrayList.new
     assert_equal '[]', java_array.toString
     assert_equal true, java_array.toString.is_a?(String)
@@ -117,13 +117,17 @@ class AboutJavaInterop < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the Java ArrayList class and add a new method.
-  class Java::JavaUtil::ArrayList
-    def multiply_all
-      result = 1
-      each do |item|
-        result *= item
+  class Java
+    class JavaUtil
+      class ArrayList
+        def multiply_all
+          result = 1
+          each do |item|
+            result *= item
+          end
+          result
+        end
       end
-      result
     end
   end
 
