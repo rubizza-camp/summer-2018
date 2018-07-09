@@ -7,28 +7,28 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_regexp_can_search_a_string_for_matching_content
-    assert_equal "match", "some matching content"[/match/]
+    assert_equal 'match', 'some matching content'[/match/]
   end
 
   def test_a_failed_match_returns_nil
-    assert_equal nil, "some matching content"[/missing/]
+    assert_equal nil, 'some matching content'[/missing/]
   end
 
   # ------------------------------------------------------------------
 
   def test_question_mark_means_optional
-    assert_equal "ab", "abbcccddddeeeee"[/ab?/]
-    assert_equal "a", "abbcccddddeeeee"[/az?/]
+    assert_equal 'ab', 'abbcccddddeeeee'[/ab?/]
+    assert_equal 'a', 'abbcccddddeeeee'[/az?/]
   end
 
   def test_plus_means_one_or_more
-    assert_equal "bccc", "abbcccddddeeeee"[/bc+/]
+    assert_equal 'bccc', 'abbcccddddeeeee'[/bc+/]
   end
 
   def test_asterisk_means_zero_or_more
-    assert_equal "abb", "abbcccddddeeeee"[/ab*/]
-    assert_equal "a", "abbcccddddeeeee"[/az*/]
-    assert_equal "", "abbcccddddeeeee"[/z*/]
+    assert_equal 'abb', 'abbcccddddeeeee'[/ab*/]
+    assert_equal 'a', 'abbcccddddeeeee'[/az*/]
+    assert_equal '', 'abbcccddddeeeee'[/z*/]
 
     # THINK ABOUT IT:
     #
@@ -44,7 +44,7 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_the_left_most_match_wins
-    assert_equal "a", "abbccc az"[/az*/]
+    assert_equal 'a', 'abbccc az'[/az*/]
   end
 
   # ------------------------------------------------------------------
@@ -122,14 +122,14 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_parentheses_also_capture_matched_content_by_number
-    assert_equal "Gray", "Gray, James"[/(\w+), (\w+)/, 1]
-    assert_equal "James", "Gray, James"[/(\w+), (\w+)/, 2]
+    assert_equal 'Gray", ''Gray, James'[/(\w+), (\w+)/, 1]
+    assert_equal 'James", 'Gray, James'[/(\w+), (\w+)/, 2]
   end
 
   def test_variables_can_also_be_used_to_access_captures
-    assert_equal "Gray, James", "Name:  Gray, James"[/(\w+), (\w+)/]
-    assert_equal "Gray", $1
-    assert_equal "James", $2
+    assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
+    assert_equal 'Gray', Regexp.last_match[1]
+    assert_equal 'James', Regexp.last_match[2]
   end
 
   # ------------------------------------------------------------------
