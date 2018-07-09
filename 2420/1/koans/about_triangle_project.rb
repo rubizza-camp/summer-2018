@@ -2,7 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 require './triangle'
 
-class AboutTriangleProject < Neo::Koan # class AboutTriangle
+# class AboutTriangle
+class AboutTriangleProject < Neo::Koan
   def test_equilateral_triangles_have_equal_sides
     assert_equal :equilateral, triangle(2, 2, 2)
     assert_equal :equilateral, triangle(10, 10, 10)
