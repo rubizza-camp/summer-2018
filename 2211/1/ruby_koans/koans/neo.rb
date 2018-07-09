@@ -13,14 +13,17 @@ end
 class FillMeInError < StandardError
 end
 
-def ruby_version?(version)
-  RUBY_VERSION =~ /^#{version}/ ||
-    (version == 'jruby' && defined?(JRUBY_VERSION)) ||
-    (version == 'mri' && ! defined?(JRUBY_VERSION))
-end
+#def ruby_version?(version)
+#  RUBY_VERSION =~ /^#{version}/ ||
+#    (version == 'jruby' && defined?(JRUBY_VERSION)) ||
+#    (version == 'mri' && ! defined?(JRUBY_VERSION))
+#end
 
 def in_ruby_version(*versions)
-  yield if versions.any? { |v| ruby_version?(v) }
+  yield if versions.any? { |version| RUBY_VERSION =~ /^#{version}/ ||
+  (version == 'jruby' && defined?(JRUBY_VERSION)) ||
+  (version == 'mri' && ! defined?(JRUBY_VERSION))
+}
 end
 
 in_ruby_version("1.8") do
@@ -213,16 +216,16 @@ module Neo
     def add_progress(prog)
       @_contents = nil
       exists = File.exists?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME,'a+') do |f|
-        f.print "#{',' if exists}#{prog}"
+      File.open(PROGRESS_FILE_NAME,'a+') do |file|
+        file.print "#{',' if exists}#{prog}"
       end
     end
 
     def progress
       if @_contents.nil?
         if File.exists?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME,'r') do |f|
-            @_contents = f.read.to_s.gsub(/\s/,'').split(',')
+          File.open(PROGRESS_FILE_NAME,'r') do |file|
+            @_contents = file.read.to_s.gsub(/\s/,'').split(',')
           end
         else
           @_contents = []
@@ -256,7 +259,7 @@ module Neo
 
     def instruct
       if failed?
-        @observations.each{|c| puts c }
+        @observations.each{|comment| puts comment }
         encourage
         guide_through_error
         a_zenlike_statement
@@ -270,14 +273,37 @@ module Neo
       bar_width = 50
       total_tests = Neo::Koan.total_tests
       scale = bar_width.to_f/total_tests
+      first_tail(happy_steps, scale)
+#      print Color.green("your path thus far [")
+#      happy_steps = (pass_count*scale).to_i
+#      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+#      print Color.green('.'*happy_steps)
+#      if failed?
+#        print Color.red('X')
+#        print Color.cyan('_'*(bar_width-1-happy_steps))
+#      end
+#      print Color.green(']')
+#      print " #{pass_count}/#{total_tests}"
+#      puts
+    end
+
+    def first_tail(happy_steps, scale)
       print Color.green("your path thus far [")
       happy_steps = (pass_count*scale).to_i
       happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      failed_checker
+    end
+
+    def failed_checker
       print Color.green('.'*happy_steps)
       if failed?
         print Color.red('X')
         print Color.cyan('_'*(bar_width-1-happy_steps))
       end
+      last_tail
+    end
+
+    def last_tail
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
       puts
@@ -350,6 +376,29 @@ ENDTEXT
       end
     end
 
+    def find_interesting_lines(backtrace)
+      backtrace.reject { |line|
+        line =~ /neo\.rb/
+      }
+    end
+
+    def indent(text)
+      text = text.split(/\n/) if text.is_a?(String)
+      text.collect{|type| "  #{type}"}
+    end
+
+    def embolden_first_line_only(text)
+      first_line = true
+      text.collect { |type|
+        if first_line
+          first_line = false
+          Color.red(type)
+        else
+          Color.cyan(type)
+        end
+      }
+    end
+
     def guide_through_error
       puts
       puts "The answers you seek..."
@@ -360,28 +409,16 @@ ENDTEXT
       puts
     end
 
-    def embolden_first_line_only(text)
-      first_line = true
-      text.collect { |t|
-        if first_line
-          first_line = false
-          Color.red(t)
-        else
-          Color.cyan(t)
-        end
-      }
-    end
+#    def indent(text)
+#      text = text.split(/\n/) if text.is_a?(String)
+#      text.collect{|t| "  #{t}"}
+#    end
 
-    def indent(text)
-      text = text.split(/\n/) if text.is_a?(String)
-      text.collect{|t| "  #{t}"}
-    end
-
-    def find_interesting_lines(backtrace)
-      backtrace.reject { |line|
-        line =~ /neo\.rb/
-      }
-    end
+#    def find_interesting_lines(backtrace)
+#      backtrace.reject { |line|
+#        line =~ /neo\.rb/
+#      }
+#    end
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
@@ -501,7 +538,7 @@ ENDTEXT
       end
 
       def total_tests
-        self.subclasses.inject(0){|total, k| total + k.testmethods.size }
+        self.subclasses.inject(0){|total, temp| total + temp.testmethods.size }
       end
     end
   end
@@ -519,12 +556,20 @@ ENDTEXT
       catch(:neo_exit) {
         step_count = 0
         Neo::Koan.subclasses.each_with_index do |koan,koan_index|
-          koan.testmethods.each do |method_name|
-            step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
-            yield step
-          end
+          step_counter(koan)
+#          koan.testmethods.each do |method_name|
+#            step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
+#            yield step
+#          end
         end
       }
+    end
+
+    def step_counter(koan)
+      koan.testmethods.each do |method_name|
+        step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
+        yield step
+      end
     end
   end
 end
