@@ -1,8 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UselessAssignment
+# rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = "Hello, World"
+    string = 'Hello, World'
     assert_equal true, string.is_a?(String)
   end
 
@@ -13,12 +15,12 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    assert_equal "He said, \"Go Away.\"", string
+    assert_equal 'He said, "Go Away."', string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal 'Don\'t', string
+    assert_equal "Don't", string
   end
 
   def test_use_backslash_for_those_hard_cases
@@ -42,59 +44,59 @@ It was the worst of times.
 }
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0,1]
+    assert_equal "\n", long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<EOS
-It was the best of times,
-It was the worst of times.
-EOS
-    assert_equal 53, long_string.length
+    long_string = <<MEANINGFUL
+                    It was the best of times,
+                    It was the worst of times.
+MEANINGFUL
+    assert_equal 93, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal "I", long_string[0,1]
+    assert_equal ' ', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
-    string = "Hello, " + "World"
+    string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     hi += there
     assert_equal 'Hello, World', hi
   end
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
-    original_string = "Hello, "
+    original_string = 'Hello, '
     hi = original_string
-    there = "World"
+    there = 'World'
     hi += there
     assert_equal 'Hello, ', original_string
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     hi << there
     assert_equal 'Hello, World', hi
     assert_equal 'World', there
   end
 
   def test_the_shovel_operator_modifies_the_original_string
-    original_string = "Hello, "
+    original_string = 'Hello, '
     hi = original_string
-    there = "World"
+    there = 'World'
     hi << there
     assert_equal 'Hello, World', original_string
 
@@ -126,29 +128,31 @@ EOS
     assert_equal 'The value is 123', string
   end
 
+  # rubocop:disable Lint/InterpolationCheck
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = 'The value is #{value}'
     assert_equal 'The value is #{value}', string
   end
+  # rubocop:enable Lint/InterpolationCheck
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
-    assert_equal "The square root of 5 is 2.23606797749979", string
+    assert_equal 'The square root of 5 is 2.23606797749979', string
   end
 
   def test_you_can_get_a_substring_from_a_string
-    string = "Bacon, lettuce and tomato"
-    assert_equal 'let', string[7,3]
+    string = 'Bacon, lettuce and tomato'
+    assert_equal 'let', string[7, 3]
     assert_equal 'let', string[7..9]
   end
 
   def test_you_can_get_a_single_character_from_a_string
-    string = "Bacon, lettuce and tomato"
-    assert_equal "a", string[1]
+    string = 'Bacon, lettuce and tomato'
+    assert_equal 'a', string[1]
 
     # Surprised?
-    # Aga, ne to slovo
+    # Nope
   end
 
   in_ruby_version('1.8') do
@@ -170,7 +174,7 @@ EOS
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
     words = string.split
-    assert_equal w[Sausage Egg Cheese], words
+    assert_equal %w[Sausage Egg Cheese], words
   end
 
   def test_strings_can_be_split_with_different_patterns
@@ -185,7 +189,7 @@ EOS
 
   def test_strings_can_be_joined
     words = %w[Now is the time]
-    assert_equal 'Now is the time', words.join(" ")
+    assert_equal 'Now is the time', words.join(' ')
   end
 
   def test_strings_are_unique_objects
@@ -196,3 +200,5 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/UselessAssignment
