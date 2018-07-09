@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# Class about scope
 class AboutScope < Neo::Koan
   # Module jims
   module Jims
