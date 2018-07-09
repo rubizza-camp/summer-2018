@@ -22,7 +22,7 @@ class Proxy
     @message_array << method_name
     @object.send(method_name, *args, &block)
   end
-  
+
   def messages
     @message_array.uniq
   end
@@ -30,7 +30,7 @@ class Proxy
   def called?(method_name)
     @message_array.include?(method_name)
   end
-  
+
   def number_of_times_called(method_name)
     @message_array.find_all { |item| item == method_name }.count
   end
@@ -64,7 +64,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal %i(power channel=), tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages
@@ -103,8 +103,8 @@ class AboutProxyObjectProject < Neo::Koan
     proxy.upcase!
     result = proxy.split
 
-    assert_equal %w(CODE MASH 2009), result
-    assert_equal %i(upcase! split), proxy.messages
+    assert_equal %w[CODE MASH 2009], result
+    assert_equal %i[upcase! split], proxy.messages
   end
 end
 
