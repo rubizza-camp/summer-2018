@@ -12,21 +12,19 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
-class Proxy # class Proxy
-  attr_reader :messages
+# class Proxy
+class Proxy 
 
   def initialize(target_object)
     @object = target_object
     @messages = Hash.new(0)
   end
-  
   # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     @messages[method_name] += 1
     @object.send method_name, *args, &block
   end
   # rubocop:enable Style/MethodMissing
-  
   def called?(method_name)
     @messages.key?(method_name)
   end
@@ -125,10 +123,10 @@ class Television
 
   def power
     @power = if @power == :on
-      :off
-    elsif
-      @power = :on
-    end
+          :off
+        elsif
+          :on
+        end
   end
 
   def on?
