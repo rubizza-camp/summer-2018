@@ -2,7 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 require './triangle.rb'
 
-class AboutTriangleProject2 < Neo::Koan # Let's handle that part now.
+# Let's handle that part now.
+class AboutTriangleProject2 < Neo::Koan 
   def test_illegal_triangles_throw_exceptions
     assert_raise(TriangleError) { triangle(0, 0, 0) }
     assert_raise(TriangleError) { triangle(3, 4, -5) }
