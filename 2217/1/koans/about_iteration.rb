@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class AboutIteration
+# This class smells of :reek:UtilityFunction and :reek:TooManyStatements
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -54,6 +55,7 @@ class AboutIteration < Neo::Koan
     assert_equal 6, sum
   end
 
+  # This method smells of :reek:DuplicateMethodCall
   def test_collect_transforms_elements_of_an_array
     array = [1, 2, 3]
     new_array = array.collect { |item| item + 10 }
@@ -81,6 +83,7 @@ class AboutIteration < Neo::Koan
     assert_equal('Clarence', array.find { |item| item.size > 4 })
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
@@ -95,6 +98,7 @@ class AboutIteration < Neo::Koan
     # by returned value. Cool stuff btw
   end
 
+  # This method smells of :reek:NestedIterators
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }

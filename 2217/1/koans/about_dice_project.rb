@@ -8,6 +8,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #   code ...
 # end
 # class DiceSet
+# This class smells of :reek:InstanceVariableAssumption
 class DiceSet
   attr_reader :values
 
@@ -16,13 +17,17 @@ class DiceSet
     set_size.times { @values.push rand(1..6) }
   end
 end
+
 # class AboutDiceProject
+# This class smells of :reek:DuplicateMethodCall and :reek:FeatureEnvy
+# This class smells of  and :reek:TooManyStatements
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
     assert_not_nil dice
   end
 
+  # This method smells of :reek:UncommunicativeMethodName:
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
 

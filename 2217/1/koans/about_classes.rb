@@ -2,6 +2,8 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Naming/AccessorMethodName
+# This class smells of :reek:UncommunicativeModuleName and :reek:TooManyMethods
+# This class smells of :reek:FeatureEnvy and :reek:InstanceVariableAssumption
 # class AboutClasses
 class AboutClasses < Neo::Koan
   # class Dog
@@ -22,6 +24,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # This method smells of :reek:DuplicateMethodCall
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
     assert_equal [], fido.instance_variables
@@ -30,6 +33,7 @@ class AboutClasses < Neo::Koan
     assert_equal [:@name], fido.instance_variables
   end
 
+  # This method smells of :reek:TooManyStatements:
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.set_name('Fido')
@@ -98,6 +102,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # This class smells of :reek:Attribute
   # class Dog5
   class Dog5
     attr_accessor :name

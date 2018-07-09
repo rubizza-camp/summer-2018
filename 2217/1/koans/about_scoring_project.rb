@@ -32,24 +32,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
+# This method smells of :reek:DuplicateMethodCall and :reek:TooManyStatements
 def score(dice)
   @greed_scores ||=
-    (Hash.new do |h, k|
-      h[k] = { singles: 0, triples: k * 100 }
+    (Hash.new do |hash, key|
+      hash[key] = { singles: 0, triples: k * 100 }
     end).merge!(
       1 => { singles: 100, triples: 1000 },
       5 => { singles: 50, triples: 500 }
     )
   score = 0
-  dice.uniq.each do |n|
-    triples, singles = dice.count(n).divmod(3)
+  dice.uniq.each do |val|
+    triples, singles = dice.count(val).divmod(3)
     score +=
-      (@greed_scores[n][:singles] * singles) +
-      + (@greed_scores[n][:triples] * triples)
+      (@greed_scores[val][:singles] * singles) +
+      + (@greed_scores[val][:triples] * triples)
   end
   score
 end
 # class AboutScoringProject
+# This class smells of :reek:UncommunicativeMethodName and :reek:TooManyStatements
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Metrics/LineLength
 # class AboutSymbols
+# This class smells of :reek:UncommunicativeVariableName
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
@@ -77,6 +78,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # This method smells of :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
