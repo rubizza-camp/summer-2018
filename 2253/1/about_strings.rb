@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UselessAssignment
+# rubocop:disable Metrics/ClassLength
+# :nodoc:
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -56,47 +59,47 @@ EOS
   end
 
   def test_plus_will_concatenate_two_strings
-    string = "Hello, " + "World"
-    assert_equal "Hello, World", string
+    string = 'Hello, ' + 'World'
+    assert_equal 'Hello, World', string
   end
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     string = hi + there
-    assert_equal "Hello, ", hi
-    assert_equal "World", there
+    assert_equal 'Hello, ', hi
+    assert_equal 'World', there
   end
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     hi += there
-    assert_equal "Hello, " + "World", hi
+    assert_equal 'Hello, ' + 'World', hi
   end
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
-    original_string = "Hello, "
+    original_string = 'Hello, '
     hi = original_string
-    there = "World"
+    there = 'World'
     hi += there
-    assert_equal "Hello, ", original_string
+    assert_equal 'Hello, ', original_string
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     hi << there
-    assert_equal "Hello, World", hi
-    assert_equal "World", there
+    assert_equal 'Hello, World', hi
+    assert_equal 'World', there
   end
 
   def test_the_shovel_operator_modifies_the_original_string
-    original_string = "Hello, "
+    original_string = 'Hello, '
     hi = original_string
-    there = "World"
+    there = 'World'
     hi << there
-    assert_equal "Hello, World", original_string
+    assert_equal 'Hello, World', original_string
 
     # THINK ABOUT IT:
     #
@@ -134,7 +137,7 @@ EOS
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
-    assert_equal "The square root of 5 is 2.23606797749979", string
+    assert_equal 'The square root of 5 is 2.23606797749979', string
   end
 
   def test_you_can_get_a_substring_from_a_string
@@ -150,7 +153,7 @@ EOS
     # Surprised?
   end
 
-  in_ruby_version("1.8") do
+  in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
       assert_equal 97, 'a'
       assert_equal true, 'a' == 97
@@ -183,7 +186,7 @@ EOS
   end
 
   def test_strings_can_be_joined
-    words = %w(Now is th time)
+    words = %w[Now is the time]
     assert_equal 'Now is the time', words.join(' ')
   end
 
@@ -195,3 +198,5 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/UselessAssignment
