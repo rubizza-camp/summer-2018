@@ -3,7 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Security/Open
 # Class about sandwich code
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
+  # This method smells of :reek:FeatureEnvy
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -23,6 +25,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:FeatureEnvy
   def find_line(file_name)
     file = open(file_name)
     while (line = file.gets)
@@ -69,6 +72,7 @@ class AboutSandwichCode < Neo::Koan
     file.close if file
   end
 
+  # This class smells of :reek:UncommunicativeMethodName
   # Now we write:
 
   def count_lines2(file_name)
@@ -89,6 +93,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This class smells of :reek:UncommunicativeMethodName
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
@@ -107,6 +112,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This class smells of :reek:UncommunicativeMethodName
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0

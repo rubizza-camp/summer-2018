@@ -10,12 +10,14 @@ class AboutIteration < Neo::Koan
   # whenever comparing to lists of methods.
 
   in_ruby_version('1.8') do
+    # This method smells of :reek:UtilityFunction
     def as_name(name)
       name.to_s
     end
   end
 
   in_ruby_version('1.9', '2') do
+    # This method smells of :reek:UtilityFunction
     def as_name(name)
       name.to_sym
     end
@@ -128,6 +130,7 @@ class AboutIteration < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:NestedIterators
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
