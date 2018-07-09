@@ -1,6 +1,7 @@
+# Some comment here
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# about methods
-# This class smells of :reek:TooManyMethods
+# :reek:TooManyMethods
+# This class is responsible for 
 class AboutClassMethods < Neo::Koan
   # class dog
   class Dog
@@ -101,7 +102,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:IrresponsibleModule
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
@@ -111,8 +112,8 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # :reek:IrresponsibleModule
   # class dog
+  # :reek:IrresponsibleModule
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
