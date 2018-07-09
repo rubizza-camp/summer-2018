@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Metrics/LineLength
 # class AboutClassMethods
 # This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
@@ -106,11 +105,10 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  LAST_EXPRESSION_IN_CLASS_STATEMENT =
-    class Dog
-      21
-       # :reek:IrresponsibleModule
-    end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                         # :reek:IrresponsibleModule
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
@@ -176,4 +174,3 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
-# rubocop:enable Metrics/LineLength
