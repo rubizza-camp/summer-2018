@@ -12,16 +12,29 @@ include Java
 # * Calling Ruby from java???
 
 # asdf asfasdf asdfa
+# This class smells of :reek:UncommunicativeModuleName
 class AboutJavaInterop < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_using_a_java_library_class
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.class
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_java_class_can_be_referenced_using_both_ruby_and_java_like_syntax
     assert_equal __, Java::JavaUtil::ArrayList == java.util.ArrayList
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_include_class_includes_class_in_module_scope
     assert_nil defined?(TreeSet)
     include_class 'java.util.TreeSet'
@@ -39,22 +52,38 @@ class AboutJavaInterop < Neo::Koan
   # aliasing java classes to different names?
 
   JString = java.lang.String
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_also_java_class_can_be_given_ruby_aliases
     java_string = JString.new('A Java String')
     assert_equal __, java_string.class
     assert_equal __, JString
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_can_directly_call_java_methods_on_java_objects
     java_string = JString.new('A Java String')
     assert_equal __, java_string.toLowerCase
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_jruby_provides_snake_case_versions_of_java_methods
     java_string = JString.new('A Java String')
     assert_equal __, java_string.to_lower_case
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_jruby_provides_question_mark_versions_of_boolean_methods
     java_string = JString.new('A Java String')
     assert_equal __, java_string.endsWith('String')
@@ -63,6 +92,10 @@ class AboutJavaInterop < Neo::Koan
   end
 
   # :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_java_string_are_not_ruby_strings
     ruby_string = 'A Java String'
     java_string = java.lang.String.new(ruby_string)
@@ -70,6 +103,10 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, java_string.is_a?(String)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_java_strings_can_be_compared_to_ruby_strings_maybe
     ruby_string = 'A Java String'
     java_string = java.lang.String.new(ruby_string)
@@ -92,6 +129,10 @@ class AboutJavaInterop < Neo::Koan
 
   # rubocop:disable Metrics/AbcSize
   # :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_however_most_methods_returning_strings_return_ruby_strings
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
@@ -99,6 +140,10 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, java_array.toString.is_a?(java.lang.String)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_some_ruby_objects_can_be_coerced_to_java
     assert_equal __, 'ruby string'.to_java.class
     assert_equal __, 1.to_java.class
@@ -106,6 +151,10 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, false.to_java.class
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect
     assert_equal __, [].to_java.class == Java::JavaUtil::ArrayList
     assert_equal __, {}.to_java.class == Java::JavaUtil::HashMap
@@ -113,6 +162,10 @@ class AboutJavaInterop < Neo::Koan
   end
   # rubocop:enable Metrics/AbcSize
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_java_collections_are_enumerable
     java_array = java.util.ArrayList.new
     java_array << 'one' << 'two' << 'three'
@@ -138,6 +191,10 @@ class AboutJavaInterop < Neo::Koan
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_java_class_are_open_from_ruby
     java_array = java.util.ArrayList.new
     java_array.add_all([1, 2, 3, 4, 5])

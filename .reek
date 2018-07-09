@@ -1,8 +1,13 @@
-IrresponsibleModule:
-  enabled: false
+---
 
-DuplicateMethodCall:
-  enabled: false
+### Generic smell configuration
 
-UtilityFunction:
-  public_methods_only: true
+detectors:
+  IrresponsibleModule:
+    enabled: false
+
+  DuplicateMethodCall:
+    enabled: false
+
+  UtilityFunction:
+    public_methods_only: true

@@ -53,7 +53,12 @@ end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
 # com
+# This class smells of :reek:UncommunicativeModuleName
 class AboutScoringProject < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
