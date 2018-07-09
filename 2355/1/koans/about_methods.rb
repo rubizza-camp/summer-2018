@@ -61,7 +61,7 @@ class AboutMethods < Neo::Koan
     assert_match(/./, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/./, exception.message)
   end
