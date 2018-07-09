@@ -1,7 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Lint/LiteralAsCondition
 class AboutControlStatements < Neo::Koan
-
   def test_if_then_else_statements
     if true
       result = :true_value
@@ -19,6 +20,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -38,6 +40,7 @@ class AboutControlStatements < Neo::Koan
     # just if statements.
   end
 
+  # rubocop:enable Metrics/MethodLength
   def test_if_statements_with_no_else_with_false_condition_return_value
     value = if false
               :true_value
@@ -59,17 +62,13 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    unless false    # same as saying 'if !false', which evaluates as 'if true'
-      result = :false_value
-    end
+    result = :false_value unless false  # same as saying 'if !false', which evaluates as 'if true'
     assert_equal :false_value, result
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    unless true    # same as saying 'if !true', which evaluates as 'if false'
-      result = :true_value
-    end
+    result = :true_value unless true  # same as saying 'if !true', which evaluates as 'if false'
     assert_equal :default_value, result
   end
 
@@ -87,13 +86,13 @@ class AboutControlStatements < Neo::Koan
       result = result * i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement
     i = 1
     result = 1
-    while true
+    loop do
       break unless i <= 10
       result *= i
       i += 1
@@ -123,12 +122,12 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_for_statement
-    array = %w(fish and chips)
+    array = %w[fish and chips]
     result = []
     array.each do |item|
       result << item.upcase
     end
-    assert_equal %w(FISH AND CHIPS), result
+    assert_equal %w[FISH AND CHIPS], result
   end
 
   def test_times_statement
@@ -139,3 +138,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/ClassLength
