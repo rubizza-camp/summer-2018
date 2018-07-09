@@ -5,16 +5,25 @@ class DiceSet
   attr_reader :values
 
   def roll(init_number)
-    @values = Array.new(init_number){ rand(1..6) }
+    @values = Array.new(init_number) { rand(1..6) }
   end
 end
 
+# This class smells of :reek:UncommunicativeModuleName
 class AboutDiceProject < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_can_create_a_dice_set
     dice = DiceSet.new
     assert_not_nil dice
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
     dice.roll(5)
@@ -25,6 +34,10 @@ class AboutDiceProject < Neo::Koan
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
     dice.roll(5)
@@ -33,14 +46,17 @@ class AboutDiceProject < Neo::Koan
     assert_equal first_time, second_time
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
     dice.roll(5)
     first_time = dice.values
     dice.roll(5)
     second_time = dice.values
-    assert_not_equal first_time, second_time,
-                      'Two rolls should not be equal'
+    assert_not_equal first_time, second_time, 'Two rolls should not be equal'
 
     # THINK ABOUT IT:
     #
@@ -49,6 +65,10 @@ class AboutDiceProject < Neo::Koan
     # better way to test this?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new
     dice.roll(3)
