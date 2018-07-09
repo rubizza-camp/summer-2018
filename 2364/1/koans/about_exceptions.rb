@@ -47,7 +47,6 @@ class AboutExceptions < Neo::Koan
 
   # rubocop:disable Lint/HandleExceptions
   def test_ensure_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError
