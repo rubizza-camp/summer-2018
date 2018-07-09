@@ -77,7 +77,6 @@ class AboutSandwichCode < Neo::Koan
     
   # ------------------------------------------------------------------
 
-  # rubocop:disable Security/Open
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
@@ -93,6 +92,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Security/Open
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
