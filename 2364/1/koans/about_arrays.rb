@@ -1,13 +1,22 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about array
+# This class smells of :reek:UncommunicativeModuleName
 class AboutArrays < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_creating_arrays
     empty_array = []
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_array_literals
     array = []
     assert_equal [], array
@@ -22,6 +31,10 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 333], array
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]
 
@@ -33,6 +46,10 @@ class AboutArrays < Neo::Koan
     assert_equal :butter, array[-3]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_slicing_arrays
     array = %i[peanut butter and jelly]
 
@@ -45,6 +62,10 @@ class AboutArrays < Neo::Koan
     assert_equal nil, array[5, 0]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_arrays_and_ranges
     assert_equal Range, (1..5).class
     assert_not_equal [1, 2, 3, 4, 5], (1..5)
@@ -52,6 +73,10 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 3, 4], (1...5).to_a
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_slicing_with_ranges
     array = %i[peanut butter and jelly]
 
@@ -60,6 +85,10 @@ class AboutArrays < Neo::Koan
     assert_equal %i[and jelly], array[2..-1]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_pushing_and_popping_arrays
     array = [1, 2]
     array.push(:last)
@@ -71,6 +100,10 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_shifting_arrays
     array = [1, 2]
     array.unshift(:first)

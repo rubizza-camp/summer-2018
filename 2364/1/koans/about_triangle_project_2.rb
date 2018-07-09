@@ -4,9 +4,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 require './triangle.rb'
 
 # Class about triangle
+# This class smells of :reek:UncommunicativeModuleName
 class AboutTriangleProject2 < Neo::Koan
   # The first assignment did not talk about how to handle errors.
   # Let's handle that part now.
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_illegal_triangles_throw_exceptions
     assert_raise(TriangleError) { triangle(0, 0, 0) }
     assert_raise(TriangleError) { triangle(3, 4, -5) }
