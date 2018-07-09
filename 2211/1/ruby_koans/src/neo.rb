@@ -276,14 +276,23 @@ module Neo
 
     def instruct
       if failed?
-        @observations.each{|comment| puts comment }
-        encourage
-        guide_through_error
-        a_zenlike_statement
-        show_progress
+        failed_instruct
+#        @observations.each{|comment| puts comment }
+#        encourage
+#        guide_through_error
+#        a_zenlike_statement
+#        show_progress
       else
         end_screen
       end
+    end
+
+    def failed_instruct
+      @observations.each{|comment| puts comment }
+      encourage
+      guide_through_error
+      a_zenlike_statement
+      show_progress  
     end
 
     def show_progress
