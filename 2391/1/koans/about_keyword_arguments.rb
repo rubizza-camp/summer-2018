@@ -6,6 +6,7 @@ class AboutKeywordArguments < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_keyword_arguments
     assert_equal Array, method_with_keyword_arguments.class
     assert_equal [1, 'two'], method_with_keyword_arguments
@@ -18,6 +19,7 @@ class AboutKeywordArguments < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_keyword_arguments_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
