@@ -28,7 +28,8 @@ def doSingles(number, count, total)
   total
 end
 
-class AboutScoringProject < Neo::Koan # class AboutScoringProject
+# class AboutScoringProject
+class AboutScoringProject < Neo::Koan 
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
