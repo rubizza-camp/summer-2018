@@ -1742,3 +1742,4 @@ Style/PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
   StyleGuide: '#percent-literal-braces'
   Enabled: false
+
