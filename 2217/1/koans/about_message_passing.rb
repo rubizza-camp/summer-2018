@@ -116,6 +116,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable Style/MethodMissing
   # class AllMessageCatcher
   class AllMessageCatcher
     # This method smells of :reek:UtilityFunction
@@ -123,6 +124,7 @@ class AboutMessagePassing < Neo::Koan
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop:enable Style/MethodMissing
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -143,6 +145,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable Style/MethodMissing  
   # class WellBehavedFooCatcher
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &_block)
@@ -154,6 +157,7 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  # rubocop:enable Style/MethodMissing
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
