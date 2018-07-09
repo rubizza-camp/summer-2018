@@ -580,3 +580,7 @@ END {
   Neo::ThePath.new.walk
 }
 # rubocop:enable UtilityFunction, UncommunicativeVariableName, UncommunicativeParameterName
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 28002f161419956f154a92e97a2d7d9bf4546db3
