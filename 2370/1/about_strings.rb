@@ -151,8 +151,7 @@ MEANINGFUL
     string = 'Bacon, lettuce and tomato'
     assert_equal 'a', string[1]
 
-    # Surprised?
-    # Nope
+    # Surprised motherfucker!
   end
 
   in_ruby_version('1.8') do
