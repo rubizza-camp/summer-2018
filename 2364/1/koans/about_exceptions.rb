@@ -15,7 +15,6 @@ class AboutExceptions < Neo::Koan
   # rubocop:disable Lint/UselessAssignment
   # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError => ex
@@ -35,7 +34,6 @@ class AboutExceptions < Neo::Koan
   # rubocop:enable Metrics/MethodLength
 
   def test_raising_a_particular_error
-    result = nil
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'

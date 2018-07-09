@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Style/Documentation
 # Class about inheritance
 class AboutInheritance < Neo::Koan
+  # Class dog
   class Dog
     attr_reader :name
 
@@ -15,6 +15,7 @@ class AboutInheritance < Neo::Koan
     end
   end
 
+  # Class chihuahua
   class Chihuahua < Dog
     def wag
       :happy
@@ -58,6 +59,7 @@ class AboutInheritance < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class bulldog
   class BullDog < Dog
     def bark
       super + ', GROWL'
@@ -71,6 +73,7 @@ class AboutInheritance < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class greatdane
   class GreatDane < Dog
     def growl
       super.bark + ', GROWL'
@@ -84,4 +87,3 @@ class AboutInheritance < Neo::Koan
     end
   end
 end
-# rubocop:enable Style/Documentation
