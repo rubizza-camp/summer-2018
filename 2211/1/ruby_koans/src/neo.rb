@@ -216,16 +216,16 @@ module Neo
     def add_progress(prog)
       @_contents = nil
       exists = File.exists?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME,'a+') do |f|
-        f.print "#{',' if exists}#{prog}"
+      File.open(PROGRESS_FILE_NAME,'a+') do |file|
+        file.print "#{',' if exists}#{prog}"
       end
     end
 
     def progress
       if @_contents.nil?
         if File.exists?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME,'r') do |f|
-            @_contents = f.read.to_s.gsub(/\s/,'').split(',')
+          File.open(PROGRESS_FILE_NAME,'r') do |file|
+            @_contents = file.read.to_s.gsub(/\s/,'').split(',')
           end
         else
           @_contents = []
