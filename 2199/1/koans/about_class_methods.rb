@@ -1,7 +1,7 @@
 # Some comment here
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
-# This class is responsible for 
+# This class is responsible for
 class AboutClassMethods < Neo::Koan
   # class dog
   class Dog

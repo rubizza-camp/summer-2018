@@ -14,9 +14,11 @@ class AboutNil < Neo::Koan
     # What exception has been caught?
     assert_equal NoMethodError, ex.class
 
-    # What message was attached to the exception?
-    # (HINT: replace __ with part of the error message.)
-    assert_match(/undefined method `some_method_nil_doesnt_know_about' for nil:NilClass/, ex.message)
+      # What message was attached to the exception?
+      # (HINT: replace __ with part of the error message.)
+      # rubocop:disable Layout/IndentationConsistency
+      assert_match(/undefined method `some_method_nil_doesnt_know_about' for nil:NilClass/, ex.message)
+    # rubocop:enable Layout/IndentationConsistency
   end
 
   # :reek:NilCheck
