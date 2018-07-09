@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Metrics/ClassLength
-# class aboutcontrol state
+# Class about control statements
 # This class smells of :reek:UncommunicativeModuleName
 class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName

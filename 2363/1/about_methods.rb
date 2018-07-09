@@ -1,12 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Def global
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeParameterName
 def my_global_method(param1, param2)
   param1 + param2
 end
 
 # Class about methods
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -66,6 +69,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UtilityFunction
   def method_with_defaults(first_item, second_item = :default_value)
     [first_item, second_item]
   end
@@ -133,6 +137,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UtilityFunction
   def my_method_in_the_same_class(first_term, second_term)
     first_term * second_term
   end

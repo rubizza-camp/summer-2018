@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about class methods
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   # Class dog
   class Dog
@@ -71,6 +72,7 @@ class AboutClassMethods < Neo::Koan
     def fido.wag
       :fidos_wag
     end
+
     assert_raise(NoMethodError) do
       rover.wag
     end
@@ -78,7 +80,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class Dog2
+  # Class dog2
   class Dog2
     def wag
       :instance_level_wag
@@ -108,7 +110,9 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Class Dog
+
+  # Class dog
+  # This class smells of :reek:Attribute
   class Dog
     attr_accessor :name
   end
@@ -148,16 +152,17 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
-                                         21
-                                       end
+
+  LAST_EXPRESSION_CLASS = class Dog
+                            21
+                          end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
+    assert_equal 21, LAST_EXPRESSION_CLASS
   end
 
   # ------------------------------------------------------------------
@@ -165,6 +170,7 @@ class AboutClassMethods < Neo::Koan
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
+
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -177,6 +183,7 @@ class AboutClassMethods < Neo::Koan
 
   # Class dog
   class Dog
+    # This method smells of :reek:UncommunicativeMethodName
     def self.class_method2
       :another_way_to_write_class_methods
     end
@@ -192,7 +199,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # class with name is Dog
+  # Class dog
   class Dog
     class << self
       def another_class_method

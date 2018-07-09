@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class about exception
+# Class about exception
 # This class smells of :reek:UncommunicativeModuleName
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
@@ -10,7 +10,7 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
@@ -28,10 +28,15 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => ex
       result = :exception_handled
     end
+
     assert_equal :exception_handled, result
+
     assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, ex.is_a?(RuntimeError), 'Should be a Runtime Error'
-    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+    assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
+
+    assert RuntimeError.ancestors.include?(StandardError),
+           'RuntimeError is a subclass of StandardError'
+
     assert_equal 'Oops', ex.message
   end
   # rubocop:enable Metrics/MethodLength
@@ -41,15 +46,15 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_raising_a_particular_error
-    result = nil
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
     rescue MySpecialError => ex
       result = :exception_handled
     end
+
     assert_equal :exception_handled, result
-    assert_equal "My Message", ex.message
+    assert_equal 'My Message', ex.message
   end
 
   # rubocop:disable Lint/HandleExceptions
@@ -59,12 +64,13 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_ensure_clause
     begin
-      fail 'Oops'
+      raise 'Oops'
     rescue StandardError
       # no code here
     ensure
       result = :always_run
     end
+
     assert_equal :always_run, result
   end
   # rubocop:enable Lint/HandleExceptions

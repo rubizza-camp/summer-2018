@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/MethodMissing
 # Class about message passing
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:ManualDispatch
 class AboutMessagePassing < Neo::Koan
   # Class messagecatcher
   class MessageCatcher
@@ -17,6 +18,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_methods_can_be_called_directly
     mc = MessageCatcher.new
+
     assert mc.caught?
   end
 
@@ -26,6 +28,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_methods_can_be_invoked_by_sending_the_message
     mc = MessageCatcher.new
+
     assert mc.send(:caught?)
   end
 
@@ -35,6 +38,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_methods_can_be_invoked_more_dynamically
     mc = MessageCatcher.new
+
     assert mc.send('caught?')
     assert mc.send('caught' + '?') # What do you need to add to the first string?
     assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
@@ -46,6 +50,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_send_with_underscores_will_also_send_messages
     mc = MessageCatcher.new
+
     assert_equal true, mc.__send__(:caught?)
 
     # THINK ABOUT IT:
@@ -59,11 +64,13 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
+
     assert_equal true, mc.respond_to?(:caught?)
     assert_equal false, mc.respond_to?(:does_not_exist)
   end
 
   # ------------------------------------------------------------------
+
   # Class messagecatcher
   class MessageCatcher
     def add_a_payload(*args)
@@ -104,6 +111,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_sending_undefined_messages_to_a_typical_object_results_in_errors
     typical = TypicalObject.new
+
     exception = assert_raise(NoMethodError) do
       typical.foobar
     end
@@ -116,6 +124,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_calling_method_missing_causes_the_no_method_error
     typical = TypicalObject.new
+
     exception = assert_raise(NoMethodError) do
       typical.method_missing(:foobar)
     end
@@ -140,8 +149,10 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class keycher
+
+  # Class allmessagecatcher
   class AllMessageCatcher
+    # This method smells of :reek:UtilityFunction
     def method_missing(method_name, *args, &_block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
@@ -153,6 +164,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
+
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
@@ -173,8 +185,9 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class wellbehavedfooocatcher
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block)
+    def method_missing(method_name, *args, &_block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
@@ -200,6 +213,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_non_foo_messages_are_treated_normally
     catcher = WellBehavedFooCatcher.new
+
     assert_raise(NoMethodError) do
       catcher.normal_undefined_method
     end
@@ -224,6 +238,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
+
     assert_equal true, catcher.respond_to?(:foo_bar)
     assert_equal false, catcher.respond_to?(:something_else)
   end

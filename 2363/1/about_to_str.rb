@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# Class about str
 # This class smells of :reek:UncommunicativeModuleName
 class AboutToStr < Neo::Koan
+  # Class about str
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -29,6 +31,7 @@ class AboutToStr < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class about str
   class CanBeTreatedAsString
     def to_s
       'string-like'
@@ -57,7 +60,8 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UtilityFunction
+  # This method smells of :reek:ManualDispatch
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)
