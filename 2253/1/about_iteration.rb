@@ -14,7 +14,7 @@ class AboutIteration < Neo::Koan
     end
   end
 
-  in_ruby_version('1.9", "2') do
+  in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
     end
@@ -75,7 +75,7 @@ class AboutIteration < Neo::Koan
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
-    array = %w(Jim Bill Clarence Doug Eli)
+    array = %w[Jim Bill Clarence Doug Eli]
 
     assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
@@ -99,7 +99,7 @@ class AboutIteration < Neo::Koan
     # Files act like a collection of lines
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
-      assert_equal %w(THIS IS A TEST), upcase_lines
+      assert_equal %w[THIS IS A TEST], upcase_lines
     end
 
     # NOTE: You can create your own collections that work with each,
