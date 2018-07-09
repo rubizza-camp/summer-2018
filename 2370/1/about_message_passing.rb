@@ -138,8 +138,8 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  # Batareyka
+  # rubocop:disable Style/MethodMissingSuper
+  # Comment
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -147,6 +147,7 @@ class AboutMessagePassing < Neo::Koan
       else
         super(method_name, *args, &block)
       end
+  # rubocop:enable Style/MethodMissingSuper
     end
   end
 
