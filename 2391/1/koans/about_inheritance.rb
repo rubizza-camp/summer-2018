@@ -24,22 +24,26 @@ class AboutInheritance < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_subclasses_have_the_parent_as_an_ancestor
     assert_equal true, Chihuahua.ancestors.include?(Dog)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_all_classes_ultimately_inherit_from_object
     assert_equal true, Chihuahua.ancestors.include?(Object)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_subclasses_inherit_behavior_from_parent_class
     chico = Chihuahua.new('Chico')
     assert_equal 'Chico', chico.name
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_subclasses_add_new_behavior
     chico = Chihuahua.new('Chico')
     assert_equal :happy, chico.wag
@@ -51,6 +55,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_subclasses_can_modify_existing_behavior
     chico = Chihuahua.new('Chico')
     assert_equal 'yip', chico.bark
@@ -68,6 +73,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_subclasses_can_invoke_parent_behavior_via_super
     ralph = BullDog.new('Ralph')
     assert_equal 'WOOF, GROWL', ralph.bark
@@ -82,6 +88,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_super_does_not_work_cross_method
     george = GreatDane.new('George')
     assert_raise(NoMethodError) do

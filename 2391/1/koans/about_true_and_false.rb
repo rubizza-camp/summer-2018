@@ -10,21 +10,25 @@ class AboutTrueAndFalse < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_true_is_treated_as_true
     assert_equal :true_stuff, truth_value(true)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_false_is_treated_as_false
     assert_equal :false_stuff, truth_value(false)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_nil_is_treated_as_false_too
     assert_equal :false_stuff, truth_value(nil)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_everything_else_is_treated_as_true
     assert_equal :true_stuff, truth_value(1)
     assert_equal :true_stuff, truth_value(0)

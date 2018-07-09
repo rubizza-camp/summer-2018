@@ -23,11 +23,13 @@ class AboutIteration < Neo::Koan
   # -------------------------------------------------------------------
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_each_is_a_method_on_arrays
     assert_equal true, [].methods.include?(as_name(:each))
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_iterating_with_each
     array = [1, 2, 3]
     sum = 0
@@ -38,6 +40,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_each_can_use_curly_brace_blocks_too
     array = [1, 2, 3]
     sum = 0
@@ -46,6 +49,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
@@ -57,6 +61,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_collect_transforms_elements_of_an_array
     array = [1, 2, 3]
     new_array = array.collect { |item| item + 10 }
@@ -68,6 +73,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
@@ -80,6 +86,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
 
@@ -87,6 +94,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
@@ -101,6 +109,7 @@ class AboutIteration < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }

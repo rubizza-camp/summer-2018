@@ -9,6 +9,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_methods_can_be_called_directly
     mc = MessageCatcher.new
 
@@ -16,6 +17,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_methods_can_be_invoked_by_sending_the_message
     mc = MessageCatcher.new
 
@@ -23,6 +25,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_methods_can_be_invoked_more_dynamically
     mc = MessageCatcher.new
 
@@ -32,6 +35,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_send_with_underscores_will_also_send_messages
     mc = MessageCatcher.new
 
@@ -43,6 +47,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -59,6 +64,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_sending_a_message_with_arguments
     mc = MessageCatcher.new
 
@@ -82,6 +88,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_sending_undefined_messages_to_a_typical_object_results_in_errors
     typical = TypicalObject.new
 
@@ -92,6 +99,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_calling_method_missing_causes_the_no_method_error
     typical = TypicalObject.new
 
@@ -127,6 +135,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
@@ -136,6 +145,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -158,6 +168,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
@@ -166,6 +177,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_non_foo_messages_are_treated_normally
     catcher = WellBehavedFooCatcher.new
 
@@ -188,6 +200,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 

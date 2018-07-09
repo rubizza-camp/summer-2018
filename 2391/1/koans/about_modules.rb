@@ -14,6 +14,7 @@ class AboutModules < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_cant_instantiate_modules
     assert_raise(NoMethodError) do
       Nameable.new
@@ -41,12 +42,14 @@ class AboutModules < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_normal_methods_are_available_in_the_object
     fido = Dog.new
     assert_equal 'WOOF', fido.bark
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
@@ -55,6 +58,7 @@ class AboutModules < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name
@@ -63,6 +67,7 @@ class AboutModules < Neo::Koan
   end
 
   # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_classes_can_override_module_methods
     fido = Dog.new
     assert_equal :in_object, fido.here
