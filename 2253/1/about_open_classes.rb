@@ -1,15 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :nodoc:
 class AboutOpenClasses < Neo::Koan
+  # :nodoc:
   class Dog
     def bark
-      "WOOF"
+      'WOOF'
     end
   end
 
   def test_as_defined_dogs_do_bark
     fido = Dog.new
-    assert_equal "WOOF", fido.bark
+    assert_equal 'WOOF', fido.bark
   end
 
   # ------------------------------------------------------------------
@@ -28,7 +30,7 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  
+
   # rubocop:disable Style/ClassAndModuleChildren
   # :nodoc:
   class ::Integer
