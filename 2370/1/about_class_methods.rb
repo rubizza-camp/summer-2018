@@ -87,7 +87,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Dog
+  # Comment
   class Dog
     def self.a_class_method
       :dogs_class_method
@@ -97,9 +97,8 @@ class AboutClassMethods < Neo::Koan
   def test_you_can_define_class_methods_inside_the_class
     assert_equal :dogs_class_method, Dog.a_class_method
   end
-
   # ------------------------------------------------------------------
-  # Oh my god
+  # rubocop:disable Style/Documentation
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
@@ -109,7 +108,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # I hate this
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
@@ -117,9 +115,9 @@ class AboutClassMethods < Neo::Koan
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
-
+  # rubocop:enable Style/Documentation
   # ------------------------------------------------------------------
-  # Woof
+  # Comment
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -131,7 +129,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # My name is Hulio
+  # MComment
   class Dog
     class << self
       def another_class_method
