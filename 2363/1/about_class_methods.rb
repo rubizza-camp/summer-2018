@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutClassMethods < Neo::Koan
+# Class about class methods
+class AboutClassMethods < Neo::Koan 
+  # Class dog
   class Dog
   end
 
@@ -69,14 +71,16 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # Class Dog
   class Dog
     attr_accessor :name
   end
 
+  # rubocop:disable Style/TrivialAccessors
   def Dog.name
     @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -87,6 +91,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     def self.a_class_method
       :dogs_class_method
@@ -98,7 +103,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/Documentation
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
@@ -112,13 +117,15 @@ class AboutClassMethods < Neo::Koan
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
-
+  # rubocop:enable Style/Documentation
+  
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -131,6 +138,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class with name is Dog
   class Dog
     class << self
       def another_class_method

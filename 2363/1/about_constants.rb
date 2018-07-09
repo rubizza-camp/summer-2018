@@ -2,10 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
 
-#comment
-
+# Class about constants
 class AboutConstants < Neo::Koan
   C = 'nested'.freeze
+
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
   end
@@ -19,16 +19,14 @@ class AboutConstants < Neo::Koan
     assert_equal 'nested', ::AboutConstants::C
   end
 
-#comment
-
+  #Class animal
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
 
-#comment
-
+  #Class nestedanimal
   class NestedAnimal
     def legs_in_nested_animal
       LEGS
@@ -40,7 +38,7 @@ end
     assert_equal 4, Animal::NestedAnimal.new.legs_in_nested_animal
   end
 
-#comment
+  #animal ne obichni
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -51,7 +49,7 @@ end
     assert_equal 4, Reptile.new.legs_in_reptile
   end
 
-#comment
+  #moe jivotnoe
   class MyAnimals
     LEGS = 2
     #comment
