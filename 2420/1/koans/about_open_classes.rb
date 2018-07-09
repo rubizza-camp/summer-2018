@@ -29,7 +29,7 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class 
+  # class
   class ::Integer
     def even?
       (self % 2).zero?
