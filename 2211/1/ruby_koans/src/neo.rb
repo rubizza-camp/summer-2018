@@ -259,7 +259,7 @@ module Neo
 
     def instruct
       if failed?
-        @observations.each{|c| puts c }
+        @observations.each{|comment| puts comment }
         encourage
         guide_through_error
         a_zenlike_statement
