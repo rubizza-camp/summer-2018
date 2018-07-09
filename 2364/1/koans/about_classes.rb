@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Naming/AccessorMethodName
 # Class about classes
 class AboutClasses < Neo::Koan
+  # Class dog
   class Dog
   end
 
@@ -13,6 +14,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog2
   class Dog2
     def set_name(a_name)
       @name = a_name
@@ -55,13 +57,14 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
     assert_equal('Fido', fido.instance_eval { @name }) # block version
   end
   # rubocop:enable Style/EvalWithLocation
 
   # ------------------------------------------------------------------
 
+  # Class dog3
   class Dog3
     def set_name(a_name)
       @name = a_name
@@ -79,6 +82,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog4
   class Dog4
     attr_reader :name
 
@@ -96,6 +100,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog5
   class Dog5
     attr_accessor :name
   end
@@ -109,6 +114,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog6
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -138,6 +144,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog7
   class Dog7
     attr_reader :name
 
