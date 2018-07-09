@@ -52,7 +52,6 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   
-  # rubocop:disable Security/Open
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
@@ -91,7 +90,6 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Security/Open
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
