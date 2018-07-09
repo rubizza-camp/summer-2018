@@ -92,8 +92,8 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_slash_a_anchors_to_the_start_of_the_string
-    assert_equal "start", "start end"[/\Astart/]
-    assert_equal nil, "start end"[/\Aend/]
+    assert_equal 'start', 'start end'[/\Astart/]
+    assert_equal nil, 'start end'[/\Aend/]
   end
 
   def test_slash_z_anchors_to_the_end_of_the_string
@@ -122,7 +122,7 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_parentheses_also_capture_matched_content_by_number
-    assert_equal 'Gray", ''Gray, James'[/(\w+), (\w+)/, 1]
+    assert_equal 'Gray', 'Gray, James'[/(\w+), (\w+)/, 1]
     assert_equal 'James', 'Gray, James'[/(\w+), (\w+)/, 2]
   end
 
@@ -148,7 +148,7 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all
-    assert_equal %w(one two three), 'one two-three'.scan(/\w+/)
+    assert_equal %w[one two three], 'one two-three'.scan(/\w+/)
   end
 
   def test_sub_is_like_find_and_replace
