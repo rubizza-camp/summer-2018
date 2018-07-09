@@ -16,7 +16,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
@@ -48,7 +47,6 @@ class AboutSandwichCode < Neo::Koan
   # the problem of sandwich code for resource allocation.)
   #
   # Consider the following code:
-  #
 
   def file_sandwich(file_name)
     file = File.open(file_name)
@@ -81,7 +79,6 @@ class AboutSandwichCode < Neo::Koan
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
-
   # ------------------------------------------------------------------
   def count_lines3(file_name)
     File.open(file_name) do |file|
