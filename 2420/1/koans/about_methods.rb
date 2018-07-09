@@ -39,7 +39,7 @@ class AboutMethods < Neo::Koan # class AboutMethods
     assert_match(/wrong number/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/wrong number/, exception.message)
   end
@@ -64,18 +64,21 @@ class AboutMethods < Neo::Koan # class AboutMethods
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one], method_with_var_args(:one)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
     :another_non_return_value
   end
-
+  # rubocop:enable Lint/UnreachableCode
+  
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
@@ -86,6 +89,7 @@ class AboutMethods < Neo::Koan # class AboutMethods
     :a_non_return_value
     :return_value
   end
+  # rubocop:enable Lint/Void
 
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
@@ -93,16 +97,16 @@ class AboutMethods < Neo::Koan # class AboutMethods
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(one, two)
+    one * two
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -116,15 +120,18 @@ class AboutMethods < Neo::Koan # class AboutMethods
     assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable Style/RedundantSelf
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
     assert_match /method/, exception.message
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
+  # class Dog
   class Dog
     def name
       'Fido'
