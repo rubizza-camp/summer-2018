@@ -158,8 +158,8 @@ class AboutClasses < Neo::Koan
   end
 
   def test_to_s_is_used_in_string_interpolation
-    fido = Dog7.new("Fido")
-    assert_equal "My dog is Fido", "My dog is #{fido}"
+    fido = Dog7.new('Fido')
+    assert_equal 'My dog is Fido', "My dog is #{fido}"
   end
 
   def test_inspect_provides_a_more_complete_string_version
@@ -175,3 +175,4 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Naming/AccessorMethodName
