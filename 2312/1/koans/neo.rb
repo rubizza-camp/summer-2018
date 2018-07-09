@@ -25,6 +25,7 @@ class FillMeInError < StandardError
 end
 
 # :reek:ControlParameter
+# :reek:UtilityFunction
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
@@ -32,39 +33,43 @@ def ruby_version?(version)
 end
 
 def in_ruby_version(*versions)
-  yield if versions.any? { |v| ruby_version?(v) }
+  yield if versions.any? { |ver| ruby_version?(ver) }
 end
 
 in_ruby_version('1.8') do
+  # caf asafs asgasf
   class KeyError < StandardError
   end
 end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
-def __(value = 'FILL ME IN', value19 = :mu)
+# :reek:UtilityFunction
+def __(value = 'FILL ME IN', value_one_nine = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    value19 == :mu ? value : value19
+    value_one_nine == :mu ? value : value_one_nine
   end
 end
 
 # Numeric replacement value.
-def _n_(value = 999_999, value19 = :mu)
+# :reek:UtilityFunction
+def _n_(value = 999_999, value_one_nine = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    value19 == :mu ? value : value19
+    value_one_nine == :mu ? value : value_one_nine
   end
 end
 
 # Error object replacement value.
-def ___(value = FillMeInError, value19 = :mu)
+# :reek:UtilityFunction
+def ___(value = FillMeInError, value_one_nine = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    value19 == :mu ? value : value19
+    value_one_nine == :mu ? value : value_one_nine
   end
 end
 
@@ -79,7 +84,7 @@ class Object
   end
 end
 
-# com
+# adf adsf asdf
 class String
   def side_padding(width)
     extra = width - size
@@ -93,16 +98,16 @@ class String
   end
 end
 
-# com
+# asdf asdf asdf
 module Neo
-  # com
+  # asdf sadf asdf
   class << self
     def simple_output
       ENV['SIMPLE_KOAN_OUTPUT'] == 'true'
     end
   end
 
-  # com
+  # asdf asdf asdf
   module Color
     # shamelessly stolen (and modified) from redgreen
     COLORS = {
@@ -131,6 +136,8 @@ module Neo
     end
 
     # rubocop:disable Style/GuardClause
+    # :reek:DuplicateMethodCall
+    # :reek:NilCheck
     def use_colors?
       return false if ENV['NO_COLOR']
       if ENV['ANSI_COLOR'].nil?
@@ -153,8 +160,10 @@ module Neo
     end
   end
 
-  # com
+  # :reek:DataClump
+  # asdfg asg asdf
   module Assertions
+    # asdgfa asdf asdf
     FailedAssertionError = Class.new(StandardError)
 
     def flunk(msg)
@@ -168,33 +177,40 @@ module Neo
       true
     end
 
-    # :reek:DataClump
+    # :reek:FeatureEnvy
     def assert_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to equal #{actual.inspect}"
       assert(expected == actual, msg)
     end
 
+    # :reek:FeatureEnvy
     def assert_not_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to not equal #{actual.inspect}"
       assert(expected != actual, msg)
     end
 
+    # :reek:FeatureEnvy
+    # :reek:NilCheck
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
     end
 
+    # :reek:FeatureEnvy
+    # :reek:NilCheck
     def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(!actual.nil?, msg)
     end
 
+    # :reek:FeatureEnvy
     def assert_match(pattern, actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg
     end
 
-    # :reek:DuplicateMethod
+    # :reek:DuplicateMethodCall
+    # :reek:TooManyStatements
     def assert_raise(exception)
       begin
         yield
@@ -214,7 +230,10 @@ module Neo
   end
 
   # rubocop:disable Metrics/ClassLength
-  # com
+  # :reek:TooManyInstanceVariables
+  # :reek:InstanceVariableAssumption
+  # :reek:TooManyMethods
+  # asdfa asdf asdf
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -232,16 +251,17 @@ module Neo
     def add_progress(prog)
       @_contents = nil
       exists = File.exist?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME, 'a+') do |f|
-        f.print "#{',' if exists}#{prog}"
+      File.open(PROGRESS_FILE_NAME, 'a+') do |fun|
+        fun.print "#{',' if exists}#{prog}"
       end
     end
 
+    # :reek:NilCheck
     def progress
       if @_contents.nil?
         if File.exist?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME, 'r') do |f|
-            @_contents = f.read.to_s.gsub(/\s/, '').split(',')
+          File.open(PROGRESS_FILE_NAME, 'r') do |fun|
+            @_contents = fun.read.to_s.gsub(/\s/, '').split(',')
           end
         else
           @_contents = []
@@ -250,6 +270,8 @@ module Neo
       @_contents
     end
 
+    # :reek:DuplicateMethodCall
+    # :reek:TooManyStatements
     def observe(step)
       if step.passed?
         @pass_count += 1
@@ -265,6 +287,7 @@ module Neo
       end
     end
 
+    # :reek:NilCheck
     def failed?
       !@failure.nil?
     end
@@ -273,9 +296,10 @@ module Neo
       failure.is_a?(FailedAssertionError)
     end
 
+    # :reek:TooManyStatements
     def instruct
       if failed?
-        @observations.each { |c| puts c }
+        @observations.each { |cat| puts cat }
         encourage
         guide_through_error
         a_zenlike_statement
@@ -285,6 +309,7 @@ module Neo
       end
     end
 
+    # :reek:TooManyStatements
     def show_progress
       bar_width = 50
       total_tests = Neo::Koan.total_tests
@@ -314,6 +339,7 @@ module Neo
       puts 'Mountains are again merely mountains'
     end
 
+    # :reek:TooManyStatements
     def artistic_end_screen
       'JRuby 1.9.x Koans'
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
@@ -356,6 +382,8 @@ module Neo
       puts completed
     end
 
+    # :reek:DuplicateMethodCall
+    # :reek:TooManyStatements
     def encourage
       puts
       puts 'The Master says:'
@@ -369,6 +397,7 @@ module Neo
       end
     end
 
+    # :reek:TooManyStatements
     def guide_through_error
       puts
       puts 'The answers you seek...'
@@ -379,23 +408,27 @@ module Neo
       puts
     end
 
+    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
-      text.collect do |t|
+      text.collect do |tes|
         if first_line
           first_line = false
-          Color.red(t)
+          Color.red(tes)
         else
-          Color.cyan(t)
+          Color.cyan(tes)
         end
       end
     end
 
+    # :reek:FeatureEnvy
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
-      text.collect { |t| "  #{t}" }
+      text.collect { |tes| "  #{tes}" }
     end
 
+    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject do |line|
         line =~ /neo\.rb/
@@ -404,6 +437,7 @@ module Neo
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
+    # :reek:TooManyStatements
     def a_zenlike_statement
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
@@ -429,7 +463,8 @@ module Neo
     end
   end
   # rubocop:enable Metrics/ClassLength
-  # com
+  # :reek:TooManyInstanceVariables
+  # saf asdfas asf
   class Koan
     include Assertions
 
@@ -443,6 +478,7 @@ module Neo
       @koan_file = koan_file
     end
 
+    # :reek:NilCheck
     def passed?
       @failure.nil?
     end
@@ -455,6 +491,8 @@ module Neo
 
     def teardown; end
 
+    # :reek:TooManyStatements
+    # :reek:DuplicateMethodCall
     def meditate
       setup
       begin
@@ -486,6 +524,7 @@ module Neo
         @tests_disabled = true
       end
 
+      # :reek:DuplicateMethodCall
       def command_line(args)
         args.each do |arg|
           case arg
@@ -523,12 +562,13 @@ module Neo
       end
 
       def total_tests
-        subclasses.inject(0) { |total, k| total + k.testmethods.size }
+        subclasses.inject(0) { |total, kat| total + kat.testmethods.size }
       end
     end
   end
 
-  # com
+  # :reek:FeatureEnvy
+  # adf adsf asdd
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -538,6 +578,9 @@ module Neo
       sensei.instruct
     end
 
+    # :reek:FeatureEnvy
+    # :reek:TooManyStatements
+    # :reek:NestedIterators
     def each_step
       catch(:neo_exit) do
         step_count = 0
