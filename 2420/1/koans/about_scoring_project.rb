@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/AbcSize
 def score(dice)
   result = 0
   scores = Hash.new 0
@@ -18,6 +19,7 @@ def score(dice)
 
   result
 end
+# rubocop:enable Metrics/AbcSize
 
 def doSingles(number, count, total)
   if number == 1
