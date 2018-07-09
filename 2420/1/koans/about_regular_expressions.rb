@@ -66,13 +66,13 @@ class AboutRegularExpressions < Neo::Koan
   def test_slash_s_is_a_shortcut_for_a_whitespace_character_class
     assert_equal " \t\n", "space: \t\n"[/\s+/]
   end
-
+  # rubocop:disable Lint/Syntax
   def test_slash_w_is_a_shortcut_for_a_word_character_class
     # NOTE:  This is more like how a programmer might define a word.
     assert_equal 'variable_1', 'variable_1 = 42'[/[a-zA-Z0-9_]+/]
     assert_equal 'variable_1', 'variable_1 = 42'[/\w+/]
   end
-
+  # rubocop:enable Lint/Syntax
   def test_period_is_a_shortcut_for_any_non_newline_character
     assert_equal 'abc', "abc\n123"[/a.+/]
   end
