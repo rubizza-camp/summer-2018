@@ -1,5 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Layout/CommentIndentation
+# rubocop:disable Layout/IndentationWidth
+# rubocop:disable Layout/RescueEnsureAlignment
+# rubocop:disable Lint/RescueException
 # Class doc
 # This class smells of :reek:UncommunicativeModuleName
 class AboutNil < Neo::Koan
@@ -33,6 +37,7 @@ class AboutNil < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:NilCheck
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
@@ -47,3 +52,7 @@ class AboutNil < Neo::Koan
     # Why?
   end
 end
+# rubocop:enable Layout/CommentIndentation
+# rubocop:enable Layout/IndentationWidth
+# rubocop:enable Layout/RescueEnsureAlignment
+# rubocop:enable Lint/RescueException

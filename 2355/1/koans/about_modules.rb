@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Naming/AccessorMethodName
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class AboutModules < Neo::Koan
@@ -86,3 +87,4 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+# rubocop:enable Naming/AccessorMethodName

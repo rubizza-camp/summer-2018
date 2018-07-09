@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # -*- ruby -*-
 
 # Class docs

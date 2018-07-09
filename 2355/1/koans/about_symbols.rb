@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/SymbolProc
+# rubocop:disable Style/MutableConstant
+# rubocop:disable Naming/ConstantName
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class AboutSymbols < Neo::Koan
@@ -43,7 +46,7 @@ class AboutSymbols < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-    assert_equal true, symbols_as_strings.include?("test_method_names_become_symbols")
+    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
   # THINK ABOUT IT:
@@ -153,3 +156,6 @@ class AboutSymbols < Neo::Koan
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
+# rubocop:enable Style/SymbolProc
+# rubocop:enable Style/MutableConstant
+# rubocop:enable Naming/ConstantName

@@ -1,10 +1,22 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Style/ConditionalAssignment
+# rubocop:disable Style/IfUnlessModifier
+# rubocop:disable Style/SelfAssignment
+# rubocop:disable Style/NumericLiterals
+# rubocop:disable Style/InfiniteLoop
+# rubocop:disable Style/EvenOdd
+# rubocop:disable Style/NumericPredicate
+# rubocop:disable Style/For
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Layout/IndentationWidth
+# rubocop:disable Layout/EndAlignment
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
-
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -30,7 +42,6 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal :true_value, result
   end
-
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -92,7 +103,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_unless_statement
     result = :default_value
-    unless false    # same as saying 'if !false', which evaluates as 'if true'
+    unless false
       result = :false_value
     end
     assert_equal :false_value, result
@@ -104,7 +115,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_unless_statement_evaluate_true
     result = :default_value
-    unless true    # same as saying 'if !true', which evaluates as 'if false'
+    unless true
       result = :true_value
     end
     assert_equal :default_value, result
@@ -204,3 +215,16 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Style/ConditionalAssignment
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Style/SelfAssignment
+# rubocop:enable Style/NumericLiterals
+# rubocop:enable Style/InfiniteLoop
+# rubocop:enable Style/EvenOdd
+# rubocop:enable Style/NumericPredicate
+# rubocop:enable Style/For
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Layout/IndentationWidth
+# rubocop:enable Layout/EndAlignment

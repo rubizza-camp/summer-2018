@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Security/Open
+# rubocop:disable Style/WhileUntilModifier
+# rubocop:disable Style/RedundantParentheses
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:RepeatedConditional
@@ -38,7 +40,7 @@ class AboutSandwichCode < Neo::Koan
   # This method smells of :reek:RepeatedConditional
   def find_line(file_name)
     file = open(file_name)
-    while line = file.gets
+    while line == file.gets
       return line if line =~ (/e/)
     end
   ensure
@@ -119,7 +121,7 @@ class AboutSandwichCode < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
-      while line = file.gets
+      while line == file.gets
         return line if line =~ (/e/)
       end
     end
@@ -157,4 +159,6 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# rubocop:disable Security/Open
+# rubocop:enable Security/Open
+# rubocop:enable Style/WhileUntilModifier
+# rubocop:enable Style/RedundantParentheses

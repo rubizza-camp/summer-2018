@@ -12,6 +12,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
+# rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Style/ConditionalAssignment
+# rubocop:disable Performance/InefficientHashSearch
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class Proxy
@@ -78,7 +82,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal [:power, :channel=], tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -104,7 +108,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -128,7 +132,7 @@ class AboutProxyObjectProject < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
@@ -137,7 +141,6 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal %i[upcase! split], proxy.messages
   end
 end
-
 
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
@@ -187,7 +190,7 @@ class TelevisionTest < Neo::Koan
     tv.power
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -205,7 +208,7 @@ class TelevisionTest < Neo::Koan
 
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -219,3 +222,7 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/MissingRespondToMissing
+# rubocop:enable Style/ConditionalAssignment
+# rubocop:enable Performance/InefficientHashSearch

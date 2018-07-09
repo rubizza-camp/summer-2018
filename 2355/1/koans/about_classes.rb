@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Naming/AccessorMethodName
+# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Lint/AmbiguousBlockAssociation
+# rubocop:disable Style/TrivialAccessors
+# rubocop:disable Layout/EmptyLineBetweenDefs
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
@@ -273,3 +278,8 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Naming/AccessorMethodName
+# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Lint/AmbiguousBlockAssociation
+# rubocop:enable Style/TrivialAccessors
+# rubocop:enable Layout/EmptyLineBetweenDefs

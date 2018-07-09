@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Performance/RedundantBlockCall
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class AboutBlocks < Neo::Koan
@@ -26,8 +27,8 @@ class AboutBlocks < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_blocks_can_be_defined_with_do_end_too
-    #Here should be do-end block, but hound blocks it
-    yielded_result = method_with_block { 1 + 2 } 
+    # Here should be do-end block, but hound blocks it
+    yielded_result = method_with_block { 1 + 2 }
     assert_equal 3, yielded_result
   end
 
@@ -153,3 +154,4 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end
+# rubocop:enable Performance/RedundantBlockCall

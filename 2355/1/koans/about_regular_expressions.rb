@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class docs
@@ -159,8 +158,8 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_slash_a_anchors_to_the_start_of_the_string
-    assert_equal "start", "start end"[/\Astart/]
-    assert_equal nil, "start end"[/\Aend/]
+    assert_equal 'start', 'start end'[/\Astart/]
+    assert_equal nil, 'start end'[/\Aend/]
   end
 
   # This method smells of :reek:UncommunicativeMethodName

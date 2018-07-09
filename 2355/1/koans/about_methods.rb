@@ -1,23 +1,25 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#Def Global
+# rubocop:disable Lint/Void
+# rubocop:disable Lint/UnreachableCode
+# rubocop:disable Style/AccessModifierDeclarations
+# Def Global
 # This method smells of :reek:UncommunicativeParameterName
 # This method smells of :reek:UtilityFunction
-def my_global_method(a, b)
-  a + b
+def my_global_method(aaaa, bbbb)
+  aaaa + bbbb
 end
 
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
 class AboutMethods < Neo::Koan
-
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -236,3 +238,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable Lint/Void
+# rubocop:enable Lint/UnreachableCode
+# rubocop:enable Style/AccessModifierDeclarations

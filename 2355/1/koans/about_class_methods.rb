@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/TrivialAccessors
+# rubocop:disable Naming/ConstantName
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
@@ -81,7 +83,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  #Class Dog2
+  # Class Dog2
   # This class smells of :reek:UncommunicativeModuleName
   class Dog2
     def wag
@@ -251,3 +253,5 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Style/TrivialAccessors
+# rubocop:enable Naming/ConstantName

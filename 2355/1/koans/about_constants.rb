@@ -2,10 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
 
+# rubocop:disable Style/ClassAndModuleChildren
+
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class AboutConstants < Neo::Koan
-
   C = 'nested'.freeze
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -112,7 +113,6 @@ class AboutConstants < Neo::Koan
     end
   end
 
-
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -125,3 +125,4 @@ class AboutConstants < Neo::Koan
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?
 end
+# rubocop:enable Style/ClassAndModuleChildren

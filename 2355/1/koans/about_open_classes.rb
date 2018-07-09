@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/ClassAndModuleChildren
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class AboutOpenClasses < Neo::Koan
@@ -59,3 +60,4 @@ class AboutOpenClasses < Neo::Koan
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
 end
+# rubocop:enable Style/ClassAndModuleChildren

@@ -1,5 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Style/SignalException
+# rubocop:disable Layout/AlignParameters
+# rubocop:disable Lint/HandleExceptions
 # This class smells of :reek:UncommunicativeModuleName
 # Class docs
 class AboutExceptions < Neo::Koan
@@ -11,7 +15,7 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
@@ -86,3 +90,7 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Style/SignalException
+# rubocop:enable Layout/AlignParameters
+# rubocop:enable Lint/HandleExceptions

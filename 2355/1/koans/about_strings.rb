@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Style/StringLiterals
+# rubocop:disable Layout/IndentHeredoc
+# rubocop:disable Naming/HeredocDelimiterNaming
+# rubocop:disable Lint/UselessAssignment
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
@@ -73,7 +78,7 @@ It was the worst of times.
 }
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0,1]
+    assert_equal "\n", long_string[0, 1]
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -87,7 +92,7 @@ It was the worst of times.
 EOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0,1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -207,8 +212,8 @@ EOS
   # This method smells of :reek:FeatureEnvy
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal 'The value is #{value}', string
+    string = "The value is #{value}"
+    assert_equal 'The value is 123', string
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -226,7 +231,7 @@ EOS
   # This method smells of :reek:FeatureEnvy
   def test_you_can_get_a_substring_from_a_string
     string = 'Bacon, lettuce and tomato'
-    assert_equal 'let', string[7,3]
+    assert_equal 'let', string[7, 3]
     assert_equal 'let', string[7..9]
   end
 
@@ -250,7 +255,7 @@ EOS
       assert_equal 97, 'a'
       assert_equal true, 'a' == 97
 
-      assert_equal true, 'b' == ('a' + 1)
+      assert_equal true, ('a' + 1) == 'b'
     end
   end
 
@@ -310,3 +315,8 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Style/StringLiterals
+# rubocop:enable Layout/IndentHeredoc
+# rubocop:enable Naming/HeredocDelimiterNaming
+# rubocop:enable Lint/UselessAssignment

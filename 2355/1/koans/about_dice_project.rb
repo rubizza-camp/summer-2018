@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Layout/AlignParameters
 # This class smells of :reek:UncommunicativeModuleName
 # Implement a DiceSet Class here:
 class DiceSet
@@ -86,3 +87,4 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
+# rubocop:enable Layout/AlignParameters

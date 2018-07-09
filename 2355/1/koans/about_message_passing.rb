@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Lint/UnusedMethodArgument
 # Class docs
 # This class smells of :reek:UncommunicativeModuleName
 class AboutMessagePassing < Neo::Koan
@@ -39,8 +42,8 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?' )    # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase )      # What would you need to do to the string?
+    assert mc.send('caught' + '?')
+    assert mc.send('CAUGHT?'.downcase)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -161,7 +164,7 @@ class AboutMessagePassing < Neo::Koan
     # This method smells of :reek:FeatureEnvy
     # This method smells of :reek:UtilityFunction
     def method_missing(method_name, *args, &block)
-      "Someone called #{method_name} with <#{args.join(", ")}>"
+      "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
 
@@ -201,7 +204,7 @@ class AboutMessagePassing < Neo::Koan
     # This method smells of :reek:TooManyStatements
     # This method smells of :reek:FeatureEnvy
     def method_missing(method_name, *args, &block)
-      if method_name.to_s[0,3] == 'foo'
+      if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
         super(method_name, *args, &block)
@@ -242,7 +245,7 @@ class AboutMessagePassing < Neo::Koan
     # This method smells of :reek:TooManyStatements
     # This method smells of :reek:FeatureEnvy
     def respond_to?(method_name)
-      if method_name.to_s[0,3] == 'foo'
+      if method_name.to_s[0, 3] == 'foo'
         true
       else
         super(method_name)
@@ -262,3 +265,6 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
+# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/MissingRespondToMissing
+# rubocop:enable Lint/UnusedMethodArgument
