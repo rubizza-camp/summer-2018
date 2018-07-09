@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
+# rubocop:disable UtilityFunction, UncommunicativeVariableName, UncommunicativeParameterName
 
 begin
   require 'win32console'
@@ -578,3 +579,4 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
+# rubocop:enable UtilityFunction, UncommunicativeVariableName, UncommunicativeParameterName
