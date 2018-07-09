@@ -125,7 +125,7 @@ class AboutMethods < Neo::Koan # class AboutMethods
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /method/, exception.message
+      assert_match(/private method \`my_private_method\' called for/, exception.message) # assert_match /method/, exception.message   # (i.e. `do_something./(pattern)./(i)`)
   end
   # rubocop:enable Style/RedundantSelf
 
