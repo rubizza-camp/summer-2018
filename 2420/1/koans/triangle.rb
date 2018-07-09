@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 # rubocop:disable Metrics/AbcSize
+# frozen_string_literal: true
 # rubocop:disable Metrics/LineLength
 # rubocop:disable Layout/Tab
 # rubocop:disable Metrics/MethodLength
