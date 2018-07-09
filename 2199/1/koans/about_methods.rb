@@ -37,6 +37,10 @@ class AboutMethods < Neo::Koan
     end
     assert_match(/wrong number of arguments/, exception.message)
 
+    calling_global_methods_with_wrong_number_of_arguments
+  end
+
+  def calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end

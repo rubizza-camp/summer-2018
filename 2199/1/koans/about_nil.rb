@@ -6,10 +6,10 @@ class AboutNil < Neo::Koan
   end
 
   def test_you_dont_get_null_pointer_errors_when_calling_methods_on_nil
-  # What happens when you call a method that doesn't exist.  The
-  # following begin/rescue/end code block captures the exception and
-  # makes some assertions about it.
-  nil.some_method_nil_doesnt_know_about
+    # What happens when you call a method that doesn't exist.  The
+    # following begin/rescue/end code block captures the exception and
+    # makes some assertions about it.
+    nil.some_method_nil_doesnt_know_about
   rescue StandardError => ex
     # What exception has been caught?
     assert_equal NoMethodError, ex.class

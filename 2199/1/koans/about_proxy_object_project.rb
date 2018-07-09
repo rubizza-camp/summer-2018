@@ -97,9 +97,13 @@ class AboutProxyObjectProject < Neo::Koan
     tv.channel = 48
     tv.power
 
-    assert_equal 2, tv.number_of_times_called(:power)
-    assert_equal 1, tv.number_of_times_called(:channel=)
-    assert_equal 0, tv.number_of_times_called(:on?)
+    proxy_counts_method_calls(tv)
+  end
+
+  def proxy_counts_method_calls(tv_set)
+    assert_equal 2, tv_set.number_of_times_called(:power)
+    assert_equal 1, tv_set.number_of_times_called(:channel=)
+    assert_equal 0, tv_set.number_of_times_called(:on?)
   end
 
   def test_proxy_can_record_more_than_just_tv_objects

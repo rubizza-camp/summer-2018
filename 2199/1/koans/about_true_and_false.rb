@@ -25,6 +25,10 @@ class AboutTrueAndFalse < Neo::Koan
     assert_equal :true_stuff, truth_value(1)
     assert_equal :true_stuff, truth_value(0)
     assert_equal :true_stuff, truth_value([])
+    everything_else_is_treated_as_true
+  end
+
+  def everything_else_is_treated_as_true
     assert_equal :true_stuff, truth_value({})
     assert_equal :true_stuff, truth_value('Strings')
     assert_equal :true_stuff, truth_value('')

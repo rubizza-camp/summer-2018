@@ -41,6 +41,7 @@ def score(dice)
   end
   result
 end
+
 # Tests for score
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

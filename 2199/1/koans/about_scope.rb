@@ -28,6 +28,10 @@ class AboutScope < Neo::Koan
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new
+    you_can_reference_nested_classes_using_the_scope_operator(fido, rover)
+  end
+
+  def you_can_reference_nested_classes_using_the_scope_operator(fido, rover)
     assert_equal :jims_dog, fido.identify
     assert_equal :joes_dog, rover.identify
 
@@ -36,7 +40,7 @@ class AboutScope < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # string
   class String
   end
 

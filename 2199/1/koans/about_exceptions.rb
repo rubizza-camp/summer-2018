@@ -12,7 +12,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  def test_rescue_clause # rubocop:disable Metrics/MethodLength
+  def test_rescue_clause
     result = nil
     begin
       raise 'Oops'
@@ -20,15 +20,19 @@ class AboutExceptions < Neo::Koan
       result = :exception_handled
     end
 
+    rescue_clause(result, ex)
+  end
+
+  def rescue_clause(result, exception)
     assert_equal :exception_handled, result
 
-    assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, ex.is_a?(RuntimeError), 'Should be a Runtime Error'
+    assert_equal true, exception.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, exception.is_a?(RuntimeError), 'Should be a Runtime Error'
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', ex.message
+    assert_equal 'Oops', exception.message
   end
 
   def test_raising_a_particular_error
@@ -40,8 +44,12 @@ class AboutExceptions < Neo::Koan
       result = :exception_handled
     end
 
+    raising_a_particular_error(result, ex)
+  end
+
+  def raising_a_particular_error(result, exception)
     assert_equal :exception_handled, result
-    assert_equal 'My Message', ex.message
+    assert_equal 'My Message', exception.message
   end
 
   def test_ensure_clause
