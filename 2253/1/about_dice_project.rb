@@ -3,25 +3,28 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Implement a DiceSet Class here:
 #
 class DiceSet
-  @@check = 0
+  @check = 0
   @result = []
-  def roll(a)
-    @@check += 1
-    @@check %= 2
+  def roll(size)
     temp = []
-    for i in 1..a
-	temp << i
+    (1..size).each do |i|
+      temp << i
     end
-    if @@check == 1 
-      temp[0], temp[a-1] = temp[a-1], temp[0]
+    if @check == 0
+      @check = 1
+    else
+      temp[0], temp[size - 1] = temp[size - 1], temp[0]
+      @check = 0
     end
     @result = temp
   end
+
   def values
     @result
   end
 end
 
+# :nodoc:
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
@@ -32,7 +35,7 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(5)
-    assert dice.values.is_a?(Array), "should be an array"
+    assert dice.values.is_a?(Array), 'should be an array'
     assert_equal 5, dice.values.size
     dice.values.each do |value|
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
@@ -57,7 +60,7 @@ class AboutDiceProject < Neo::Koan
     second_time = dice.values
 
     assert_not_equal first_time, second_time,
-      "Two rolls should not be equal"
+    'Two rolls should not be equal'
 
     # THINK ABOUT IT:
     #
@@ -75,5 +78,4 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-
 end
