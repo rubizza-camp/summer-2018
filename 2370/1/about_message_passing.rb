@@ -1,6 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# rubocop:disable Style/SingleLineMethods
 # rubocop:disable Style/MissingRespondToMissing
 
 # Message for you
@@ -189,4 +187,3 @@ class AboutMessagePassing < Neo::Koan
   end
 end
 # rubocop:enable Style/MissingRespondToMissing
-# rubocop:enable Style/SingleLineMethods
