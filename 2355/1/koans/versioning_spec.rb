@@ -9,7 +9,6 @@ def at_least_ruby_version(version)
   vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
 end
 
-
 require 'rspec/given'
 
 describe '#version_ints' do
