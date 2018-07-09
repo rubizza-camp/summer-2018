@@ -1,55 +1,56 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyStatements
+# class
 class AboutExceptions < Neo::Koan
-
+  # class
   class MySpecialError < RuntimeError
   end
-
+  # rubocop:disable Naming/MethodName
   def test_exceptions_inherit_from_Exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
+  # rubocop:enable Naming/MethodName
+  # rubocop:disable Metrics/MethodLength
 
   def test_rescue_clause
     result = nil
     begin
-      fail "Oops"
+      raise 'Oops'
     rescue StandardError => ex
       result = :exception_handled
     end
-
+    # rubocop:disable Metrics/LineLength
     assert_equal :exception_handled, result
 
-    assert_equal true, ex.is_a?(StandardError), "Should be a Standard Error"
-    assert_equal true, ex.is_a?(RuntimeError),  "Should be a Runtime Error"
-
-    assert RuntimeError.ancestors.include?(StandardError),
-      "RuntimeError is a subclass of StandardError"
-
-    assert_equal "Oops", ex.message
+    assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
+    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+    # rubocop:enable Metrics/LineLength
+    assert_equal 'Oops', ex.message
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_raising_a_particular_error
     result = nil
     begin
       # 'raise' and 'fail' are synonyms
-      raise MySpecialError, "My Message"
+      raise MySpecialError, 'My Message'
     rescue MySpecialError => ex
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
-    assert_equal "My Message", ex.message
+    assert_equal 'My Message', ex.message
   end
 
   def test_ensure_clause
-    result = nil
     begin
-      fail "Oops"
+      raise 'Oops'
     rescue StandardError
-      # no code here
+      puts 'Processed'
     ensure
       result = :always_run
     end
@@ -61,8 +62,7 @@ class AboutExceptions < Neo::Koan
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do
-      raise MySpecialError.new("New instances can be raised directly.")
+      raise MySpecialError, 'New instances can be raised directly.'
     end
   end
-
 end
