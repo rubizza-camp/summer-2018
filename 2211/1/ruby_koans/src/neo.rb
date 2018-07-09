@@ -273,14 +273,37 @@ module Neo
       bar_width = 50
       total_tests = Neo::Koan.total_tests
       scale = bar_width.to_f/total_tests
+      show_fisrt_path
+#      print Color.green("your path thus far [")
+#      happy_steps = (pass_count*scale).to_i
+#      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+#      print Color.green('.'*happy_steps)
+#      if failed?
+#        print Color.red('X')
+#        print Color.cyan('_'*(bar_width-1-happy_steps))
+#      end 
+#      print Color.green(']')
+#      print " #{pass_count}/#{total_tests}"
+#      puts
+    end
+
+    def show_fisrt_path
       print Color.green("your path thus far [")
       happy_steps = (pass_count*scale).to_i
       happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      show_steps(happy_steps)
+    end
+
+    def show_steps(happy_steps)
       print Color.green('.'*happy_steps)
       if failed?
         print Color.red('X')
-        print Color.cyan('_'*(bar_width-1-happy_steps))
-      end
+        print Color.cyan('_'*(50-1-happy_steps))
+      end 
+      show_last_part
+    end
+
+    def show_last_part
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
       puts
