@@ -61,7 +61,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_to_s_is_called_on_interpolated_symbols
-    string = "It is raining cats and dogs."
+    string = 'It is raining cats and dogs.'
 
     assert_equal 'It is raining cats and dogs.', string
   end

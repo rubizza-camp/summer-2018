@@ -12,7 +12,6 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  # rubocop:disable Lint/UselessAssignment
   # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
     begin
@@ -58,7 +57,6 @@ class AboutExceptions < Neo::Koan
     assert_equal :always_run, result
   end
   # rubocop:enable Lint/HandleExceptions
-  # rubocop:enable Lint/UselessAssignment
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised
