@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Naming/AccessorMethodName
-# AboutClasses 
+# AboutClasses
 class AboutClasses < Neo::Koan
   class Dog
   end
