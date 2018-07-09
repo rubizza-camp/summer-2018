@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about class methods
 class AboutClassMethods < Neo::Koan
+  # Class dog
   class Dog
   end
 
@@ -49,6 +50,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog2
   class Dog2
     def wag
       :instance_level_wag
@@ -71,6 +73,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     attr_accessor :name
   end
@@ -90,8 +93,9 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -102,26 +106,29 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LAST_EXPRESSIONIN_ClASS_STATEMENT = class Dog
+  # Class dog
+  LAST_EXPRESSIONIN_ClASSSTATEMENT = class Dog
                                         21
                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSIONIN_ClASS_STATEMENT
+    assert_equal 21, LAST_EXPRESSIONIN_ClASSSTATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SELF_INSIDEOF_CLASS_STATEMENT = class Dog
+  # Class dog
+  SELF_INSIDEOF_CLASSSTATEMENT = class Dog
                                     self
                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SELF_INSIDEOF_CLASS_STATEMENT
+    assert_equal true, Dog == SELF_INSIDEOF_CLASSSTATEMENT
   end
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -134,6 +141,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # Class dog
   class Dog
     class << self
       def another_class_method
