@@ -19,7 +19,7 @@ class Proxy
     @times_called = Hash.new(0)
   end
 
-  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/MethodMissing, Lint/UnneededCopDisableDirective
   # :reek:ManualDispatch
   def method_missing(method_name, *args, &block)
     if @object.respond_to?(method_name)
