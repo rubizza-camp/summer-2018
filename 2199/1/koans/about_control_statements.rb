@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyMethods
+# This class smells of :reek:RepeatedConditional
 # About control statements
 class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
+  # :reek:RepeatedConditional
   def test_if_then_else_statements
     if true  # rubocop:disable Lint/LiteralAsCondition, Style/ConditionalAssignment
       result = :true_value
@@ -30,6 +33,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     # just if statements.
   end
 
+  # :reek:RepeatedConditional
   def if_statements_return_values
     value = if false # rubocop:disable Lint/LiteralAsCondition
               :true_value
@@ -81,6 +85,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal :false_value, result
   end
 
+  # :reek:FeatureEnvy
   def test_while_statement
     integer = 1
     result = 1
@@ -91,6 +96,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal 3_628_800, result
   end
 
+  # :reek:TooManyStatements
   def test_break_statement
     integer = 1
     result = 1
@@ -102,6 +108,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal 3_628_800, result
   end
 
+  # :reek:FeatureEnvy
   def test_break_statement_returns_values
     integer = 1
     result = while integer <= 10
@@ -119,6 +126,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal [1, 3, 5, 7, 9], result
   end
 
+  # :reek:UtilityFunction
   def while_integer(integer, result)
     while integer < 10
       integer += 1

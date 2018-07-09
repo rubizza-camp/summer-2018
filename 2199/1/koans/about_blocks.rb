@@ -83,7 +83,7 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UtilityFunction
   def method_with_explicit_block(&block)
     block.call(10) # rubocop:disable Performance/RedundantBlockCall
   end

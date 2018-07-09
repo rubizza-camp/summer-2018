@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # about methods
+# This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   # class dog
   class Dog
@@ -72,6 +73,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
   # dog
   class Dog
+    # :reek:Attribute
     attr_accessor :name
   end
 
@@ -99,23 +101,24 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class
-  LastExpressionInClassStatement = class Dog # rubocop:disable Naming/ConstantName
-                                     21
-                                   end
+
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
-  # class
-  SelfInsideOfClassStatement = class Dog # rubocop:disable Naming/ConstantName
-                                 self
-                               end
+  # :reek:IrresponsibleModule
+  # class dog
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------

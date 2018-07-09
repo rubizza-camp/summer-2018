@@ -14,6 +14,7 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
+  # :reek:UncommunicativeMethodName
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
     dice.roll(5)
@@ -21,6 +22,7 @@ class AboutDiceProject < Neo::Koan
     between(dice)
   end
 
+  # :reek:DuplicateMethodCall
   def between(dice)
     assert_equal 5, dice.values.size
     dice.values.each do |value|
@@ -28,6 +30,8 @@ class AboutDiceProject < Neo::Koan
     end
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
     dice.roll(5)
@@ -47,6 +51,8 @@ class AboutDiceProject < Neo::Koan
     # better way to test this?
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def dice_roll(dice)
     dice.roll(5)
     first_time = dice.values
@@ -58,6 +64,8 @@ class AboutDiceProject < Neo::Koan
                      'Two rolls should not be equal'
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new
 

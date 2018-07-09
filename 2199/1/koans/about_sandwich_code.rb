@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# This class smells of :reek:RepeatedConditional
 # About sandwich code
 class AboutSandwichCode < Neo::Koan
+  # :reek:FeatureEnvy
+  # :reek:DuplicateMethodCall
   def count_lines(file_name)
     file = open(file_name) # rubocop:disable Security/Open
     count = 0
@@ -15,6 +18,8 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:FeatureEnvy
+  # :reek:DuplicateMethodCall
   def find_line(file_name)
     file = open(file_name) # rubocop:disable Security/Open
     line = file.gets

@@ -18,6 +18,8 @@ def triangle(first, second, third)
   classify_valid_triangle(first, second, third)
 end
 
+# :reek:UtilityFunction
+# :reek:DuplicateMethodCall
 def classify_valid_triangle(first, second, third)
   if first == second && first == third
     :equilateral
@@ -28,10 +30,12 @@ def classify_valid_triangle(first, second, third)
   end
 end
 
+# :reek:UtilityFunction
 def invalid_dimensions?(first, second, third)
   first <= 0 || second <= 0 || third <= 0
 end
 
+# :reek:UtilityFunction
 def invalid_triangle?(first, second, third)
   first + second <= third || second + third <= first || first + third <= second
 end

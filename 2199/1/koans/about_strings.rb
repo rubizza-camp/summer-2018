@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyMethods
 # Class about strings
 class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings

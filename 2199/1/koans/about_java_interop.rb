@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Style/MixinUsage
 include Java
+# rubocop:enable Style/MixinUsage
 
 # Concepts
 # * Pull in a java class
@@ -61,6 +62,7 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, java_string.ends_with?('String')
   end
 
+  # :reek:DuplicateMethodCall
   def test_java_string_are_not_ruby_strings
     ruby_string = 'A Java String'
     java_string = java.lang.String.new(ruby_string)
@@ -88,34 +90,46 @@ class AboutJavaInterop < Neo::Koan
     # How would you do it?
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # :reek:DuplicateMethodCall
   def test_however_most_methods_returning_strings_return_ruby_strings
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
     assert_equal __, java_array.toString.is_a?(String)
     assert_equal __, java_array.toString.is_a?(java.lang.String)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_some_ruby_objects_can_be_coerced_to_java
     assert_equal __, 'ruby string'.to_java.class
     assert_equal __, 1.to_java.class
     assert_equal __, 9.32.to_java.class
     assert_equal __, false.to_java.class
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect
     assert_equal __, [].to_java.class == Java::JavaUtil::ArrayList
     assert_equal __, {}.to_java.class == Java::JavaUtil::HashMap
     assert_equal __, Object.new.to_java.class == Java::JavaLang::Object
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Lint/AmbiguousBlockAssociation
+  # rubocop:disable Style/SymbolProc
   def test_java_collections_are_enumerable
     java_array = java.util.ArrayList.new
     java_array << 'one' << 'two' << 'three'
     assert_equal __, java_array.map { |item| item.upcase }
   end
+  # rubocop:enable Lint/AmbiguousBlockAssociation
+  # rubocop:enable Style/SymbolProc
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/ClassAndModuleChildren
   # Open the Java ArrayList class and add a new method.
   class Java::JavaUtil::ArrayList
     def multiply_all
@@ -126,6 +140,7 @@ class AboutJavaInterop < Neo::Koan
       result
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   def test_java_class_are_open_from_ruby
     java_array = java.util.ArrayList.new
