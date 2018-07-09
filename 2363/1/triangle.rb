@@ -13,19 +13,24 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  s = (a + b + c) / 2.0    
-  test = (s - a) * (s - b) * (s - c)  
-  if a <= 0 or b <= 0 or c <= 0 or test <= 0 then 
+def triangle(side_a, side_b, side_c)
+  avg = (side_a + side_b + side_c) / 2.0    
+  test = (avg - a) * (avg - b) * (avg - c)  
+  if a <= 0 || b <= 0 || c <= 0 || test <= 0
     raise TriangleError
   end
-  if (a == b) and (b == c)
-    :equilateral 
-  elsif (a == b) or (b == c) or (a == c)
-    :isosceles 
-  else :scalene
-  end
+  answer(side_a, side_b, side_c)
 end
+  
+def answer(side_a, side_b, side_c)
+  if (a == b) && (b == c)
+    :equilateral
+  elsif (a == b) || (b == c) || (a == c)
+    :isosceles
+  else
+    :scalene
+  end
+  
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
