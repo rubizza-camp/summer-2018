@@ -2,7 +2,6 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Metrics/LineLength
 # class AboutSymbols
 # This class smells of :reek:UncommunicativeVariableName
 class AboutSymbols < Neo::Koan
@@ -39,7 +38,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
@@ -104,4 +103,3 @@ class AboutSymbols < Neo::Koan
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
-# rubocop:enable Metrics/LineLength
