@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Top-level class documentation
+# And it's also documentation
+# And it
 class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments(one: 1, two: 'two')
     [one, two]
