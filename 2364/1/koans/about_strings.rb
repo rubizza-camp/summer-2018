@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UselessAssignment
 # rubocop:disable Metrics/ClassLength
 # Class about strings
 class AboutStrings < Neo::Koan
@@ -202,3 +203,4 @@ MEANINGFUL
   end
 end
 # rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/UselessAssignment
