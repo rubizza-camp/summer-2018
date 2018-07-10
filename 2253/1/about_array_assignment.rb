@@ -11,7 +11,7 @@ class AboutArrayAssignment < Neo::Koan
 
   def test_parallel_assignments
     first_name, last_name = ['John', 'Smith']
-    assert_equal  'John', first_name
+    assert_equal 'John', first_name
     assert_equal 'Smith', last_name
   end
 
