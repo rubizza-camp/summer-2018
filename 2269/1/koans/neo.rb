@@ -204,12 +204,15 @@ module Neo
 
     # :reek:DataClump
     # :reek:NilCheck
+    # :reek:FeatureEnvy
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
     end
 
     # :reek:DataClump
+    # :reek:FeatureEnvy
+    # :reek:NilCheck
     def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(!actual.nil?, msg)
@@ -553,9 +556,9 @@ SQL
       def command_line(args)
         args.each do |arg|
           case arg
-          when %r(/^-n\/(.*)\/$/)
+          when %r({/^-n\/(.*)\/$/})
             @test_pattern = Regexp.new($1)
-          when %r(/^-n(.*)$/)
+          when %r({/^-n(.*)$/})
             @test_pattern = Regexp.new(Regexp.quote($1))
           else
             if File.exist?(arg)

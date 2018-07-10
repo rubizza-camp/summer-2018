@@ -10,7 +10,6 @@ include Java
 # * Ruby Strings  VS Java Strings
 # * Calling custom java class
 # * Calling Ruby from java???
-
 class AboutJavaInterop < Neo::Koan
   def test_using_a_java_library_class
     java_array = java.util.ArrayList.new
@@ -122,6 +121,7 @@ class AboutJavaInterop < Neo::Koan
 
   # Open the Java ArrayList class and add a new method.
   # :reek:IrresponsibleModule
+  # Blah blah blah
   class Java
     class JavaUtil
       class ArrayList

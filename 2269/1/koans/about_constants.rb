@@ -56,6 +56,7 @@ class AboutConstants < Neo::Koan
   # ------------------------------------------------------------------
 
   # :reek:IrresponsibleModule
+  # Animal class
   class MyAnimals
     LEGS = 2
 
