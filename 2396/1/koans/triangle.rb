@@ -13,6 +13,23 @@
 # and
 #   about_triangle_project_2.rb
 #
+
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:FeatureEnvy
+def select_type_triangle(a, b, c)
+  if a == b && b == c
+    :equilateral
+  elsif a == b || a == c || b == c
+    :isosceles
+  else
+    :scalene
+  end
+end
+
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
 # This method smells of :reek:UncommunicativeMethodName
@@ -27,14 +44,7 @@ def triangle(a, b, c)
   if a <= 0 || b <= 0 || c <= 0 || ok <= 0
     raise TriangleError
   end
-
-  if a == b && b == c
-    :equilateral
-  elsif a == b || a == c || b == c
-    :isosceles
-  else
-    :scalene
-  end
+  select_type_triangle(a, b, c)
 end
 
 # Error class used in part 2.  No need to change this code.
