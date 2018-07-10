@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
+
 begin
   require 'win32console'
 rescue LoadError
@@ -10,15 +11,21 @@ end
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
 
+
+
+# :reek:FeatureEnvy
+# :reek:InstanceVariableAssumption
+
 class FillMeInError < StandardError
 end
-
+# :reek:ControlParameter
+# :reek:UtilityFunction
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && !defined?(JRUBY_VERSION))
 end
-
+# :reek:UncommunicativeVariableName
 def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
@@ -30,6 +37,8 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -37,8 +46,9 @@ def __(value = 'FILL ME IN', value19 = :mu)
     value19 == :mu ? value : value19
   end
 end
-
+# :reek:UncommunicativeParameterName
 # Numeric replacement value.
+# :reek:UtilityFunction
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -46,8 +56,9 @@ def _n_(value = 999_999, value19 = :mu)
     value19 == :mu ? value : value19
   end
 end
-
+# :reek:UncommunicativeParameterName
 # Error object replacement value.
+# :reek:UtilityFunction
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -113,7 +124,7 @@ module Neo
     def color(color_value)
       "\e[#{color_value}m"
     end
-
+#:reek:NilCheck
     def use_colors?
       return false if ENV['NO_COLOR']
       if ENV['ANSI_COLOR'].nil?
@@ -135,7 +146,9 @@ module Neo
       defined? Win32::Console
     end
   end
-
+  # :reek:ControlParameter
+  # :reek:DataClump
+  # :reek:FeatureEnvy
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -158,12 +171,12 @@ module Neo
       msg ||= "Expected #{expected.inspect} to not equal #{actual.inspect}"
       assert(expected != actual, msg)
     end
-
+    #:reek:NilCheck
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
     end
-
+    #:reek:NilCheck
     def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(!actual.nil?, msg)
@@ -173,7 +186,7 @@ module Neo
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg
     end
-
+    #:reek:TooManyStatements
     def assert_raise(exception)
       begin
         yield
@@ -191,7 +204,11 @@ module Neo
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
     end
   end
-
+  #:reek:InstanceVariableAssumption
+  #:reek:TooManyInstanceVariables
+  #:reek:TooManyMethods
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -213,7 +230,7 @@ module Neo
         f.print "#{',' if exists}#{prog}"
       end
     end
-
+    #:reek:NilCheck
     def progress
       if @_contents.nil?
         if File.exist?(PROGRESS_FILE_NAME)
@@ -241,7 +258,7 @@ module Neo
         throw :neo_exit
       end
     end
-
+    #:reek:NilCheck
     def failed?
       !@failure.nil?
     end
@@ -355,7 +372,7 @@ module Neo
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
       puts
     end
-
+    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
       text.collect do |t|
@@ -367,12 +384,13 @@ module Neo
         end
       end
     end
-
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
       text.collect { |t| "  #{t}" }
     end
-
+    #:reek:TooManyStatements
+    #:reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject do |line|
         line =~ /neo\.rb/
@@ -403,7 +421,7 @@ module Neo
       puts Color.green(zen_statement)
     end
   end
-
+  # :reek:TooManyInstanceVariables
   class Koan
     include Assertions
 
@@ -416,7 +434,7 @@ module Neo
       @step_count = step_count
       @koan_file = koan_file
     end
-
+    #:reek:NilCheck
     def passed?
       @failure.nil?
     end
@@ -426,9 +444,9 @@ module Neo
     end
 
     def setup; end
-
+    #:reek:TooManyStatements
     def teardown; end
-
+    # :reek:TooManyStatements
     def meditate
       setup
       begin
@@ -493,13 +511,13 @@ module Neo
       def test_pattern
         @test_pattern ||= /^test_/
       end
-
+      # :reek:UncommunicativeVariableName
       def total_tests
         subclasses.inject(0) { |total, k| total + k.testmethods.size }
       end
     end
   end
-
+  # :reek:FeatureEnvy
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -508,7 +526,9 @@ module Neo
       end
       sensei.instruct
     end
-
+    # :reek:FeatureEnvy
+    # :reek:NestedIterators
+    # :reek:TooManyStatements
     def each_step
       catch(:neo_exit) do
         step_count = 0

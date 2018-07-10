@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# :reek:ToManyStatements
+# :reek:TooManyStatements
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
 

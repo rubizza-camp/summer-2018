@@ -3,7 +3,7 @@ class TerminalColors
   OKGREEN = "\033[92m".freeze
   ENDC = "\033[0m".freeze
 end
-
+  # :reek:TooManyConstants
 class ReekFix
   METHOD_PATTERN = 'def test_'.freeze
   CLASS_PATTERN = '< Neo::Koan'.freeze
@@ -35,7 +35,8 @@ class ReekFix
     REEK_CLASS_NAME_FIX
   ].freeze
 end
-
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
 def fix_entry(entry, index, fixes)
   class_changed = false
   existed_fixes = []
@@ -51,7 +52,7 @@ def fix_entry(entry, index, fixes)
   end
   class_changed
 end
-
+  # :reek:ControlParameter
 def write_log(koan_file, file_changed)
   if file_changed
     puts "#{TerminalColors::OKBLUE}modified - #{koan_file}#{TerminalColors::ENDC}"

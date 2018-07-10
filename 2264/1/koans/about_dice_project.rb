@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-#
+# :reek:InstanceVariableAssumption
 class DiceSet
   attr_reader :values
 

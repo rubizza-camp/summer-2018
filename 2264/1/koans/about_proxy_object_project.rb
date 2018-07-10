@@ -27,7 +27,7 @@ class Proxy
   def number_of_times_called(method_name)
     @messages.count method_name
   end
-
+  #:reek:ManualDispatch
   def method_missing(method_name, *args, &block)
     if @object.respond_to? method_name
       # track each method called that target object can respond to
@@ -148,6 +148,8 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:Attribute
+# :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 

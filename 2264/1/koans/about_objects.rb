@@ -38,7 +38,7 @@ class AboutObjects < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_every_object_has_an_id
     obj = Object.new
-    assert_equal Integer, obj.object_id.class
+    assert_equal Fixnum, obj.object_id.class
   end
 
   # This method smells of :reek:UncommunicativeMethodName

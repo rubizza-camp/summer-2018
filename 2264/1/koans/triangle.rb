@@ -14,7 +14,9 @@
 #   about_triangle_project_2.rb
 #
 # rubocop:disable Metrics/AbcSize
-
+# :reek:FeatureEnvy
+# :reek:UncommunicativeParameterName
+#
 def triangle(a, b, c)
   raise TriangleError, 'Error triangle' if [a, b, c].min <= 0
 

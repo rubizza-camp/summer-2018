@@ -7,13 +7,13 @@ class AboutIteration < Neo::Koan
   # as symbols. So we use a version dependent method "as_name" to
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
-
+  # :reek:UtilityFunction
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
-
+  # :reek:UtilityFunction
   in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
@@ -127,12 +127,14 @@ class AboutIteration < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # :reek:NestedIterators
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
     assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
+
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal %w[THIS IS A TEST], upcase_lines

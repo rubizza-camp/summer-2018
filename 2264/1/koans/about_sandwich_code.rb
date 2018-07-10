@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
+# :reek:FeatureEnvy
+# :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
@@ -20,7 +22,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:FeatureEnvy
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets
@@ -68,7 +70,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # Now we write:
-
+  # :reek:UncommunicativeMethodName
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
@@ -86,7 +88,8 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UncommunicativeMethodName
+  # :reek:UnusedParameters
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
   end
@@ -100,7 +103,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UncommunicativeMethodName
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0

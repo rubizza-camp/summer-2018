@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyMethods
 # This class smells of :reek:UncommunicativeModuleName
 class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
