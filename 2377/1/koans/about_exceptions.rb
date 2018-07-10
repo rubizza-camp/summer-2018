@@ -12,6 +12,10 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   # This method smells of :reek:DuplicateMethodCall
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]

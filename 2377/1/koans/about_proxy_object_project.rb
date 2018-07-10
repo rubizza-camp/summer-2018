@@ -11,6 +11,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
+# rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/MissingRespondToMissing
 
 class Proxy
   attr_reader :messages
@@ -46,7 +48,12 @@ end
 
 # The proxy object should pass the following Koan:
 #
+# This class smells of :reek:UncommunicativeModuleName
 class AboutProxyObjectProject < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
     tv = Proxy.new(Television.new)
@@ -57,6 +64,9 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 
@@ -68,6 +78,9 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
 
@@ -77,6 +90,10 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal %i[power channel=], tv.messages
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_handles_invalid_messages
     tv = Proxy.new(Television.new)
 
@@ -87,6 +104,9 @@ class AboutProxyObjectProject < Neo::Koan
 
   # This method smells of :reek:DuplicateMethodCall
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_proxy_reports_methods_have_been_called
     tv = Proxy.new(Television.new)
 
@@ -100,6 +120,8 @@ class AboutProxyObjectProject < Neo::Koan
   # This method smells of :reek:DuplicateMethodCall
   # This method smells of :reek:FeatureEnvy
   # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -113,6 +135,9 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -148,8 +173,12 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# This class smells of :reek:UncommunicativeModuleName
 class TelevisionTest < Neo::Koan
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_it_turns_on
     tv = Television.new
 
@@ -159,6 +188,9 @@ class TelevisionTest < Neo::Koan
 
   # This method smells of :reek:DuplicateMethodCall
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_it_also_turns_off
     tv = Television.new
 
@@ -171,6 +203,8 @@ class TelevisionTest < Neo::Koan
   # This method smells of :reek:DuplicateMethodCall
   # This method smells of :reek:FeatureEnvy
   # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
   def test_edge_case_on_off
     tv = Television.new
 
@@ -186,6 +220,9 @@ class TelevisionTest < Neo::Koan
   end
 
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_can_set_the_channel
     tv = Television.new
 
@@ -193,3 +230,5 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/MissingRespondToMissing

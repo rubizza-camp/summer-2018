@@ -28,16 +28,20 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# This method smells of :reek:DuplicateMethodCall
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeVariableName
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/AbcSize
 def score(dice)
-  # You need to write this method
   sum = 0
   scores = Hash.new 0
-
   dice.each do |n|
     scores[n] += 1
   end
-
   scores.each do |key, value|
     sum += 1000 if value == 3 && key == 1
     sum += 100 * key if value == 3 && key != 1
@@ -46,35 +50,63 @@ def score(dice)
     sum += 50 * value if key == 5 && value < 3
     sum += 50 * (value % 3) + 100 * 5 if key == 5 && value > 3
   end
-
   sum
 end
 
+# This class smells of :reek:UncommunicativeModuleName
 class AboutScoringProject < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
     assert_equal 300, score([1, 5, 5, 1])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
     assert_equal 0, score([2, 3, 4, 6])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_other_triples_is_100x
     assert_equal 200, score([2, 2, 2])
     assert_equal 300, score([3, 3, 3])
@@ -83,6 +115,10 @@ class AboutScoringProject < Neo::Koan
     assert_equal 600, score([6, 6, 6])
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_score_of_mixed_is_sum
     assert_equal 250, score([2, 5, 2, 2, 3])
     assert_equal 550, score([5, 5, 5, 5])
@@ -91,3 +127,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/AbcSize

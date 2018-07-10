@@ -1,17 +1,36 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:IrresponsibleModule
+# This class smells of :reek:UncommunicativeModuleName
+# rubocop:disable Lint/ShadowingOuterLocalVariable
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Style/WordArray
 class AboutHashes < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+
   def test_creating_hashes
     empty_hash = {}
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_hash_literals
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.size
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_accessing_hashes
     hash = { one: 'uno', two: 'dos' }
@@ -19,6 +38,11 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash[:two]
     assert_equal nil, hash[:doesnt_exist]
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_accessing_hashes_with_fetch
     hash = { one: 'uno' }
@@ -31,6 +55,11 @@ class AboutHashes < Neo::Koan
     #
     # Why might you want to use #fetch instead of #[] when accessing hash keys?
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_changing_hashes
     hash = { one: 'uno', two: 'dos' }
@@ -42,6 +71,11 @@ class AboutHashes < Neo::Koan
     # Bonus Question: Why was 'expected' broken out into a variable
     # rather than used as a literal?
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_hash_is_unordered
     hash1 = { one: 'uno', two: 'dos' }
@@ -49,6 +83,11 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash1 == hash2
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
@@ -57,6 +96,11 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash.key?(:two)
     assert_equal Array, hash.keys.class
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
@@ -65,6 +109,11 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash.value?('dos')
     assert_equal Array, hash.values.class
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_combining_hashes
     hash = { 'jim' => 53, 'amy' => 20, 'dan' => 23 }
@@ -75,6 +124,11 @@ class AboutHashes < Neo::Koan
     expected = { 'jim' => 54, 'amy' => 20, 'dan' => 23, 'jenny' => 26 }
     assert_equal true, expected == new_hash
   end
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:FeatureEnvy
 
   def test_default_value
     hash1 = {}
@@ -89,6 +143,11 @@ class AboutHashes < Neo::Koan
     assert_equal 1, hash2[:one]
     assert_equal 'dos', hash2[:two]
   end
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
 
   def test_default_value_is_the_same_object
     hash = Hash.new([])
@@ -102,6 +161,11 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:DuplicateMethodCall
+  # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
 
   def test_default_value_with_block
     hash = Hash.new { |hash, key| hash[key] = [] }
@@ -114,3 +178,6 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
+# rubocop:enable Lint/ShadowingOuterLocalVariable
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Style/WordArray

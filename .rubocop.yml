@@ -24,6 +24,7 @@ AllCops:
     - '**/*.rbuild'
     - '**/*.rbw'
     - '**/*.rbx'
+    - '**/*.rb'
     - '**/*.ru'
     - '**/*.ruby'
     - '**/*.spec'
@@ -59,6 +60,7 @@ AllCops:
     - 'vendor/**/*'
     - 'db/schema.rb'
     - 'db/migrate/*.rb'
+    - '2377/1/koans/neo.rb'
   # Default formatter will be used if no `-f/--format` option is given.
   DefaultFormatter: progress
   # Cop names are displayed in offense messages by default. Change behavior

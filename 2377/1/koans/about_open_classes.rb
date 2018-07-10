@@ -1,16 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# This method smells of :reek:IrresponsibleModule
+# rubocop:disable Style/NumericPredicate
+# rubocop:disable Style/EvenOdd
+# rubocop:disable  Style/ClassAndModuleChildren
+# rubocop:disable Style/StringLiterals
+# This class smells of :reek:IrresponsibleModule
 class AboutOpenClasses < Neo::Koan
-  # This method smells of :reek:IrresponsibleModule
   class Dog
     def bark
-      'WOOF'
+      "WOOF"
     end
   end
 
   def test_as_defined_dogs_do_bark
     fido = Dog.new
-    assert_equal 'WOOF', fido.bark
+    assert_equal "WOOF", fido.bark
   end
 
   # ------------------------------------------------------------------
@@ -18,21 +21,21 @@ class AboutOpenClasses < Neo::Koan
   # Open the existing Dog class and add a new method.
   class Dog
     def wag
-      'HAPPY'
+      "HAPPY"
     end
   end
 
   def test_after_reopening_dogs_can_both_wag_and_bark
     fido = Dog.new
-    assert_equal 'HAPPY', fido.wag
-    assert_equal 'WOOF', fido.bark
+    assert_equal "HAPPY", fido.wag
+    assert_equal "WOOF", fido.bark
   end
 
   # ------------------------------------------------------------------
-  # This method smells of :reek:IrresponsibleModule
+  # This class smells of :reek:IrresponsibleModule
   class ::Integer
     def even?
-      even?
+      (self % 2) == 0
     end
   end
 
@@ -44,3 +47,7 @@ class AboutOpenClasses < Neo::Koan
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
 end
+# rubocop:enable Style/NumericPredicate
+# rubocop:enable Style/EvenOdd
+# rubocop:enable  Style/ClassAndModuleChildren
+# rubocop:enable Style/StringLiterals
