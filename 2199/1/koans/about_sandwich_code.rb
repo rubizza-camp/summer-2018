@@ -10,6 +10,7 @@ class AboutSandwichCode < Neo::Koan
     count = 0
     count += 1 while file.gets
     count
+  # :reek:RepeatedConditional    
   ensure
     file.close if file
   end
