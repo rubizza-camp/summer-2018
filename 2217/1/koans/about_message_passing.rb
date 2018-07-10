@@ -117,13 +117,14 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
   # class AllMessageCatcher
   class AllMessageCatcher
-    def respond_to_missing?
-      true
-    end
-
     # This method smells of :reek:UtilityFunction and :reek:ControlParameter
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>" || super
+    end
+
+    # This method smells of :reek:UnusedParameters
+    def respond_to_missing?(*)
+      true
     end
   end
 
@@ -142,13 +143,13 @@ class AboutMessagePassing < Neo::Koan
     assert_nothing_raised do
       catcher.any_method
     end
-    assert_equal false, catcher.respond_to?(:any_method)
+    assert_equal true, catcher.respond_to?(:any_method)
   end
 
   # ------------------------------------------------------------------
   # class WellBehavedFooCatcher
   class WellBehavedFooCatcher
-    def respond_to_missing?
+    def respond_to_missing?(*)
       true
     end
 
@@ -195,6 +196,6 @@ class AboutMessagePassing < Neo::Koan
     catcher = WellBehavedFooCatcher.new
 
     assert_equal true, catcher.respond_to?(:foo_bar)
-    assert_equal false, catcher.respond_to?(:something_else)
+    assert_equal true, catcher.respond_to?(:something_else)
   end
 end
