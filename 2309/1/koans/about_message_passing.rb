@@ -146,14 +146,11 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   # Class allmessagecatcher
-  # rubocop:disable Style/MethodMissingSuper
   class AllMessageCatcher
     # This method smells of :reek:UtilityFunction
-    # rubocop:disable Style/MissingRespondToMissing
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
-    # rubocop:enable Style/MissingRespondToMissing
   end
   # rubocop:enable Style/MethodMissingSuper
   # This method smells of :reek:UncommunicativeMethodName
@@ -183,10 +180,9 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/SingleLineMethods
   class WellBehavedFooCatcher
     # This method smells of :reek:UtilityFunction
-    # rubocop:disable Style/MissingRespondToMissing
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -194,9 +190,8 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
-    # rubocop:enable Style/MissingRespondToMissing
   end
-  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/SingleLineMethods
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
