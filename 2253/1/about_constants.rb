@@ -28,6 +28,7 @@ class AboutConstants < Neo::Koan
       LEGS
     end
 
+    # :nodoc:
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -76,6 +77,7 @@ class AboutConstants < Neo::Koan
   # ------------------------------------------------------------------
 
   # rubocop:disable ClassAndModuleChildren
+  # :nodoc:
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
