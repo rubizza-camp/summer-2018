@@ -121,13 +121,14 @@ class AboutJavaInterop < Neo::Koan
 
   # Open the Java ArrayList class and add a new method.
   # :reek:IrresponsibleModule
-  # Blah blah blah
+  # Blah blah blah assss dddfrt fgghybfvcddddccdc
+  #
   class Java
-
-    # Blah blah
+    # Blah blah assss dddfrt fgghybfvcddddccdc
+    #
     class JavaUtil
-
-      # Blah
+      # Blah assss dddfrt fgghybfvcddddccdc
+      #
       class ArrayList
         def multiply_all
           result = 1

@@ -109,7 +109,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Doggy class
+  # Doggy class assss dddfrt fgghybfvcddddccdc
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
@@ -119,7 +119,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # A Doggy class
+  # A Doggy class assss dddfrt fgghybfvcddddccdc
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end

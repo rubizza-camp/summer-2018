@@ -56,11 +56,13 @@ class AboutConstants < Neo::Koan
   # ------------------------------------------------------------------
 
   # :reek:IrresponsibleModule
-  # Animal class
+  # Animal class assss dddfrt fgghybfvcddddccdc
+  #
   class MyAnimals
     LEGS = 2
 
-    # Birdy class
+    # Birdy class assss dddfrt fgghybfvcddddccdc
+    #
     class Bird < Animal
       def legs_in_bird
         LEGS
