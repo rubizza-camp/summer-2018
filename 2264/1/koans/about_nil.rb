@@ -34,6 +34,7 @@ class AboutNil < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # :reek:NilCheck
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s

@@ -1,10 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def my_global_method(a, b)
   a + b
 end
 
 # This class smells of :reek:UncommunicativeModuleName
+# :reek:TooManyMethods: AboutMethods
+# :reek:UncommunicativeParameterName
+
 class AboutMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -125,7 +129,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UtilityFunction
   def my_method_in_the_same_class(a, b)
     a * b
   end

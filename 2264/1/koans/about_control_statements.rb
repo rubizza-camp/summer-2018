@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
+# :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -30,6 +31,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+
   def test_if_statements_return_values
     value = if true
               :true_value
