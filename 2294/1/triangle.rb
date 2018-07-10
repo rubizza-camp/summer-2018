@@ -15,16 +15,13 @@
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
 def triangle(side_one, side_two, side_three)
-  parameters = [side_one, side_two, side_three]
+  parameters = [side_one, side_two, side_three].sort
 
-  raise TriangleError if parameters.min <= 0
-  raise TriangleError if parameters.sort.take(2).sum <= parameters.max
+  raise TriangleError if parameters.first <= 0
+  raise TriangleError if parameters.take(2).sum <= parameters.last
 
-  case parameters.uniq.size
-  when 1 then :equilateral
-  when 2 then :isosceles
-  when 3 then :scalene
-  end
+  triangles = { 3 => :scalene, 2 => :isosceles, 1 => :equilateral }
+  triangles[parameters.uniq.size]
 end
 
 # Error class used in part 2.  No need to change this code.
