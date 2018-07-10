@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :nodoc:
 class AboutExceptions < Neo::Koan
 
+  # :nodoc:
   class MySpecialError < RuntimeError
   end
 
