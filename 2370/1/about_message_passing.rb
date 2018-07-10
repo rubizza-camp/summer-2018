@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# Comment
+# This class smells of :reek:UncommunicativeModuleName
+# :reek:ManualDispatch
+# :reek:UtilityFunction
 class AboutMessagePassing < Neo::Koan
   # Comment
   class MessageCatcher
@@ -9,26 +10,42 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_methods_can_be_called_directly
     mc = MessageCatcher.new
 
     assert mc.caught?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_methods_can_be_invoked_by_sending_the_message
     mc = MessageCatcher.new
 
     assert mc.send(:caught?)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_methods_can_be_invoked_more_dynamically
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' '?') # What do you need to add to the first string?
+    assert mc.send('caught' + '?') # What do you need to add to the first string?
     assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_send_with_underscores_will_also_send_messages
     mc = MessageCatcher.new
 
@@ -39,6 +56,10 @@ class AboutMessagePassing < Neo::Koan
     # Why does Ruby provide both send and __send__ ?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -47,13 +68,17 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Do it !
+  # Comment
   class MessageCatcher
     def add_a_payload(*args)
       args
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_sending_a_message_with_arguments
     mc = MessageCatcher.new
 
@@ -76,6 +101,10 @@ class AboutMessagePassing < Neo::Koan
   class TypicalObject
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_sending_undefined_messages_to_a_typical_object_results_in_errors
     typical = TypicalObject.new
 
@@ -85,6 +114,10 @@ class AboutMessagePassing < Neo::Koan
     assert_match(/foobar/, exception.message)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_method_missing_causes_the_no_method_error
     typical = TypicalObject.new
 
@@ -112,15 +145,13 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/MethodMissing
-  # :reek:UtilityFunction
-  # Comment
   class AllMessageCatcher
+    # rubocop:disable Style/MethodMissing
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+    # rubocop:enable Style/MethodMissing
   end
-  # rubocop:enable Style/MethodMissing
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -131,10 +162,9 @@ class AboutMessagePassing < Neo::Koan
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    assert_equal 'Someone called sum with <1, 2, 3>', catcher.sum(1, 2, 3)
+    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
-  # :reek:ManualDispatch
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -151,7 +181,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
   # Comment
   class WellBehavedFooCatcher
-  # rubocop:disable Style/MethodMissing
+    # rubocop:disable Style/MethodMissing
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -159,8 +189,8 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
+    # rubocop:enable Style/MethodMissing
   end
-  # rubocop:enable Style/MethodMissing
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -198,7 +228,6 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
-  # :reek:ManualDispatch
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
