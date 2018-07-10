@@ -15,9 +15,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_if_then_statements
     result = :default_value
-    if true
-      result = :true_value
-    end
+    result = :true_value if true
     assert_equal :true_value, result
   end
 
@@ -82,7 +80,7 @@ class AboutControlStatements < Neo::Koan
     i = 1
     result = 1
     while i <= 10
-      result = result * i
+      result *= i
       i += 1
     end
     assert_equal 3_628_800, result
