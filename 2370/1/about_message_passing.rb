@@ -25,7 +25,7 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught'  '?') # What do you need to add to the first string?
+    assert mc.send('caught' '?') # What do you need to add to the first string?
     assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
   end
 
@@ -111,7 +111,7 @@ class AboutMessagePassing < Neo::Koan
     # Koans.
   end
 
-   # ------------------------------------------------------------------
+  # ------------------------------------------------------------------
   # rubocop:disable Style/MethodMissing
   # :reek:UtilityFunction
   # Comment
