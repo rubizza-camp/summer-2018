@@ -105,7 +105,6 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # :nodoc:
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
@@ -116,7 +115,6 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # :nodoc:
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
