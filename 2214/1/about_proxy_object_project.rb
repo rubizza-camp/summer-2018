@@ -28,14 +28,12 @@ class Proxy
     @messages.count name_of_method
   end
 
-  # rubocop:disable Style/MethodMissingSuper
-  # rubocop:disable Style/MissingRespondToMissing
+  # rubocop:disable Style/MethodMissing
   def method_missing(name_of_method, *args, &block)
     @messages << name_of_method
     @object.send name_of_method, *args, &block
   end
-  # rubocop:enable Style/MethodMissingSuper
-  # rubocop:enable Style/MissingRespondToMissing
+  # rubocop:enable Style/MethodMissing
 end
 
 # The proxy object should pass the following Koan:
