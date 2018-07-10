@@ -9,12 +9,8 @@ class DiceSet
     (1..size).each do |i|
       temp << i
     end
-    if @check.zero?
-      @check = 1
-    else
-      temp[0], temp[size - 1] = temp[size - 1], temp[0]
-      @check = 0
-    end
+    temp[0], temp[a-1] = temp[a-1], temp[0] if check.zero?
+    @check = 0 if @check == 1
     @result = temp
   end
 
