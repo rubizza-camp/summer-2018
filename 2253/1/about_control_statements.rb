@@ -4,11 +4,11 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
-    if true
-      result = :true_value
-    else
-      result = :false_value
-    end
+    result = if true
+               :true_value
+             else
+               :false_value
+             end
     assert_equal :true_value, result
   end
 
@@ -42,9 +42,7 @@ class AboutControlStatements < Neo::Koan
 
   # rubocop:enable Metrics/MethodLength
   def test_if_statements_with_no_else_with_false_condition_return_value
-    value = if false
-              :true_value
-            end
+    value = :true_value if false
     assert_equal nil, value
   end
 
@@ -62,13 +60,13 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    result = :false_value unless false  # same as saying 'if !false', which evaluates as 'if true'
+    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
     assert_equal :false_value, result
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    result = :true_value unless true  # same as saying 'if !true', which evaluates as 'if false'
+    result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
     assert_equal :default_value, result
   end
 
