@@ -6,6 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:RepeatedConditional
   def count_lines(file_name)
     file = open(file_name)
     count = 0

@@ -32,5 +32,6 @@ def answer(side_a, side_b, side_c)
   end
 
 # Error class used in part 2.  No need to change this code.
+# rubocop:disable Lint/Syntax
 class TriangleError < StandardError
 end

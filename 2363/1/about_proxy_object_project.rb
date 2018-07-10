@@ -29,6 +29,7 @@ class Proxy
     @messages.count method_name
   end
 
+  # This method smells of :reek:ManualDispatch
   # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to? method_name
@@ -146,8 +147,10 @@ end
 
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
-# changes should be necessary to anything below this comment.
 
+# changes should be necessary to anything below this comment.
+# This class smells of :reek:Attribute
+# This class smells of :reek:InstanceVariableAssumption
 # Example class using in the proxy testing above.
 class Television
   attr_accessor :channel

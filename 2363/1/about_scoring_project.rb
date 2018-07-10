@@ -29,6 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# This method smells of :reek:TooManyStatements
 def score(dice)
   numbers = [0, 0, 0, 0, 0, 0]
   dice.each do |n|
@@ -61,6 +62,7 @@ end
 
 # Class about scoring project
 # This class smells of :reek:UncommunicativeModuleName
+# rubocop:disable Lint/Syntax
 class AboutScoringProject < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -69,7 +71,7 @@ class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
-
+  # rubocop:enable Lint/Syntax
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -133,5 +135,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1200, score([1,1,1,1,1])
     assert_equal 1150, score([1,1,1,5,1])
   end
-
 end
