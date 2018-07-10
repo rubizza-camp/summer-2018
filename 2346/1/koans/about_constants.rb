@@ -41,8 +41,8 @@ class AboutConstants < Neo::Koan
 
   class Reptile < Animal
     def legs_in_reptile
-                    LEGS
-                  end
+      LEGS
+    end
   end
 
   def test_subclasses_inherit_constants_from_parent_classes
@@ -56,8 +56,8 @@ class AboutConstants < Neo::Koan
 
     class Bird < Animal
       def legs_in_bird
-                   LEGS
-                 end
+        LEGS
+      end
     end
   end
 
@@ -73,8 +73,8 @@ class AboutConstants < Neo::Koan
   class MyAnimals
     class Oyster < Animal
       def legs_in_oyster
-                     LEGS
-                   end
+        LEGS
+      end
     end
   end
 

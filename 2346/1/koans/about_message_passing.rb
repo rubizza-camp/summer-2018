@@ -1,7 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Layout/SpaceBeforeFirstArg
-# rubocop:disable Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
 
 # new class
 class AboutMessagePassing < Neo::Koan
@@ -118,10 +115,14 @@ class AboutMessagePassing < Neo::Koan
 
   # new class
   class AllMessageCatcher
+    # rubocop:disable Style/MethodMissing
+    # rubocop:disable Lint/UnusedMethodArgument
     # This method smeels of :reek:UtilityFunction
     def method_missing(method_name, *args, &_block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+    # rubocop:enable Style/MethodMissing
+    # rubocop:enable Lint/UnusedMethodArgument
   end
 
   def test_all_messages_are_caught
@@ -145,6 +146,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
   # new class
   class WellBehavedFooCatcher
+    # rubocop:disable Style/MethodMissing
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -152,6 +154,7 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
+    # rubocop:enable Style/MethodMissing
   end
 
   def test_foo_method_are_caught
@@ -190,6 +193,3 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable Layout/SpaceBeforeFirstArg
-# rubocop:enable Style/MethodMissingSuper
-# rubocop:enable Style/MissingRespondToMissing

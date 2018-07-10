@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Layout/SpaceBeforeFirstArg
 # rubocop:disable Naming/UncommunicativeMethodParamName
 # rubocop:disable Style/EvalWithLocation
 # rubocop:disable Lint/AmbiguousRegexpLiteral
@@ -156,7 +155,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Layout/SpaceBeforeFirstArg
 # rubocop:enable Naming/UncommunicativeMethodParamName
 # rubocop:enable Style/EvalWithLocation
 # rubocop:enable Lint/AmbiguousRegexpLiteral
