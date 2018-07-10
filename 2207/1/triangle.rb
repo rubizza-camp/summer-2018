@@ -1,3 +1,5 @@
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -13,16 +15,16 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+def triangle(side_a, side_b, side_c)
   
-  fail TriangleError if a==0 || b==0 || c==0
-  fail TriangleError if a < 0 || b < 0 || c < 0
-  fail TriangleError if (a+b) <= c
-    fail TriangleError if (a+c) <= b
+  fail TriangleError if side_a==0 || side_b==0 || side_c==0
+  fail TriangleError if side_a < 0 || side_b < 0 || side_c < 0
+  fail TriangleError if (side_a+side_b) <= side_c
+    fail TriangleError if (side_a+side_c) <= side_b
   
-  if a==b && b==c
+  if side_a==side_b && side_b==side_c
       return :equilateral
-  elsif a==b || b==c || a==c
+  elsif side_a==side_b || side_b==side_c || side_a==side_c
       return :isosceles
   else
       return :scalene
