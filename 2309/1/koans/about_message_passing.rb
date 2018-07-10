@@ -142,20 +142,18 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  # rubocop:disable Style/MethodMissingSuper
+  # new class
   class WellBehavedFooCatcher
     # rubocop:disable Style/MethodMissing
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
-        super
+        super(method_name, *args, &block)
       end
     end
     # rubocop:enable Style/MethodMissing
   end
-  # rubocop:enable Style/MethodMissingSuper
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
