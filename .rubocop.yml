@@ -14,6 +14,7 @@ AllCops:
     - '**/*.gemspec'
     - '**/*.god'
     - '**/*.jb'
+    - '**/*.rb'
     - '**/*.jbuilder'
     - '**/*.mspec'
     - '**/*.opal'
@@ -704,7 +705,7 @@ Naming/UncommunicativeBlockParamName:
   # Blacklisted names that will register an offense
   ForbiddenNames: []
 
-Naming/UncommunicativeMethodArgName:
+Naming/UncommunicativeBlockParamName:
   # Argrument names may be equal to or greater than this value
   MinNameLength: 3
   AllowNamesEndingInNumbers: true
