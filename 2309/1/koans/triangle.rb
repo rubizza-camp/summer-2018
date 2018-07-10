@@ -13,26 +13,24 @@
 # and
 #   about_triangle_project_2.rb
 
-# This method smells of :reek:UtilityFunction
-def triangle_type(side_a, side_b, side_c)
-  if (side_a == side_b) && (side_b == side_c)
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/LineLength
+# :reek:DuplicateMethodCall
+# :reek:FeatureEnvy
+def triangle(alpha, beta, centra)
+  raise TriangleError, 'The triangle is not valid' unless (alpha + beta) > centra && (alpha + centra) > beta && (beta + centra) > alpha
+  if alpha == beta && beta == centra
     :equilateral
-  elsif (side_a != side_b) && (side_a != side_c) && (side_b != side_c)
-    :scalene
-  else
+  elsif alpha == beta || beta == centra || alpha == centra
     :isosceles
+  else
+    :scalene
   end
 end
-
-# This method smells of :reek:FeatureEnvy
-def triangle(side_a, side_b, side_c)
-  # WRITE THIS CODE
-  raise TriangleError if (side_a >= side_b + side_c) || (side_b >= side_a + side_c) || (side_c >= side_a + side_b)
-
-  triangle_type(side_a, side_b, side_c)
-end
-
-# Error class used in part 2.  No need to change this code.
+# Error class used in part 2. No need to change this code.
 class TriangleError < StandardError
 end
-
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/LineLength

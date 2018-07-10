@@ -12,31 +12,31 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
+# Class proxy
 class Proxy
+  attr_reader :messages
+
   def initialize(target_object)
     @object = target_object
-    # ADD MORE CODE HERE
-    @messages = Hash.new(0)
+    @messages = []
   end
 
-  # rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MethodMissingSuper
   def method_missing(method_name, *args, &block)
-    @messages[method_name] += 1
-    @object.send(method_name, *args, &block)
+    @messages << method_name
+    @object.send method_name, *args, &block
   end
-  # rubocop:enable Style/MethodMissing
+  # rubocop:enable Style/MethodMissingSuper
 
   def called?(method_name)
-    @messages.key?(method_name)
+    @messages.include? method_name
   end
 
+  # rubocop:disable Style/CaseEquality
   def number_of_times_called(method_name)
-    @messages[method_name]
+    @messages.find_all { |method| method === method_name }.count
   end
-
-  def messages
-    @messages.keys
-  end
+  # rubocop:enable Style/CaseEquality
 
   def respond_to_missing?
     true
@@ -44,7 +44,6 @@ class Proxy
 end
 
 # The proxy object should pass the following Koan:
-#
 # This class smells of :reek:UncommunicativeModuleName
 class AboutProxyObjectProject < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
@@ -148,9 +147,9 @@ end
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
 
+# Example class using in the proxy testing above.
 # This class smells of :reek:InstanceVariableAssumption
 # This class smells of :reek:Attribute
-# Example class using in the proxy testing above.
 class Television
   attr_accessor :channel
 
