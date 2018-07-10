@@ -1,5 +1,7 @@
 # Triangle Project Code.
-
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -14,13 +16,22 @@
 #   about_triangle_project_2.rb
 #
 # :reek:FeatureEnvy
-def triangle(param_a, param_b, param_c)
-  param_a, param_b, param_c = [param_a, param_b, param_c].sort
-  raise TriangleError if param_a <= 0 || param_a + param_b <= param_c
-  [nil,
-   :equilateral,
-   :isosceles,
-   :scalene][[param_a, param_b, param_c].uniq.size]
+def triangle_raise_error(side_a, side_b, side_c)
+  triangle_sides = [side_a, side_b, side_c].sort
+  raise TriangleError if triangle_sides.first <= 0
+  raise TriangleError if triangle_sides.take(2).sum <= triangle_sides.last
+end
+
+# :reek:FeatureEnvy
+def triangle(side_a, side_b, side_c)
+  triangle_raise_error(side_a, side_b, side_c)
+  if side_a == side_b && side_b == side_c
+    :equilateral
+  elsif side_a == side_b || side_b == side_c || side_c == side_a
+    :isosceles
+  else
+    :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
