@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Style/MethodMissing
-+# This class smells of :reek:ManualDispatch
+# This class smells of :reek:ManualDispatch
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
