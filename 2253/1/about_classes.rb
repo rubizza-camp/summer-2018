@@ -13,6 +13,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Naming/AccessorMethodName
   # :nodoc:
   class Dog2
     def set_name(a_name)
@@ -36,26 +37,30 @@ class AboutClasses < Neo::Koan
       fido.name
     end
 
+  # rubocop:disable Style/EvalWithLocation
     assert_raise(SyntaxError) do
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
     end
+    # rubocop:enable Style/EvalWithLocation
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal "Fido", fido.instance_variable_get('@name')
+    assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
+  # rubocop:disable Style/EvalWithLocation
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal('Fido', fido.instance_eval { @name }) # block version
   end
+  # rubocop:enable Style/EvalWithLocation
 
   # ------------------------------------------------------------------
 
@@ -64,6 +69,7 @@ class AboutClasses < Neo::Koan
     def set_name(a_name)
       @name = a_name
     end
+
     def name
       @name
     end
@@ -86,7 +92,6 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
-
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
@@ -194,4 +199,5 @@ class AboutClasses < Neo::Koan
     assert_equal 'STRING', 'STRING'.to_s
     assert_equal '\"STRING\"', 'STRING'.inspect
   end
+  # rubocop:enable Naming/AccessorMethodName
 end
