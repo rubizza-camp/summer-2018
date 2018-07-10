@@ -5,8 +5,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:Attribute
 class DiceSet
   attr_accessor :values
+
+  def initialize
+    @values = []
+  end
+
   def roll(arg)
-    self.values = (1..arg).map { rand(1..6) }
+    return unless arg.is_a?(Integer)
+    @values = Array.new(arg) { rand(1..6) }
   end
 end
 
