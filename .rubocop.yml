@@ -21,6 +21,7 @@ AllCops:
     - '**/*.podspec'
     - '**/*.rabl'
     - '**/*.rake'
+    - '**/*.rb'
     - '**/*.rbuild'
     - '**/*.rbw'
     - '**/*.rbx'
