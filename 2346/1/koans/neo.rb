@@ -10,7 +10,6 @@
 # rubocop:disable Lint/Void
 # rubocop:disable Lint/HandleExceptions
 # rubocop:disable Style/Semicolon
-# rubocop:disable Style/AccessModifierDeclarations
 # !/usr/bin/env ruby
 # -*- ruby -*-
 begin
@@ -624,4 +623,3 @@ end
 # rubocop:enable Lint/Void
 # rubocop:enable Lint/HandleExceptions
 # rubocop:enable Style/Semicolon
-# rubocop:enable Style/AccessModifierDeclarations

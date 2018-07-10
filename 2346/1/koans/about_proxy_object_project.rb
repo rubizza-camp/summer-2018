@@ -1,7 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Layout/SpaceBeforeFirstArg
-# rubocop:disable Style/MissingRespondToMissing
-# rubocop:disable Style/MethodMissingSuper
 # rubocop:disable Style/ConditionalAssignment
 # Project: Create a Proxy Class
 #
@@ -23,10 +20,12 @@ class Proxy
     # ADD MORE CODE HERE
   end
 
+  # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     @messages.push(method_name)
     @object.send method_name, *args, &block
   end
+  # rubocop:enable Style/MethodMissing
 
   def number_of_times_called(method_name)
     @messages.count(method_name)
@@ -36,6 +35,9 @@ class Proxy
     @messages.include? method_name
   end
 
+  def respond_to_missing?
+    true
+  end
   # WRITE CODE HERE
 end
 
@@ -185,7 +187,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-# rubocop:enable Layout/SpaceBeforeFirstArg
-# rubocop:enable Style/MissingRespondToMissing
-# rubocop:enable Style/MethodMissingSuper
 # rubocop:enable Style/ConditionalAssignment

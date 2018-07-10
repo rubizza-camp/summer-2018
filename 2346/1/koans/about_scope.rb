@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Layout/SpaceBeforeFirstArg
 # :reek:IrresponsibleModule
 # :reek:TooManyStatements
 # :reek:DuplicateMethodCall
@@ -80,4 +79,3 @@ class AboutScope < Neo::Koan
     assert Object.constants.size > Jims.constants.size
   end
 end
-# rubocop:enable Layout/SpaceBeforeFirstArg

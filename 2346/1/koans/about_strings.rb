@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Layout/SpaceBeforeFirstArg
 # rubocop:disable Style/CharacterLiteral
 # rubocop:disable Lint/InterpolationCheck
 # rubocop:disable Lint/UselessAssignment
@@ -205,7 +204,6 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Layout/SpaceBeforeFirstArg
 # rubocop:enable Style/CharacterLiteral
 # rubocop:enable Lint/InterpolationCheck
 # rubocop:enable Lint/UselessAssignment
