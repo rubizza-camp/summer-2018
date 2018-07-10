@@ -122,7 +122,6 @@ class AboutJavaInterop < Neo::Koan
   # Open the Java ArrayList class and add a new method.
   # :reek:IrresponsibleModule
   # Blah blah blah assss dddfrt fgghybfvcddddccdc
-  # rubocop:disable Style/Documentation
   class Java
     # Blah blah assss dddfrt fgghybfvcddddccdc
     #
@@ -140,7 +139,6 @@ class AboutJavaInterop < Neo::Koan
       end
     end
   end
-  # rubocop:enable Style/Documentation
 
   def test_java_class_are_open_from_ruby
     java_array = java.util.ArrayList.new
