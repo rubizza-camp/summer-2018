@@ -17,8 +17,9 @@ class AboutMethods < Neo::Koan
 
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
+  # rubocop:disable Style/EvalWithLocation
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
+    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -29,6 +30,7 @@ class AboutMethods < Neo::Koan
     # Rewrite the eval string to continue.
     #
   end
+  # rubocop:enable Style/EvalWithLocation
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
@@ -64,7 +66,7 @@ class AboutMethods < Neo::Koan
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
+    assert_equal %i[one], method_with_var_args(:one)
     assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
@@ -77,8 +79,8 @@ class AboutMethods < Neo::Koan
     return :return_value
     :another_non_return_value
   end
-
   # rubocop:enable Lint/UnreachableCode
+
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
@@ -105,9 +107,12 @@ class AboutMethods < Neo::Koan
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
+  # rubocop:disable Style/RedundantSelf
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_method_in_the_same_class(3, 4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
+  # rubocop:enable Style/RedundantSelf
+
   # ------------------------------------------------------------------
 
   private
@@ -125,13 +130,12 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match(/method/, exception.message)
+    assert_match(/private method/, exception.message)
   end
   # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
-  # :nodoc:
   class Dog
     def name
       'Fido'
