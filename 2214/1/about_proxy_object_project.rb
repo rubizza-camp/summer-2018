@@ -11,7 +11,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-
+# This class smells of :reek:ManualDispatch
 class Proxy
   attr_reader :messages
 
@@ -128,10 +128,9 @@ end
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
-
+# Example class using in the proxy testing above.
 # This class smells of :reek:InstanceVariableAssumption
 # This class smells of :reek:Attribute
-# Example class using in the proxy testing above.
 class Television
   attr_accessor :channel
 
@@ -150,6 +149,8 @@ end
 
 # Tests for the Television class.  All of theses tests should pass.
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:InstanceVariableAssumption
+# This class smells of :reek:Attribute
 class TelevisionTest < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
