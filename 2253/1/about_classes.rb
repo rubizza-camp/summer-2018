@@ -182,7 +182,7 @@ class AboutClasses < Neo::Koan
 
   def test_inspect_provides_a_more_complete_string_version
     fido = Dog7.new('Fido')
-    assert_equal '<Dog named 'Fido'>', fido.inspect
+    assert_equal "<Dog named 'Fido'>", fido.inspect
   end
 
   def test_all_objects_support_to_s_and_inspect
