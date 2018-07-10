@@ -41,9 +41,8 @@ def triangle(a, b, c)
   # the following must be positive to be a valid triangle
   ok = (s - a) * (s - b) * (s - c)
 
-  if a <= 0 || b <= 0 || c <= 0 || ok <= 0
-    raise TriangleError
-  end
+  raise TriangleError if a <= 0 || b <= 0 || c <= 0 || ok <= 0
+
   select_type_triangle(a, b, c)
 end
 
