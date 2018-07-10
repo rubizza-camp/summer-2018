@@ -37,7 +37,7 @@ class AboutClasses < Neo::Koan
       fido.name
     end
 
-  # rubocop:disable Style/EvalWithLocation
+    # rubocop:disable Style/EvalWithLocation
     assert_raise(SyntaxError) do
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
@@ -57,7 +57,7 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
     assert_equal('Fido', fido.instance_eval { @name }) # block version
   end
   # rubocop:enable Style/EvalWithLocation
@@ -70,9 +70,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
 
-    def name
-      @name
-    end
+    attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
