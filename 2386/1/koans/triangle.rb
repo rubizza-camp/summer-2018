@@ -15,24 +15,18 @@
 #
 def triangle(a, b, c)
   if a <= 0 || b <= 0 || c <= 0
-    raise TriangleError.new("sides cant't be less then 0")
+    raise TriangleError, "sides cant't be less then 0"
   end
 
   if a + b <= c || a + c <= b || b + c <= a
-    raise TriangleError.new(" two sides cant't be less then one")
+    raise TriangleError, " two sides cant't be less then one"
   end
-  ans = [:scalene, :isosceles, :isosceles, :equilateral]
+  ans = %i[scalene isosceles isosceles equilateral]
   i = 0
-  if a == b
-    i+=1
-  end
-  if a == c
-    i+=1
-  end
-  if b == c
-    i+=1
-  end
-  result = ans[i]
+  i += 1 if a == b
+  i += 1 if a == c
+  i += 1 if b == c
+  ans[i]
  end
 
 # Error class used in part 2.  No need to change this code.
