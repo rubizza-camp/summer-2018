@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:IrresponsibleModule
+# :reek:TooManyStatements
+# :reek:DuplicateMethodCall
 class AboutScope < Neo::Koan
   module Jims
     class Dog
@@ -73,7 +75,7 @@ class AboutScope < Neo::Koan
   end
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
-    assert_equal [:Dog], Jims.constants
+    assert_equal %i[Dog], Jims.constants
     assert Object.constants.size > Jims.constants.size
   end
 end

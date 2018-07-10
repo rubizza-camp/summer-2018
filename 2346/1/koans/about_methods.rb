@@ -1,11 +1,21 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-def my_global_method(a,b)
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Naming/UncommunicativeMethodParamName
+# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/Void
+# rubocop:disable Lint/UnreachableCode
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
+def my_global_method(a, b)
   a + b
 end
 
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
+# :reek:TooManyMethods
+# The AboutMethods class is responsible for ...
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
   end
@@ -35,10 +45,6 @@ class AboutMethods < Neo::Koan
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
-    end
-    assert_match(/wrong number of arguments/, exception.message)
-
-    exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
     assert_match(/wrong number of arguments/, exception.message)
@@ -46,7 +52,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
+  def method_with_defaults(a, b = :default_value)
     [a, b]
   end
 
@@ -64,8 +70,8 @@ class AboutMethods < Neo::Koan
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one], method_with_var_args(:one)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
@@ -102,7 +108,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -121,7 +127,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method/ , exception.message
+    assert_match /private method/, exception.message
   end
   # rubocop:enable Style/RedundantSelf
 
@@ -150,3 +156,9 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Naming/UncommunicativeMethodParamName
+# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Lint/AmbiguousRegexpLiteral
+# rubocop:enable Lint/Void
+# rubocop:enable Lint/UnreachableCode

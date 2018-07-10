@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:IrresponsibleModule
+# class
 class AboutInheritance < Neo::Koan
+  # class
   class Dog
     attr_reader :name
 
@@ -13,6 +15,8 @@ class AboutInheritance < Neo::Koan
     end
   end
 
+  # :reek:IrresponsibleModule
+  # class
   class Chihuahua < Dog
     def wag
       :happy
@@ -55,7 +59,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class
   class BullDog < Dog
     def bark
       super + ', GROWL'
@@ -68,7 +72,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class
   class GreatDane < Dog
     def growl
       super.bark + ', GROWL'
@@ -81,5 +85,4 @@ class AboutInheritance < Neo::Koan
       george.growl
     end
   end
-
 end
