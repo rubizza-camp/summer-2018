@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a,b)
-  a + b
+def my_global_method(first, second)
+  first + second
 end
 
 # :nodoc:
