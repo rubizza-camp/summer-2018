@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 class DiceSet
   @result = []
+  # rubocop:disable Metrics/MethodLength
   def roll(size)
     temp = []
     (1..size).each do |i|
@@ -13,6 +14,7 @@ class DiceSet
     @check = 0 if @check == 1
     @result = temp
   end
+  # rubocop:enable Metrics/MethodLength
 
   def values
     @result
