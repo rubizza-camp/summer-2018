@@ -24,8 +24,10 @@ class AboutModules < Neo::Koan
     end
   end
 
-  # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   class Dog
     include Nameable
 

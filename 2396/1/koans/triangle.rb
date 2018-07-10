@@ -15,6 +15,10 @@
 #
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:FeatureEnvy
 def triangle(a, b, c)
   s = (a + b + c) / 2.0
   # the following must be positive to be a valid triangle
