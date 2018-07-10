@@ -6,7 +6,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Naming/AccessorMethodName
 # rubocop:disable Style/EvalWithLocation
 # rubocop:disable Lint/AmbiguousBlockAssociation
-# rubocop:disable Style/SymbolArray
 class AboutClasses < Neo::Koan
   # This class smells of :reek:IrresponsibleModule
   class Dog
@@ -263,4 +262,3 @@ end
 # rubocop:enable Naming/AccessorMethodName
 # rubocop:enable Style/EvalWithLocation
 # rubocop:enable Lint/AmbiguousBlockAssociation
-# rubocop:enable Style/SymbolArray

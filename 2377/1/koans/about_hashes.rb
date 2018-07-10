@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:UncommunicativeModuleName
 # rubocop:disable Lint/ShadowingOuterLocalVariable
 # rubocop:disable Metrics/AbcSize
-# rubocop:disable Style/WordArray
 class AboutHashes < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -180,4 +179,3 @@ class AboutHashes < Neo::Koan
 end
 # rubocop:enable Lint/ShadowingOuterLocalVariable
 # rubocop:enable Metrics/AbcSize
-# rubocop:enable Style/WordArray

@@ -11,9 +11,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-# rubocop:disable Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
-
+# rubocop:disable Style/MethodMissing
 class Proxy
   attr_reader :messages
 
@@ -230,5 +228,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-# rubocop:enable Style/MethodMissingSuper
-# rubocop:enable Style/MissingRespondToMissing
+# rubocop:enable Style/MethodMissing

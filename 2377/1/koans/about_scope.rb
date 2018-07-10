@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:IrresponsibleModule
 # This class smells of :reek:UncommunicativeModuleName
-# rubocop:disable Style/SymbolArray
 class AboutScope < Neo::Koan
   module Jims
     class Dog
@@ -116,4 +115,3 @@ class AboutScope < Neo::Koan
     assert Object.constants.size > 126
   end
 end
-# rubocop:enable Style/SymbolArray

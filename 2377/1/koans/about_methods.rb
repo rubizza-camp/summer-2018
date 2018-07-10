@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/StringLiterals
 # rubocop:disable Style/RedundantSelf
 # rubocop:disable Lint/AmbiguousRegexpLiteral
-# rubocop:disable Style/AccessModifierDeclarations
 # rubocop:disable Naming/UncommunicativeMethodParamName
 # rubocop:disable Lint/Void
 # rubocop:disable Lint/UnreachableCode
@@ -227,7 +226,6 @@ end
 # rubocop:enable Style/StringLiterals
 # rubocop:enable Style/RedundantSelf
 # rubocop:enable Lint/AmbiguousRegexpLiteral
-# rubocop:enable Style/AccessModifierDeclarations
 # rubocop:enable Naming/UncommunicativeMethodParamName
 # rubocop:enable Lint/Void
 # rubocop:enable Lint/UnreachableCode

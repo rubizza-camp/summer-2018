@@ -1,3 +1,4 @@
+# rubocop:disable Lint/ScriptPermission
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
@@ -58,3 +59,4 @@ class AboutAsserts < Neo::Koan
     assert_equal 2, 1 + 1
   end
 end
+# rubocop:enable Lint/ScriptPermission

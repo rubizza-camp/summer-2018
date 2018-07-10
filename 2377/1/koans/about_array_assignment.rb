@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:IrresponsibleModule
 # This class smells of :reek:UncommunicativeModuleName
-# rubocop:disable Style/WordArray
 class AboutArrayAssignment < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -85,4 +84,3 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal 'Roy', last_name
   end
 end
-# rubocop:enable Style/WordArray

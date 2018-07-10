@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This method smells of :reek:IrresponsibleModule
 # This method smells of :reek:TooManyStatements
 # This class smells of :reek:UncommunicativeModuleName
-# rubocop:disable Style/SymbolArray
 class AboutArrays < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -116,4 +115,3 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 end
-# rubocop:enable Style/SymbolArray
