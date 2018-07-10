@@ -36,7 +36,7 @@ class AboutOpenClasses < Neo::Koan
   # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
-      even?
+      (self % 2).zero?
     end
   end
   # rubocop:enable Style/ClassAndModuleChildren

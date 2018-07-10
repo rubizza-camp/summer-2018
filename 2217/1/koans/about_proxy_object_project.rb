@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -19,10 +17,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class Proxy
   attr_accessor :messages
 
-  def respond_to_missing?
-    true
-  end
-
   def initialize(target_object)
     @object = target_object || self
     @messages = []
@@ -40,9 +34,11 @@ class Proxy
 
   def method_missing(method_name, *args, &block)
     @messages << method_name
-    @object.send(method_name, *args, &block)
+    @object.send(method_name, *args, &block) || super
+  end
 
-    super
+  def respond_to_missing?
+    true
   end
 end
 

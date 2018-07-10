@@ -36,7 +36,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def score(dice)
   @greed_scores ||=
     (Hash.new do |hash, key|
-      hash[key] = { singles: 0, triples: k * 100 }
+      hash[key] = { singles: 0, triples: key * 100 }
     end).merge!(
       1 => { singles: 100, triples: 1000 },
       5 => { singles: 50, triples: 500 }
