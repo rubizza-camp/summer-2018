@@ -1,38 +1,43 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# This class smells of :reek:RepeatedConditional
-# About sandwich code
+
+# rubocop:disable Security/Open
+# This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
-  # :reek:FeatureEnvy
-  # :reek:DuplicateMethodCall
-  # :reek:RepeatedConditional
+  # This method smells of :reek:FeatureEnvy
   def count_lines(file_name)
-    file = open(file_name) # rubocop:disable Security/Open
+    file = open(file_name)
     count = 0
     count += 1 while file.gets
-    count 
+    count
   ensure
     file.close if file
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-  # :reek:FeatureEnvy
-  # :reek:DuplicateMethodCall
+
+  # This method smells of :reek:FeatureEnvy
   def find_line(file_name)
-    file = open(file_name) # rubocop:disable Security/Open
-    line = file.gets
-    while line
+    file = open(file_name)
+    while (line = file.gets)
       return line if line =~ /e/
-      line = file.gets
     end
   ensure
     file.close if file
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
   end
@@ -60,15 +65,16 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name) # rubocop:disable Security/Open
+    file = open(file_name)
     yield(file)
   ensure
     file.close if file
   end
 
+  # This class smells of :reek:UncommunicativeMethodName
   # Now we write:
 
-  def count_lines_two(file_name)
+  def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -76,13 +82,19 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_counting_lines_two
-    assert_equal 4, count_lines_two('example_file.txt')
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_counting_lines2
+    assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def find_line_two(file_name)
+  # This class smells of :reek:UncommunicativeMethodName
+  def find_line2(file_name)
+    # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while (line = file.gets)
         return line if line =~ /e/
@@ -90,21 +102,31 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_finding_lines_two
-    assert_equal "test\n", find_line_two('example_file.txt')
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_finding_lines2
+    assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def count_lines_three(file_name)
-    open(file_name) do |file| # rubocop:disable Security/Open
+  # This class smells of :reek:UncommunicativeMethodName
+  def count_lines3(file_name)
+    open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_open_handles_the_file_sandwich_when_given_a_block
-    assert_equal 4, count_lines_three('example_file.txt')
+    assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable Security/Open
