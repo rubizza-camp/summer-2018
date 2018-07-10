@@ -65,11 +65,11 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Naming/UncommunicativeMethodParamName
+
   def method_with_defaults(a, b = :default_value)
     [a, b]
   end
-  # rubocop:enable Naming/UncommunicativeMethodParamName
+
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -97,15 +97,13 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/UnreachableCode
-  # rubocop:disable Lint/Void
+
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
     :another_non_return_value
   end
-  # rubocop:enable Lint/Void
-  # rubocop:enable Lint/UnreachableCode
+
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -115,13 +113,12 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/UnneededCopEnableDirective
-  # rubocop:disable Lint/Void
+
   def method_without_explicit_return
     :a_non_return_value
     :return_value
   end
-  # rubocop:enable Lint/UnneededCopEnableDirective
+
   # rubocop:enable Lint/Void
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -133,11 +130,10 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
-  # rubocop:disable Naming/UncommunicativeMethodParamName
   def my_method_in_the_same_class(a, b)
     a * b
   end
-  # rubocop:enable Naming/UncommunicativeMethodParamName
+
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -173,16 +169,13 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  # rubocop:disable Lint/AmbiguousRegexpLiteral
-  # rubocop:disable Style/RedundantSelf
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
     assert_match /private method/, exception.message
   end
-  # rubocop:enable Style/RedundantSelf
-  # rubocop:enable Lint/AmbiguousRegexpLiteral
+
   # ------------------------------------------------------------------
 
   class Dog
