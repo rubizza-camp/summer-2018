@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
 # :reek:TooManyMethods
+# rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -79,6 +80,8 @@ It was the worst of times.
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Layout/IndentHeredoc
+  # rubocop:disable Naming/HeredocDelimiterNaming
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<EOS
 It was the best of times,
@@ -89,6 +92,8 @@ EOS
     assert_equal 'I', long_string[0, 1]
   end
 
+  # rubocop:enable Naming/HeredocDelimiterNaming
+  # rubocop:enable Layout/IndentHeredoc
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -102,6 +107,7 @@ EOS
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
@@ -110,6 +116,7 @@ EOS
     assert_equal 'World', there
   end
 
+  # rubocop:enable Lint/UselessAssignment
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -125,6 +132,7 @@ EOS
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
     hi = original_string
@@ -133,6 +141,7 @@ EOS
     assert_equal 'Hello, ', original_string
   end
 
+  # rubocop:enable Lint/UselessAssignment
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -206,14 +215,14 @@ EOS
   # This method smells of :reek:FeatureEnvy
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal "The value is \#{value}", string
+    string = "The value is #{value}"
+    assert_equal "The value is #{value}", string
   end
-
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
     assert_equal 'The square root of 5 is 2.23606797749979',
@@ -310,3 +319,5 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+
+# rubocop:enable Metrics/ClassLength

@@ -36,11 +36,13 @@ class AboutObjects < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Lint/UnifiedInteger
   def test_every_object_has_an_id
     obj = Object.new
     assert_equal Fixnum, obj.object_id.class
   end
 
+  # rubocop:enable Lint/UnifiedInteger
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements

@@ -16,7 +16,9 @@
 # rubocop:disable Metrics/AbcSize
 # :reek:FeatureEnvy
 # :reek:UncommunicativeParameterName
-#
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Naming/UncommunicativeMethodParamName
 def triangle(a, b, c)
   raise TriangleError, 'Error triangle' if [a, b, c].min <= 0
 
@@ -31,6 +33,9 @@ def triangle(a, b, c)
   end
 end
 
+# rubocop:enable Naming/UncommunicativeMethodParamName
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end

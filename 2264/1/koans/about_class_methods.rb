@@ -108,6 +108,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:Attribute
+  # rubocop:disable Style/TrivialAccessors
   class Dog
     attr_accessor :name
   end
@@ -127,6 +128,7 @@ class AboutClassMethods < Neo::Koan
     assert_equal nil, Dog.name
   end
 
+  # rubocop:enable Style/TrivialAccessors
   # ------------------------------------------------------------------
 
   class Dog
@@ -144,7 +146,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Naming/ConstantName
   LastExpressionInClassStatement = class Dog
                                      21
                                    end
@@ -157,12 +159,13 @@ class AboutClassMethods < Neo::Koan
     assert_equal 21, LastExpressionInClassStatement
   end
 
+  # rubocop:enable Naming/ConstantName
   # ------------------------------------------------------------------
-
+  # rubocop:disable Naming/ConstantName
   SelfInsideOfClassStatement = class Dog
                                  self
                                end
-
+  # rubocop:enable Naming/ConstantName
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements

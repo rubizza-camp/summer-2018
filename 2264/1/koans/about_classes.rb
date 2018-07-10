@@ -43,6 +43,7 @@ class AboutClasses < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Style/EvalWithLocation
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.set_name('Fido')
@@ -57,6 +58,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # rubocop:enable Style/EvalWithLocation
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -72,21 +74,25 @@ class AboutClasses < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Style/EvalWithLocation
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
+  # rubocop:enable Style/EvalWithLocation
   # ------------------------------------------------------------------
 
   class Dog3
+    # rubocop:disable Naming/AccessorMethodName
     def set_name(a_name)
       @name = a_name
     end
 
+    # rubocop:enable Naming/AccessorMethodName
     attr_reader :name
   end
 
@@ -105,12 +111,13 @@ class AboutClasses < Neo::Koan
 
   class Dog4
     attr_reader :name
-
+    # rubocop:disable Naming/AccessorMethodName
     def set_name(a_name)
       @name = a_name
     end
   end
 
+  # rubocop:enable Naming/AccessorMethodName
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -179,7 +186,6 @@ class AboutClasses < Neo::Koan
 
     assert_equal true, rover.name != fido.name
   end
-
   # ------------------------------------------------------------------
 
   class Dog7
@@ -188,11 +194,13 @@ class AboutClasses < Neo::Koan
     def initialize(initial_name)
       @name = initial_name
     end
+    # rubocop:disable Naming/AccessorMethodName
 
     def get_self
       self
     end
 
+    # rubocop:enable Naming/AccessorMethodName
     def to_s
       @name
     end

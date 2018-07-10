@@ -50,9 +50,11 @@ class AboutSymbols < Neo::Koan
   #
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
+  # rubocop:disable Naming/ConstantName
 
   in_ruby_version('mri') do
     RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    # rubocop:enable Naming/ConstantName
     # This method smells of :reek:UncommunicativeMethodName
     # This method smells of :reek:UncommunicativeVariableName
     # This method smells of :reek:TooManyStatements

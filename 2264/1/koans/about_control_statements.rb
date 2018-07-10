@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
 # :reek:RepeatedConditional
+# rubocop:disable Metrics/ClassLength
 class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -31,6 +32,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/MethodLength
 
   def test_if_statements_return_values
     value = if true
@@ -51,6 +53,7 @@ class AboutControlStatements < Neo::Koan
     # just if statements.
   end
 
+  # rubocop:enable Metrics/MethodLength
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -175,6 +178,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Style/For
   def test_for_statement
     array = %w[fish and chips]
     result = []
@@ -183,11 +187,12 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal %w[FISH AND CHIPS], result
   end
-
+  # rubocop:enable Style/For
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+
   def test_times_statement
     sum = 0
     10.times do
@@ -196,3 +201,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+
+# rubocop:enable Metrics/ClassLength

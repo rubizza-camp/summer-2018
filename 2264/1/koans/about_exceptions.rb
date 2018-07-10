@@ -9,7 +9,7 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
@@ -20,6 +20,7 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
     begin
@@ -39,6 +40,7 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', ex.message
   end
 
+  # rubocop:enable Metrics/MethodLength
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements

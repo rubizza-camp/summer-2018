@@ -102,12 +102,14 @@ class AboutIteration < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Lint/AmbiguousBlockAssociation
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
 
     assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
 
+  # rubocop:enable Lint/AmbiguousBlockAssociation
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements

@@ -31,6 +31,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyStatements
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 
 def score(dice)
   result = 0
@@ -52,6 +54,8 @@ def score(dice)
   result
 end
 
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
 # This class smells of :reek:UncommunicativeModuleName
 class AboutScoringProject < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
