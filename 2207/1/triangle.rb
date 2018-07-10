@@ -15,12 +15,23 @@
 # and
 #   about_triangle_project_2.rb
 #
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:FeatureEnvy
 def triangle_error(side_a, side_b, side_c)
   raise TriangleError if side_a + side_b <= side_c || side_b == side_a + side_c || [side_a, side_b, side_c].min < 0
 end
 
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
-  
   if side_a == side_b && side_b == side_c
     return :equilateral
   elsif side_a == side_b || side_b == side_c || side_a == side_c
