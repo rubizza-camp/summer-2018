@@ -80,6 +80,7 @@ class AboutSandwichCode < Neo::Koan
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
+
   # ------------------------------------------------------------------
   def count_lines3(file_name)
     File.open(file_name) do |file|
