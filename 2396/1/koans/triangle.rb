@@ -13,6 +13,8 @@
 # and
 #   about_triangle_project_2.rb
 #
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
 def triangle(a, b, c)
   s = (a + b + c) / 2.0
   # the following must be positive to be a valid triangle

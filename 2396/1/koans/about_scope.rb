@@ -9,7 +9,7 @@ class AboutScope < Neo::Koan
       end
     end
   end
-
+# This class smells of :reek:UncommunicativeModuleName
   module Joes
     class Dog
       def identify
