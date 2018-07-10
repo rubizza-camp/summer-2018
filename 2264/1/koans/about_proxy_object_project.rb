@@ -13,27 +13,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  
   attr_reader :messages
 
   def initialize(target_object)
     @object = target_object
     @messages = []
   end
-  
+
   def called?(method_name)
     @messages.include? method_name
   end
-  
+
   def number_of_times_called(method_name)
     @messages.count method_name
   end
-  
+
   def method_missing(method_name, *args, &block)
-    if @object.respond_to? method_name then
+    if @object.respond_to? method_name
       # track each method called that target object can respond to
       @messages.push method_name
-      
+
       # call the method!
       @object.send method_name, *args
     else
@@ -45,7 +44,12 @@ end
 
 # The proxy object should pass the following Koan:
 #
+# This class smells of :reek:UncommunicativeModuleName
 class AboutProxyObjectProject < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
     tv = Proxy.new(Television.new)
@@ -55,6 +59,10 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.instance_of?(Proxy)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 
@@ -65,15 +73,23 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.on?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
 
     tv.power
     tv.channel = 10
 
-    assert_equal [:power, :channel=], tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_handles_invalid_messages
     tv = Proxy.new(Television.new)
 
@@ -82,6 +98,10 @@ class AboutProxyObjectProject < Neo::Koan
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_reports_methods_have_been_called
     tv = Proxy.new(Television.new)
 
@@ -89,9 +109,13 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -104,17 +128,20 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
 
-    assert_equal ["CODE", "MASH", "2009"], result
-    assert_equal [:upcase!, :split], proxy.messages
+    assert_equal %w[CODE MASH 2009], result
+    assert_equal %i[upcase! split], proxy.messages
   end
 end
-
 
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
@@ -125,11 +152,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+               :off
+             else
+               :on
+             end
   end
 
   def on?
@@ -138,7 +165,12 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# This class smells of :reek:UncommunicativeModuleName
 class TelevisionTest < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_it_turns_on
     tv = Television.new
 
@@ -146,15 +178,23 @@ class TelevisionTest < Neo::Koan
     assert tv.on?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_it_also_turns_off
     tv = Television.new
 
     tv.power
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_edge_case_on_off
     tv = Television.new
 
@@ -166,9 +206,13 @@ class TelevisionTest < Neo::Koan
 
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_can_set_the_channel
     tv = Television.new
 
