@@ -1,14 +1,18 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
 # Implement a DiceSet Class here:
-#
 class DiceSet
   attr_reader :values
   def roll(times)
-    @values = Array.new(times){|value| value = rand(1..6) }
+    @values = Array.new(times) { rand(1..6) }
   end
 end
 
+# :reek:IrresponsibleModule
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
@@ -43,9 +47,7 @@ class AboutDiceProject < Neo::Koan
     dice.roll(5)
     second_time = dice.values
 
-    assert_not_equal first_time, second_time,
-      'Two rolls should not be equal'
-
+    assert_not_equal first_time, second_time, 'Two rolls should not be equal'
     # THINK ABOUT IT:
     #
     # If the rolls are random, then it is possible (although not
@@ -62,5 +64,5 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

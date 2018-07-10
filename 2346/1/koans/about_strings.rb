@@ -1,5 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Style/CharacterLiteral
+# rubocop:disable Lint/InterpolationCheck
+# rubocop:disable Lint/UselessAssignment
+# rubocop:disable Naming/HeredocDelimiterNaming
+# rubocop:disable Layout/IndentHeredoc
+# rubocop:disable Metrics/ClassLength
+# :reek:DuplicateMethodCall
+# :reek:UncommunicativeVariableName
+# :reek:TooManyMethods
+# The AboutStrings class
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -155,7 +165,7 @@ EOS
       assert_equal 97, ?a
       assert_equal true, ?a == 97
 
-      assert_equal true, ?b == (?a + 1)
+      assert_equal true, (?a + 1) == ?b
     end
   end
 
@@ -169,13 +179,13 @@ EOS
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
     words = string.split
-    assert_equal ['Sausage', 'Egg', 'Cheese'], words
+    assert_equal %w[Sausage Egg Cheese], words
   end
 
   def test_strings_can_be_split_with_different_patterns
     string = 'the:rain:in:spain'
     words = string.split(/:/)
-    assert_equal ['the', 'rain', 'in', 'spain'], words
+    assert_equal %w[the rain in spain], words
 
     # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
     # very powerful Regular Expression library.  We will become
@@ -183,7 +193,7 @@ EOS
   end
 
   def test_strings_can_be_joined
-    words = ['Now', 'is', 'the', 'time']
+    words = %w[Now is the time]
     assert_equal 'Now is the time', words.join(' ')
   end
 
@@ -195,3 +205,10 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Style/CharacterLiteral
+# rubocop:enable Lint/InterpolationCheck
+# rubocop:enable Lint/UselessAssignment
+# rubocop:enable Naming/HeredocDelimiterNaming
+# rubocop:enable Layout/IndentHeredoc
+# rubocop:enable Metrics/ClassLength

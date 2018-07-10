@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Style/IfUnlessModifier
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/MethodLength:
+# rubocop:disable Metrics/PerceivedComplexity
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
 # score of a single roll of the dice.
@@ -29,56 +34,64 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# This method smeels of :reek:TooManyStatements
+# This method smeels of :reek:DuplicateMethodCall
+# :reek:UtilityFunction
 def score(dice)
   result = 0
   counts = Hash.new(0)
   dice.each do |item|
     counts[item] += 1
   end
-  
-  counts.each do |item,kolvo_of_items|
-    if item == 1 && kolvo_of_items >= 3 then
+
+  counts.each do |item, kolvo_of_items|
+    if item == 1 && kolvo_of_items >= 3
       result += 1000
       kolvo_of_items -= 3
     end
-    
-    if item != 1 && kolvo_of_items >= 3 then
+
+    if item != 1 && kolvo_of_items >= 3
       result += item * 100
       kolvo_of_items -= 3
     end
-    
-    if item == 1 && kolvo_of_items < 3 then 
+
+    if item == 1 && kolvo_of_items < 3
       result += 100 * kolvo_of_items
     end
-    
-    if item == 5 && kolvo_of_items < 3 then
+
+    if item == 5 && kolvo_of_items < 3
       result += 50 * kolvo_of_items
     end
   end
   result
 end
 
+# This method smeels of :reek:IrresponsibleModule
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
 
+  # This method smeels of :reek:UncommunicativeMethodName
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
 
+  # This method smeels of :reek:UncommunicativeMethodName
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
-    assert_equal 300, score([1,5,5,1])
+    assert_equal 300, score([1, 5, 5, 1])
   end
 
+  # This method smeels of :reek:UncommunicativeMethodName
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
     assert_equal 0, score([2, 3, 4, 6])
   end
 
+  # This method smeels of :reek:UncommunicativeMethodName
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end
@@ -98,5 +111,10 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1200, score([1, 1, 1, 1, 1])
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/MethodLength:
+# rubocop:enable Metrics/PerceivedComplexity

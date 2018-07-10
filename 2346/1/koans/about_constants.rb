@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Layout/SpaceBeforeFirstArg
+C = 'top level'.freeze
 
-C = 'top level'
-
+# :reek:IrresponsibleModule
 class AboutConstants < Neo::Koan
-
-  C = 'nested'
+  C = 'nested'.freeze
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
@@ -42,8 +42,8 @@ class AboutConstants < Neo::Koan
 
   class Reptile < Animal
     def legs_in_reptile
-      LEGS
-    end
+                    LEGS
+                  end
   end
 
   def test_subclasses_inherit_constants_from_parent_classes
@@ -57,8 +57,8 @@ class AboutConstants < Neo::Koan
 
     class Bird < Animal
       def legs_in_bird
-        LEGS
-      end
+                   LEGS
+                 end
     end
   end
 
@@ -71,17 +71,16 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class MyAnimals::Oyster < Animal
-    def legs_in_oyster
-      LEGS
+  class MyAnimals
+    class Oyster < Animal
+      def legs_in_oyster
+                     LEGS
+                   end
     end
   end
 
   def test_who_wins_with_explicit_scoping_on_class_definition
-    assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
+    assert_equal 2, MyAnimals::Oyster.new.legs_in_oyster
   end
-
-  # QUESTION: Now which has precedence: The constant in the lexical
-  # scope, or the constant from the inheritance hierarchy?  Why is it
-  # different than the previous answer?
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

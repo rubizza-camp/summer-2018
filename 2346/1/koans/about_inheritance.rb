@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# :reek:IrresponsibleModule
+# class
 class AboutInheritance < Neo::Koan
+  # class
   class Dog
     attr_reader :name
 
@@ -13,10 +16,12 @@ class AboutInheritance < Neo::Koan
     end
   end
 
+  # :reek:IrresponsibleModule
+  # class
   class Chihuahua < Dog
     def wag
-      :happy
-    end
+                      :happy
+                    end
 
     def bark
       'yip'
@@ -55,11 +60,11 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class
   class BullDog < Dog
     def bark
-      super + ', GROWL'
-    end
+                    super + ', GROWL'
+                  end
   end
 
   def test_subclasses_can_invoke_parent_behavior_via_super
@@ -68,11 +73,11 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class
   class GreatDane < Dog
     def growl
-      super.bark + ', GROWL'
-    end
+                      super.bark + ', GROWL'
+                    end
   end
 
   def test_super_does_not_work_cross_method
@@ -81,5 +86,5 @@ class AboutInheritance < Neo::Koan
       george.growl
     end
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

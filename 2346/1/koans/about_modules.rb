@@ -1,7 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#comment
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Naming/AccessorMethodName
+# :reek:IrresponsibleModule
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
+# comment
 class AboutModules < Neo::Koan
-  #comment
+  # comment
   module Nameable
     def set_name(new_name)
       @name = new_name
@@ -62,3 +67,5 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Naming/AccessorMethodName

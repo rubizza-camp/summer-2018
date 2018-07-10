@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/ConditionalAssignment
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -11,13 +14,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-
 class Proxy
   attr_reader :messages
 
   def initialize(target_object)
     @object = target_object
-    @messages =[]
+    @messages = []
     # ADD MORE CODE HERE
   end
 
@@ -38,7 +40,13 @@ class Proxy
 end
 
 # The proxy object should pass the following Koan:
-#
+# :reek:IrresponsibleModule
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:TooManyMethods
+# :reek:TooManyStatements
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -65,7 +73,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal [:power, :channel=], tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages
@@ -83,7 +91,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
@@ -99,22 +107,22 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
 
-    assert_equal ["CODE", "MASH", "2009"], result
-    assert_equal [:upcase!, :split], proxy.messages
+    assert_equal %w[CODE MASH 2009], result
+    assert_equal %i[upcase! split], proxy.messages
   end
 end
-
-
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:Attribute
+# :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 
@@ -132,6 +140,13 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# :reek:IrresponsibleModule
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:TooManyMethods
+# :reek:TooManyStatements
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -146,7 +161,7 @@ class TelevisionTest < Neo::Koan
     tv.power
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_edge_case_on_off
@@ -160,7 +175,7 @@ class TelevisionTest < Neo::Koan
 
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_can_set_the_channel
@@ -170,3 +185,7 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Style/MissingRespondToMissing
+# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/ConditionalAssignment

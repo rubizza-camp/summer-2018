@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# The AboutOpenClasses class
 class AboutOpenClasses < Neo::Koan
+  # The Dog class
   class Dog
     def bark
       'WOOF'
@@ -12,6 +14,7 @@ class AboutOpenClasses < Neo::Koan
     assert_equal 'WOOF', fido.bark
   end
 
+  # rubocop:enable Layout/SpaceBeforeFirstArg
   # ------------------------------------------------------------------
 
   # Open the existing Dog class and add a new method.
@@ -28,12 +31,14 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren
+  # one more class
   class ::Integer
     def even?
-      (self % 2) == 0
+      (self % 2).zero?
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?

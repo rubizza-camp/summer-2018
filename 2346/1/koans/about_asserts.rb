@@ -1,13 +1,13 @@
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 # -*- ruby -*-
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:IrresponsibleModule
 class AboutAsserts < Neo::Koan
-
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth
-    assert true                # This should be true
+    assert true # This should be true
   end
 
   # Enlightenment may be more easily achieved with appropriate
@@ -38,3 +38,4 @@ class AboutAsserts < Neo::Koan
     assert_equal 2, 1 + 1
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

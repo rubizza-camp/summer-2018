@@ -1,5 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Naming/AccessorMethodName
+# rubocop:disable Style/TrivialAccessors
+# rubocop:disable Style/EvalWithLocation
+# :reek:IrresponsibleModule
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeModuleName
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:Attribute
+# :reek:InstanceVariableAssumption
+# class
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -22,7 +36,7 @@ class AboutClasses < Neo::Koan
     assert_equal [], fido.instance_variables
 
     fido.set_name('Fido')
-    assert_equal [:@name], fido.instance_variables
+    assert_equal %i[@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
@@ -50,8 +64,8 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
   # ------------------------------------------------------------------
@@ -60,6 +74,7 @@ class AboutClasses < Neo::Koan
     def set_name(a_name)
       @name = a_name
     end
+
     def name
       @name
     end
@@ -82,7 +97,6 @@ class AboutClasses < Neo::Koan
     end
   end
 
-
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.set_name('Fido')
@@ -95,7 +109,6 @@ class AboutClasses < Neo::Koan
   class Dog5
     attr_accessor :name
   end
-
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
@@ -182,9 +195,13 @@ class AboutClasses < Neo::Koan
 
     assert_equal '[1, 2, 3]', array.to_s
     assert_equal '[1, 2, 3]', array.inspect
-
+    # rubocop:disable Style/StringLiterals
     assert_equal 'STRING', 'STRING'.to_s
     assert_equal "\"STRING\"", 'STRING'.inspect
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Style/StringLiterals
+# rubocop:enable Naming/AccessorMethodName
+# rubocop:enable Style/TrivialAccessors
+# rubocop:enable Style/EvalWithLocation
