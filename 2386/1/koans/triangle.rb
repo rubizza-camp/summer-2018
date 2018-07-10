@@ -12,22 +12,26 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
-def triangle(a, b, c)
-  if a <= 0 || b <= 0 || c <= 0
-    raise TriangleError, "sides cant't be less then 0"
-  end
 
-  if a + b <= c || a + c <= b || b + c <= a
-    raise TriangleError, " two sides cant't be less then one"
+def triangle(a_line, b_line, c_line)
+  triangle_zero_error(a_line, b_line, c_line)
+  triangle_sides_error(a_line, b_line, c_line)
+  if (a_line == b_line) && (b_line == c_line)
+    :equilateral
+  elsif (a_line == b_line) || (a_line == c_line) || (b_line == c_line)
+    :isosceles
+  else
+    :scalene
   end
-  ans = %i[scalene isosceles isosceles equilateral]
-  i = 0
-  i += 1 if a == b
-  i += 1 if a == c
-  i += 1 if b == c
-  ans[i]
- end
+end
+
+def triangle_zero_error(a_line, b_line, c_line)
+  raise TriangleError if a_line <= 0 || b_line <= 0 || c_line <= 0
+end
+
+def triangle_sides_error(a_line, b_line, c_line)
+  raise TriangleError if a_line + b_line <= c_line || a_line + c_line <= b_line || b_line + c_line <= a_line
+end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
