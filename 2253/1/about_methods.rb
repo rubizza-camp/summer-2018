@@ -136,6 +136,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :nodoc:
   class Dog
     def name
       'Fido'
