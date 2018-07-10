@@ -39,6 +39,7 @@ class AboutArrays < Neo::Koan
     assert_equal :butter, array[-3]
   end
 
+  # :reek:TooManyStatements
   def test_slicing_arrays
     array = %i[peanut butter and jelly]
 
