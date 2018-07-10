@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
+# rubocop:disable Naming/AccessorMethodName
 class AboutModules < Neo::Koan
   module Nameable
     def set_name(new_name)
@@ -11,7 +12,7 @@ class AboutModules < Neo::Koan
       :in_module
     end
   end
-
+# rubocop:enable Naming/AccessorMethodName
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements

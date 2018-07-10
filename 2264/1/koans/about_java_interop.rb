@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Style/MixinUsage
 include Java
-
+# rubocop:enable Style/MixinUsage
 # Concepts
 # * Pull in a java class
 # * calling a method, Camel vs snake
@@ -129,13 +129,14 @@ class AboutJavaInterop < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/AbcSize
   def test_however_most_methods_returning_strings_return_ruby_strings
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
     assert_equal __, java_array.toString.is_a?(String)
     assert_equal __, java_array.toString.is_a?(java.lang.String)
   end
-
+  # rubocop:enable Metrics/AbcSize
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -151,12 +152,13 @@ class AboutJavaInterop < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/AbcSize
   def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect
     assert_equal __, [].to_java.class == Java::JavaUtil::ArrayList
     assert_equal __, {}.to_java.class == Java::JavaUtil::HashMap
     assert_equal __, Object.new.to_java.class == Java::JavaLang::Object
   end
-
+  # rubocop:enable Metrics/AbcSize
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -170,6 +172,7 @@ class AboutJavaInterop < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the Java ArrayList class and add a new method.
+  # rubocop:disable NStyle/ClassAndModuleChildren
   class Java::JavaUtil::ArrayList
     def multiply_all
       result = 1
@@ -179,7 +182,7 @@ class AboutJavaInterop < Neo::Koan
       result
     end
   end
-
+  # rubocop:enable NStyle/ClassAndModuleChildren
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements

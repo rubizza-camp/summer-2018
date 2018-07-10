@@ -37,7 +37,7 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
       even?
@@ -52,7 +52,7 @@ class AboutOpenClasses < Neo::Koan
     assert_equal false, 1.even?
     assert_equal true, 2.even?
   end
-
+  # rubocop:enable Style/ClassAndModuleChildren
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
 end
