@@ -122,7 +122,7 @@ class Television
   def power
     @power = if @power == :on
                :off
-             else 
+             else
                :on
              end
   end
