@@ -59,6 +59,7 @@ class AboutInheritance < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :nodoc:
   class BullDog < Dog
     def bark
       super + ', GROWL'
