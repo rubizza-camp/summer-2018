@@ -39,12 +39,12 @@ def score(dice)
   end
 
   scores.each do |key, value|
-  sum += 1000 if (value == 3 && key == 1)
-  sum += 100 * key if (value == 3 && key != 1)
-  sum += 100 * value if (key == 1 && value < 3)
-  sum += 100 * (value % 3 ) + 1000 if (key == 1 && value > 3)
-  sum += 50 * value if (key == 5 && value < 3)
-  sum += 50 * (value % 3 ) + 100 * 5 if (key == 5 && value > 3)
+    sum += 1000 if value == 3 && key == 1
+    sum += 100 * key if value == 3 && key != 1
+    sum += 100 * value if key == 1 && value < 3
+    sum += 100 * (value % 3) + 1000 if key == 1 && value > 3
+    sum += 50 * value if key == 5 && value < 3
+    sum += 50 * (value % 3) + 100 * 5 if key == 5 && value > 3
   end
 
   sum
@@ -90,5 +90,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1200, score([1, 1, 1, 1, 1])
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
-
 end

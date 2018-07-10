@@ -1,28 +1,30 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This method smells of :reek:IrresponsibleModule
+# This method smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
-
+  # This method smells of :reek:RepeatedConditional
+  # This method smells of :reek:FeatureEnvy
   def count_lines(file_name)
     file = open(file_name)
     count = 0
-    while file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file.close if file
   end
 
+  # This method smells of :reek:RepeatedConditional
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:RepeatedConditional
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets
-      return line if line.match(/e/)
+      return line if line =~ /e/
     end
   ensure
     file.close if file
@@ -53,7 +55,7 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
-
+  # This method smells of :reek:RepeatedConditional
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
@@ -62,44 +64,42 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # Now we write:
-
+  # This method smells of :reek:UncommunicativeMethodName
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
-      while file.gets
-        count += 1
-      end
+      count += 1 while file.gets
       count
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeMethodName
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while line = file.gets
-        return line if line.match(/e/)
+        return line if line =~ /e/
       end
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeMethodName
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
-      while file.gets
-        count += 1
-      end
+      count += 1 while file.gets
       count
     end
   end
@@ -107,5 +107,4 @@ class AboutSandwichCode < Neo::Koan
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
   end
-
 end

@@ -1,11 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This method smells of :reek:IrresponsibleModule
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
     assert_equal true, symbol.is_a?(Symbol)
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_symbols_can_be_compared
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -15,6 +16,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol1 == symbol3
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_identical_symbols_are_a_single_internal_object
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -23,8 +25,9 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
@@ -34,9 +37,10 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'
+    RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    # This method smells of :reek:UncommunicativeVariableName
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
       assert_equal false, all_symbols_as_strings.include?('What is the sound of one hand clapping?')
     end
@@ -73,6 +77,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # This method smells of :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)

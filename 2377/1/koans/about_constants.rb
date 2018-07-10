@@ -1,10 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-C = 'top level'
-
+C = 'top level'.freeze
+# This method smells of :reek:IrresponsibleModule
 class AboutConstants < Neo::Koan
-
-  C = 'nested'
+  C = 'nested'.freeze
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
@@ -20,13 +19,13 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:IrresponsibleModule
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
-
+    # This method smells of :reek:IrresponsibleModule
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -39,7 +38,7 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:IrresponsibleModule
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -51,7 +50,7 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:IrresponsibleModule
   class MyAnimals
     LEGS = 2
 
@@ -70,7 +69,7 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:IrresponsibleModule
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS

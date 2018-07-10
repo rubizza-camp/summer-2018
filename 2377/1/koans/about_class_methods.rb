@@ -88,7 +88,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -165,5 +165,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end

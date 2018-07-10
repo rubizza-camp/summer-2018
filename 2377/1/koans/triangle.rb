@@ -13,14 +13,17 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+# This method smells of :reek:DuplicateMethodCall
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:TooManyStatements
+def triangle(a_side, b_side, c_side)
   # WRITE THIS CODE
-  raise TriangleError, "triangle doesn't exist" if (a == 0 || b == 0 || c == 0)
-  raise TriangleError, "triangle doesn't exist" if (a + b <= c || a + c <= b || b + c <= a)
-  raise TriangleError, "triangle doesn't exist" if (a <= 0 || b <= 0 || c <= 0)
-
-  return :equilateral if (a == c && b == c && a == b)
-  return :isosceles if (a == b || b == c || a == c)
+  raise TriangleError, "triangle doesn't exist" if a_side.zero? || b_side.zero? || c_side.zero?
+  raise TriangleError, "triangle doesn't exist" if a_side + b_side <= c_side || a_side + c_side <= b_side || b_side + c_side <= a_side
+  raise TriangleError, "triangle doesn't exist" if a_side <= 0 || b_side <= 0 || c_side <= 0
+  # This method smells of :reek:DuplicateMetodCall
+  return :equilateral if a_side == c_side && b_side == c_side && a_side == b_side
+  return :isosceles if a_side == b_side || b_side == c_side || a_side == c_side
   :scalene
 end
 
