@@ -28,8 +28,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
+# :reek:ControlParameter
+def cond_one(ins)
+  if ins == 1
+    1000
+  else
+    100 * i
+  end
+end
 
 # :reek:TooManyStatements
 # :reek:DuplicateMethodCall
@@ -40,18 +46,11 @@ def score(dice)
   dice.map { |ins| totals[ins] += 1 }
   (1..6).each do |ins|
     next unless totals[ins] >= 3
-    score += if ins == 1
-               1000
-             else
-               100 * i
-             end
+    score += cond_one(ins)
     totals[ins] -= 3
   end
   score += totals[1] * 100 + totals[5] * 50
-  score
 end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
 # com
 # This class smells of :reek:UncommunicativeModuleName
 class AboutScoringProject < Neo::Koan
