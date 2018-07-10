@@ -1,32 +1,34 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-C = "top level"
+C = 'top level'.freeze
 
+# :reek:IrresponsibleModule
 class AboutConstants < Neo::Koan
-
-  C = "nested"
+  C = 'nested'.freeze
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
-    assert_equal "nested", C
+    assert_equal 'nested', C
   end
 
   def test_top_level_constants_are_referenced_by_double_colons
-    assert_equal "top level", ::C
+    assert_equal 'top level', ::C
   end
 
   def test_nested_constants_are_referenced_by_their_complete_path
-    assert_equal "nested", AboutConstants::C
-    assert_equal "nested", ::AboutConstants::C
+    assert_equal 'nested', AboutConstants::C
+    assert_equal 'nested', ::AboutConstants::C
   end
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
 
+    # :reek:IrresponsibleModule
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -40,6 +42,7 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -52,6 +55,7 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
   class MyAnimals
     LEGS = 2
 
@@ -71,11 +75,13 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/ClassAndModuleChildren
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
