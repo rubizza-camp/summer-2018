@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Style/IfUnlessModifier
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/MethodLength:
+# rubocop:disable Metrics/PerceivedComplexity
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
 # score of a single roll of the dice.
@@ -35,23 +40,23 @@ def score(dice)
   dice.each do |item|
     counts[item] += 1
   end
-  
-  counts.each do |item,kolvo_of_items|
-    if item == 1 && kolvo_of_items >= 3 then
+
+  counts.each do |item, kolvo_of_items|
+    if item == 1 && kolvo_of_items >= 3
       result += 1000
       kolvo_of_items -= 3
     end
-    
-    if item != 1 && kolvo_of_items >= 3 then
+
+    if item != 1 && kolvo_of_items >= 3
       result += item * 100
       kolvo_of_items -= 3
     end
-    
-    if item == 1 && kolvo_of_items < 3 then 
+
+    if item == 1 && kolvo_of_items < 3
       result += 100 * kolvo_of_items
     end
-    
-    if item == 5 && kolvo_of_items < 3 then
+
+    if item == 5 && kolvo_of_items < 3
       result += 50 * kolvo_of_items
     end
   end
@@ -72,7 +77,7 @@ class AboutScoringProject < Neo::Koan
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
-    assert_equal 300, score([1,5,5,1])
+    assert_equal 300, score([1, 5, 5, 1])
   end
 
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
@@ -98,5 +103,10 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1200, score([1, 1, 1, 1, 1])
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/MethodLength:
+# rubocop:enable Metrics/PerceivedComplexity

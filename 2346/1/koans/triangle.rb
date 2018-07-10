@@ -1,3 +1,4 @@
+# rubocop:disable Style/Semicolon
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -14,18 +15,23 @@
 #   about_triangle_project_2.rb
 #
 def triangle(side_a, side_b, side_c)
-  raise TriangleError if (side_a >= side_b + side_c) || 
-                         (side_b >= side_a + side_c) ||
-                         (side_c >= side_a + side_b)
-  if side_a == side_b && side_b == side_c then
+  check(side_a, side_b, side_c)
+  if side_a == side_b && side_b == side_c
     :equilateral
-  elsif side_a == side_b || side_a == side_c || side_b == side_c then
+  elsif side_a == side_b || side_a == side_c || side_b == side_c
     :isosceles
   else
     :scalene
   end
 end
 
-# Error class used in part 2.  No need to change this code.
-class TriangleError < StandardError
+def check(side_a, side_b, side_c)
+  raise TriangleError if side_a >= side_b + side_c ||
+                         side_b >= side_a + side_c ||
+                         side_c >= side_a + side_b
 end
+
+# Error class used in part 2.  No need to change this code.
+class TriangleError < StandardError;
+end
+# rubocop:enable Style/Semicolon

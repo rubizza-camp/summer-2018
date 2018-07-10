@@ -1,7 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Style/ConditionalAssignment
+# rubocop:disable Style/IfUnlessModifier
+# new class
 class AboutControlStatements < Neo::Koan
-
   def test_if_then_else_statements
     if true
       result = :true_value
@@ -19,7 +23,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
-  def test_if_statements_return_values
+  # rubocop:disable Metrics/MethodLength
+  def test_if_stats_return
     value = if true
               :true_value
             else
@@ -33,7 +38,6 @@ class AboutControlStatements < Neo::Koan
               :false_value
             end
     assert_equal :false_value, value
-
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
     # just if statements.
   end
@@ -59,7 +63,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    unless false    # same as saying 'if !false', which evaluates as 'if true'
+    unless false # same as saying 'if !false', which evaluates as 'if true'
       result = :false_value
     end
     assert_equal :false_value, result
@@ -67,7 +71,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    unless true    # same as saying 'if !true', which evaluates as 'if false'
+    unless true # same as saying 'if !true', which evaluates as 'if false'
       result = :true_value
     end
     assert_equal :default_value, result
@@ -84,29 +88,29 @@ class AboutControlStatements < Neo::Koan
     i = 1
     result = 1
     while i <= 10
-      result = result * i
+      result *= i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement
     i = 1
     result = 1
-    while true
+    loop do
       break unless i <= 10
-      result = result * i
+      result *= i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-      break i if i % 2 == 0
-      i += 1
-    end
+               break i if (i % 2).zero?
+               i += 1
+             end
 
     assert_equal 2, result
   end
@@ -116,19 +120,19 @@ class AboutControlStatements < Neo::Koan
     result = []
     while i < 10
       i += 1
-      next if (i % 2) == 0
+      next if (i % 2).zero?
       result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
 
   def test_for_statement
-    array = ['fish', 'and', 'chips']
+    array = %w[fish and chips]
     result = []
-    for item in array
+    array.each do |item|
       result << item.upcase
     end
-    assert_equal ['FISH', 'AND', 'CHIPS'], result
+    assert_equal %w[FISH AND CHIPS], result
   end
 
   def test_times_statement
@@ -138,5 +142,10 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 10, sum
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Style/ConditionalAssignment
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Metrics/MethodLength

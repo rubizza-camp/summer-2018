@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Layout/SpaceBeforeFirstArg
 
+# The AboutObjects class
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal true, 1.is_a?(Object)
@@ -48,3 +50,4 @@ class AboutObjects < Neo::Koan
     assert_equal true, obj.object_id != copy.object_id
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

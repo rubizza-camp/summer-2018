@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
 class AboutIteration < Neo::Koan
-
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
   # as symbols. So we use a version dependent method "as_name" to
@@ -66,18 +65,18 @@ class AboutIteration < Neo::Koan
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select { |item| (item % 2) == 0 }
+    even_numbers = array.select { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all { |item| (item % 2) == 0 }
+    more_even_numbers = array.find_all { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], more_even_numbers
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
-    array = ['Jim', 'Bill', 'Clarence', 'Doug', 'Eli']
+    array = %w[Jim Bill Clarence Doug Eli]
 
-    assert_equal 'Clarence', array.find { |item| item.size > 4 }
+    assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
 
   def test_inject_will_blow_your_mind
@@ -99,13 +98,11 @@ class AboutIteration < Neo::Koan
     # Files act like a collection of lines
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
-      assert_equal ['THIS', 'IS', 'A', 'TEST'], upcase_lines
+      assert_equal %w[THIS IS A TEST], upcase_lines
     end
-
     # NOTE: You can create your own collections that work with each,
     # map, select, etc.
   end
-
   # Bonus Question:  In the previous koan, we saw the construct:
   #
   #   File.open(filename) do |file|
@@ -118,5 +115,5 @@ class AboutIteration < Neo::Koan
   #   # code to read 'file'
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#comment
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# comment
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition
@@ -29,5 +30,5 @@ class AboutTrueAndFalse < Neo::Koan
     assert_equal :true_stuff, truth_value('Strings')
     assert_equal :true_stuff, truth_value('')
   end
-
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg

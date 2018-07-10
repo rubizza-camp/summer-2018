@@ -1,8 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
+# rubocop:disable Style/HashSyntax
+# rubocop:disable Lint/ShadowingOuterLocalVariable
+# rubocop:disable Metrics/AbcSize
 class AboutHashes < Neo::Koan
   def test_creating_hashes
-    empty_hash = Hash.new
+    empty_hash = {}
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
@@ -53,22 +56,22 @@ class AboutHashes < Neo::Koan
   def test_hash_keys
     hash = { :one => 'uno', :two => 'dos' }
     assert_equal 2, hash.keys.size
-    assert_equal true, hash.keys.include?(:one)
-    assert_equal true, hash.keys.include?(:two)
+    assert_equal true, hash.key?(:one)
+    assert_equal true, hash.key?(:two)
     assert_equal Array, hash.keys.class
   end
 
   def test_hash_values
     hash = { :one => 'uno', :two => 'dos' }
     assert_equal 2, hash.values.size
-    assert_equal true, hash.values.include?('uno')
-    assert_equal true, hash.values.include?('dos')
+    assert_equal true, hash.value?('uno')
+    assert_equal true, hash.value?('dos')
     assert_equal Array, hash.values.class
   end
 
   def test_combining_hashes
     hash = { 'jim' => 53, 'amy' => 20, 'dan' => 23 }
-    new_hash = hash.merge({ 'jim' => 54, 'jenny' => 26 })
+    new_hash = hash.merge('jim' => 54, 'jenny' => 26)
 
     assert_equal true, hash != new_hash
 
@@ -77,7 +80,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = Hash.new
+    hash1 = {}
     hash1[:one] = 1
 
     assert_equal 1, hash1[:one]
@@ -96,21 +99,25 @@ class AboutHashes < Neo::Koan
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal ['uno','dos'], hash[:one]
-    assert_equal ['uno','dos'], hash[:two]
-    assert_equal ['uno','dos'], hash[:three]
+    assert_equal %w[uno dos], hash[:one]
+    assert_equal %w[uno dos], hash[:two]
+    assert_equal %w[uno dos], hash[:three]
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
 
   def test_default_value_with_block
-    hash = Hash.new {|hash, key| hash[key] = [] }
+    hash = Hash.new { |hash, key| hash[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal ['uno'], hash[:one]
-    assert_equal ['dos'], hash[:two]
+    assert_equal %w[uno], hash[:one]
+    assert_equal %w[dos], hash[:two]
     assert_equal [], hash[:three]
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
+# rubocop:enable Style/HashSyntax
+# rubocop:enable Lint/ShadowingOuterLocalVariable
+# rubocop:enable Metrics/AbcSize

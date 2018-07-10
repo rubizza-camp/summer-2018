@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Layout/SpaceBeforeFirstArg
 class AboutToStr < Neo::Koan
-
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -52,3 +51,4 @@ class AboutToStr < Neo::Koan
     assert_equal true,  acts_like_a_string?(CanBeTreatedAsString.new)
   end
 end
+# rubocop:enable Layout/SpaceBeforeFirstArg
