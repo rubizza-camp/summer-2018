@@ -12,11 +12,11 @@ class AboutKeywordArguments < Neo::Koan
     assert_equal [1, 2], method_with_keyword_arguments(two: 2)
   end
 
-  # rubocop:disable Metrics/LineLength
-  def method_with_keyword_arguments_with_mandatory_argument(one, two: 2, three: 3)
+  def method_with_keyword_arguments_with_mandatory_argument(one,
+                                                            two: 2,
+                                                            three: 3)
     [one, two, three]
   end
-  # rubocop:enable Metrics/LineLength
 
   def test_keyword_arguments_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do

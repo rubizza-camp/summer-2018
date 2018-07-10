@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:FeatureEnvy
 def triangle(param_a, param_b, param_c)
   param_a, param_b, param_c = [param_a, param_b, param_c].sort
   raise TriangleError if param_a <= 0 || param_a + param_b <= param_c
