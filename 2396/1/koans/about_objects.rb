@@ -40,6 +40,10 @@ class AboutObjects < Neo::Koan
     # What pattern do the object IDs for small integers follow?
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_clone_creates_a_different_object
     obj = Object.new
     copy = obj.clone

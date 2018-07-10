@@ -1,10 +1,18 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_symbols_are_symbols
     symbol = :ruby
     assert_equal true, symbol.is_a?(Symbol)
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_symbols_can_be_compared
     symbol1 = :a_symbol
@@ -14,6 +22,10 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1  == symbol2
     assert_equal false, symbol1 == symbol3
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_identical_symbols_are_a_single_internal_object
     symbol1 = :a_symbol
@@ -22,37 +34,58 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1           == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-    str = 'test_method_names_become_symbols'
-    assert_equal true, symbols_as_strings.include?(str)
+    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
+    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
   # THINK ABOUT IT:
   #
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
-
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   in_ruby_version('mri') do
-    ruby_constant = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
+    # This method smells of :reek:UncommunicativeMethodName
+    # This method smells of :reek:UncommunicativeVariableName
+    # This method smells of :reek:TooManyStatements
+    # This method smells of :reek:FeatureEnvy
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-      str = 'test_constants_become_symbols'
-      assert_equal true, all_symbols_as_strings.include?(str)
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
+
+      assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
   end
-
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_symbols_can_be_made_from_strings
     string = 'catsAndDogs'
     assert_equal :catsAndDogs, string.to_sym
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_symbols_with_spaces_can_be_built
     symbol = :"cats and dogs"
 
     assert_equal 'cats and dogs'.to_sym, symbol
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
@@ -60,6 +93,10 @@ class AboutSymbols < Neo::Koan
 
     assert_equal "cats #{value} dogs".to_sym, symbol
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
@@ -67,6 +104,10 @@ class AboutSymbols < Neo::Koan
 
     assert_equal 'It is raining cats and dogs.', string
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_symbols_are_not_strings
     symbol = :ruby
@@ -74,6 +115,11 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
@@ -83,13 +129,20 @@ class AboutSymbols < Neo::Koan
   # It's important to realize that symbols are not "immutable
   # strings", though they are immutable. None of the
   # interesting string operations are available on symbols.
-
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_symbols_cannot_be_concatenated
     # Exceptions will be pondered further down the path
     assert_raise(Exception) do
       :cats + :dogs
     end
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_symbols_can_be_dynamically_created
     assert_equal :catsdogs, ('cats' + 'dogs').to_sym

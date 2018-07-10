@@ -257,4 +257,4 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable Naming/AccessorMethodName
+
