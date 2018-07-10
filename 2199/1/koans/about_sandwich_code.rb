@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:RepeatedConditional
 # About sandwich code
+# This class smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
   # :reek:FeatureEnvy
   # :reek:DuplicateMethodCall
@@ -9,8 +10,7 @@ class AboutSandwichCode < Neo::Koan
     file = open(file_name) # rubocop:disable Security/Open
     count = 0
     count += 1 while file.gets
-    count
-  # :reek:RepeatedConditional  
+    count 
   ensure
     file.close if file
   end
