@@ -123,7 +123,11 @@ class AboutJavaInterop < Neo::Koan
   # :reek:IrresponsibleModule
   # Blah blah blah
   class Java
+
+    # Blah blah
     class JavaUtil
+
+      # Blah
       class ArrayList
         def multiply_all
           result = 1

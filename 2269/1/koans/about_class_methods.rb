@@ -119,7 +119,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #A Doggy class
+  # A Doggy class
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
