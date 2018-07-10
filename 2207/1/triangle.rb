@@ -21,13 +21,13 @@ end
 
 def triangle(side_a, side_b, side_c)
   
-    if side_a == side_b && side_b == side_c
-      return :equilateral
-    elsif side_a == side_b || side_b == side_c || side_a == side_c
-      return :isosceles
-    else
-      return :scalene
-    end
+  if side_a == side_b && side_b == side_c
+    return :equilateral
+  elsif side_a == side_b || side_b == side_c || side_a == side_c
+    return :isosceles
+  else
+    return :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
