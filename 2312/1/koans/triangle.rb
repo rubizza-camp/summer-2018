@@ -13,40 +13,29 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable Style/GuardClause
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Metrics/PerceivedComplexity
-# rubocop:disable Style/IfInsideElse
 # :reek:FeatureEnvy
-def triangle(fst, scnd, thrd)
+def check_data(fst, scnd, thrd)
   if (fst <= 0) || (scnd <= 0) || (thrd <= 0)
     raise TriangleError,
           'one (or more) side(s) is(are) lower then (equal to) 0'
-  else
-    if (fst + scnd <= thrd) || (scnd + thrd <= fst) || (fst + thrd <= scnd)
-      raise TriangleError,
-            'sum of 2 sides is lower then (equal to) the third side'
-    end
-  end
-
-  if (fst == scnd) && (scnd == thrd)
-    return :equilateral
-  else
-    if (fst != scnd) && (fst != thrd) && (scnd != thrd)
-      return :scalene
-    else
-      return :isosceles
-    end
+  elsif (fst + scnd <= thrd) || (scnd + thrd <= fst) || (fst + thrd <= scnd)
+    raise TriangleError,
+          'sum of 2 sides is lower then (equal to) the third side'
   end
 end
+
+# :reek:FeatureEnvy
+def triangle(fst, scnd, thrd)
+  check_data fst, scnd, thrd
+  if (fst == scnd) && (scnd == thrd)
+    return :equilateral
+  elsif (fst != scnd) && (fst != thrd) && (scnd != thrd)
+    return :scalene
+  else
+    return :isosceles
+  end
+end
+
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Style/GuardClause
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Metrics/PerceivedComplexity
-# rubocop:enable Style/IfInsideElse
