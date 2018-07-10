@@ -2,18 +2,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :nodoc:
 class AboutExceptions < Neo::Koan
-
   # :nodoc:
   class MySpecialError < RuntimeError
   end
 
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
     begin
@@ -32,6 +32,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal 'Oops', ex.message
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_raising_a_particular_error
     result = nil
