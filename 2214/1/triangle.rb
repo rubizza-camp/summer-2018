@@ -13,20 +13,21 @@
 # and
 #   about_triangle_project_2.rb
 #
+# This method smells of :reek:UtilityFunction
 def triangle(a, b, c)
-  if a <= 0 || b <= 0 || c <= 0
+  if (a <= 0) || (b <= 0) || (c <= 0)
   	raise TriangleError
   end
-  if a + b <= c || a + c <= b || b + c <= a
+  if (a + b <= c) || (a + c <= b) || (b + c <= a)
   	raise TriangleError
   end
-  if a == b && b == c
+  if (a == b) && (b == c)
   	return :equilateral
   end
-  if a == b || a == c || b == c
+  if (a == b) || (a == c) || (b == c)
   	return :isosceles
   end
-  if a != b && b != c && a != c
+  if (a != b) && (b != c) && (a != c)
   	return :scalene
   end
 end

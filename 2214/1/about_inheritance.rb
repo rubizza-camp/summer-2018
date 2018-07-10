@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This class smells of :reek:UncommunicativeModuleName
 class AboutInheritance < Neo::Koan
   class Dog
     attr_reader :name
@@ -9,10 +10,11 @@ class AboutInheritance < Neo::Koan
     end
 
     def bark
-      "WOOF"
+      'WOOF'
     end
   end
 
+  # This class smells of :reek:UncommunicativeModuleName
   class Chihuahua < Dog
     def wag
       :happy
@@ -22,45 +24,67 @@ class AboutInheritance < Neo::Koan
       'yip'
     end
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_subclasses_have_the_parent_as_an_ancestor
     assert_equal true, Chihuahua.ancestors.include?(Dog)
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_all_classes_ultimately_inherit_from_object
     assert_equal true, Chihuahua.ancestors.include?(Object)
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_subclasses_inherit_behavior_from_parent_class
     chico = Chihuahua.new('Chico')
     assert_equal 'Chico', chico.name
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_subclasses_add_new_behavior
     chico = Chihuahua.new('Chico')
     assert_equal :happy, chico.wag
-
     assert_raise(NoMethodError) do
       fido = Dog.new('Fido')
       fido.wag
     end
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_subclasses_can_modify_existing_behavior
     chico = Chihuahua.new('Chico')
     assert_equal 'yip', chico.bark
-
     fido = Dog.new('Fido')
     assert_equal 'WOOF', fido.bark
   end
 
   # ------------------------------------------------------------------
-
+  # This class smells of :reek:UncommunicativeModuleName
   class BullDog < Dog
     def bark
       super + ', GROWL'
     end
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_subclasses_can_invoke_parent_behavior_via_super
     ralph = BullDog.new('Ralph')
@@ -68,12 +92,16 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This class smells of :reek:UncommunicativeModuleName
   class GreatDane < Dog
     def growl
       super.bark + ', GROWL'
     end
   end
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
 
   def test_super_does_not_work_cross_method
     george = GreatDane.new('George')
