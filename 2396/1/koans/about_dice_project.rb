@@ -3,10 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Implement a DiceSet Class here:
 #
 class DiceSet
-  attr_reader :values
+  attr_reader :meanings
 
   def roll(size)
-    @values = Array.new(size) { rand(1..6) }
+    @meanings = Array.new(size) { rand(1..6) }
   end
 end
 
@@ -29,9 +29,9 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(5)
-    assert dice.values.is_a?(Array), 'should be an array'
-    assert_equal 5, dice.values.size
-    dice.values.each do |value|
+    assert dice.meanings.is_a?(Array), 'should be an array'
+    assert_equal 5, dice.meanings.size
+    dice.meanings.each do |value|
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
     end
   end
@@ -43,8 +43,8 @@ class AboutDiceProject < Neo::Koan
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
     dice.roll(5)
-    first_time = dice.values
-    second_time = dice.values
+    first_time = dice.meanings
+    second_time = dice.meanings
     assert_equal first_time, second_time
   end
 
@@ -56,10 +56,10 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(5)
-    first_time = dice.values
+    first_time = dice.meanings
 
     dice.roll(5)
-    second_time = dice.values
+    second_time = dice.meanings
 
     assert_not_equal first_time, second_time,
                      'Two rolls should not be equal'
@@ -79,9 +79,9 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(3)
-    assert_equal 3, dice.values.size
+    assert_equal 3, dice.meanings.size
 
     dice.roll(1)
-    assert_equal 1, dice.values.size
+    assert_equal 1, dice.meanings.size
   end
 end
