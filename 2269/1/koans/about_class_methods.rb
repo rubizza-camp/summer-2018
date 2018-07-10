@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:IrresponsibleModule
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
+  # :reek:IrresponsibleModule
   class Dog
   end
 
@@ -48,6 +51,8 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
+  # :reek:UncommunicativeModuleName
   class Dog2
     def wag
       :instance_level_wag
@@ -70,27 +75,33 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
+  # :reek:Attribute
   class Dog
     attr_accessor :name
   end
-
+  # rubocop:disable Style/TrivialAccessors
   def Dog.name
     @name
   end
 
+  # rubocop:enable Style/TrivialAccessors
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
-    assert_equal "Fido", fido.name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
     assert_equal nil, Dog.name
   end
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
   class Dog
+    # rubocop:disable Style/ClassMethods
     def Dog.a_class_method
       :dogs_class_method
     end
+    # rubocop:enable Style/ClassMethods
   end
 
   def test_you_can_define_class_methods_inside_the_class
@@ -98,27 +109,34 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  # Doggy class assss dddfrt fgghybfvcddddccdc
+  # rubocop:disable Lint/UnneededCopDisableDirective
+  # rubocop:disable Style/Documentation
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
+  # A Doggy class assss dddfrt fgghybfvcddddccdc
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
+  # rubocop:enable Style/Documentation
+  # rubocop:enable Lint/UnneededCopDisableDirective
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
+  # :reek:UncommunicativeMethodName
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -131,6 +149,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:IrresponsibleModule
   class Dog
     class << self
       def another_class_method
@@ -165,5 +184,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end

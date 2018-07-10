@@ -3,30 +3,37 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Implement a DiceSet Class here:
 #
 class DiceSet
-#   code ...
+  # code ...
   attr_reader :values
   def roll(dice)
     @values = Array.new(dice) { rand(1..6) }
   end
 end
 
+# :reek:IrresponsibleModule
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
     assert_not_nil dice
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeMethodName
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
 
     dice.roll(5)
-    assert dice.values.is_a?(Array), "should be an array"
+    assert dice.values.is_a?(Array), 'should be an array'
     assert_equal 5, dice.values.size
     dice.values.each do |value|
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
     end
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
     dice.roll(5)
@@ -35,6 +42,9 @@ class AboutDiceProject < Neo::Koan
     assert_equal first_time, second_time
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
 
@@ -44,8 +54,7 @@ class AboutDiceProject < Neo::Koan
     dice.roll(5)
     second_time = dice.values
 
-    assert_not_equal first_time, second_time,
-      "Two rolls should not be equal"
+    assert_not_equal first_time, second_time, 'Two rolls should not be equal'
 
     # THINK ABOUT IT:
     #
@@ -54,6 +63,8 @@ class AboutDiceProject < Neo::Koan
     # better way to test this?
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new
 
@@ -63,5 +74,4 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-
 end

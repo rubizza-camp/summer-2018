@@ -13,25 +13,31 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+# :reek:UncommunicativeParameterName
+# rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+def triangle(side_a, side_b, side_c)
   # WRITE THIS CODE
-  raise TriangleError if is_sides_non_positive?(a, b, c) ||
-      is_sum_non_greater_third_side?(a, b, c)
-  if a == b && b == c
+  raise TriangleError if sides_non_positive?(side_a, side_b, side_c) ||
+                         sum_non_greater_third_side?(side_a, side_b, side_c)
+
+  if side_a == side_b && side_b == side_c
     :equilateral
-  elsif a == b || b == c || a == c
+  elsif side_b == side_a || side_c == side_b || side_a == side_c
     return :isosceles
   else
     :scalene
   end
 end
 
-def is_sides_non_positive?(a, b, c)
-  a <= 0 || b <= 0 || c <= 0
+# :reek:UtilityFunction
+# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+def sides_non_positive?(side_a, side_b, side_c)
+  side_a <= 0 || side_b <= 0 || side_c <= 0
 end
 
-def is_sum_non_greater_third_side?(a, b, c)
-  a + b <= c || a + c <= b || b + c <= a
+# :reek:UtilityFunction
+def sum_non_greater_third_side?(side_a, side_b, side_c)
+  side_a + side_b <= side_c || side_a + side_c <= side_b || side_b + side_c <= side_a
 end
 
 # Error class used in part 2.  No need to change this code.
