@@ -32,7 +32,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def score(dice)
   # You need to write this method
   result = 0
-  for i in 1..6
+  (1..6).each do |i|
     temp = dice.find_all { |item| item == i }
     result += if i == 1
                 (temp.size / 3) * 1000 + (temp.size % 3) * 100
