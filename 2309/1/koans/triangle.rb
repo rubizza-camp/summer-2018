@@ -1,7 +1,7 @@
 # Triangle Project Code.
 
-# Triangle analyzes the lengths of the sides of a triangle
-# (represented by a, b and c) and returns the type of triangle.
+# Triangle analyzes the lengths of the sides of side_a triangle
+# (represented by side_a, side_b and side_c) and returns the type of triangle.
 #
 # It returns:
 #   :equilateral  if all sides are equal
@@ -12,18 +12,27 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
-def triangle(a, b, c)
-  [a, b, c].permutation do |sides|
-    raise TriangleError unless sides[0] + sides[1] > sides[2]
+
+# This method smells of :reek:UtilityFunction
+def triangle_type(side_a, side_b, side_c)
+  if (side_a == side_b) && (side_b == side_c)
+    :equilateral
+  elsif (side_a != side_b) && (side_a != side_c) && (side_b != side_c)
+    :scalene
+  else
+    :isosceles
   end
-  case [a,b,c].uniq.size
-    when 3; :scalene
-    when 2; :isosceles
-    when 1; :equilateral
-  end
+end
+
+# This method smells of :reek:FeatureEnvy
+def triangle(side_a, side_b, side_c)
+  # WRITE THIS CODE
+  raise TriangleError if (side_a >= side_b + side_c) || (side_b >= side_a + side_c) || (side_c >= side_a + side_b)
+
+  triangle_type(side_a, side_b, side_c)
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+
