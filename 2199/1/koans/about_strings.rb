@@ -129,11 +129,13 @@ SQL
     assert_equal 'The value is 123', string
   end
 
+  # rubocop:disable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = "The value is #{value}"
     assert_equal "The value is #{value}", string
   end
+  # rubocop:enable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
