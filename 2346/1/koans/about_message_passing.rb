@@ -116,13 +116,11 @@ class AboutMessagePassing < Neo::Koan
   # new class
   class AllMessageCatcher
     # rubocop:disable Style/MethodMissing
-    # rubocop:disable Lint/UnusedMethodArgument
     # This method smeels of :reek:UtilityFunction
     def method_missing(method_name, *args, &_block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
     # rubocop:enable Style/MethodMissing
-    # rubocop:enable Lint/UnusedMethodArgument
   end
 
   def test_all_messages_are_caught
