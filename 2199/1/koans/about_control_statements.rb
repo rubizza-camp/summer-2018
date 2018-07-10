@@ -119,7 +119,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal 2, result
   end
 
-# :reek:TooManyStatements
+  # :reek:TooManyStatements
   def test_next_statement
     integer = 0
     result = []
