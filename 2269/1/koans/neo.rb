@@ -409,11 +409,12 @@ SQL
 
     # :reek:DuplicateMethodCall
     # :reek:TooManyStatements
+    # rubocop:disable Style/ParenthesesAroundCondition
     def encourage
       puts
       puts 'The Master says:'
       puts Color.cyan('  You have not yet reached enlightenment.')
-      if (recents = progress.last(5) && recents.size == 5 && recents.uniq.size == 1)
+      if ((recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1)
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
@@ -421,6 +422,7 @@ SQL
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
+    # rubocop:enable Style/ParenthesesAroundCondition
     # rubocop:enable Layout/IndentationConsistency
 
     # :reek:TooManyStatements
