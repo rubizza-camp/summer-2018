@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:10.3
+    restart: always
+    environment:
+      - 'POSTGRES_USER=redmine'
+      - 'POSTGRES_PASSWORD=redmine'
+      - 'POSTGRES_DB=redmine'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - redmine
+
+  redmine:
+    image: imikailoby/redmine:latest
+    restart: always
+    environment:
+      - 'REDMINE_DB_USER=redmine'
+      - 'REDMINE_DB_PASSWORD=redmine'
+      - 'REDMINE_DB_DATABASE=redmine'
+      - 'REDMINE_DB_POSTGRES=postgres'
+      - 'REDMINE_SECRET_TOKEN=rubizza'
+      - 'REDMINE_LANG=en'
+    volumes:
+      - redmine-data:/usr/src/redmine
+    networks:
+      - redmine
+    ports:
+      - 80:3000
+
+volumes:
+  postgres-data:
+  redmine-data:
+
+networks:
+  redmine:
+    driver: bridge
