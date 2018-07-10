@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/ClassLength
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -27,7 +30,6 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
   end
 
-  # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %!flexible quotes can handle both ' and " characters!
@@ -55,7 +57,6 @@ SQL
     assert_equal 2, long_string.lines.count
     assert_equal ' ', long_string[0, 1]
   end
-  # rubocop:enable Style/PercentLiteralDelimiters
 
   def test_plus_will_concatenate_two_strings
     string = 'Hello, ' + 'World'
@@ -131,12 +132,14 @@ SQL
   end
 
   # rubocop:disable Lint/InterpolationCheck
+  # rubocop:disable Lint/UselessAssignment
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = 'The value is #{value}'
     assert_equal 'The value is #{value}', string
   end
   # rubocop:enable Lint/InterpolationCheck
+  # rubocop:enable Lint/UselessAssignment
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -202,3 +205,4 @@ SQL
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength

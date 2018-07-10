@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UncommunicativeModuleName
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -11,7 +16,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog2
+  class DogTwo
     # rubocop:disable Style/TrivialAccessors
     def name(a_name)
       @name = a_name
@@ -20,7 +25,7 @@ class AboutClasses < Neo::Koan
   end
 
   def test_instance_variables_can_be_set_by_assigning_to_them
-    fido = Dog2.new
+    fido = DogTwo.new
     assert_equal [], fido.instance_variables
 
     fido.name('Fido')
@@ -28,7 +33,7 @@ class AboutClasses < Neo::Koan
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
-    fido = Dog2.new
+    fido = DogTwo.new
     fido.name('Fido')
 
     assert_raise(NoMethodError) do
@@ -44,7 +49,7 @@ class AboutClasses < Neo::Koan
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
-    fido = Dog2.new
+    fido = DogTwo.new
     fido.name('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
@@ -52,7 +57,7 @@ class AboutClasses < Neo::Koan
 
   # rubocop:disable Style/EvalWithLocation
   def test_you_can_rip_the_value_out_using_instance_eval
-    fido = Dog2.new
+    fido = DogTwo.new
     fido.name('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name') # string version
@@ -61,7 +66,7 @@ class AboutClasses < Neo::Koan
   # rubocop:enable Style/EvalWithLocation
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeModuleName
   class Dog3
     # rubocop:disable Style/TrivialAccessors
     def name=(a_name)
@@ -83,6 +88,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Style/TrivialAccessors
+  # This method smells of :reek:UncommunicativeModuleName
   class Dog4
     attr_reader :name
     def name=(a_name)
@@ -99,7 +105,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeModuleName
   class Dog5
     attr_accessor :name
   end
@@ -112,7 +118,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeModuleName
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -141,7 +147,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:UncommunicativeModuleName
   class Dog7
     attr_reader :name
 

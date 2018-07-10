@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:ManualDispatch
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -36,6 +36,8 @@ end
 
 # The proxy object should pass the following Koan:
 #
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -108,7 +110,8 @@ end
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
-
+# :reek:Attribute
+# :reek:InstanceVariableAssumption
 # Example class using in the proxy testing above.
 class Television
   attr_accessor :channel
@@ -126,6 +129,8 @@ class Television
   end
 end
 
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
