@@ -40,6 +40,7 @@ class AboutDiceProject < Neo::Koan
     assert_equal first_time, second_time
   end
 
+  # :reek:TooManyStatements
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
 
