@@ -869,7 +869,7 @@ Naming/UncommunicativeBlockParamName:
                 end in numbers, or do not meet a minimal length.
   Enabled: true
 
-Naming/UncommunicativeMethodArgName:
+Naming/UncommunicativeBlockParamName:
   Description: >-
                 Checks for method argument names that contain capital letters,
                 end in numbers, or do not meet a minimal length.
