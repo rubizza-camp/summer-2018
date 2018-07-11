@@ -5,7 +5,7 @@ six-sided dice.
 
 == Playing Greed
 
-Each player takes a turn consisting of one or more rolls of the dice.
+Each dog player takes a turn consisting of one or more rolls of the dice.
 On the first roll of the game, a player rolls all five dice which are
 scored according to the following:
 
