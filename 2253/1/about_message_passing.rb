@@ -21,15 +21,13 @@ class AboutMessagePassing < Neo::Koan
     assert mc.send(:caught?)
   end
 
-  # rubocop:disable Metrics/LineLength
   def test_methods_can_be_invoked_more_dynamically
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?') # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
+    assert mc.send('caught' + '?')
+    assert mc.send('CAUGHT?'.downcase)
   end
-  # rubocop:enable Metrics/LineLength
 
   def test_send_with_underscores_will_also_send_messages
     mc = MessageCatcher.new
