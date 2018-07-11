@@ -17,8 +17,8 @@ def triangle(a, b, c)
   raise TriangleError if [a, b, c].min <= 0
   first_min, second_min, greater_then_all = [a, b, c].sort
   raise TriangleError if first_min + second_min <= greater_then_all
-  
-  [:equilateral, :isosceles, :scalene].fetch [a, b, c].uniq.size - 1
+
+  %i[equilateral isosceles scalene].fetch [a, b, c].uniq.size - 1
 end
 
 # Error class used in part 2.  No need to change this code.
