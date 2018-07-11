@@ -19,11 +19,10 @@ class Proxy
     @message_array = []
   end
 
-  # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     @message_array << method_name
     @object.send(method_name, *args, &block)
-  # rubocop:enable Style/MethodMissing
+  end
 
   def messages
     @message_array.uniq
