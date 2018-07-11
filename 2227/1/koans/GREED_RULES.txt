@@ -40,7 +40,7 @@ removed and the player has the option of rolling again using only the
 non-scoring dice. If all of the thrown dice are scoring, then the
 player may roll all 5 dice in the next roll.
 
-The player may continue to roll as long as each roll scores points. If
+The dog player may continue to roll as long as each roll scores points. If
 a roll has zero points, then the player loses not only their turn, but
 also accumulated score for that turn. If a player decides to stop
 rolling before rolling a zero-point roll, then the accumulated points
