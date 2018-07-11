@@ -23,15 +23,8 @@ RUN gem install bundler && bundle install --without development test
 
 VOLUME ["$REDMINE_PATH/web"]
 
-<<<<<<< HEAD
-COPY docker/prepare-and-run-server.sh.sh /
-RUN chmod +x /prepare-and-run-server.sh.sh
-
-ENTRYPOINT ["/prepare-and-run-server.sh.sh"]
-=======
 COPY docker/prepare-and-run-server.sh /
 RUN chmod +x /prepare-and-run-server.sh
 
 ENTRYPOINT ["/prepare-and-run-server.sh"]
->>>>>>> d49055901b8b12cebc7215124850921a195de1f0
 EXPOSE 3000
