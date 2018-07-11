@@ -30,19 +30,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
-  result = 0
+  res = 0
   (1..6).each do |i|
-    temp = dice.find_all { |item| item == i }
-    result += if i == 1
-                (temp.size / 3) * 1000 + (temp.size % 3) * 100
-              elsif i == 5
-                (temp.size / 3) * 500 + (temp.size % 3) * 50
-              else
-                (temp.size / 3) * i * 100
-              end
+    size = dice.count(i)
+    i = 10 if i == 1
+    res += (size / 3) * i * 100
+    res += (size % 3) * i * 10 if (i % 5).zero?
   end
-  result
+  res
 end
 
 # :nodoc:
