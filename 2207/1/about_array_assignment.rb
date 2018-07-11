@@ -1,5 +1,4 @@
 # rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/LineLength
 # rubocop:disable Layout/Tab
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Layout/IndentationWidth
