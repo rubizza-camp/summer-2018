@@ -41,7 +41,7 @@ class AboutSymbols < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  
+
   def test_method_names_become_symbols
     symbols_ass = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_ass.include?('test_method_names_become_symbols')
@@ -51,10 +51,8 @@ class AboutSymbols < Neo::Koan
   #
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
-  # rubocop:disable Style/RedundantFreeze
   in_ruby_version('mri') do
     RUBY_CONSTANT = 'What is the sound of one hand clapping?'
-    # rubocop:enable Style/RedundantFreeze
     # This method smells of :reek:UncommunicativeMethodName
     # This method smells of :reek:UncommunicativeVariableName
     # This method smells of :reek:TooManyStatements
