@@ -53,9 +53,9 @@ It was the worst of times.
                     It was the best of times,
                     It was the worst of times.
 BOUNDARY
-    assert_equal 53, long_string.length
+    assert_equal 93, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+    assert_equal ' ', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
