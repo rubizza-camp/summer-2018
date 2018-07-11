@@ -15,5 +15,7 @@ def triangle(fir, sec, thi)
 end
 
 # Error class used in part 2.  No need to change this code.
+# rubocop:disable Lint/Syntax
 class TriangleError < StandardError
 end
+# rubocop:enable Lint/Syntax
