@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective
 # About message passing
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:ManualDispatch
@@ -152,10 +152,12 @@ class AboutMessagePassing < Neo::Koan
 
   # Class allmessagecatcher
   class AllMessageCatcher
+    # rubocop:disable Style/MethodMissing
     # This method smells of :reek:UtilityFunction
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+    # rubocop:enable Style/MethodMissing
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -223,6 +225,7 @@ class AboutMessagePassing < Neo::Koan
 
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
+    # rubocop:disable Style/MethodMissing
     def respond_to?(method_name)
       if method_name.to_s[0, 3] == 'foo'
         true
@@ -230,6 +233,7 @@ class AboutMessagePassing < Neo::Koan
         super(method_name)
       end
     end
+    # rubocop:enable Style/MethodMissing
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -243,4 +247,4 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective

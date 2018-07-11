@@ -21,12 +21,12 @@ class Proxy
     @messages = []
   end
 
-  # rubocop:disable Style/MethodMissingSuper
-  def method_missing(method_name, *args, &block)
+  # rubocop:disable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
     @messages << method_name
     @object.send method_name, *args, &block
   end
-  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective
 
   def called?(method_name)
     @messages.include? method_name
