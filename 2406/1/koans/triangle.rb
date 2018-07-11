@@ -13,8 +13,19 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  # WRITE THIS CODE
+# rubocop:disable Metrics/CyclomaticComplexity
+def check_sides(first_side, second_side, third_side)
+  raise TriangleError, 'No negative or null sides' if first_side <= 0 || second_side <= 0 || third_side <= 0
+  raise TriangleError, 'Triangle with that sides can\'t exist' unless first_side < second_side + third_side\
+   && second_side < first_side + third_side && third_side < first_side + second_side
+end
+# rubocop:enable Metrics/CyclomaticComplexity
+
+def triangle(first_side, second_side, third_side)
+  check_sides(first_side, second_side, third_side)
+  return :equilateral if first_side == second_side && second_side == third_side
+  return :isosceles if first_side == second_side || first_side == third_side || second_side == third_side
+  :scalene
 end
 
 # Error class used in part 2.  No need to change this code.
