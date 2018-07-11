@@ -7,12 +7,15 @@ class DiceSet
   def roll(size)
     temp = []
     (1..size).each do |i|
-      temp << i
+      temp << rand(1...6)
     end
-    temp[0], temp[size - 1] = temp[size - 1], temp[0] if check.zero?
-    @check = 0 if @check == 1
     @result = temp
   end
+
+  def values
+    @result
+  end
+end
 
   def values
     @result
