@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/MethodLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This class smells of :reek:UncommunicativeModuleName
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
@@ -12,6 +13,10 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_rescue_clause
     result = nil
     begin
@@ -30,6 +35,10 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', ex.message
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_raising_a_particular_error
     result = nil
     begin

@@ -1,9 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:UtilityFunction
 def my_global_method(first_param, second_param)
   first_param + second_param
 end
 
+# This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -17,6 +20,10 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   # rubocop:disable Style/EvalWithLocation
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_sometimes_missing_parentheses_are_ambiguous
     eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
     #
@@ -33,6 +40,10 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -91,21 +102,34 @@ class AboutMethods < Neo::Koan
   end
   # rubocop:enable Lint/Void
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UtilityFunction
   def my_method_in_the_same_class(first, second)
     first * second
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_same_class
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # rubocop:disable Style/RedundantSelf
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_same_class_with_explicit_receiver
     assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end

@@ -23,6 +23,10 @@ class AboutScope < Neo::Koan
     end
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new
