@@ -60,12 +60,22 @@ AllCops:
     - 'vendor/**/*'
     - 'db/schema.rb'
     - 'db/migrate/*.rb'
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Update .rubocop.yml
     - 'koans/neo.rb'
     - 'koans/path_to_enlightenment.rb'
     - 'koans/about_java_interop.rb'
     - 'koans/koans.watchr'
     - 'koans/Rakefile'
 
+<<<<<<< HEAD
+=======
+    - '**/neo.rb'
+>>>>>>> Update .rubocop.yml
+=======
+>>>>>>> Update .rubocop.yml
   # Default formatter will be used if no `-f/--format` option is given.
   DefaultFormatter: progress
   # Cop names are displayed in offense messages by default. Change behavior

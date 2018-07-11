@@ -27,4 +27,5 @@ COPY docker/prepare-and-run-server.sh /
 RUN chmod +x /prepare-and-run-server.sh
 
 ENTRYPOINT ["/prepare-and-run-server.sh"]
+
 EXPOSE 3000
