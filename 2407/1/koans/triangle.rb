@@ -17,7 +17,6 @@
 # This method smells of :reek:FeatureEnvy
 # This method smells of :reek:TooManyStatements
 def triangle(side_a, side_b, side_c)
-
   sides = [side_a, side_b, side_c].sort
   raise TriangleError if sides.any? { |side| side <= 0 }
   raise TriangleError unless (sides[0] + sides[1]) > sides[2]
