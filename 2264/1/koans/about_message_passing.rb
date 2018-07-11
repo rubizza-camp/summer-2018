@@ -151,7 +151,7 @@ class AboutMessagePassing < Neo::Koan
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
-  
+
   # rubocop:enable Style/MethodMissing
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
