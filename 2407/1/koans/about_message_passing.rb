@@ -113,9 +113,11 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable Lint/UnneededCopDisableDirective
   # rubocop:disable Style/StringLiteralsInInterpolation
   # rubocop:disable Style/MissingRespondToMissing
   # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/MethodMissing
 
   # This method smells of :reek:UtilityFunction
   class AllMessageCatcher
@@ -156,6 +158,8 @@ class AboutMessagePassing < Neo::Koan
   end
   # rubocop:enable Style/MissingRespondToMissing
   # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MethodMissing
+  # rubocop:enable Lint/UnneededCopDisableDirective
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new

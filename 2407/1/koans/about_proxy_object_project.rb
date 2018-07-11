@@ -18,7 +18,9 @@ class Proxy
     @messages = Hash.new(0)
   end
 
+  # rubocop:disable Lint/UnneededCopDisableDirective
   # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/MethodMissing
   # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method_name, *args, &block)
     @messages[method_name] += 1
@@ -26,6 +28,8 @@ class Proxy
   end
   # rubocop:enable Style/MissingRespondToMissing
   # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MethodMissing
+  # rubocop:enable Lint/UnneededCopDisableDirective
 
   def messages
     @messages.keys
