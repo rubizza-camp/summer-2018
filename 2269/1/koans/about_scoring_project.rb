@@ -36,7 +36,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/MethodLength
 def score(dice)
-  # You need to write this method. And i wrote.
+  # You need to write this method. And i wrote
   return 0 if dice == []
   hash = { one: 0, two: 0, three: 0, four: 0, five: 0, six: 0 }
   dice.each do |el|
