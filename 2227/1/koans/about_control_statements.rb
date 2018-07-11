@@ -58,7 +58,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_if_statements_with_no_else_with_false_condition_return_value
+  def test_if_statements_with_no_else
     value = (:true_value if false)
     assert_equal nil, value
   end
