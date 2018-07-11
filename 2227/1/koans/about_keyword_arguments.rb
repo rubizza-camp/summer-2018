@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# frozen_string_literal: true
-# Class AboutKeywordArguments
+
+# Class about keyword arguments
 # This class smells of :reek:UncommunicativeModuleName
 class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments(one: 1, two: 'two')
@@ -17,13 +17,10 @@ class AboutKeywordArguments < Neo::Koan
     assert_equal %w[one two], method_with_keyword_arguments(one: 'one')
     assert_equal [1, 2], method_with_keyword_arguments(two: 2)
   end
-  # rubocop:disable Metrics/LineLength
-  # rubocop:disable Layout/EmptyLineBetweenDefs
+
   def method_with_keyword_arguments_with_mandatory_argument(one, two: 2, three: 3)
     [one, two, three]
   end
-  # rubocop:enable Metrics/LineLength
-  # rubocop:enable Layout/EmptyLineBetweenDefs
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -38,5 +35,5 @@ class AboutKeywordArguments < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # Keyword arguments alwl to the caller
+  # Keyword arguments always have a default value, making them optional to the caller
 end
