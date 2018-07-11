@@ -117,23 +117,18 @@ class AboutMessagePassing < Neo::Koan
   # :nodoc:
   class AllMessageCatcher
     # rubocop:disable MethodMissing
-    # rubocop:disable Style/MissingRespondToMissing
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
-    # rubocop:enable Style/MissingRespondToMissing
     # rubocop:enable MethodMissing
   end
-
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    # rubocop:disable Metrics/LineLength
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
-    # rubocop:enable Metrics/LineLength
   end
 
   def test_catching_messages_makes_respond_to_lie
