@@ -111,10 +111,10 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
   # Doggy class assss dddfrt fgghybfvcddddccdc
   # rubocop:disable Lint/UnneededCopDisableDirective
+  # rubocop:disable Style/Documentation
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
-  # rubocop:enable Lint/UnneededCopDisableDirective
 
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
@@ -123,8 +123,6 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
   # A Doggy class assss dddfrt fgghybfvcddddccdc
   # aaa cc  vvvv jjj one more
-  # rubocop:disable Lint/UnneededCopDisableDirective
-  # rubocop:disable Style/Documentation
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
