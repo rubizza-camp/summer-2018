@@ -20,16 +20,14 @@ class AboutNil < Neo::Koan
     # What happens when you call a method that doesn't exist.  The
     # following begin/rescue/end code block captures the exception and
     # makes some assertions about it.
-    begin
-      nil.some_method_nil_doesnt_know_about
-    rescue Exception => ex
-      # What exception has been caught?
-      assert_equal NoMethodError, ex.class
+    nil.some_method_nil_doesnt_know_about
+  rescue StandardError => ex
+    # What exception has been caught?
+    assert_equal NoMethodError, ex.class
 
-      # What message was attached to the exception?
-      # (HINT: replace __ with part of the error message.)
-      assert_match(/undefined method/, ex.message)
-    end
+    # What message was attached to the exception?
+    # (HINT: replace __ with part of the error message.)
+    assert_match(/undefined method/, ex.message)
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -49,5 +47,4 @@ class AboutNil < Neo::Koan
     #    obj == nil
     # Why?
   end
-
 end

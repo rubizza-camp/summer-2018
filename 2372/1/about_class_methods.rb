@@ -1,8 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Naming/AccessorMethodName
+# About class methods
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
-class AboutClassMethods < Neo::Koan
+# This class smells of :reek:InstanceVariableAssumption
+class AboutClasses < Neo::Koan
   class Dog
   end
 
@@ -10,130 +13,142 @@ class AboutClassMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_objects_are_objects
+  def test_instances_of_classes_can_be_created_with_new
     fido = Dog.new
-    assert_equal true, fido.is_a?(Object)
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_classes_are_classes
-    assert_equal true, Dog.is_a?(Class)
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_classes_are_objects_too
-    assert_equal true, Dog.is_a?(Object)
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_objects_have_methods
-    fido = Dog.new
-    assert !fido.methods.empty?
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_classes_have_methods
-    assert !Dog.methods.empty?
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_you_can_define_methods_on_individual_objects
-    fido = Dog.new
-    def fido.wag
-      :fidos_wag
-    end
-    assert_equal :fidos_wag, fido.wag
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_other_objects_are_not_affected_by_these_singleton_methods
-    fido = Dog.new
-    rover = Dog.new
-    def fido.wag
-      :fidos_wag
-    end
-
-    assert_raise(NoMethodError) do
-      rover.wag
-    end
+    assert_equal Dog, fido.class
   end
 
   # ------------------------------------------------------------------
 
   class Dog2
-    def wag
-      :instance_level_wag
+    def set_name(a_name)
+      @name = a_name
     end
   end
 
-  def Dog2.wag
-    :class_level_wag
-  end
-
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, Dog2.wag
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_class_methods_are_independent_of_instance_methods
+  def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
-    assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, Dog2.wag
+    assert_equal [], fido.instance_variables
+
+    fido.set_name('Fido')
+    assert_equal %i[@name], fido.instance_variables
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_instance_variables_cannot_be_accessed_outside_the_class
+    fido = Dog2.new
+    fido.set_name('Fido')
+
+    assert_raise(NoMethodError) do
+      fido.name
+    end
+
+    assert_raise(SyntaxError) do
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+             fido.@name
+      RUBY
+      # NOTE: Using eval because the above line is a syntax error.
+    end
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_you_can_politely_ask_for_instance_variable_values
+    fido = Dog2.new
+    fido.set_name('Fido')
+
+    assert_equal 'Fido', fido.instance_variable_get('@name')
+  end
+
+  # rubocop:disable Style/EvalWithLocation
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_you_can_rip_the_value_out_using_instance_eval
+    fido = Dog2.new
+    fido.set_name('Fido')
+
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal('Fido', fido.instance_eval { @name }) # block version
+  end
+  # rubocop:enable Style/EvalWithLocation
+
+  # ------------------------------------------------------------------
+
+  class Dog3
+    def set_name(a_name)
+      @name = a_name
+    end
+
+    attr_reader :name
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_you_can_create_accessor_methods_to_return_instance_variables
+    fido = Dog3.new
+    fido.set_name('Fido')
+
+    assert_equal 'Fido', fido.name
+  end
+
+  # ------------------------------------------------------------------
+
+  class Dog4
+    attr_reader :name
+
+    def set_name(a_name)
+      @name = a_name
+    end
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_attr_reader_will_automatically_define_an_accessor
+    fido = Dog4.new
+    fido.set_name('Fido')
+
+    assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
 
   # This class smells of :reek:Attribute
-  class Dog
+  class Dog5
     attr_accessor :name
-    # rubocop:disable Style/TrivialAccessors
-    def self.name
-      @name
-    end
-    # rubocop:enable Style/TrivialAccessors
   end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_classes_and_instances_do_not_share_instance_variables
-    fido = Dog.new
+  def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
+    fido = Dog5.new
+
     fido.name = 'Fido'
     assert_equal 'Fido', fido.name
-    assert_equal nil, Dog.name
   end
 
   # ------------------------------------------------------------------
 
-  class Dog
-    def self.a_class_method
-      :dogs_class_method
+  class Dog6
+    attr_reader :name
+    def initialize(initial_name)
+      @name = initial_name
     end
   end
 
@@ -141,44 +156,53 @@ class AboutClassMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_you_can_define_class_methods_inside_the_class
-    assert_equal :dogs_class_method, Dog.a_class_method
-  end
-
-  # ------------------------------------------------------------------
-
-  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
-    21
+  def test_initialize_provides_initial_values_for_instance_variables
+    fido = Dog6.new('Fido')
+    assert_equal 'Fido', fido.name
   end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
-  end
-
-  # ------------------------------------------------------------------
-
-  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
-    self
+  def test_args_to_new_must_match_initialize
+    assert_raise(ArgumentError) do
+      Dog6.new
+    end
+    # THINK ABOUT IT:
+    # Why is this so?
   end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
+  def test_different_objects_have_different_instance_variables
+    fido = Dog6.new('Fido')
+    rover = Dog6.new('Rover')
+
+    assert_equal true, rover.name != fido.name
   end
 
   # ------------------------------------------------------------------
 
-  class Dog
-    # This method smells of :reek:UncommunicativeMethodName
-    def self.class_method2
-      :another_way_to_write_class_methods
+  class Dog7
+    attr_reader :name
+
+    def initialize(initial_name)
+      @name = initial_name
+    end
+
+    def get_self
+      self
+    end
+
+    def to_s
+      @name
+    end
+
+    def inspect
+      "<Dog named '#{name}'>"
     end
   end
 
@@ -186,52 +210,52 @@ class AboutClassMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method2
-  end
+  def test_inside_a_method_self_refers_to_the_containing_object
+    fido = Dog7.new('Fido')
 
-  # ------------------------------------------------------------------
-
-  class Dog
-    class << self
-      def another_class_method
-        :still_another_way
-      end
-    end
+    fidos_self = fido.get_self
+    assert_equal fido, fidos_self
   end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_heres_still_another_way_to_write_class_methods
-    assert_equal :still_another_way, Dog.another_class_method
+  def test_to_s_provides_a_string_version_of_the_object
+    fido = Dog7.new('Fido')
+    assert_equal 'Fido', fido.to_s
   end
-
-  # THINK ABOUT IT:
-  #
-  # The two major ways to write class methods are:
-  #   class Demo
-  #     def self.method
-  #     end
-  #
-  #     class << self
-  #       def class_methods
-  #       end
-  #     end
-  #   end
-  #
-  # Which do you prefer and why?
-  # Are there times you might prefer one over the other?
-
-  # ------------------------------------------------------------------
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_heres_an_easy_way_to_call_class_methods_from_instance_methods
-    fido = Dog.new
-    assert_equal :still_another_way, fido.class.another_class_method
+  def test_to_s_is_used_in_string_interpolation
+    fido = Dog7.new('Fido')
+    assert_equal 'My dog is Fido', "My dog is #{fido}"
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_inspect_provides_a_more_complete_string_version
+    fido = Dog7.new('Fido')
+    assert_equal "<Dog named 'Fido'>", fido.inspect
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_all_objects_support_to_s_and_inspect
+    array = [1, 2, 3]
+
+    assert_equal '[1, 2, 3]', array.to_s
+    assert_equal '[1, 2, 3]', array.inspect
+
+    assert_equal 'STRING', 'STRING'.to_s
+    assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Naming/AccessorMethodName
