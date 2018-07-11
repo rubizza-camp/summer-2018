@@ -30,7 +30,6 @@ class Proxy
   #:reek:ManualDispatch
   # rubocop:disable Layout/EmptyLineBetweenDefs
   # rubocop:disable Style/MethodMissing
-  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to? method_name
       # track each method called that target object can respond to
@@ -46,7 +45,6 @@ class Proxy
 
   # rubocop:enable Layout/EmptyLineBetweenDefs
   # rubocop:enable Style/MethodMissing
-  # rubocop:enable Style/MissingRespondToMissing
 end
 
 # The proxy object should pass the following Koan:
