@@ -60,11 +60,9 @@ class AboutClassMethods < Neo::Koan
     :class_level_wag
   end
 
-  # rubocop:disable Metrics/LineLength
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
     assert_equal :class_level_wag, Dog2.wag
   end
-  # rubocop:enable Metrics/LineLength
 
   def test_class_methods_are_independent_of_instance_methods
     fido = Dog2.new
