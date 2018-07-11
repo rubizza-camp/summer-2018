@@ -10,7 +10,6 @@ end
 # rubocop: enable Naming/UncommunicativeMethodParamName
 
 # :reek:TooManyMethods
-# rubocop: disable Style/AccessModifierDeclarations
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -195,4 +194,3 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop: enable Style/AccessModifierDeclarations

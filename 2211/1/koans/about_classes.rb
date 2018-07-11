@@ -22,7 +22,6 @@ class AboutClasses < Neo::Koan
     # rubocop: enable Naming/AccessorMethodName
   end
 
-  # rubocop: disable Style/SymbolArray
   # :reek:FeatureEnvy
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
@@ -31,7 +30,6 @@ class AboutClasses < Neo::Koan
     fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
-  # rubocop: enable Style/SymbolArray
 
   # rubocop: disable Style/StringLiterals
   # rubocop: disable Style/EvalWithLocation

@@ -52,7 +52,6 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash1 == hash2
   end
 
-  # rubocop: disable Performance/InefficientHashSearch
   def test_hash_keys
     hash = { :one => 'uno', :two => 'dos' }
     assert_equal 2, hash.keys.size
@@ -68,7 +67,6 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash.values.include?('dos')
     assert_equal Array, hash.values.class
   end
-  # rubocop: enable Performance/InefficientHashSearch
 
   # rubocop: disable Style/BracesAroundHashParameters
   def test_combining_hashes
