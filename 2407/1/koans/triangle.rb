@@ -9,9 +9,9 @@
 #   :scalene      if no sides are equal
 #
 # The tests for this method can be found in
-#    about_triangle_project.rb
+#   about_triangle_project.rb
 # and
-#    about_triangle_project_2.rb
+#   about_triangle_project_2.rb
 
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
