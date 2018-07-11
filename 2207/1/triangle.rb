@@ -2,7 +2,7 @@
 # :reek:FeatureEnvy
 # Triangle Project Code.
 
-# Triangle analyzes the lengths of the sides of a triangle!
+# Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
 # It returns:
