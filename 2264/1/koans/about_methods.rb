@@ -164,10 +164,8 @@ class AboutMethods < Neo::Koan
     'a secret'
   end
 
-  # rubocop:disable Style/AccessModifierDeclarations
   private :my_private_method
 
-  # rubocop:enable Style/AccessModifierDeclarations
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
