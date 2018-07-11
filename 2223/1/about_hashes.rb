@@ -153,7 +153,7 @@ class AboutHashes < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |h, key| h[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

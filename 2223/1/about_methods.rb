@@ -1,11 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
-def my_global_method(aaa, bbb)
-  aaa + bbb
+def my_global_method(first_term, second_term)
+  first_term + second_term
 end
 
-# AboutMethods
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
 class AboutMethods < Neo::Koan
@@ -36,6 +35,7 @@ class AboutMethods < Neo::Koan
     eval <<-RUBY, binding, __FILE__, __LINE__ + 1
            assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
     RUBY
+    #
     # Ruby doesn't know if you mean:
     #
     #   assert_equal(5, my_global_method(2), 3)
@@ -56,18 +56,18 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number of arguments \(given 0, expected 2\)/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number of arguments \(given 3, expected 2\)/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(aaa, bbb = :default_value)
-    [aaa, bbb]
+  def method_with_defaults(first_item, second_item = :default_value)
+    [first_item, second_item]
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -80,7 +80,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # This method smells of :reek:UtilityFunction
+
   def method_with_var_args(*args)
     args
   end
@@ -92,11 +92,12 @@ class AboutMethods < Neo::Koan
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
+    assert_equal %i[one], method_with_var_args(:one)
     assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
+
   # rubocop:disable Lint/Void
   # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
@@ -131,9 +132,10 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   # This method smells of :reek:UtilityFunction
-  def my_method_in_the_same_class(aa, bb)
-    aa * bb
+  def my_method_in_the_same_class(first_term, second_term)
+    first_term * second_term
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -154,11 +156,11 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  private
+
   def my_private_method
     'a secret'
   end
-
-  private :my_private_method
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -167,7 +169,6 @@ class AboutMethods < Neo::Koan
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
-
 
   # rubocop:disable Style/RedundantSelf
   # This method smells of :reek:UncommunicativeMethodName
@@ -178,12 +179,12 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match (/private method/, exception.message)
+    assert_match(/private method \`my_private_method\' called for/, exception.message)
   end
   # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/Syntax
+
   class Dog
     def name
       'Fido'
@@ -195,7 +196,6 @@ class AboutMethods < Neo::Koan
       'tail'
     end
   end
-  # rubocop:enable Lint/Void
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
