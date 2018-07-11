@@ -41,12 +41,11 @@ class AboutSymbols < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  # rubocop:disable Metrics/LineLength
+  
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
+    symbols_ass = Symbol.all_symbols.map(&:to_s)
+    assert_equal true, symbols_ass.include?('test_method_names_become_symbols')
   end
-  # rubocop:enable Metrics/LineLength
 
   # THINK ABOUT IT:
   #
