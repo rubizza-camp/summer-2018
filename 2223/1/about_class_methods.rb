@@ -110,7 +110,7 @@ class AboutClassMethods < Neo::Koan
   # Dog
   # This class smells of :reek:Attribute
   class Dog
-    attr_accessor :name
+    attr_reader :name
   end
 
   def Dog.name
@@ -147,8 +147,8 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
-    21
-  end
+                                         21
+                                       end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -162,8 +162,8 @@ class AboutClassMethods < Neo::Koan
 
   # Dog
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
-    self
-  end
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT

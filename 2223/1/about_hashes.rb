@@ -131,6 +131,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
+  # rubocop:disable Metrics/AbcSize
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -147,6 +148,7 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
+  # rubocop:enable Metrics/AbcSize
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
