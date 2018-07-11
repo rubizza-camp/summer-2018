@@ -9,20 +9,9 @@
 #   :scalene      if no sides are equal
 #
 def triangle(fir, sec, thi)
-  raise TriangleError if [fir, sec, thi].min <= 0 || fir + sec <= thi || fir + thi <= sec || sec + thi <= fir
-  if fir == sec
-    if fir == thi
-      :equilateral
-    else
-      :isosceles
-    end
-  elsif fir == thi
-    :isosceles
-  elsif sec == thi
-    :isosceles
-  else
-    :scalene
-  end
+  raise TriangleError 
+  if [fir, sec, thi].min <= 0 || fir + sec <= thi || fir + thi <= sec || sec + thi <= fir
+  [:equilateral, :isosceles, :scalene].fetch([fir, sec, thi].uniq.size - 1)
 end
 
 # Error class used in part 2.  No need to change this code.
