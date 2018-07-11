@@ -13,15 +13,23 @@
 # and
 #   about_triangle_project_2.rb
 
+# This method smells of :reek:FeatureEnvy
+def triangle_check_error(sides_to_check)
+  sides_sum_check = (sides_to_check[0] + sides_to_check[1]) > sides_to_check[2]
+  raise TriangleError if sides_to_check.any? { |side| side <= 0 }
+  raise TriangleError unless sides_sum_check
+end
+
+UNIQUE_SIDES_COUNT_TO_TRIANGLE_TYPE_MAP = { 1 => :equilateral, 2 => :isosceles, 3 => :scalene }.freeze
+
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
 # This method smells of :reek:TooManyStatements
 def triangle(side_a, side_b, side_c)
-  sides = [side_a, side_b, side_c].sort
-  raise TriangleError unless (sides[0] + sides[1]) > sides[2]
-  sides.uniq!
-  hash = { 0 => :scalene, 1 => :equilateral, 2 => :isosceles }
-  hash[sides.count]
+  sorted_sides = [side_a, side_b, side_c].sort
+  triangle_check_error(sorted_sides)
+  unique_sides_count = sorted_sides.uniq.count
+  UNIQUE_SIDES_COUNT_TO_TRIANGLE_TYPE_MAP[unique_sides_count]
 end
 
 # Error class used in part 2.  No need to change this code.
