@@ -24,12 +24,12 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
 
-  # rubocop:disable Metrics/LineLength
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
+    # rubocop:disable Metrics/LineLength
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
+    # rubocop:enable Metrics/LineLength
   end
-  # rubocop:enable Metrics/LineLength
 
   # THINK ABOUT IT:
   #
