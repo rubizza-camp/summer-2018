@@ -15,13 +15,11 @@
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
 # This method smells of :reek:TooManyStatements
-def triangle(first, second, third)
-  sides = [first, second, third].sort
+def triangle(*sides)
+  sides.sort!
   raise TriangleError if sides.any? { |side| side <= 0 } || ((sides[0] + sides[1]) <= sides[2])
   sides.uniq!
-  hash = Hash.new(:scalene)
-  hash[1] = :equilateral
-  hash[2] = :isosceles
+  hash = Hash.new(:scalene).merge!(1 => :equilateral, 2 => :isosceles)
   hash[sides.count]
 end
 
