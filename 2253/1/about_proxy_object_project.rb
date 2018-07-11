@@ -20,12 +20,9 @@ class Proxy
   end
 
   # rubocop:disable Style/MethodMissing
-  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method_name, *args, &block)
     @message_array << method_name
     @object.send(method_name, *args, &block)
-  end
-  # rubocop:enable Style/MissingRespondToMissing
   # rubocop:enable Style/MethodMissing
 
   def messages
