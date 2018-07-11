@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about hashes
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:DuplicateMethodCall
 class AboutHashes < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

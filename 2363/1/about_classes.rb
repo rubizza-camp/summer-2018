@@ -32,6 +32,7 @@ class AboutClasses < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:DuplicateMethodCall
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
     assert_equal [], fido.instance_variables

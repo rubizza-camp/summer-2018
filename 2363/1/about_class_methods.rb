@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class about class methods
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
+# This class smells of :reek:IrresponsibleModule
 class AboutClassMethods < Neo::Koan
   # Class dog
   class Dog

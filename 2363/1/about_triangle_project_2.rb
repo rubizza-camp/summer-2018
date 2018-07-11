@@ -5,6 +5,7 @@ require './triangle.rb'
 
 # Class about triangle
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:DuplicateMethodCall
 class AboutTriangleProject2 < Neo::Koan
   # The first assignment did not talk about how to handle errors.
   # Let's handle that part now.

@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about exception
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:DuplicateMethodCall
+# This class smells of :reek:IrresponsibleModule
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end

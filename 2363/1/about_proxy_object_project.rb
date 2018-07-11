@@ -43,6 +43,7 @@ end
 
 # The proxy object should pass the following Koan:
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:DuplicateMethodCall
 class AboutProxyObjectProject < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -148,6 +149,7 @@ end
 # Example class using in the proxy testing above.
 # This class smells of :reek:InstanceVariableAssumption
 # This class smells of :reek:Attribute
+# This class smells of :reek:DuplicateMethodCall
 class Television
   attr_accessor :channel
 
@@ -166,6 +168,7 @@ end
 
 # Tests for the Television class.  All of theses tests should pass.
 # This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:DuplicateMethodCall
 class TelevisionTest < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

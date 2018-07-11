@@ -10,6 +10,7 @@ end
 # Class about methods
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
+# This class smells of :reek:DuplicateMethodCall
 class AboutMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
