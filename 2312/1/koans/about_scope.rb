@@ -119,7 +119,7 @@ class AboutScope < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
-    assert_equal [:Dog], Jims.constants
+    assert_equal %i[Dog], Jims.constants
     assert Object.constants.any?
   end
 end

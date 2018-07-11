@@ -37,7 +37,7 @@ class AboutClasses < Neo::Koan
     assert_equal [], fido.instance_variables
 
     fido.setname('Fido')
-    assert_equal [:@name], fido.instance_variables
+    assert_equal %i[@name], fido.instance_variables
   end
 
   # :reek:TooManyStatements

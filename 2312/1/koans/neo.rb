@@ -78,9 +78,11 @@ class Object
     send(method) if method
   end
 
+  # rubocop:disable Style/AccessModifierDeclarations
   in_ruby_version('1.9', '2') do
     public :method_missing
   end
+  # rubocop:enable Style/AccessModifierDeclarations
 end
 
 # adf adsf asdf
@@ -117,10 +119,12 @@ module Neo
 
     module_function
 
+    # rubocop:disable Style/AccessModifierDeclarations
     COLORS.each do |color, value|
       module_eval "def #{color}(string); colorize(string, #{value}); end"
       module_function color
     end
+    # rubocop:enable Style/AccessModifierDeclarations
 
     def colorize(string, color_value)
       if use_colors?

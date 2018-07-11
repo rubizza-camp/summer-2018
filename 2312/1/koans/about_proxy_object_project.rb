@@ -18,12 +18,14 @@ class Proxy
     @messages = Hash.new(0)
   end
 
-  # rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MissingRespondToMissing
+  # rubocop:disable Style/MethodMissingSuper
   def method_missing(method_name, *args, &block)
     @messages[method_name] += 1
     @object.send(method_name, *args, &block)
   end
-  # rubocop:enable Style/MethodMissing
+  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MissingRespondToMissing
 
   def messages
     @messages.keys
