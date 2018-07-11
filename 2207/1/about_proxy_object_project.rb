@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Style/MethodMissing
+# rubocop:disable Layout/TrailingWhitespace
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -223,3 +224,4 @@ class TelevisionTest < Neo::Koan
   end
 end
 # rubocop:enable Style/MethodMissing
+# rubocop:enable Layout/TrailingWhitespace
