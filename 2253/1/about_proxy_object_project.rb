@@ -12,8 +12,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
-# rubocop:disable Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
 # :nodoc:
 class Proxy
   def initialize(target_object)
@@ -21,10 +19,14 @@ class Proxy
     @message_array = []
   end
 
+  # rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method_name, *args, &block)
     @message_array << method_name
     @object.send(method_name, *args, &block)
   end
+  # rubocop:enable Style/MissingRespondToMissing
+  # rubocop:enable Style/MethodMissing
 
   def messages
     @message_array.uniq
@@ -39,8 +41,6 @@ class Proxy
   end
 end
 
-# rubocop:enable Style/MissingRespondToMissing
-# rubocop:enable Style/MethodMissingSuper
 # The proxy object should pass the following Koan:
 #
 class AboutProxyObjectProject < Neo::Koan
