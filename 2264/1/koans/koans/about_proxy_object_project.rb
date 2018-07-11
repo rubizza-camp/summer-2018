@@ -29,7 +29,7 @@ class Proxy
   end
   #:reek:ManualDispatch
   # rubocop:disable Layout/EmptyLineBetweenDefs
-  # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/MethodMissing
   # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to? method_name
@@ -45,7 +45,7 @@ class Proxy
   end
 
   # rubocop:enable Layout/EmptyLineBetweenDefs
-  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MethodMissing
   # rubocop:enable Style/MissingRespondToMissing
 end
 
