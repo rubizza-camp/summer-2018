@@ -105,7 +105,6 @@ class AboutClasses < Neo::Koan
     attr_accessor :name
   end
 
-
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
 
