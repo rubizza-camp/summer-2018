@@ -143,10 +143,11 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # Explain the difference between a character class ([...]) and alternation (|).
+  # Explain the difference between ([...]) and (|).
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Metrics/LineLength
   def test_scan_is_like_find_all
     assert_equal %w[one two three], 'one two-three'.scan(/\w+/)
   end
@@ -158,4 +159,5 @@ class AboutRegularExpressions < Neo::Koan
   def test_gsub_is_like_find_and_replace_all
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match[1][0, 1] }
   end
+  # rubocop:enable Metrics/LineLength
 end
