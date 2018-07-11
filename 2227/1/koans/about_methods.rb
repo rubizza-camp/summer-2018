@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # This method smells of :reek:UtilityFunction
 # Def global
 def my_global_method(reek, rubocop)

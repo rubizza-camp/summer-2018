@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # rubocop:disable Naming/AccessorMethodName
 # Class AboutClasses
 # This class smells of :reek:InstanceVariableAssumption

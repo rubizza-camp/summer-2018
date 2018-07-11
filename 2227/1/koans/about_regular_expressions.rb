@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Class AboutRegulasExpressions
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
@@ -241,7 +241,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # Explain the difference between a character class ([...]) and alternation (|).
+  # Explain the difference alternation (|).
 
   # ------------------------------------------------------------------
 
@@ -257,15 +257,19 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_sub_is_like_find_and_replace
     assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
+  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_gsub_is_like_find_and_replace_all
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
+  # rubocop:enable Metrics/LineLength
 end

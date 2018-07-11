@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Class AboutSymbols
 # This class smells of :reek:UncommunicativeModuleName
 class AboutSymbols < Neo::Koan
@@ -41,18 +41,21 @@ class AboutSymbols < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
+  # rubocop:enable Metrics/LineLength
 
   # THINK ABOUT IT:
   #
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
-
+  # rubocop:disable Style/RedundantFreeze
   in_ruby_version('mri') do
     RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
+    # rubocop:enable Style/RedundantFreeze
     # This method smells of :reek:UncommunicativeMethodName
     # This method smells of :reek:UncommunicativeVariableName
     # This method smells of :reek:TooManyStatements

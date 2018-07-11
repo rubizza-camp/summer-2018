@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # rubocop:disable Style/MissingRespondToMissing
 # rubocop:disable Style/MethodMissingSuper
 # Class AboutMessagePassing
@@ -40,8 +40,8 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?') # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
+    assert mc.send('caught' + '?') # What do you need to add to first string?
+    assert mc.send('CAUGHT?'.downcase) # What would need to do to the string?
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -162,6 +162,7 @@ class AboutMessagePassing < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
@@ -247,3 +248,4 @@ class AboutMessagePassing < Neo::Koan
 end
 # rubocop:enable Style/MissingRespondToMissing
 # rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Metrics/LineLength

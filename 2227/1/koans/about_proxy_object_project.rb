@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -27,10 +27,12 @@ class Proxy
     @messages << method_name
     @target_object.send method_name, *args, &block
   end
-
+  # rubocop:disable Layout/EmptyLineBetweenDefs
+  # This method smells of :reek:ManualDispatch
   def respond_to_missing?(method_name, *_args)
     @target_object.respond_to?(method_name)
   end
+  # rubocop:enable Layout/EmptyLineBetweenDefs
 
   def called?(method_name)
     @messages.include? method_name
@@ -148,6 +150,8 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# This class smells of :reek:Attribute
+# This class smells of :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 
