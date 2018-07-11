@@ -44,7 +44,7 @@ in_ruby_version('1.8') do
   end
 end
 
-# Standard, generic replacement value.
+# Standard, generic replacement value. And more.
 # If value19 is given, it is used in place of value for Ruby 1.9.
 # :reek:UncommunicativeParameterName
 # :reek:UtilityFunction
