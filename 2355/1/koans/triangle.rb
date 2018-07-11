@@ -16,6 +16,8 @@
 # rubocop:disable Style/IfUnlessModifier
 # rubocop:disable Style/EmptyCaseCondition
 # rubocop:disable Layout/CaseIndentation
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:DuplicateMethodCall
 def triangle_type(first_side, second_side, third_side)
@@ -31,6 +33,7 @@ end
 
 # This method smells of :reek:UncommunicativeVariableName
 # This method smells of :reek:UtilityFunction
+# This method smells of :reek:TooManyStatements
 def triangle(*args)
   if args.size != 3
     raise TriangleError, 'There are must be three sides'
@@ -56,3 +59,5 @@ end
 # rubocop:enable Style/IfUnlessModifier
 # rubocop:enable Style/EmptyCaseCondition
 # rubocop:enable Layout/CaseIndentation
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
