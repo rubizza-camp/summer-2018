@@ -18,12 +18,9 @@
 # This method smells of :reek:TooManyStatements
 def triangle(side_a, side_b, side_c)
   sides = [side_a, side_b, side_c].sort
-  raise TriangleError if sides.any? { |side| side <= 0 }
   raise TriangleError unless (sides[0] + sides[1]) > sides[2]
   sides.uniq!
-  hash = Hash.new(:scalene)
-  hash[1] = :equilateral
-  hash[2] = :isosceles
+  hash = {0 => :scalene, 1 => :equilateral, 2 => :isosceles}
   hash[sides.count]
 end
 
