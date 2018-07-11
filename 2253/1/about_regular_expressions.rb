@@ -152,14 +152,10 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    # rubocop:disable Metrics/LineLength
     assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match[1][0, 1] }
-    # rubocop:enable Metrics/LineLength
   end
 
   def test_gsub_is_like_find_and_replace_all
-    # rubocop:disable Metrics/LineLength
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match[1][0, 1] }
-    # rubocop:enable Metrics/LineLength
   end
 end
