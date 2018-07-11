@@ -27,9 +27,7 @@ class AboutExceptions < Neo::Koan
     assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
 
-    # rubocop:disable Metrics/LineLength
     assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
-    # rubocop:enable Metrics/LineLength
 
     assert_equal 'Oops', ex.message
   end
