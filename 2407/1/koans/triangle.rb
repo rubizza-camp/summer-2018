@@ -20,7 +20,7 @@ def triangle(side_a, side_b, side_c)
   sides = [side_a, side_b, side_c].sort
   raise TriangleError unless (sides[0] + sides[1]) > sides[2]
   sides.uniq!
-  hash = {0 => :scalene, 1 => :equilateral, 2 => :isosceles}
+  hash = { 0 => :scalene, 1 => :equilateral, 2 => :isosceles }
   hash[sides.count]
 end
 
