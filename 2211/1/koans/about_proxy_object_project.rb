@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/ConditionalAssignment, Style/SymbolArray, Style/WordArray
-# rubocop:disable Style/MissingRespondToMissing, Style/MethodMissingSuper
+# rubocop:disable Style/MissingRespondToMissing
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -217,4 +217,4 @@ class TelevisionTest < Neo::Koan
   end
 end
 # rubocop:enable Style/ConditionalAssignment, Style/SymbolArray, Style/WordArray
-# rubocop:enable Style/MissingRespondToMissing, Style/MethodMissingSuper
+# rubocop:enable Style/MissingRespondToMissing
