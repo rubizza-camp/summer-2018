@@ -11,6 +11,7 @@ class AboutScope < Neo::Koan
   end
 
   module Joes
+    # Comment
     class Dog
       def identify
         :joes_dog

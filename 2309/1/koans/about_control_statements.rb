@@ -88,7 +88,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_unless_statement
     result = :default_value
-    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
+    result = :false_value unless false # same as saying
     assert_equal :false_value, result
   end
 
@@ -98,7 +98,7 @@ class AboutControlStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_unless_statement_evaluate_true
     result = :default_value
-    result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
+    result = :true_value unless true # same as saying
     assert_equal :default_value, result
   end
 

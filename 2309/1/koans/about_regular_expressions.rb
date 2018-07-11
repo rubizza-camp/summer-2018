@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
@@ -240,7 +241,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # Explain the difference between a character class ([...]) and alternation (|).
+  # Explain the difference between
 
   # ------------------------------------------------------------------
 
@@ -257,7 +258,8 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    assert_equal 'one t-three',
+    'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 
   # This method smells of :reek:UncommunicativeMethodName

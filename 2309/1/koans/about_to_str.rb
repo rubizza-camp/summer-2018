@@ -1,7 +1,9 @@
+# frozen_string_literal: true
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This class smells of :reek:UncommunicativeModuleName
 class AboutToStr < Neo::Koan
+  # comment
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -29,6 +31,7 @@ class AboutToStr < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  #comment
   class CanBeTreatedAsString
     def to_s
       'string-like'

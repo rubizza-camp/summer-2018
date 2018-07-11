@@ -42,7 +42,8 @@ class AboutSymbols < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
+    assert_equal true,
+    symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
   # THINK ABOUT IT:
