@@ -1,8 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Class AboutIteration
 # This class smells of :reek:UncommunicativeModuleName
-
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -96,7 +95,7 @@ class AboutIteration < Neo::Koan
     even_numbers = array.select(&:even?)
     assert_equal [2, 4, 6], even_numbers
 
-    # NOTE: 'find_all' is another name for the 'select' operation
+    # NOTE: 'find_all' is another name for operation
     more_even_numbers = array.find_all(&:even?)
     assert_equal [2, 4, 6], more_even_numbers
   end

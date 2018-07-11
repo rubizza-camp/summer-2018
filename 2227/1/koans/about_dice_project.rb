@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Implement a DiceSet Class here:
 class DiceSet
   attr_reader :values

@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
+# rubocop:disable Style/RedundantFreeze
 C = 'top level'.freeze
 
 # AboutConstants
@@ -121,3 +122,4 @@ class AboutConstants < Neo::Koan
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?
 end
+# rubocop:enable Style/RedundantFreeze

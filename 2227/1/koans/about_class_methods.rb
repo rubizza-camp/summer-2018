@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Class AboutClassMethods
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
@@ -95,7 +95,7 @@ class AboutClassMethods < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
+  def test_since_classes_are_objn_methods_on_them_too
     assert_equal :class_level_wag, Dog2.wag
   end
 

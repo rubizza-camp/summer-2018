@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Class AboutBlocks
 # This class smells of :reek:UncommunicativeModuleName
 class AboutBlocks < Neo::Koan

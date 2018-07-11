@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# frozen_string_literal: true
 # Class AboutControlStatements
 # This class smells of :reek:UncommunicativeModuleName
 class AboutStatements < Neo::Koan
@@ -58,10 +58,12 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_condition_operators
     assert_equal :true_value, (Range.class == Time.class ? :true_value : :false_value)
     assert_equal :false_value, (3 == 6 ? :true_value : :false_value)
   end
+  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -78,21 +80,25 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_unless_statement
     result = :default_value
     result = :false_value unless Object.class == Array.class # same as saying 'if !false', which evaluates as 'if true'
     assert_equal :default_value, result
   end
+  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Metrics/LineLength
   def test_unless_statement_evaluate_true
     result = :default_value
     result = :true_value unless Data.class == Time.class # same as saying 'if !true', which evaluates as 'if false'
     assert_equal :default_value, result
   end
+  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
