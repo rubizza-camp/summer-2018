@@ -1,86 +1,30 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/Tab
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Layout/IndentationWidth
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+def triangle(sid_a, side_b, side_c)
+	sides = [sid_a, side_b, side_c].sort
+	raise TriangleError, "triangle should't have a negative side " if sides.any? { |side| side <= 0 }
+	raise TriangleError, 'wrong triangle' unless (sides[0] + sides[1]) > sides[2]
+	sides.uniq!
 
-# This class smells of :reek:UncommunicativeModuleName
-class AboutArrayAssignment < Neo::Koan
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_non_parallel_assignment
-    names = %w[John Smith]
-    assert_equal %w[John Smith], names
-  end
+	if sides.count == 1
+			:equilateral
+	elsif sides.count == 2
+			:isosceles
+	else
+			:scalene
+	end
+end
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Layout/Tab
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Layout/IndentationWidth
 
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:FeatureEnvy
-  def test_parallel_assignments
-    first_name = 'John'
-    last_name = 'Smith'
-    assert_equal 'John', first_name
-    assert_equal 'Smith', last_name
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_parallel_assignments_with_extra_values
-    first_name, last_name = %w[John Smith III]
-    assert_equal 'John', first_name
-    assert_equal 'Smith', last_name
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_parallel_assignments_with_splat_operator
-    first_name, *last_name = %w[John Smith III]
-    assert_equal 'John', first_name
-    assert_equal %w[Smith III], last_name
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_parallel_assignments_with_too_few_variables
-    first_name, last_name = %w[Cher]
-    assert_equal 'Cher', first_name
-    assert_equal nil, last_name
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_parallel_assignments_with_subarrays
-    first_name = %w[Willie Rae]
-    last_name = 'Johnson'
-    assert_equal %w[Willie Rae], first_name
-    assert_equal 'Johnson', last_name
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_parallel_assignment_with_one_variable
-    first_name, = %w[John Smith]
-    assert_equal 'John', first_name
-  end
-
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def test_swapping_with_parallel_assignment
-    first_name = 'Roy'
-    last_name = 'Rob'
-    first_name, last_name = last_name, first_name
-    assert_equal 'Rob', first_name
-    assert_equal 'Roy', last_name
-  end
+# Error class used in part 2.  No need to change this code.
+class TriangleError < StandardError
 end
