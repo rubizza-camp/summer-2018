@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
+# rubocop:disable all
 def my_global_method(param_a, param_b)
   param_a + param_b
 end
@@ -34,9 +35,7 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_sometimes_missing_parentheses_are_ambiguous
-    # rubocop: disable EvalWithLocation
     eval 'assert_equal( 5, my_global_method( 2, 3 ))'
-    # rubocop: enable EvalWithLocation
   end
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
@@ -147,9 +146,7 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
-  # rubocop: disable AccessModifierDeclarations
   private :my_private_method
-  # rubocop: enable AccessModifierDeclarations
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -165,9 +162,7 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      # rubocop: disable RedundantSelf:
       self.my_private_method
-      # rubocop: enable RedundantSelf
     end
     assert_match(/private method/, exception.message)
   end
@@ -206,3 +201,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable all

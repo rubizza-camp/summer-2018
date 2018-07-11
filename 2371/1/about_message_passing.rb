@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:IrresponsibleModule
 # :reek:ManualDispatch
 # :reek:UtilityFunction
+# rubocop:disable all
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -148,11 +149,9 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-    # rubocop : disable StringLiteralsInInterpolation, MethodMissingSuper, MissingRespondToMissing, UnusedMethodArgument
     def method_missing(method_name, *args, &block)
       "Someone called #{method_name} with <#{args.join(", ")}>"
     end
-    # rubocop : enable StringLiteralsInInterpolation, MethodMissingSuper, MissingRespondToMissing, UnusedMethodArgument
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -181,7 +180,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop : disable MissingRespondToMissing, MethodMissingSuper
+
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -191,7 +190,6 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-  # rubocop : enable MissingRespondToMissing, MethodMissingSuper
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -240,3 +238,4 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
+# rubocop:enable all

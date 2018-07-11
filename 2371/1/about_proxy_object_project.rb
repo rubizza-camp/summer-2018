@@ -15,6 +15,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:DuplicateMethodCall
 # :reek:InstanceVariableAssumption
 # :reek:ManualDispatch
+# rubocop:disable all
 class Proxy
   attr_reader :messages
 
@@ -23,7 +24,6 @@ class Proxy
     @messages = []
   end
 
-  # rubocop : disable MethodMissingSuper, MissingRespondToMissing
   def method_missing(method, *args, &block)
     if @object.respond_to? method
       @messages << method
@@ -32,7 +32,6 @@ class Proxy
       super method, *args, &block
     end
   end
-  # rubocop : enable MethodMissingSuper, MissingRespondToMissing
 
   def called?(method)
     @messages.include? method
@@ -230,3 +229,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable all
