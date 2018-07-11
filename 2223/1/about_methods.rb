@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
-def my_global_method(aa, bb)
-  aa + bb
+def my_global_method(aaa, bbb)
+  aaa + bbb
 end
 
 # AboutMethods
@@ -33,8 +33,9 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
-    #
+    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+           assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
+    RUBY
     # Ruby doesn't know if you mean:
     #
     #   assert_equal(5, my_global_method(2), 3)
@@ -65,8 +66,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(aa, bb = :default_value)
-    [aa, bb]
+  def method_with_defaults(aaa, bbb = :default_value)
+    [aaa, bbb]
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -96,13 +97,14 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
     :another_non_return_value
   end
-
+  # rubocop:enable Lint/UnreachableCode
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -117,6 +119,7 @@ class AboutMethods < Neo::Koan
     :a_non_return_value
     :return_value
   end
+  # rubocop:enable Lint/Void
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -164,7 +167,6 @@ class AboutMethods < Neo::Koan
     assert_equal 'a secret', my_private_method
   end
 
-  # rubocop:disable Style/RedundantSelf
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -173,7 +175,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /my_private_method/, exception.message
+    assert_match (/private method/, exception.message)
   end
 
   # ------------------------------------------------------------------
