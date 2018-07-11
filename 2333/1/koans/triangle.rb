@@ -1,7 +1,6 @@
 # Triangle Project Code.
 # :reek:UncommunicativeParameterName
 # :reek:UncommunicativeVariableName
-# :reek:TooManyStatements
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -15,6 +14,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:TooManyStatements
 # :reek:FeatureEnvy
 def triangle_raise_error(side_a, side_b, side_c)
   triangle_sides = [side_a, side_b, side_c].sort
