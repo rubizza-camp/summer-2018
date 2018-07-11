@@ -28,6 +28,7 @@ class AboutConstants < Neo::Koan
       LEGS
     end
 
+    # :nodoc:
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
