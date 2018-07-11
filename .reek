@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 
 ### Generic smell configuration
@@ -11,3 +12,13 @@ detectors:
 
   UtilityFunction:
     public_methods_only: true
+=======
+IrresponsibleModule:
+  enabled: false
+
+DuplicateMethodCall:
+  enabled: false
+
+UtilityFunction:
+  public_methods_only: true
+>>>>>>> 082be2201b8a785b64105e0ca16cf0f432f7f6a2
