@@ -114,26 +114,27 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable MethodMissingSuper
-  # rubocop:disable Style/MissingRespondToMissing
   # :nodoc:
   class AllMessageCatcher
+    # rubocop:disable MethodMissing
+    # rubocop:disable Style/MissingRespondToMissing
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+    # rubocop:enable Style/MissingRespondToMissing
+    # rubocop:enable MethodMissing
   end
-  # rubocop:enable Style/MissingRespondToMissing
-  # rubocop:enable MethodMissingSuper
 
-  # rubocop:disable Metrics/LineLength
+
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
+    # rubocop:disable Metrics/LineLength
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+    # rubocop:enable Metrics/LineLength
   end
-  # rubocop:enable Metrics/LineLength
 
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
@@ -146,10 +147,10 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable MethodMissingSuper
-  # rubocop:disable Style/MissingRespondToMissing
   # :nodoc:
   class WellBehavedFooCatcher
+    # rubocop:disable MethodMissing
+    # rubocop:disable Style/MissingRespondToMissing
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -157,9 +158,9 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
+    # rubocop:enable MethodMissing
+    # rubocop:enable Style/MissingRespondToMissing
   end
-  # rubocop:enable MethodMissingSuper
-  # rubocop:enable Style/MissingRespondToMissing
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
