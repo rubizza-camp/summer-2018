@@ -12,7 +12,9 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:TooManyStatements
 def triangle(side_a, side_b, side_c)
   # WRITE THIS CODE
 

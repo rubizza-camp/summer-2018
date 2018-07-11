@@ -89,6 +89,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:UncommutativeVariableName
   def test_break_statement
     i = 1
     result = 1
@@ -110,6 +112,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal 2, result
   end
 
+  # This method smells of :reek:TooManyStatements
   def test_next_statement
     i = 0
     result = []

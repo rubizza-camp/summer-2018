@@ -1,8 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This class smells of :reek:UncommunicativeModuleName
+# This class smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
   # rubocop:disable Security/Open
 
+  # This method smells of :reek:FeatureEnvy
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -18,6 +21,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:FeatureEnvy
   def find_line(file_name)
     file = open(file_name)
     while (line = file.gets)
@@ -68,6 +72,7 @@ class AboutSandwichCode < Neo::Koan
 
   # Now we write:
 
+  # This class smells of :reek:UncommunicativeMethodName
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
@@ -76,12 +81,13 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
+  # This class smells of :reek:UncommunicativeMethodName
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-
+  # This class smells of :reek:UncommunicativeMethodName
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
@@ -91,13 +97,14 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
+  # This class smells of :reek:UncommunicativeMethodName
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
   # rubocop:disable Security/Open
-
+  # This class smells of :reek:UncommunicativeMethodName
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0

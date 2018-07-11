@@ -11,14 +11,15 @@ class AboutArrayAssignment < Neo::Koan
     names = %w[John Smith]
     assert_equal %w[John Smith], names
   end
-
+  # rubocop:disable Lint/UnneededCopDisableDirective
+  # rubocop:disable Style/ParallelAssignment
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
+
   def test_parallel_assignments
-    first_name = %w[John Smith]
-    last_name = %w[John Smith]
+    first_name, last_name = %w[John Smith III]
     assert_equal 'John', first_name
     assert_equal 'Smith', last_name
   end
@@ -84,4 +85,6 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal 'Rob', first_name
     assert_equal 'Roy', last_name
   end
+  # rubocop:enable Style/ParallelAssignment
+  # rubocop:enable Lint/UnneededCopDisableDirective
 end

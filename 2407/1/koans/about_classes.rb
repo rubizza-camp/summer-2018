@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:TooManyMethods
+# This method smells of :reek:InstanceVariableAssumption
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -11,12 +13,14 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UncommutativeModuleName
   class Dog2
     def sett_name(a_name)
       @name = a_name
     end
   end
 
+  # This method smells of :reek:FeatureEnvy
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
     assert_equal [], fido.instance_variables
@@ -25,6 +29,7 @@ class AboutClasses < Neo::Koan
     assert_equal %i[@name], fido.instance_variables
   end
 
+  # This method smells of :reek:TooManyStatements
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.sett_name('Fido')
@@ -42,6 +47,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # This method smells of :reek:FeatureEnvy
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
     fido.sett_name('Fido')
@@ -62,6 +68,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UncommutativeModuleName
   class Dog3
     def sett_name(a_name)
       @name = a_name
@@ -69,6 +76,7 @@ class AboutClasses < Neo::Koan
     attr_reader :name
   end
 
+  # This method smells of :reek:FeatureEnvy
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
     fido.sett_name('Fido')
@@ -78,6 +86,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UncommutativeModuleName
   class Dog4
     attr_reader :name
 
@@ -86,6 +95,9 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # This method smells of :reek:FeatureEnvy
+  # This method smells of :reek:UncommutativeModuleName
+  # This method smells of :reek:Attribute
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.sett_name('Fido')
@@ -95,10 +107,12 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UncommutativeModuleName
   class Dog5
     attr_accessor :name
   end
 
+  # This method smells of :reek:FeatureEnvy
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
 
@@ -108,6 +122,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UncommutativeModuleName
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -137,6 +152,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # This method smells of :reek:UncommutativeModuleName
   class Dog7
     attr_reader :name
 

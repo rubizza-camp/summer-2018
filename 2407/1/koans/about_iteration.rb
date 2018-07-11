@@ -42,6 +42,7 @@ class AboutIteration < Neo::Koan
     assert_equal 6, sum
   end
 
+  # This method smells of :reek:TooManyStatements
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
@@ -52,6 +53,7 @@ class AboutIteration < Neo::Koan
     assert_equal 6, sum
   end
 
+  # This method smells of :reek:TooManyStatements
   def test_collect_transforms_elements_of_an_array
     array = [1, 2, 3]
     new_array = array.collect { |item| item + 10 }
@@ -79,6 +81,8 @@ class AboutIteration < Neo::Koan
     assert_equal('Clarence', array.find { |item| item.size > 4 })
   end
 
+  # This method smells of :reek:UncommutativeVariableName
+  # This method smells of :reek:TooManyStatements
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
@@ -90,12 +94,14 @@ class AboutIteration < Neo::Koan
     # Describe in your own words what inject does.
   end
 
+  # This method smells of :reek:TooManyStatements
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
     assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
+    # This method smells of :reek:NestedIterators
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal %w[THIS IS A TEST], upcase_lines

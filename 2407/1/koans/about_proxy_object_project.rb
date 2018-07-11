@@ -52,6 +52,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.instance_of?(Proxy)
   end
 
+  # This class smells of :reek:FeatureEnvy
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 
@@ -62,6 +63,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.on?
   end
 
+  # This class smells of :reek:FeatureEnvy
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
 
@@ -79,6 +81,7 @@ class AboutProxyObjectProject < Neo::Koan
     end
   end
 
+  # This class smells of :reek:FeatureEnvy
   def test_proxy_reports_methods_have_been_called
     tv = Proxy.new(Television.new)
 
@@ -89,6 +92,8 @@ class AboutProxyObjectProject < Neo::Koan
     assert !tv.called?(:channel)
   end
 
+  # This class smells of :reek:FeatureEnvy
+  # This class smells of :reek:TooManyStatements
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -101,6 +106,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
+  # This class smells of :reek:FeatureEnvy
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -117,6 +123,8 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# This class smells of :reek:InstanceVariableAssumption
+# This class smells of :reek:Attribute
 class Television
   attr_accessor :channel
 
@@ -134,6 +142,7 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# This class smells of :reek:FeatureEnvy
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -151,6 +160,7 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
+  # This class smells of :reek:TooManyStatements
   def test_edge_case_on_off
     tv = Television.new
 

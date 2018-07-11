@@ -43,6 +43,7 @@ class AboutHashes < Neo::Koan
     # rather than used as a literal?
   end
 
+  # This method smells of :reek:UncommutativeVariableName
   def test_hash_is_unordered
     hash1 = { one: 'uno', two: 'dos' }
     hash2 = { two: 'dos', one: 'uno' }
@@ -50,25 +51,27 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash1 == hash2
   end
 
+  # rubocop:disable Lint/UnneededCopDisableDirective
+  # rubocop:disable Performance/InefficientHashSearch
+
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
-    assert_equal true, hash.keys?(:one)
-    assert_equal true, hash.keys?(:two)
-    # assert_equal true, hash.keys.include?(:one)
-    # assert_equal true, hash.keys.include?(:two)
+    assert_equal true, hash.keys.include?(:one)
+    assert_equal true, hash.keys.include?(:two)
     assert_equal Array, hash.keys.class
   end
 
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
-    assert_equal true, hash.values?('uno')
-    assert_equal true, hash.values?('dos')
-    # assert_equal true, hash.values.include?('uno')
-    # assert_equal true, hash.values.include?('dos')
+    assert_equal true, hash.values.include?('uno')
+    assert_equal true, hash.values.include?('dos')
     assert_equal Array, hash.values.class
   end
+
+  # rubocop:enable Performance/InefficientHashSearch
+  # rubocop:enable Lint/UnneededCopDisableDirective
 
   def test_combining_hashes
     hash = { 'jim' => 53, 'amy' => 20, 'dan' => 23 }
@@ -80,6 +83,8 @@ class AboutHashes < Neo::Koan
     assert_equal false, expected == new_hash
   end
 
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:UncommutativeVariableName
   def test_default_value
     hash1 = {}
     hash1[:one] = 1
@@ -93,8 +98,10 @@ class AboutHashes < Neo::Koan
     assert_equal 1, hash2[:one]
     assert_equal 'dos', hash2[:two]
   end
-  # rubocop:disable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -107,10 +114,12 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
-  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:enable Metrics/AbcSize
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_default_value_with_block
-    hash = Hash.new([])
+    hash = Hash.new { |item, key| item[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

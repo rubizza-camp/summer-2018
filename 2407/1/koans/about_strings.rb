@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This class smells of :reek:TooManyMethods
 # rubocop:disable Lint/UselessAssignment
 # rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
@@ -23,12 +24,14 @@ class AboutStrings < Neo::Koan
     assert_equal "Don't", string
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_use_backslash_for_those_hard_cases
     a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %!flexible quotes can handle both ' and " characters!
@@ -48,13 +51,13 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = %(
-It was the best of times,
-It was the worst of times.
-)
-    assert_equal 53, long_string.length
+    long_string = <<MEANINGFUL
+                    It was the best of times,
+                    It was the worst of times.
+MEANINGFUL
+    assert_equal 93, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+    assert_equal ' ', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -190,6 +193,7 @@ It was the worst of times.
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # This method smells of :reek:UncommunicativeVariableName
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'
