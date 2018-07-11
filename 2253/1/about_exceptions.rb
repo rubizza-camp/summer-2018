@@ -13,6 +13,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # rubocop:disable Metrics/LineLength
   # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
@@ -32,6 +33,7 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', ex.message
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/LineLength
 
   def test_raising_a_particular_error
     result = nil
