@@ -17,22 +17,25 @@
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
 # :reek:FeatureEnvy
-def check_data(fst, scnd, thrd)
-  if (fst <= 0) || (scnd <= 0) || (thrd <= 0)
-    raise TriangleError,
-          'one (or more) side(s) is(are) lower then (equal to) 0'
-  elsif (fst + scnd <= thrd) || (scnd + thrd <= fst) || (fst + thrd <= scnd)
-    raise TriangleError,
-          'sum of 2 sides is lower then (equal to) the third side'
+# :reek:UtilityFunction
+def errors?(side_one, side_two, side_three)
+  if (side_one <= 0) || (side_two <= 0) || (side_three <= 0)
+    true
+  elsif side_one + side_two <= side_three ||
+        side_two + side_three <= side_one ||
+        side_one + side_three <= side_two
+    true
+  else
+    false
   end
 end
 
 # :reek:FeatureEnvy
-def triangle(fst, scnd, thrd)
-  check_data fst, scnd, thrd
-  if (fst == scnd) && (scnd == thrd)
+def triangle(side_one, side_two, side_three)
+  raise TriangleError if errors? side_one, side_two, side_three
+  if (side_one == side_two) && (side_two == side_three)
     return :equilateral
-  elsif (fst != scnd) && (fst != thrd) && (scnd != thrd)
+  elsif (side_one != side_two) && (side_one != side_three) && (side_two != side_three)
     return :scalene
   else
     return :isosceles
