@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Style/ParallelAssignment
-# Class docs
+# Class docs here
 # This class smells of :reek:UncommunicativeModuleName
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
