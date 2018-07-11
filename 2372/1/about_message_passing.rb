@@ -189,6 +189,7 @@ class AboutMessagePassing < Neo::Koan
 
   # Class wellbehavedfoocatcher
   class WellBehavedFooCatcher
+    # rubocop:disable Style/MethodMissing
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -196,6 +197,7 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
+    # rubocop:enable Style/MethodMissing
   end
 
   # This method smells of :reek:UncommunicativeMethodName
