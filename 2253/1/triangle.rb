@@ -9,13 +9,10 @@
 #   :scalene      if no sides are equal
 #
 def triangle(fir, sec, thi)
-  raise TriangleError 
-  if [fir, sec, thi].min <= 0 || fir + sec <= thi || fir + thi <= sec || sec + thi <= fir
-  [:equilateral, :isosceles, :scalene].fetch([fir, sec, thi].uniq.size - 1)
+  raise TriangleError if [fir, sec, thi].min <= 0 || fir + sec <= thi || fir + thi <= sec || sec + thi <= fir
+  %i[equilateral isosceles scalene].fetch([fir, sec, thi].uniq.size - 1)
 end
 
 # Error class used in part 2.  No need to change this code.
-# rubocop:disable Lint/Syntax
 class TriangleError < StandardError
 end
-# rubocop:enable Lint/Syntax
