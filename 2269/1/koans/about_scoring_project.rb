@@ -38,42 +38,37 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def score(dice)
   # You need to write this method
   return 0 if dice == []
-  one = 0
-  two = 0
-  three = 0
-  four = 0
-  five = 0
-  six = 0
+  hash = { one: 0, two: 0, three: 0, four: 0, five: 0, six: 0 }
   dice.each do |el|
     if el == 1
-      one += 1
+      hash[:one] += 1
     elsif el == 2
-      two += 1
+      hash[:two] += 1
     elsif el == 3
-      three += 1
+      hash[:three] += 1
     elsif el == 4
-      four += 1
+      hash[:four] += 1
     elsif el == 5
-      five += 1
+      hash[:five] = hash[:five] + 1
     elsif el == 6
-      six += 1
+      hash[:six] += 1
     end
   end
   result = 0
-  if one >= 3
-    result += 1000 + (one % 3) * 100
-  elsif one > 0
-    result += one * 100
+  if hash[:one] >= 3
+    result += 1000 + (hash[:one] % 3) * 100
+  elsif hash[:one] > 0
+    result += hash[:one] * 100
   end
-  if five >= 3
-    result += 500 + (five % 3) * 50
-  elsif five > 0
-    result += five * 50
+  if hash[:five] >= 3
+    result += 500 + (hash[:five] % 3) * 50
+  elsif hash[:five] > 0
+    result += hash[:five] * 50
   end
-  result += 200 if two >= 3
-  result += 300 if three >= 3
-  result += 400 if four >= 3
-  result += 600 if six >= 3
+  result += 200 if hash[:two] >= 3
+  result += 300 if hash[:three] >= 3
+  result += 400 if hash[:four] >= 3
+  result += 600 if hash[:six] >= 3
   result
 end
 # rubocop:enable Metrics/AbcSize
