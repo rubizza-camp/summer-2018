@@ -95,11 +95,13 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
   # MyAnimals::Oyster
+  # rubocop:disable ClassAndModuleChildren
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
     end
   end
+  # rubocop:enable ClassAndModuleChildren
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

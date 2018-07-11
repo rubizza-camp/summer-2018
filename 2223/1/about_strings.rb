@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # AboutStrings
-# rubocop:disable Lint/UselessAssignment
 # rubocop:disable Metrics/ClassLength
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
@@ -311,5 +310,4 @@ DOC
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Lint/UselessAssignment
 # rubocop:enable Metrics/ClassLength

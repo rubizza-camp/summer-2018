@@ -113,9 +113,11 @@ class AboutClassMethods < Neo::Koan
     attr_reader :name
   end
 
+  # rubocop:disable TrivialAccessors
   def Dog.name
     @name
   end
+  # rubocop:enable TrivialAccessors
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
