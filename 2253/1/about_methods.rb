@@ -1,163 +1,200 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(first, second)
-  first + second
-end
-
 # :nodoc:
-class AboutMethods < Neo::Koan
-  def test_calling_global_methods
-    assert_equal 5, my_global_method(2, 3)
-  end
-
-  def test_calling_global_methods_without_parentheses
-    result = my_global_method 2, 3
-    assert_equal 5, result
-  end
-
-  # (NOTE: We are Using eval below because the example code is
-  # considered to be syntactically invalid).
-  # rubocop:disable Style/EvalWithLocation
-  def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
-    #
-    # Ruby doesn't know if you mean:
-    #
-    #   assert_equal(5, my_global_method(2), 3)
-    # or
-    #   assert_equal(5, my_global_method(2, 3))
-    #
-    # Rewrite the eval string to continue.
-    #
-  end
-  # rubocop:enable Style/EvalWithLocation
-
-  # NOTE: wrong number of arguments is not a SYNTAX error, but a
-  # runtime error.
-  def test_calling_global_methods_with_wrong_number_of_arguments
-    exception = assert_raise(ArgumentError) do
-      my_global_method
+class AboutMessagePassing < Neo::Koan
+  # :nodoc:
+  class MessageCatcher
+    def caught?
+      true
     end
-    assert_match(/wrong number/, exception.message)
-
-    exception = assert_raise(ArgumentError) do
-      my_global_method(1, 2, 3)
-    end
-    assert_match(/wrong number/, exception.message)
   end
 
-  # ------------------------------------------------------------------
+  def test_methods_can_be_called_directly
+    mc = MessageCatcher.new
 
-  def method_with_defaults(first, second = :default_value)
-    [first, second]
+    assert mc.caught?
   end
 
-  def test_calling_with_default_values
-    assert_equal [1, :default_value], method_with_defaults(1)
-    assert_equal [1, 2], method_with_defaults(1, 2)
+  def test_methods_can_be_invoked_by_sending_the_message
+    mc = MessageCatcher.new
+
+    assert mc.send(:caught?)
   end
 
-  # ------------------------------------------------------------------
+  # rubocop:disable Metrics/LineLength
+  def test_methods_can_be_invoked_more_dynamically
+    mc = MessageCatcher.new
 
-  def method_with_var_args(*args)
-    args
+    assert mc.send('caught?')
+    assert mc.send('caught' + '?') # What do you need to add to the first string?
+    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
+  end
+  # rubocop:enable Metrics/LineLength
+
+  def test_send_with_underscores_will_also_send_messages
+    mc = MessageCatcher.new
+
+    assert_equal true, mc.__send__(:caught?)
+
+    # THINK ABOUT IT:
+    #
+    # Why does Ruby provide both send and __send__ ?
   end
 
-  def test_calling_with_variable_arguments
-    assert_equal Array, method_with_var_args.class
-    assert_equal [], method_with_var_args
-    assert_equal %i[one], method_with_var_args(:one)
-    assert_equal %i[one two], method_with_var_args(:one, :two)
+  def test_classes_can_be_asked_if_they_know_how_to_respond
+    mc = MessageCatcher.new
+
+    assert_equal true, mc.respond_to?(:caught?)
+    assert_equal false, mc.respond_to?(:does_not_exist)
   end
-
-  # ------------------------------------------------------------------
-
-  # rubocop:disable Lint/Void
-  # rubocop:disable Lint/UnreachableCode
-  def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
-    :another_non_return_value
-  end
-  # rubocop:enable Lint/UnreachableCode
-
-  def test_method_with_explicit_return
-    assert_equal :return_value, method_with_explicit_return
-  end
-
-  # ------------------------------------------------------------------
-
-  def method_without_explicit_return
-    :a_non_return_value
-    :return_value
-  end
-  # rubocop:enable Lint/Void
-
-  def test_method_without_explicit_return
-    assert_equal :return_value, method_without_explicit_return
-  end
-
-  # ------------------------------------------------------------------
-
-  def my_method_in_the_same_class(first, second)
-    first * second
-  end
-
-  def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3, 4)
-  end
-
-  # rubocop:disable Style/RedundantSelf
-  def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
-  end
-  # rubocop:enable Style/RedundantSelf
-
-  # ------------------------------------------------------------------
-
-  private
-
-  def my_private_method
-    'a secret'
-  end
-
-  def test_calling_private_methods_without_receiver
-    assert_equal 'a secret', my_private_method
-  end
-
-  # rubocop:disable Style/RedundantSelf
-  def test_calling_private_methods_with_an_explicit_receiver
-    exception = assert_raise(NoMethodError) do
-      self.my_private_method
-    end
-    assert_match(/private method/, exception.message)
-  end
-  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
   # :nodoc:
-  class Dog
-    def name
-      'Fido'
-    end
-
-    private
-
-    def tail
-      'tail'
+  class MessageCatcher
+    def add_a_payload(*args)
+      args
     end
   end
 
-  def test_calling_methods_in_other_objects_require_explicit_receiver
-    rover = Dog.new
-    assert_equal 'Fido', rover.name
+  def test_sending_a_message_with_arguments
+    mc = MessageCatcher.new
+
+    assert_equal [], mc.add_a_payload
+    assert_equal [], mc.send(:add_a_payload)
+
+    assert_equal [3, 4, nil, 6], mc.add_a_payload(3, 4, nil, 6)
+    assert_equal [3, 4, nil, 6], mc.send(:add_a_payload, 3, 4, nil, 6)
   end
 
-  def test_calling_private_methods_in_other_objects
-    rover = Dog.new
+  # NOTE:
+  #
+  # Both obj.msg and obj.send(:msg) sends the message named :msg to
+  # the object. We use "send" when the name of the message can vary
+  # dynamically (e.g. calculated at run time), but by far the most
+  # common way of sending a message is just to say: obj.msg.
+
+  # ------------------------------------------------------------------
+
+  class TypicalObject
+  end
+
+  def test_sending_undefined_messages_to_a_typical_object_results_in_errors
+    typical = TypicalObject.new
+
+    exception = assert_raise(NoMethodError) do
+      typical.foobar
+    end
+    assert_match(/foobar/, exception.message)
+  end
+
+  def test_calling_method_missing_causes_the_no_method_error
+    typical = TypicalObject.new
+
+    exception = assert_raise(NoMethodError) do
+      typical.method_missing(:foobar)
+    end
+    assert_match(/foobar/, exception.message)
+
+    # THINK ABOUT IT:
+    #
+    # If the method :method_missing causes the NoMethodError, then
+    # what would happen if we redefine method_missing?
+    #
+    # NOTE:
+    #
+    # In Ruby 1.8 the method_missing method is public and can be
+    # called as shown above. However, in Ruby 1.9 (and later versions)
+    # the method_missing method is private. We explicitly made it
+    # public in the testing framework so this example works in both
+    # versions of Ruby. Just keep in mind you can't call
+    # method_missing like that after Ruby 1.9 normally.
+    #
+    # Thanks.  We now return you to your regularly scheduled Ruby
+    # Koans.
+  end
+
+  # ------------------------------------------------------------------
+
+  # rubocop:disable MethodMissingSuper
+  # rubocop:disable Style/MissingRespondToMissing
+  # :nodoc:
+  class AllMessageCatcher
+    def method_missing(method_name, *args)
+      "Someone called #{method_name} with <#{args.join(', ')}>"
+    end
+  end
+  # rubocop:enable Style/MissingRespondToMissing
+  # rubocop:enable MethodMissingSuper
+
+  # rubocop:disable Metrics/LineLength
+  def test_all_messages_are_caught
+    catcher = AllMessageCatcher.new
+
+    assert_equal 'Someone called foobar with <>', catcher.foobar
+    assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
+    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+  end
+  # rubocop:enable Metrics/LineLength
+
+  def test_catching_messages_makes_respond_to_lie
+    catcher = AllMessageCatcher.new
+
+    assert_nothing_raised do
+      catcher.any_method
+    end
+    assert_equal false, catcher.respond_to?(:any_method)
+  end
+
+  # ------------------------------------------------------------------
+
+  # rubocop:disable MethodMissingSuper
+  # rubocop:disable Style/MissingRespondToMissing
+  # :nodoc:
+  class WellBehavedFooCatcher
+    def method_missing(method_name, *args, &block)
+      if method_name.to_s[0, 3] == 'foo'
+        'Foo to you too'
+      else
+        super(method_name, *args, &block)
+      end
+    end
+  end
+  # rubocop:enable MethodMissingSuper
+  # rubocop:enable Style/MissingRespondToMissing
+
+  def test_foo_method_are_caught
+    catcher = WellBehavedFooCatcher.new
+
+    assert_equal 'Foo to you too', catcher.foo_bar
+    assert_equal 'Foo to you too', catcher.foo_baz
+  end
+
+  def test_non_foo_messages_are_treated_normally
+    catcher = WellBehavedFooCatcher.new
+
     assert_raise(NoMethodError) do
-      rover.tail
+      catcher.normal_undefined_method
     end
+  end
+
+  # ------------------------------------------------------------------
+
+  # (note: just reopening class from above)
+  class WellBehavedFooCatcher
+    def respond_to?(method_name)
+      if method_name.to_s[0, 3] == 'foo'
+        true
+      else
+        super(method_name)
+      end
+    end
+  end
+
+  def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
+    catcher = WellBehavedFooCatcher.new
+
+    assert_equal true, catcher.respond_to?(:foo_bar)
+    assert_equal false, catcher.respond_to?(:something_else)
   end
 end
