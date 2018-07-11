@@ -55,19 +55,7 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'abb', 'abbcccddddeeeee'[/ab*/]
     assert_equal 'a', 'abbcccddddeeeee'[/az*/]
     assert_equal '', 'abbcccddddeeeee'[/z*/]
-
-    # THINK ABOUT IT:
-    #
-    # When would * fail to match?
   end
-
-  # THINK ABOUT IT:
-  #
-  # We say that the repetition operators above are "greedy."
-  #
-  # Why?
-
-  # ------------------------------------------------------------------
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -239,10 +227,6 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal nil, 'Jim Gray'[grays, 1]
   end
 
-  # THINK ABOUT IT:
-  #
-  # Explain the difference alternation (|).
-
   # ------------------------------------------------------------------
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -257,11 +241,10 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  # rubocop:disable Metrics/LineLength
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    tw = 'one two-three'
+    assert_equal 'one t-three', tw.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
-  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
