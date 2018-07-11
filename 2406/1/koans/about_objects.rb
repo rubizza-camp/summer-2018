@@ -30,6 +30,10 @@ class AboutObjects < Neo::Koan
     assert_equal true, obj.object_id != another_obj.object_id
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_small_integers_have_fixed_ids
     assert_equal 1, 0.object_id
     assert_equal 3, 1.object_id
@@ -40,10 +44,10 @@ class AboutObjects < Neo::Koan
     # What pattern do the object IDs for small integers follow?
   end
 
+  # This method smells of :reek:FeatureEnvy
   def test_clone_creates_a_different_object
     obj = Object.new
     copy = obj.clone
-
     assert_equal true, obj           != copy
     assert_equal true, obj.object_id != copy.object_id
   end

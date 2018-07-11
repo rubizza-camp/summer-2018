@@ -6,6 +6,10 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol.is_a?(Symbol)
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_symbols_can_be_compared
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -15,6 +19,10 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol1 == symbol3
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_identical_symbols_are_a_single_internal_object
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -67,11 +75,16 @@ class AboutSymbols < Neo::Koan
     assert_equal 'It is raining cats and dogs.', string
   end
 
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_symbols_are_not_strings
     symbol = :ruby
     assert_equal false, symbol.is_a?(String)
     assert_equal false, symbol.eql?('ruby')
   end
+  # This method smells of :reek:ManualDispatch
 
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
@@ -82,7 +95,10 @@ class AboutSymbols < Neo::Koan
   # It's important to realize that symbols are not "immutable
   # strings", though they are immutable. None of the
   # interesting string operations are available on symbols.
-
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
   def test_symbols_cannot_be_concatenated
     # Exceptions will be pondered further down the path
     assert_raise(NoMethodError) do
