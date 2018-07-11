@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # frozen_string_literal: true
+
 # Class AboutRegulasExpressions
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:TooManyMethods
