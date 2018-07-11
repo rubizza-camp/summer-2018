@@ -6,16 +6,11 @@ class DiceSet
   @result = []
   def roll(size)
     temp = []
-    (1..size).each do |i|
+    (1..size).each do
       temp << rand(1...6)
     end
     @result = temp
   end
-
-  def values
-    @result
-  end
-end
 
   def values
     @result
