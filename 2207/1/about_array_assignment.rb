@@ -18,7 +18,6 @@ def triangle(sid_a, side_b, side_c)
 	  :scalene
 	end
 end
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Layout/Tab
 # rubocop:enable Metrics/MethodLength
