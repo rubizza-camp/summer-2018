@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable all
 # :reek:ManualDispatch
 # :reek:UtilityFunction
 class AboutMessagePassing < Neo::Koan
@@ -183,6 +182,5 @@ class AboutMessagePassing < Neo::Koan
     assert_equal true, catcher.respond_to?(:foo_bar)
     assert_equal false, catcher.respond_to?(:something_else)
   end
-  # rubocop:enable Style/MethodMissingSuper
-  # rubocop:enable Style/MissingRespondToMissing
+  # rubocop:enable all
 end
