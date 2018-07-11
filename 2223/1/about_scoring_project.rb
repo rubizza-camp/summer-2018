@@ -29,11 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/PerceivedComplexity
-# rubocop:disable Lint/ShadowingOuterLocalVariable
+
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:TooManyStatements
 def score(dice)
@@ -55,12 +51,8 @@ def score(dice)
 
   result
 end
+
 # AboutScoringProject
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/PerceivedComplexity
-# rubocop:enable Lint/ShadowingOuterLocalVariable
 # This class smells of :reek:UncommunicativeModuleName
 class AboutScoringProject < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName

@@ -50,7 +50,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     # This method smells of :reek:UncommunicativeMethodName
     # This method smells of :reek:UncommunicativeVariableName
     # This method smells of :reek:TooManyStatements

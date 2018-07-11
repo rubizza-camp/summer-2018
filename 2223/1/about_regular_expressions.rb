@@ -80,8 +80,7 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat],
-                 animals.select { |a| a[/[cbr]at/] }
+    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -253,10 +252,7 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three',
-                 'one two-three'.sub(/(t\w*)/) {
-                   Regexp.last_match(1)[0, 1]
-                 }
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -264,9 +260,6 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_gsub_is_like_find_and_replace_all
-    assert_equal 'one t-t',
-                 'one two-three'.gsub(/(t\w*)/) {
-                   Regexp.last_match(1)[0, 1]
-                 }
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end

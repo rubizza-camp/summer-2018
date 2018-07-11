@@ -38,13 +38,13 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
       (self % 2).zero?
     end
   end
-
+  # rubocop:enable Style/ClassAndModuleChildren
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
