@@ -1,19 +1,23 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# frozen_string_literal: true
-# Class AboutControlStatements
+
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Style/ConditionalAssignment
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Style/IfUnlessModifier
 # This class smells of :reek:UncommunicativeModuleName
-class AboutStatements < Neo::Koan
-  # This method smells of :reek:RepeatedConditional
+# This class smells of :reek:RepeatedConditional
+class AboutControlStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_if_then_else_statements
-    result = if Integer.class == Complex.class
-               :true_value
-             else
-               :false_value
-             end
+    if true
+      result = :true_value
+    else
+      result = :false_value
+    end
     assert_equal :true_value, result
   end
 
@@ -23,22 +27,27 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_if_then_statements
     result = :default_value
-    result = :true_value if Method.class == Hash.class
+    result = :true_value if true
     assert_equal :true_value, result
   end
 
-  # This method smells of :reek:RepeatedConditional
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_if_statements_return_values
-    value = Class.class == Array.class ? :true_value : :false_value
-
+    value = if true
+              :true_value
+            else
+              :false_value
+            end
     assert_equal :true_value, value
 
-    value = 5 == 2 ? :true_value : :false_value
-
+    value = if false
+              :true_value
+            else
+              :false_value
+            end
     assert_equal :false_value, value
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
@@ -49,21 +58,20 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_if_statements_with
-    value = (:true_value if 10 == 20)
+  def test_if_statements_with_no_else_with_false_condition_return_value
+    value = (:true_value if false)
     assert_equal nil, value
   end
+  # rubocop:enable Metrics/ClassLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  # rubocop:disable Metrics/LineLength
   def test_condition_operators
-    assert_equal :true_value, (Range.class == Time.class ? :true_value : :false_value)
-    assert_equal :false_value, (3 == 6 ? :true_value : :false_value)
+    assert_equal :true_value, (true ? :true_value : :false_value)
+    assert_equal :false_value, (false ? :true_value : :false_value)
   end
-  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -71,7 +79,7 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_if_statement_modifiers
     result = :default_value
-    result = :true_value if Hash.class == Class.class
+    result = :true_value if true
 
     assert_equal :true_value, result
   end
@@ -80,25 +88,25 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  # rubocop:disable Metrics/LineLength
   def test_unless_statement
     result = :default_value
-    result = :false_value unless Object.class == Array.class # same as saying 'if !false', which evaluates as 'if true'
-    assert_equal :default_value, result
+    unless false
+      result = :false_value
+    end
+    assert_equal :false_value, result
   end
-  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  # rubocop:disable Metrics/LineLength
   def test_unless_statement_evaluate_true
     result = :default_value
-    result = :true_value unless Data.class == Time.class # same as saying 'if !true', which evaluates as 'if false'
+    unless true
+      result = :true_value
+    end
     assert_equal :default_value, result
   end
-  # rubocop:enable Metrics/LineLength
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -106,7 +114,7 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_unless_statement_modifier
     result = :default_value
-    result = :false_value unless 2 == 3
+    result = :false_value unless false
 
     assert_equal :false_value, result
   end
@@ -147,7 +155,7 @@ class AboutStatements < Neo::Koan
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-               break i if i.even?
+               break i if (i % 2).zero?
                i += 1
              end
 
@@ -163,7 +171,7 @@ class AboutStatements < Neo::Koan
     result = []
     while i < 10
       i += 1
-      next if i.even?
+      next if (i % 2).zero?
       result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
@@ -174,18 +182,14 @@ class AboutStatements < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_for_statement
-    array = %w[fish and chips]
+    array = %w(fish and chips)
     result = []
     array.each do |item|
       result << item.upcase
     end
-    assert_equal %w[FISH AND CHIPS], result
+    assert_equal %w(FISH AND CHIPS), result
   end
 
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
   def test_times_statement
     sum = 0
     10.times do
@@ -194,3 +198,7 @@ class AboutStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Style/ConditionalAssignment
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Style/IfUnlessModifier
