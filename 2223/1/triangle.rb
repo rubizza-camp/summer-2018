@@ -15,19 +15,21 @@
 #
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
-def triangle(aa, bb, cc)
-  triangle_validation(aa, bb, cc)
-  if aa == bb && aa == cc
+def triangle(aaa, bbb, ccc)
+  triangle_validation(aaa, bbb, ccc)
+  if aaa == bbb && aaa == ccc
     :equilateral
-  elsif aa == bb || aa == cc || bb == cc
+  elsif aaa == bbb || aaa == ccc || bbb == ccc
     :isosceles
   else
     :scalene
   end
 end
 
-def triangle_validation(aa, bb, cc)
-  raise TriangleError if (aa + bb) <= cc || (aa + cc) <= bb || (bb + cc) <= aa
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
+def triangle_validation(aaa, bbb, ccc)
+  raise TriangleError if (aaa + bbb) <= ccc || (aaa + ccc) <= bbb || (bbb + ccc) <= aaa
 end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError; end

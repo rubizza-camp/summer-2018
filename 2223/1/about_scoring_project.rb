@@ -30,6 +30,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 # This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
 # This method smells of :reek:TooManyStatements
 def score(dice)
   return 0 if dice.empty?
@@ -38,6 +39,8 @@ def score(dice)
   scores.map { |key, value| amount(key, value) }.compact.sum
 end
 
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:FeatureEnvy
 def amount(key, value)
   triplets = value / 3
   remainer = value % 3

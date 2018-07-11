@@ -311,3 +311,5 @@ DOC
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Lint/UselessAssignment
+# rubocop:enable Metrics/ClassLength

@@ -105,6 +105,7 @@ class AboutMethods < Neo::Koan
     :another_non_return_value
   end
   # rubocop:enable Lint/UnreachableCode
+
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -167,6 +168,8 @@ class AboutMethods < Neo::Koan
     assert_equal 'a secret', my_private_method
   end
 
+
+  # rubocop:disable Style/RedundantSelf
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
@@ -177,9 +180,10 @@ class AboutMethods < Neo::Koan
     end
     assert_match (/private method/, exception.message)
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
-  # Dog
+  # rubocop:disable Lint/Syntax
   class Dog
     def name
       'Fido'
@@ -191,6 +195,7 @@ class AboutMethods < Neo::Koan
       'tail'
     end
   end
+  # rubocop:enable Lint/Void
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

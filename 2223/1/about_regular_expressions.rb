@@ -80,7 +80,7 @@ class AboutRegularExpressions < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
+    assert_equal(%w[cat bat rat], animals.select { |a| a[/[cbr]at/] })
   end
 
   # This method smells of :reek:UncommunicativeMethodName
