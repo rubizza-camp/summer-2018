@@ -53,7 +53,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
   # rubocop:disable Style/RedundantFreeze
   in_ruby_version('mri') do
-    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
     # rubocop:enable Style/RedundantFreeze
     # This method smells of :reek:UncommunicativeMethodName
     # This method smells of :reek:UncommunicativeVariableName
