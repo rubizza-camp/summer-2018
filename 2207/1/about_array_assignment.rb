@@ -11,11 +11,11 @@ def triangle(sid_a, side_b, side_c)
 	sides.uniq!
 
 	if sides.count == 1
-			:equilateral
+	  :equilateral
 	elsif sides.count == 2
-			:isosceles
+	  :isosceles
 	else
-			:scalene
+	  :scalene
 	end
 end
 # rubocop:enable Metrics/LineLength
