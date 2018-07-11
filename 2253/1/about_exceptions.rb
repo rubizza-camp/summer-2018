@@ -50,7 +50,7 @@ class AboutExceptions < Neo::Koan
     begin
       raise 'Oops'
     rescue StandardError
-      pust 'Something'
+      puts 'Something'
     ensure
       result = :always_run
     end
