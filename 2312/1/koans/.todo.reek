@@ -1,0 +1,283 @@
+---
+detectors:
+  DuplicateMethodCall:
+    exclude:
+    - AboutTriangleProject2#test_illegal_triangles_throw_exceptions
+    - AboutDiceProject#test_dice_values_do_not_change_unless_explicitly_rolled
+    - AboutDiceProject#test_dice_values_should_change_between_rolls
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutDiceProject#test_you_can_roll_different_numbers_of_dice
+    - AboutModules#test_module_methods_can_affect_instance_variables_in_the_object
+    - AboutExceptions#test_exceptions_inherit_from_exception
+    - Neo::Assertions#assert_raise
+    - Neo::Color#use_colors?
+    - Neo::Koan#command_line
+    - Neo::Koan#meditate
+    - Neo::Sensei#encourage
+    - Neo::Sensei#observe
+    - AboutJavaInterop#test_however_most_methods_returning_strings_return_ruby_strings
+    - AboutJavaInterop#test_java_string_are_not_ruby_strings
+    - AboutMethods#test_calling_global_methods_with_wrong_number_of_arguments
+    - AboutClasses#test_instance_variables_can_be_set_by_assigning_to_them
+    - AboutHashes#test_default_value_is_the_same_object
+    - AboutHashes#test_default_value_with_block
+    - AboutHashes#test_hash_keys
+    - AboutHashes#test_hash_values
+    - AboutIteration#test_collect_transforms_elements_of_an_array
+    - AboutIteration#test_select_selects_certain_items_from_an_array
+    - AboutProxyObjectProject#test_proxy_counts_method_calls
+    - AboutProxyObjectProject#test_proxy_reports_methods_have_been_called
+    - TelevisionTest#test_edge_case_on_off
+    - TelevisionTest#test_it_also_turns_off
+    - score
+  IrresponsibleModule:
+    exclude:
+    - AboutTriangleProject2
+    - AboutMessagePassing
+    - AboutMessagePassing::MessageCatcher
+    - AboutAsserts
+    - AboutArrayAssignment
+    - AboutDiceProject
+    - AboutModules
+    - AboutModules::Nameable
+    - AboutKeywordArguments
+    - AboutObjects
+    - AboutClassMethods
+    - AboutClassMethods::Dog
+    - AboutExceptions::MySpecialError
+    - KeyError
+    - Neo
+    - Neo::Assertions
+    - Neo::Assertions::FailedAssertionError
+    - Neo::Color
+    - Neo::ThePath
+    - String
+    - AboutToStr
+    - AboutToStr::CanNotBeTreatedAsString
+    - AboutInheritance
+    - AboutInheritance::Chihuahua
+    - AboutInheritance::Dog
+    - AboutTriangleProject
+    - AboutArrays
+    - AboutControlStatements
+    - AboutNil
+    - AboutJavaInterop::Java::JavaUtil::ArrayList
+    - AboutMethods
+    - AboutClasses::Dog
+    - AboutSymbols
+    - AboutTrueAndFalse
+    - AboutOpenClasses
+    - AboutOpenClasses::Dog
+    - AboutHashes
+    - AboutIteration
+    - AboutConstants
+    - AboutConstants::Animal::NestedAnimal
+    - AboutConstants::MyAnimals::Bird
+    - AboutConstants::MyAnimals::Oyster
+    - AboutStrings
+    - AboutBlocks
+    - AboutRegularExpressions
+  TooManyStatements:
+    exclude:
+    - initialize
+    - AboutTriangleProject2#test_illegal_triangles_throw_exceptions
+    - AboutDiceProject#test_dice_values_should_change_between_rolls
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutExceptions#test_raising_a_particular_error
+    - AboutExceptions#test_rescue_clause
+    - Neo::Assertions#assert_raise
+    - Neo::Koan#meditate
+    - Neo::Sensei#a_zenlike_statement
+    - Neo::Sensei#artistic_end_screen
+    - Neo::Sensei#encourage
+    - Neo::Sensei#guide_through_error
+    - Neo::Sensei#instruct
+    - Neo::Sensei#observe
+    - Neo::Sensei#show_progress
+    - Neo::ThePath#each_step
+    - AboutArrays#test_accessing_array_elements
+    - AboutArrays#test_array_literals
+    - AboutArrays#test_pushing_and_popping_arrays
+    - AboutArrays#test_shifting_arrays
+    - AboutArrays#test_slicing_arrays
+    - AboutControlStatements#test_break_statement
+    - AboutControlStatements#test_next_statement
+    - AboutMethods#test_calling_global_methods_with_wrong_number_of_arguments
+    - AboutClasses#test_instance_variables_cannot_be_accessed_outside_the_class
+    - AboutTrueAndFalse#test_everything_else_is_treated_as_true
+    - AboutHashes#test_default_value
+    - AboutHashes#test_default_value_is_the_same_object
+    - AboutHashes#test_default_value_with_block
+    - AboutIteration#test_all_iteration_methods_work_on_any_collection_not_just_arrays
+    - AboutIteration#test_break_works_with_each_style_iterations
+    - AboutIteration#test_collect_transforms_elements_of_an_array
+    - AboutIteration#test_inject_will_blow_your_mind
+    - AboutIteration#test_select_selects_certain_items_from_an_array
+    - AboutProxyObjectProject#test_proxy_counts_method_calls
+    - TelevisionTest#test_edge_case_on_off
+    - score
+  UncommunicativeModuleName:
+    exclude:
+    - AboutTriangleProject2
+    - AboutClassMethods::Dog2
+    - AboutClasses::Dog2
+    - AboutClasses::Dog3
+    - AboutClasses::Dog4
+    - AboutClasses::Dog5
+    - AboutClasses::Dog6
+    - AboutClasses::Dog7
+  ManualDispatch:
+    exclude:
+    - AboutMessagePassing#test_catching_messages_makes_respond_to_lie
+    - AboutMessagePassing#test_classes_can_be_asked_if_they_know_how_to_respond
+    - AboutMessagePassing#test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
+    - AboutToStr#acts_like_a_string?
+    - AboutSymbols#test_symbols_do_not_have_string_methods
+  UtilityFunction:
+    exclude:
+    - AboutMessagePassing::AllMessageCatcher#method_missing
+    - Neo::Sensei#embolden_first_line_only
+    - Neo::Sensei#find_interesting_lines
+    - Neo::Sensei#indent
+    - __
+    - ___
+    - _n_
+    - ruby_version?
+    - AboutToStr#acts_like_a_string?
+    - AboutMethods#my_method_in_the_same_class
+    - my_global_method
+    - AboutIteration#as_name
+    - score
+  FeatureEnvy:
+    exclude:
+    - AboutDiceProject#test_dice_values_do_not_change_unless_explicitly_rolled
+    - AboutDiceProject#test_dice_values_should_change_between_rolls
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutDiceProject#test_you_can_roll_different_numbers_of_dice
+    - AboutSandwichCode#count_lines
+    - AboutSandwichCode#find_line
+    - AboutModules#test_module_methods_can_affect_instance_variables_in_the_object
+    - AboutObjects#test_clone_creates_a_different_object
+    - triangle
+    - Neo::Assertions#assert_equal
+    - Neo::Assertions#assert_match
+    - Neo::Assertions#assert_nil
+    - Neo::Assertions#assert_not_equal
+    - Neo::Assertions#assert_not_nil
+    - Neo::ThePath#each_step
+    - Neo::ThePath#walk
+    - AboutControlStatements#test_break_statement_returns_values
+    - AboutControlStatements#test_next_statement
+    - AboutControlStatements#test_while_statement
+    - AboutClasses#test_attr_accessor_will_automatically_define_both_read_and_write_accessors
+    - AboutClasses#test_attr_reader_will_automatically_define_an_accessor
+    - AboutClasses#test_instance_variables_can_be_set_by_assigning_to_them
+    - AboutClasses#test_you_can_create_accessor_methods_to_return_instance_variables
+    - AboutClasses#test_you_can_politely_ask_for_instance_variable_values
+    - AboutHashes#test_default_value_is_the_same_object
+    - AboutHashes#test_default_value_with_block
+    - AboutProxyObjectProject#test_proxy_can_record_more_than_just_tv_objects
+    - AboutProxyObjectProject#test_proxy_counts_method_calls
+    - AboutProxyObjectProject#test_proxy_records_messages_sent_to_tv
+    - AboutProxyObjectProject#test_proxy_reports_methods_have_been_called
+    - AboutProxyObjectProject#test_tv_methods_still_perform_their_function
+    - TelevisionTest#test_can_set_the_channel
+    - TelevisionTest#test_edge_case_on_off
+    - TelevisionTest#test_it_also_turns_off
+    - TelevisionTest#test_it_turns_on
+  InstanceVariableAssumption:
+    exclude:
+    - DiceSet
+    - Neo::Sensei
+    - AboutClasses
+    - Television
+  UncommunicativeMethodName:
+    exclude:
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutSandwichCode#count_lines2
+    - AboutSandwichCode#count_lines3
+    - AboutSandwichCode#find_line2
+    - AboutSandwichCode#test_counting_lines2
+    - AboutSandwichCode#test_finding_lines2
+    - AboutClassMethods::Dog#self.class_method2
+    - AboutScoringProject#test_score_of_a_single_roll_of_1_is_100
+    - AboutScoringProject#test_score_of_a_single_roll_of_5_is_50
+    - AboutScoringProject#test_score_of_a_triple_1_is_1000
+  RepeatedConditional:
+    exclude:
+    - AboutSandwichCode
+    - AboutControlStatements
+  Attribute:
+    exclude:
+    - AboutClassMethods::Dog#name
+    - AboutClasses::Dog5#name
+    - Television#channel
+  TooManyMethods:
+    exclude:
+    - AboutClassMethods
+    - Neo::Sensei
+    - AboutMethods
+    - AboutClasses
+    - AboutRegularExpressions
+  ControlParameter:
+    exclude:
+    - Neo::Assertions#assert
+    - ruby_version?
+    - AboutTrueAndFalse#truth_value
+  DataClump:
+    exclude:
+    - Neo::Assertions
+  NestedIterators:
+    exclude:
+    - Neo::ThePath#each_step
+    - AboutIteration#test_all_iteration_methods_work_on_any_collection_not_just_arrays
+  NilCheck:
+    exclude:
+    - Neo::Assertions#assert_nil
+    - Neo::Assertions#assert_not_nil
+    - Neo::Color#use_colors?
+    - Neo::Koan#passed?
+    - Neo::Sensei#failed?
+    - Neo::Sensei#progress
+    - AboutNil#test_nil_has_a_few_methods_defined_on_it
+  TooManyInstanceVariables:
+    exclude:
+    - Neo::Koan
+    - Neo::Sensei
+  UncommunicativeParameterName:
+    exclude:
+    - __
+    - ___
+    - _n_
+    - AboutMethods#method_with_defaults
+    - AboutMethods#my_method_in_the_same_class
+    - my_global_method
+  UncommunicativeVariableName:
+    exclude:
+    - Neo::Koan#total_tests
+    - Neo::Sensei#add_progress
+    - Neo::Sensei#embolden_first_line_only
+    - Neo::Sensei#indent
+    - Neo::Sensei#instruct
+    - Neo::Sensei#progress
+    - in_ruby_version
+    - AboutControlStatements#test_break_statement
+    - AboutControlStatements#test_break_statement_returns_values
+    - AboutControlStatements#test_next_statement
+    - AboutControlStatements#test_while_statement
+    - AboutSymbols#test_identical_symbols_are_a_single_internal_object
+    - AboutSymbols#test_symbols_can_be_compared
+    - AboutHashes#test_default_value
+    - AboutHashes#test_hash_is_unordered
+    - AboutIteration#test_inject_will_blow_your_mind
+    - score
+    - AboutStrings#test_strings_are_unique_objects
+    - AboutStrings#test_use_backslash_for_those_hard_cases
+    - AboutStrings#test_use_flexible_quoting_to_handle_really_hard_cases
+    - AboutBlocks#test_blocks_can_be_assigned_to_variables_and_called_explicitly
+    - AboutBlocks#test_methods_can_take_an_explicit_block_argument
+    - AboutBlocks#test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
+    - AboutRegularExpressions#test_character_classes_give_options_for_a_character
+  UnusedParameters:
+    exclude:
+    - Proxy#respond_to_missing?
