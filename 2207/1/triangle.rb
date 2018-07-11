@@ -1,5 +1,7 @@
 # :reek:TooManyStatements
 # :reek:FeatureEnvy
+# rubocop:disable Style/GuardClause
+# rubocop:disable Style/RedundantReturn
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -20,7 +22,6 @@ def triangle_error(side_a, side_b, side_c)
 end
 
 def triangle(side_a, side_b, side_c)
-  
   if side_a == side_b && side_b == side_c
     return :equilateral
   elsif side_a == side_b || side_b == side_c || side_a == side_c
@@ -33,3 +34,6 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+
+# rubocop:enable Style/GuardClause
+# rubocop:enable Style/RedundantReturn
