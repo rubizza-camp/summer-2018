@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Metrics/ClassLength
-# rubocop:disable Layout/CommentIndentation
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
@@ -187,5 +186,4 @@ class AboutControlStatements < Neo::Koan
   # rubocop:enable Lint/LiteralAsCondition
   # rubocop:enable Metrics/ClassLength
   # rubocop:enable Lint/UnneededCopDisableDirective
-  # rubocop:enable Layout/CommentIndentation
 end
