@@ -103,7 +103,6 @@ class AboutArrays < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  
   def test_shifting_arrays
     array = [1, 2]
     array.unshift(:first)
