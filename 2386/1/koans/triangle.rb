@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 
+# This method smells of :reek:FeatureEnvy
 def triangle(a_line, b_line, c_line)
   triangle_zero_error(a_line, b_line, c_line)
   triangle_sides_error(a_line, b_line, c_line)
