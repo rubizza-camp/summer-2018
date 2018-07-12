@@ -8,9 +8,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
     count = 0
-    while line = file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file.close if file
@@ -29,7 +27,7 @@ class AboutSandwichCode < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def find_line(file_name)
     file = open(file_name)
-    while line = file.gets
+    while (line = file.gets)
       return line if line =~ /e/
     end
   ensure
@@ -85,9 +83,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
-      while line = file.gets
-        count += 1
-      end
+      count += 1 while file.gets
       count
     end
   end
@@ -103,8 +99,9 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
   # This class smells of :reek:UncommunicativeMethodName
   def find_line2(file_name)
+    # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
-      while line = file.gets
+      while (line = file.gets)
         return line if line =~ /e/
       end
     end
@@ -123,9 +120,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
-      while line = file.gets
-        count += 1
-      end
+      count += 1 while file.gets
       count
     end
   end
@@ -136,6 +131,6 @@ class AboutSandwichCode < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
-end
+  end
 end
 # rubocop:enable Security/Open

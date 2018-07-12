@@ -51,15 +51,15 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     # This method smells of :reek:UncommunicativeMethodName
     # This method smells of :reek:UncommunicativeVariableName
     # This method smells of :reek:TooManyStatements
     # This method smells of :reek:FeatureEnvy
     def test_constants_become_symbols
-      all_symbols = Symbol.all_symbols.map &:to_s
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal true, all_symbols.include?('RubyConstant')
+      assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
   end
 

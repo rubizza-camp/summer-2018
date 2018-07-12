@@ -20,6 +20,13 @@ class Proxy
     @messages = []
   end
 
+  # rubocop:disable Style/MethodMissing
+  def method_missing(method_name, *args, &block)
+    @messages[method_name] += 1
+    @object.send(method_name, *args, &block)
+  end
+  # rubocop:enable Style/MethodMissingend
+
   def called?(method_name)
     @messages.include? method_name
   end
@@ -27,12 +34,6 @@ class Proxy
   def number_of_times_called(method_name)
     @messages.count method_name
   end
-  # rubocop:disable Style/MethodMissing
-  def method_missing(method_name, *args, &block)
-    @messages[method_name] += 1
-    @object.send(method_name, *args, &block)
-  end
-  # rubocop:enable Style/MethodMissingend
 
 # The proxy object should pass the following Koan:
 #

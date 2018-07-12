@@ -8,7 +8,7 @@ class AboutScope < Neo::Koan
         :jims_dog
       end
     end
-    end
+  end
 
   module Joes
     class Dog
@@ -24,7 +24,7 @@ class AboutScope < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_dog_is_not_available_in_the_current_scope
     assert_raise(NameError) do
-      fido = Dog.new
+      Dog.new
     end
   end
 
@@ -112,5 +112,5 @@ class AboutScope < Neo::Koan
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal [:Dog], Jims.constants
     assert Object.constants.size > 1
-   end
+  end
 end
