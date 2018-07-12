@@ -12,7 +12,7 @@ class AboutModules < Neo::Koan
     def here
       :in_module
     end
- end
+  end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName

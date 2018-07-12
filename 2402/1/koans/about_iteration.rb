@@ -132,12 +132,12 @@ class AboutIteration < Neo::Koan
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
-    assert_equal __([11, 12, 13]), result
+    assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
-      assert_equal __(%w[THIS IS A TEST]), upcase_lines
+      assert_equal %w[THIS IS A TEST], upcase_lines
     end
 
     # NOTE: You can create your own collections that work with each,

@@ -15,12 +15,12 @@
 #
 #
 # This method smells of :reek:FeatureEnvy
-def triangle(a, b, c)
+def triangle(first, second, third)
   # WRITE THIS CODE
   #--
-  a, b, c = [a, b, c].sort
-  raise TriangleError if (a + b) <= c
-  sides = [a, b, c].uniq
+  first, second, third = [first, second, third].sort
+  raise TriangleError if (first + second) <= third
+  sides = [first, second, third].uniq
   [nil, :equilateral, :isosceles, :scalene][sides.size]
   #++
 end

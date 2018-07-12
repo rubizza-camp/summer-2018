@@ -9,7 +9,7 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
@@ -60,10 +60,9 @@ class AboutExceptions < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_ensure_clause
-    result = nil
     begin
       raise 'Oops'
-    rescue StandardError => ex
+    rescue StandardError
       # no code here
     ensure
       result = :always_run

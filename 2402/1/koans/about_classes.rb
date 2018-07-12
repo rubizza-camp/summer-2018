@@ -14,7 +14,7 @@ class AboutClasses < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_instances_of_classes_can_be_created_with_new
     fido = Dog.new
-    assert_equal AboutClasses::Dog, fido.class
+    assert_equal Dog, fido.class
   end
 
   # ------------------------------------------------------------------
@@ -34,7 +34,7 @@ class AboutClasses < Neo::Koan
     assert_equal [], fido.instance_variables
 
     fido.set_name('Fido')
-    assert_equal [:@name], fido.instance_variables
+    assert_equal %i[@name], fido.instance_variables
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -50,7 +50,9 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+             fido.@name
+      RUBY
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
@@ -75,9 +77,10 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal('Fido', fido.instance_eval { @name }) # block version
   end
+  # rubocop:enable Style/EvalWithLocation
 
   # ------------------------------------------------------------------
 
@@ -173,7 +176,7 @@ class AboutClasses < Neo::Koan
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def test_different_objects_have_difference_instance_variables
+  def test_different_objects_have_different_instance_variables
     fido = Dog6.new('Fido')
     rover = Dog6.new('Rover')
 
@@ -194,7 +197,7 @@ class AboutClasses < Neo::Koan
     end
 
     def to_s
-      name
+      @name
     end
 
     def inspect
