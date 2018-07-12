@@ -10,12 +10,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class DiceSet
   attr_reader :values
   # :reek:UncommunicativeParameterName
-  # rubocop: disable Style/RandomWithOffset
   # rubocop: disable Naming/UncommunicativeMethodParamName
   def roll(n)
-    @values = (1..n).map { rand(6) + 1 }
+    @values = Array.new(n) { rand(1..6) }
   end
-  # rubocop: enable Style/RandomWithOffset
   # rubocop: enable Naming/UncommunicativeMethodParamName
 end
 
