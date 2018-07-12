@@ -29,30 +29,22 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 # rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength:
 # :reek:TooManyStatements
 # :reek:UtilityFunction
 # :reek:UncommunicativeVariableName
 def score(dice)
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength:
-  result = 0
-  scores = Hash.new 0
+  scores = dice.each_with_object(Hash.new(0)) { |score, result| result[score] += 1 }
 
-  dice.each do |n|
-    scores[n] += 1
-  end
-
-  scores.each do |key, value|
+  scores.reduce(0) do |result, (key, value)|
     triplets = value / 3
-    remainer = value % 3
+    remainder = value % 3
 
-    result += (100 * remainer) + (1000 * triplets) if key == 1
-    result += (50 * remainer) + (500 * triplets) if key == 5
+    result += (100 * remainder) + (1000 * triplets) if key == 1
+    result += (50 * remainder) + (500 * triplets) if key == 5
     result += (100 * key) if key != 1 && key != 5 && value >= 3
+    result
   end
-
-  result
 end
 # :reek:TooManyStatements
 # :reek:IrresponsibleModule
