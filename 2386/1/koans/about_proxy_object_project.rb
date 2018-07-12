@@ -18,6 +18,7 @@ class Proxy
     # ADD MORE CODE HERE
     @messages = Hash.new(0)
   end
+
   def method_missing(method_name, *args, &block)
     @messages[method_name] += 1
     @object.send(method_name, *args, &block)
