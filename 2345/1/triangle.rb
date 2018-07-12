@@ -16,19 +16,21 @@
 # :reek:UtilityFunction
 # :reek:ControlParameter
 def triangle_type(side_a, side_b, side_c)
-  if (side_a == side_b) && (side_b == side_c)
+  arr_side = [side_a, side_b, side_c].uniq.size
+  if arr_side == 1
     :equilateral
-  elsif (side_a != side_b) && (side_a != side_c) && (side_b != side_c)
-    :scalene
-  else
+  elsif arr_side == 2
     :isosceles
+  else
+    :scalene
   end
 end
 
 # :reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
   # WRITE THIS CODE
-  raise TriangleError if (side_a >= side_b + side_c) || (side_b >= side_a + side_c) || (side_c >= side_a + side_b)
+  side_a, side_b, side_c = [side_a, side_b, side_c].sort
+  raise TriangleError if side_c >= side_a + side_b
 
   triangle_type(side_a, side_b, side_c)
 end

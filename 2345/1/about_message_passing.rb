@@ -114,14 +114,14 @@ class AboutMessagePassing < Neo::Koan
 
   # :reek:ManualDispatch
   # :reek:UtilityFunction
-  # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/MethodMissing
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
 
-  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MethodMissing
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
