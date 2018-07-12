@@ -17,8 +17,7 @@
 # This method smells of :reek:TooManyStatements
 def triangle(*sides)
   sides.sort!
-  raise TriangleError, 'Side length cannot be less than a zero!' if sides.any? { |side| side.negative? }
-  raise TriangleError, 'Sum of two lesser sides cannot be less that third side!' if (sides[0] + sides[1]) <= sides[2]
+  fail TriangleError, if sides.any?(&:negative?) || ((sides[0] + sides[1]) <= sides[2])
   sides.uniq!
   hash = Hash.new(:scalene).merge!(1 => :equilateral, 2 => :isosceles)
   hash[sides.count]
