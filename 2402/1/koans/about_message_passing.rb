@@ -1,4 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# rubocop:disable Style/MethodMissing
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:ManualDispatch
 class AboutMessagePassing < Neo::Koan
@@ -87,6 +89,13 @@ class AboutMessagePassing < Neo::Koan
     assert_equal [3, 4, nil, 6], mc.send(:add_a_payload, 3, 4, nil, 6)
   end
 
+  # NOTE:
+  #
+  # Both obj.msg and obj.send(:msg) sends the message named :msg to
+  # the object. We use "send" when the name of the message can vary
+  # dynamically (e.g. calculated at run time), but by far the most
+  # common way of sending a message is just to say: obj.msg.
+
   # ------------------------------------------------------------------
 
   class TypicalObject
@@ -125,21 +134,14 @@ class AboutMessagePassing < Neo::Koan
     # NOTE:
     #
     # In Ruby 1.8 the method_missing method is public and can be
-    # called as shown above.  However, in Ruby 1.9 the method_missing
-    # method is private.  We explicitly made it public in the testing
-    # framework so this example works in both versions of Ruby.  Just
-    # keep in mind you can't call method_missing like that in Ruby
-    # 1.9. normally.
+    # called as shown above. However, in Ruby 1.9 (and later versions)
+    # the method_missing method is private. We explicitly made it
+    # public in the testing framework so this example works in both
+    # versions of Ruby. Just keep in mind you can't call
+    # method_missing like that after Ruby 1.9 normally.
     #
-    # Thanks.  We now return you to your regularly schedule Ruby
+    # Thanks.  We now return you to your regularly scheduled Ruby
     # Koans.
-    #
-    #
-    # If we redefined the method in the TypicalObject class we could
-    # specify how to handle that non-existing method. It makes sense
-    # that the default behavior for method_missing if not implemented
-    # would throw an error but we could easily override that to say
-    # call another method or set of methods.
   end
 
   # ------------------------------------------------------------------
@@ -161,6 +163,19 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+  end
+
+  # This method smells of :reek:UncommunicativeMethodName
+  # This method smells of :reek:UncommunicativeVariableName
+  # This method smells of :reek:TooManyStatements
+  # This method smells of :reek:FeatureEnvy
+  def test_catching_messages_makes_respond_to_lie
+    catcher = AllMessageCatcher.new
+
+    assert_nothing_raised do
+      catcher.any_method
+    end
+    assert_equal false, catcher.respond_to?(:any_method)
   end
 
   # ------------------------------------------------------------------
@@ -193,10 +208,6 @@ class AboutMessagePassing < Neo::Koan
   def test_non_foo_messages_are_treated_normally
     catcher = WellBehavedFooCatcher.new
 
-    # Since the first three letters of the method name don't start
-    # with "foo" the else statement executes and calls the parent
-    # implementation which is the default implementation. The default
-    # behavior of method_missing is to raise an error.
     assert_raise(NoMethodError) do
       catcher.normal_undefined_method
     end
@@ -222,8 +233,6 @@ class AboutMessagePassing < Neo::Koan
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 
-    # Cool, this didn't occur to me earlier but definitely an option.
-    # We can override the respond_to method and handle special cases.
     assert_equal true, catcher.respond_to?(:foo_bar)
     assert_equal false, catcher.respond_to?(:something_else)
   end

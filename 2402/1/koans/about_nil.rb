@@ -39,13 +39,5 @@ class AboutNil < Neo::Koan
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
     assert_equal 'nil', nil.inspect
-
-  # THINK ABOUT IT:
-  #
-  # Is it better to use
-  #    obj.nil?
-  # or
-  #    obj == nil
-  # Why?
   end
 end

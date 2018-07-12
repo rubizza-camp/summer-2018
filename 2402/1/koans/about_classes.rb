@@ -258,3 +258,4 @@ class AboutClasses < Neo::Koan
   end
 end
 # rubocop:enable Naming/AccessorMethodName
+#

@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   class Dog
- end
+  end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -111,10 +111,11 @@ class AboutClassMethods < Neo::Koan
   # This class smells of :reek:Attribute
   class Dog
     attr_accessor :name
-  end
-
-  def Dog.name
-    @name
+    # rubocop:disable Style/TrivialAccessors
+    def self.name
+      @name
+    end
+    # rubocop:enable Style/TrivialAccessors
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -146,30 +147,30 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------

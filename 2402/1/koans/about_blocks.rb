@@ -40,7 +40,7 @@ class AboutBlocks < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_blocks_can_take_arguments
-    result = method_with_block_arguments do |argument|
+    method_with_block_arguments do |argument|
       assert_equal 'Jim', argument
     end
   end
@@ -87,7 +87,7 @@ class AboutBlocks < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal :with_block, yield_tester { :with_block }
+    assert_equal(:with_block, yield_tester { :with_block })
     assert_equal :no_block, yield_tester
   end
 
