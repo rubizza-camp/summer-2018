@@ -39,7 +39,6 @@ class AboutInheritance < Neo::Koan
   def test_subclasses_add_new_behavior
     chico = Chihuahua.new('Chico')
     assert_equal :happy, chico.wag
-
     assert_raise(NoMethodError) do
       fido = Dog.new('Fido')
       fido.wag
@@ -49,7 +48,6 @@ class AboutInheritance < Neo::Koan
   def test_subclasses_can_modify_existing_behavior
     chico = Chihuahua.new('Chico')
     assert_equal 'yip', chico.bark
-
     fido = Dog.new('Fido')
     assert_equal 'WOOF', fido.bark
   end

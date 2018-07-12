@@ -39,10 +39,11 @@ class AboutHashes < Neo::Koan
     expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
-    # Bonus Question: Why was "expected" broken out into a variable
+    # Bonus Question: Why was 'expected' broken out into a variable
     # rather than used as a literal?
   end
 
+  # :reek:UncommunicativeVariableName
   def test_hash_is_unordered
     hash1 = { one: 'uno', two: 'dos' }
     hash2 = { two: 'dos', one: 'uno' }
@@ -76,6 +77,8 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
 
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_default_value
     hash1 = {}
     hash1[:one] = 1
@@ -90,6 +93,9 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -102,9 +108,12 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |val, key| val[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

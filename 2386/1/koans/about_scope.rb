@@ -23,6 +23,7 @@ class AboutScope < Neo::Koan
     end
   end
 
+  # :reek:TooManyStatements
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new
@@ -74,6 +75,6 @@ class AboutScope < Neo::Koan
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal %i[Dog], Jims.constants
-    assert Object.constants.size > 2
+    assert Object.constants.size > 136
   end
 end

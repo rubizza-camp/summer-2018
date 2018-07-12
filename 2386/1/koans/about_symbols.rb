@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeVariableName
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
@@ -34,11 +35,11 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?('What is the sound of one hand clapping?')
+      assert_equal false, all_symbols_as_strings.include?(RUBY_CONSTANT)
     end
   end
 
@@ -48,16 +49,16 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_spaces_can_be_built
-    symbol = :"cats and dogs"
+    symbol = :'cats and dogs'
 
     assert_equal 'cats and dogs'.to_sym, symbol
   end
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
-    symbol = :"cats #{value} dogs"
+    symbol = :'cats and dogs'
 
-    assert_equal 'cats and dogs'.to_sym, symbol
+    assert_equal "cats #{value} dogs".to_sym, symbol
   end
 
   def test_to_s_is_called_on_interpolated_symbols
@@ -73,6 +74,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
@@ -93,7 +95,6 @@ class AboutSymbols < Neo::Koan
   def test_symbols_can_be_dynamically_created
     assert_equal :catsdogs, ('cats' + 'dogs').to_sym
   end
-
   # THINK ABOUT IT:
   #
   # Why is it not a good idea to dynamically create a lot of symbols?

@@ -1,9 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+# :reek:UtilityFunction
+def my_global_method(var_a, var_b)
+  var_a + var_b
 end
 
+# :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -17,7 +19,9 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    assert_equal(5, my_global_method(2, 3)) # ENABLE CHECK
+    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+           assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
+    RUBY
     #
     # Ruby doesn't know if you mean:
     #
@@ -29,24 +33,25 @@ class AboutMethods < Neo::Koan
     #
   end
 
+  # :reek:TooManyStatements
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number of arguments \(given 0, expected 2\)/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number of arguments \(given 3, expected 2\)/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(var_a, var_b = :default_value)
+    [var_a, var_b]
   end
 
   def test_calling_with_default_values
@@ -69,11 +74,14 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
     :another_non_return_value
   end
+  # rubocop:enable Lint/UnreachableCode
 
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
@@ -86,14 +94,16 @@ class AboutMethods < Neo::Koan
     :return_value
   end
 
+  # rubocop:enable Lint/Void
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  # :reek:UtilityFunction
+  def my_method_in_the_same_class(var_a, var_b)
+    var_a * var_b
   end
 
   def test_calling_methods_in_same_class
@@ -106,21 +116,24 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  private
+
   def my_private_method
     'a secret'
   end
-  private :my_private_method
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable Style/RedundantSelf
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      my_private_method
+      self.my_private_method
     end
-    assert_match /private method `my_private_method'/, exception.message
+    assert_match(/private method `my_private_method' called for/, exception.message)
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 

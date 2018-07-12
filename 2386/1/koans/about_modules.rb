@@ -2,9 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutModules < Neo::Koan
   module Nameable
+    # rubocop:disable Naming/AccessorMethodName
     def set_name(new_name)
       @name = new_name
     end
+    # rubocop:enable Naming/AccessorMethodName
 
     def here
       :in_module
@@ -49,6 +51,7 @@ class AboutModules < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name

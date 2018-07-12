@@ -1,4 +1,4 @@
-equire File.expand_path(File.dirname(__FILE__) + '/neo')
+require File.expand_path(File.dirname(__FILE__) + '/neo')
 # docs
 # rubocop:disable Metrics/ClassLength
 # :reek:TooManyMethods
