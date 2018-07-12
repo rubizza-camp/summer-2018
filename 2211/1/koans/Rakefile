@@ -1,0 +1,12 @@
+# -*- ruby -*-
+
+require 'rake/clean'
+require 'rake/testtask'
+
+# rubocop: disable Style/HashSyntax
+task :default => :test
+# rubocop: enable Style/HashSyntax
+
+task :test do
+  ruby 'path_to_enlightenment.rb'
+end
