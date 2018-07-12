@@ -16,10 +16,10 @@
 #
 # :reek:TooManyStatements
 # :reek:FeatureEnvy
-def triangle_raise_error(side_a, side_b, side_c)
+def validate_sides(side_a, side_b, side_c)
   triangle_sides = [side_a, side_b, side_c].sort
-  raise TriangleError if triangle_sides.first <= 0
-  raise TriangleError if triangle_sides.take(2).sum <= triangle_sides.last
+  raise TriangleError unless triangle_sides.first.positive?
+  raise TriangleError if triangle_sides.first(2).sum <= triangle_sides.last
 end
 
 # :reek:FeatureEnvy
