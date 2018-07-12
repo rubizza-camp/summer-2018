@@ -13,39 +13,42 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable Style/GuardClause
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
 # :reek:FeatureEnvy
 # :reek:UtilityFunction
+
+def condition_one(side_one, side_two, side_three)
+  side_one <= 0 || side_two <= 0 || side_three <= 0
+end
+
+# :reek:UtilityFunction
+def condition_two(side_one, side_two, side_three)
+  side_one + side_two <= side_three ||
+    side_two + side_three <= side_one ||
+    side_one + side_three <= side_two
+end
+
 def errors?(side_one, side_two, side_three)
-  if (side_one <= 0) || (side_two <= 0) || (side_three <= 0)
-    true
-  elsif side_one + side_two <= side_three ||
-        side_two + side_three <= side_one ||
-        side_one + side_three <= side_two
-    true
-  else
-    false
-  end
+  condition_one(side_one, side_two, side_three) ||
+    condition_two(side_one, side_two, side_three)
 end
 
 # :reek:FeatureEnvy
 def triangle(side_one, side_two, side_three)
   raise TriangleError if errors?(side_one, side_two, side_three)
   if side_one == side_two && side_two == side_three
-    return :equilateral
+    :equilateral
   elsif side_one != side_two && side_one != side_three && side_two != side_three
-    return :scalene
+    :scalene
   else
-    return :isosceles
+    :isosceles
   end
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Style/GuardClause
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
 # :reek:FeatureEnvy
