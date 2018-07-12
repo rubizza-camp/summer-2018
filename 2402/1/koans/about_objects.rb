@@ -12,7 +12,7 @@ class AboutObjects < Neo::Koan
     assert_equal true, 'string'.is_a?(Object)
     assert_equal true, nil.is_a?(Object)
     assert_equal true, Object.is_a?(Object)
- end
+  end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -75,5 +75,5 @@ class AboutObjects < Neo::Koan
 
     assert_equal true, obj           != copy
     assert_equal true, obj.object_id != copy.object_id
-end
+  end
 end

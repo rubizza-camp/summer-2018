@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
-def my_global_method(first, second)
-  first + second
+def my_global_method(first_term, second_term)
+  first_term + second_term
 end
 
 # This class smells of :reek:UncommunicativeModuleName
@@ -14,7 +14,7 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:FeatureEnvy
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
- end
+  end
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -32,7 +32,9 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
+    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+           assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
+    RUBY
     #
     # Ruby doesn't know if you mean:
     #
@@ -44,34 +46,28 @@ class AboutMethods < Neo::Koan
     #
   end
 
-  # NOTE: wrong number of argument is not a SYNTAX error, but a
+  # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
-  # # NOTE: wrong number of arguments is not a SYNTAX error, but a
-  #   # runtime error.
-  #   # This method smells of :reek:UncommunicativeMethodName
-  #   # This method smells of :reek:UncommunicativeVariableName
-  #   # This method smells of :reek:TooManyStatements
-  # # This method smells of :reek:FeatureEnvy
-  def test_calling_global_methods_with_wrong_number_of_arguments
-    exception = assert_raise(ArgumentError) do
-      my_global_method
-    end
-    assert_match(/wrong number/, exception.message)
-
-    exception = assert_raise(ArgumentError) do
-      my_global_method(1, 2, 3)
-    end
-    assert_match(/wrong number/, exception.message)
-  end
-
-  # ------------------------------------------------------------------
-
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
-  def method_with_defaults(first, second = :default_value)
-    [first, second]
+  def test_calling_global_methods_with_wrong_number_of_arguments
+    exception = assert_raise(ArgumentError) do
+      my_global_method
+    end
+    assert_match(/wrong number of arguments \(given 0, expected 2\)/, exception.message)
+
+    exception = assert_raise(ArgumentError) do
+      my_global_method(1, 2, 3)
+    end
+    assert_match(/wrong number of arguments \(given 3, expected 2\)/, exception.message)
+  end
+
+  # ------------------------------------------------------------------
+
+  def method_with_defaults(first_item, second_item = :default_value)
+    [first_item, second_item]
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -85,29 +81,31 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Lint/Void
   def method_with_var_args(*args)
     args
   end
-  # rubocop:enable Lint/UnreachableCode
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_calling_with_variable_arguments
+    assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
+    assert_equal %i[one], method_with_var_args(:one)
     assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
+  # ------------------------------------------------------------------
+
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
     :another_non_return_value
   end
-
-  # rubocop:enable Lint/Void
+  # rubocop:enable Lint/UnreachableCode
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -123,6 +121,7 @@ class AboutMethods < Neo::Koan
     :a_non_return_value
     :return_value
   end
+  # rubocop:enable Lint/Void
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -135,8 +134,8 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   # This method smells of :reek:UtilityFunction
-  def my_same_class_method(first, second)
-    first * second
+  def my_method_in_the_same_class(first_term, second_term)
+    first_term * second_term
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -144,25 +143,24 @@ class AboutMethods < Neo::Koan
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_same_class
-    assert_equal 12, my_same_class_method(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
-  # I don't think this would be different than using the "this"
-  # keyword in AS3 or JS to call the method. Need a refresher.
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_same_class_method(3, 4)
- end
+    assert_equal 12, my_method_in_the_same_class(3, 4)
+  end
 
   # ------------------------------------------------------------------
+
+  private
 
   def my_private_method
     'a secret'
   end
-  private :my_private_method
 
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -172,8 +170,6 @@ class AboutMethods < Neo::Koan
     assert_equal 'a secret', my_private_method
   end
 
-  # Exception message also reports the word "private" so its aware
-  # that it is rather than just stating it doesn't exist.
   # rubocop:disable Style/RedundantSelf
   # This method smells of :reek:UncommunicativeMethodName
   # This method smells of :reek:UncommunicativeVariableName
@@ -183,8 +179,9 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /method/, exception.message
+    assert_match(/private method \`my_private_method\' called for/, exception.message)
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
@@ -218,5 +215,5 @@ class AboutMethods < Neo::Koan
     assert_raise(NoMethodError) do
       rover.tail
     end
-end
+  end
 end
