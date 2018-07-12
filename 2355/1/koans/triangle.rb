@@ -15,19 +15,18 @@
 #
 # rubocop:disable Style/IfUnlessModifier
 # rubocop:disable Style/EmptyCaseCondition
-# rubocop:disable Layout/CaseIndentation
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:DuplicateMethodCall
 def triangle_type(first_side, second_side, third_side)
   case
-    when first_side == second_side && second_side == third_side
-      :equilateral
-    when first_side == second_side || second_side == third_side || first_side == third_side
-      :isosceles
-    else
-      :scalene
+  when first_side == second_side && second_side == third_side
+    :equilateral
+  when first_side == second_side || second_side == third_side || first_side == third_side
+    :isosceles
+  else
+    :scalene
   end
 end
 
@@ -58,6 +57,5 @@ class TriangleError < StandardError
 end
 # rubocop:enable Style/IfUnlessModifier
 # rubocop:enable Style/EmptyCaseCondition
-# rubocop:enable Layout/CaseIndentation
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
