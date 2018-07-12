@@ -18,20 +18,20 @@
 # :reek:FeatureEnvy
 # :reek:UtilityFunction
 
-def condition_one(side_one, side_two, side_three)
+def not_positive_sides?(side_one, side_two, side_three)
   side_one <= 0 || side_two <= 0 || side_three <= 0
 end
 
 # :reek:UtilityFunction
-def condition_two(side_one, side_two, side_three)
+def bad_sides_sum?(side_one, side_two, side_three)
   side_one + side_two <= side_three ||
     side_two + side_three <= side_one ||
     side_one + side_three <= side_two
 end
 
 def errors?(side_one, side_two, side_three)
-  condition_one(side_one, side_two, side_three) ||
-    condition_two(side_one, side_two, side_three)
+  not_positive_sides?(side_one, side_two, side_three) ||
+    bad_sides_sum?(side_one, side_two, side_three)
 end
 
 # :reek:FeatureEnvy

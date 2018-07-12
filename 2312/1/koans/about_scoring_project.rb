@@ -44,16 +44,11 @@ end
 # :reek:FeatureEnvy
 def score(dice)
   score = 0
-  totals = [0] * 7
-  dice.map { |ins| totals[ins] += 1 }
-  (1..6).each do |ins|
+  totals = [0] * 6
+  dice.each_with_object(totals) { |i, totals| totals[i-1] += 1 }
+  6.times do |ins|
     next unless totals[ins] >= 3
     score += cond_one(ins)
-    score += if ins == 1
-               1000
-             else
-               100 * i
-             end
     totals[ins] -= 3
   end
   score += totals[1] * 100 + totals[5] * 50
