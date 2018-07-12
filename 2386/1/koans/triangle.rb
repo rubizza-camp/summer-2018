@@ -26,10 +26,11 @@ def triangle(a_line, b_line, c_line)
   end
 end
 
+
 def triangle_zero_error(a_line, b_line, c_line)
   raise TriangleError if a_line <= 0 || b_line <= 0 || c_line <= 0
 end
-
+# :reek:FeatureEnvy
 def triangle_sides_error(a_line, b_line, c_line)
   raise TriangleError if a_line + b_line <= c_line || a_line + c_line <= b_line || b_line + c_line <= a_line
 end

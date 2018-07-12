@@ -141,7 +141,8 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Style/MethodMissing
+  # :reek:ManualDispatch
+  # :reek:UtilityFunction
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
