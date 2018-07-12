@@ -32,8 +32,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
 def score(dice)
   score = 0
-  hash = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
-  dice.each_with_object(Hash.new(0)) { |number| hash[number] += 1 }
+  hash = dice.each_with_object(Hash.new(0)) { |number, accum| accum[number] += 1 }
   hash.each do |key, number|
     case number
     when (1..2)
