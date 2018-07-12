@@ -116,7 +116,7 @@ class AboutMessagePassing < Neo::Koan
   # :reek:UtilityFunction
   class AllMessageCatcher
     def method_missing(method_name, *args)
-      "Someone called #{method_name} with <#{args.join(', ')}>"
+      "Someone called #{method_name} with <#{args.join(', ')}>" || super
     end
   end
 
