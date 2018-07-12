@@ -1,9 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# rubocop:disable Lint/UselessAssignment
-# rubocop:disable Metrics/ClassLength
-# AboutStrings is a class
-class AboutStrings < Neo::Koan
+# :reek:TooManyMethods
+# Class about strings
+class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -25,37 +23,39 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    first = "He said, \"Don't\""
+    second = 'He said, "Don\'t"'
+    assert_equal true, first == second
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    first = %(flexible quotes can handle both ' and " characters)
+    second = %(!flexible quotes can handle both ' and " characters!)
+    third = %(flexible quotes can handle both ' and " characters)
+    assert_equal false, first == second
+    assert_equal true, first == third
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %(
+    long_string = '
 It was the best of times,
 It was the worst of times.
-)
+'
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0, 1]
+    assert_equal"\n", long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<MEANINGFUL
-                    It was the best of times,
-                    It was the worst of times.
-MEANINGFUL
-    assert_equal 93, long_string.length
+    # rubocop:disable Layout/IndentHeredoc
+    long_string =  <<SQL
+It was the best of times,
+It was the worst of times.
+SQL
+    # rubocop:enable Layout/IndentHeredoc
+    assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal ' ', long_string[0, 1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -66,7 +66,7 @@ MEANINGFUL
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
+    string = hi + there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -82,7 +82,7 @@ MEANINGFUL
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    hi += there
+    hi += there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', original_string
   end
 
@@ -129,13 +129,13 @@ MEANINGFUL
     assert_equal 'The value is 123', string
   end
 
-  # rubocop:disable Lint/InterpolationCheck
+  # rubocop:disable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal 'The value is #{value}', string
+    string = "The value is #{value}"
+    assert_equal "The value is #{value}", string
   end
-  # rubocop:enable Lint/InterpolationCheck
+  # rubocop:enable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -157,10 +157,10 @@ MEANINGFUL
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
-      assert_equal true, 'a' == 97
+      assert_equal __, 'a'
+      assert_equal __, 'a' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal __,  ('a' + 1) == 'b'
     end
   end
 
@@ -193,12 +193,10 @@ MEANINGFUL
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    first = 'a string'
+    second = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, first           == second
+    assert_equal false, first.object_id == second.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength
-# rubocop:enable Lint/UselessAssignment

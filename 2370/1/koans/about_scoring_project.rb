@@ -28,48 +28,40 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
-class Rules
-  SET_SCORE = Hash.new do |_, key|
-    if key == 1
-      1000
-    else
-      key * 100
-    end
-  end
-
-  SCORE_MULTIPLIER = Hash.new(0).merge!(1 => 100, 5 => 50)
-end
-
+PRICE = [0, 100, 0, 0, 0, 50, 0].freeze
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:NestedIterators
 def score(dice)
-  score = 0
-  freq = dice.each_with_object(Hash.new(0)) { |key, hash| hash[key] += 1 }
-  freq.keys.each do |val|
-    if freq[val] >= 3
-      score += Rules::SET_SCORE[val]
-      freq[val] -= 3
+  result = 0
+  (1..6).each do |number|
+    throw_count = dice.count { |cast| cast == number }
+    if throw_count >= 3
+      result += number == 1 ? 1000 : 100 * number
+      throw_count -= 3
     end
-
-    score += freq[val] * Rules::SCORE_MULTIPLIER[val]
+    result += throw_count * PRICE[number]
   end
-  score
+  result
 end
-# Damn
+
+# Tests for score
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
 
+  # :reek:UncommunicativeMethodName
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
 
+  # :reek:UncommunicativeMethodName
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
-    puts(score([1, 5, 5, 1]))
     assert_equal 300, score([1, 5, 5, 1])
   end
 
@@ -77,6 +69,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
+  # :reek:UncommunicativeMethodName
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end

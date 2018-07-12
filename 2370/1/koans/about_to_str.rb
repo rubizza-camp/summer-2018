@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# About to Str
+# Describes to_s method
 class AboutToStr < Neo::Koan
-  # Meow
+  # Describes objects that can't be treated as string
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -19,8 +19,7 @@ class AboutToStr < Neo::Koan
     end
   end
 
-  # ------------------------------------------------------------------
-  # Dratuti
+  # Describes objects that can be treated as string
   class CanBeTreatedAsString
     def to_s
       'string-like'
@@ -42,6 +41,8 @@ class AboutToStr < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:ManualDispatch
+  # :reek:UtilityFunction
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)

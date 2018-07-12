@@ -1,5 +1,6 @@
+# -*- ruby -*-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# AboutAssetrs is a class
+# About asserts
 class AboutAsserts < Neo::Koan
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth

@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# CamelCase style for class
+# :reek:TooManyMethods
+# About iteration
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -7,12 +8,14 @@ class AboutIteration < Neo::Koan
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
 
+  # :reek:UtilityFunction
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
 
+  # :reek:UtilityFunction
   in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
@@ -45,6 +48,10 @@ class AboutIteration < Neo::Koan
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
+    break_works_with_each_style_iterations(array, sum)
+  end
+
+  def break_works_with_each_style_iterations(array, sum)
     array.each do |item|
       break if item > 3
       sum += item
@@ -58,6 +65,10 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], new_array
 
     # NOTE: 'map' is another name for the 'collect' operation
+    collect_transforms_elements_of_an_array(array)
+  end
+
+  def collect_transforms_elements_of_an_array(array)
     another_array = array.map { |item| item + 10 }
     assert_equal [11, 12, 13], another_array
   end
@@ -65,11 +76,15 @@ class AboutIteration < Neo::Koan
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select(&:even?)
+    even_numbers = array.select { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all(&:even?)
+    select_selects_certain_items_from_an_array(array)
+  end
+
+  def select_selects_certain_items_from_an_array(array)
+    more_even_numbers = array.find_all { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], more_even_numbers
   end
 
@@ -83,13 +98,15 @@ class AboutIteration < Neo::Koan
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
-    result2 = [2, 3, 4].inject(1) { |product, item| product * item }
-    assert_equal 24, result2
+    inject_will_blow_your_mind
 
     # Extra Credit:
     # Describe in your own words what inject does.
+  end
 
-    # Answer: awesome magic :)
+  def inject_will_blow_your_mind
+    result_two = [2, 3, 4].inject(1) { |product, item| product * item }
+    assert_equal 24, result_two
   end
 
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
@@ -98,13 +115,18 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
+    upcase_lines
+
+    # NOTE: You can create your own collections that work with each,
+    # map, select, etc.
+  end
+
+  # :reek:NestedIterators
+  def upcase_lines
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal %w[THIS IS A TEST], upcase_lines
     end
-
-    # NOTE: You can create your own collections that work with each,
-    # map, select, etc.
   end
 
   # Bonus Question:  In the previous koan, we saw the construct:
