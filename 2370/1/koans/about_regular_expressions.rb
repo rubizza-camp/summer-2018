@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:TooManyMethods
-# About regular expressions
+# Class
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -49,7 +48,6 @@ class AboutRegularExpressions < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # :reek:UncommunicativeVariableName
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
     assert_equal(%w[cat bat rat], animals.select { |a| a[/[cbr]at/] })
@@ -79,15 +77,14 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_character_class_can_be_negated
-    assert_equal 'the number is ',
-                 'the number is 42'[/[^0-9]+/]
+    assert_equal 'the number is ', 'the number is 42'[/[^0-9]+/]
   end
 
   def test_shortcut_character_classes_are_negated_with_capitals
     assert_equal 'the number is ', 'the number is 42'[/\D+/]
     assert_equal 'space:', "space: \t\n"[/\S+/]
     # ... a programmer would most likely do
-    # assert_equal " = ", "variable_1 = 42"[/[^a-zA-Z0-9_]+/]
+    assert_equal ' = ', 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
     assert_equal ' = ', 'variable_1 = 42'[/\W+/]
   end
 

@@ -1,11 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# About exceptions
+# Class for Exceptions
 class AboutExceptions < Neo::Koan
-  # about my special error
   class MySpecialError < RuntimeError
   end
 
-  # :reek:DuplicateMethodCall
   def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
@@ -13,6 +11,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
     begin
@@ -20,21 +19,14 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => ex
       result = :exception_handled
     end
-
-    rescue_clause(result, ex)
-  end
-
-  def rescue_clause(result, exception)
     assert_equal :exception_handled, result
-
-    assert_equal true, exception.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, exception.is_a?(RuntimeError), 'Should be a Runtime Error'
-
+    assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
-
-    assert_equal 'Oops', exception.message
+    assert_equal 'Oops', ex.message
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_raising_a_particular_error
     result = nil
@@ -45,19 +37,15 @@ class AboutExceptions < Neo::Koan
       result = :exception_handled
     end
 
-    raising_a_particular_error(result, ex)
-  end
-
-  def raising_a_particular_error(result, exception)
     assert_equal :exception_handled, result
-    assert_equal 'My Message', exception.message
+    assert_equal 'My Message', ex.message
   end
 
+  # rubocop:disable Lint/HandleExceptions
   def test_ensure_clause
-    result = nil # rubocop:disable Lint/UselessAssignment
     begin
       raise 'Oops'
-    rescue StandardError # rubocop:disable Lint/HandleExceptions
+    rescue StandardError
       # no code here
     ensure
       result = :always_run
@@ -65,6 +53,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
+  # rubocop:enable Lint/HandleExceptions
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

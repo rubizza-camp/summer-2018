@@ -1,7 +1,7 @@
 # Triangle Project Code.
 
-# Triangle analyzes the lengths of the sides of a triangle
-# (represented by a, b and c) and returns the type of triangle.
+# Triangle analyzes the lengths of the sides of side_a triangle
+# (represented by side_a, side_b and side_c) and returns the type of triangle.
 #
 # It returns:
 #   :equilateral  if all sides are equal
@@ -12,34 +12,24 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
-def triangle(first, second, third)
-  raise TriangleError if invalid_dimensions?(first, second, third) || invalid_triangle?(first, second, third)
-  classify_valid_triangle(first, second, third)
-end
 
-# :reek:UtilityFunction
-# :reek:DuplicateMethodCall
-def classify_valid_triangle(first, second, third)
-  if first == second && first == third
+def triangle_type(side_a, side_b, side_c)
+  if (side_a == side_b) && (side_b == side_c)
     :equilateral
-  elsif first == second || second == third || first == third
-    :isosceles
-  else
+  elsif (side_a != side_b) && (side_a != side_c) && (side_b != side_c)
     :scalene
+  else
+    :isosceles
   end
 end
 
-# :reek:UtilityFunction
-def invalid_dimensions?(first, second, third)
-  first <= 0 || second <= 0 || third <= 0
+def triangle(side_a, side_b, side_c)
+  # WRITE THIS CODE
+  raise TriangleError if (side_a >= side_b + side_c) || (side_b >= side_a + side_c) || (side_c >= side_a + side_b)
+
+  triangle_type(side_a, side_b, side_c)
 end
 
-# :reek:UtilityFunction
-def invalid_triangle?(first, second, third)
-  first + second <= third || second + third <= first || first + third <= second
-end
-
-# Error class used in part 2. No need to change this code.
+# Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end

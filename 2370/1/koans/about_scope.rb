@@ -1,17 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# About scopes
+# I'l be back
 class AboutScope < Neo::Koan
   module Jims
-    # Class dog for jim
+    # Hotdog
     class Dog
       def identify
         :jims_dog
       end
     end
   end
-
+  # Shoes
   module Joes
-    # Class dog for joe
+    # Dog
     class Dog
       def identify
         :joes_dog
@@ -25,14 +25,9 @@ class AboutScope < Neo::Koan
     end
   end
 
-  # :reek:TooManyStatements
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new
-    you_can_reference_nested_classes_using_the_scope_operator(fido, rover)
-  end
-
-  def you_can_reference_nested_classes_using_the_scope_operator(fido, rover)
     assert_equal :jims_dog, fido.identify
     assert_equal :joes_dog, rover.identify
 
@@ -41,7 +36,7 @@ class AboutScope < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # string
+
   class String
   end
 
@@ -81,6 +76,6 @@ class AboutScope < Neo::Koan
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal %i[Dog], Jims.constants
-    assert Object.constants.size > 1
+    assert Object.constants.size > 127
   end
 end

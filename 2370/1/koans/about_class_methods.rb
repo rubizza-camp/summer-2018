@@ -1,9 +1,6 @@
-# Some comment here
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:TooManyMethods
-# This class is responsible for
+# This is Sparta !
 class AboutClassMethods < Neo::Koan
-  # class dog
   class Dog
   end
 
@@ -22,11 +19,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 1
+    assert !fido.methods.empty?
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 1
+    assert !Dog.methods.empty?
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -50,36 +47,36 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # DogTwo
-  class DogTwo
+  # Dog
+  class Dog2
     def wag
       :instance_level_wag
     end
   end
 
-  def DogTwo.wag
+  def Dog2.wag
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, DogTwo.wag
+    assert_equal :class_level_wag, Dog2.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
-    fido = DogTwo.new
+    fido = Dog2.new
     assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, DogTwo.wag
+    assert_equal :class_level_wag, Dog2.wag
   end
 
   # ------------------------------------------------------------------
-  # dog
+  # Snoop Dog
   class Dog
-    # :reek:Attribute
     attr_accessor :name
-  end
-
-  def Dog.name # rubocop:disable Style/TrivialAccessors
-    @name
+    # rubocop:disable Style/TrivialAccessors
+    def self.name
+      @name
+    end
+    # rubocop:enable Style/TrivialAccessors
   end
 
   def test_classes_and_instances_do_not_share_instance_variables
@@ -90,7 +87,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # dog
+  # Comment
   class Dog
     def self.a_class_method
       :dogs_class_method
@@ -100,9 +97,8 @@ class AboutClassMethods < Neo::Koan
   def test_you_can_define_class_methods_inside_the_class
     assert_equal :dogs_class_method, Dog.a_class_method
   end
-
   # ------------------------------------------------------------------
-  # :reek:IrresponsibleModule
+  # rubocop:disable Style/Documentation
   LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
                                          21
                                        end
@@ -112,8 +108,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class dog
-  # :reek:IrresponsibleModule
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
@@ -121,21 +115,21 @@ class AboutClassMethods < Neo::Koan
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
-
+  # rubocop:enable Style/Documentation
   # ------------------------------------------------------------------
-  # class dog
+  # Comment
   class Dog
-    def self.class_method_two
+    def self.class_method2
       :another_way_to_write_class_methods
     end
   end
 
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method_two
+    assert_equal :another_way_to_write_class_methods, Dog.class_method2
   end
 
   # ------------------------------------------------------------------
-  # class dog
+  # MComment
   class Dog
     class << self
       def another_class_method
