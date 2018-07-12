@@ -17,7 +17,7 @@
 # This method smells of :reek:TooManyStatements
 def triangle(*sides)
   sides.sort!
-  fail TriangleError, if sides.any?(&:negative?) || ((sides[0] + sides[1]) <= sides[2])
+  raise TriangleError if sides.any?(&:negative?) || ((sides[0] + sides[1]) <= sides[2])
   sides.uniq!
   hash = Hash.new(:scalene).merge!(1 => :equilateral, 2 => :isosceles)
   hash[sides.count]
