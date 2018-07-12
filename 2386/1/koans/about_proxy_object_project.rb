@@ -22,7 +22,6 @@ class Proxy
     @messages[method_name] += 1
     @object.send(method_name, *args, &block)
   end
-  # rubocop:enable Style/MethodMissing
 
   def called?(method_name)
     @messages.key?(method_name)

@@ -120,7 +120,6 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
-  # rubocop:enable Style/MethodMissing
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
@@ -149,7 +148,6 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-  # rubocop:enable Style/MethodMissing
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
