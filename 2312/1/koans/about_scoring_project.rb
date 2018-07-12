@@ -29,7 +29,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 # rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
 # :reek:ControlParameter
 def cond_one(ins)
   if ins == 1
@@ -45,7 +44,7 @@ end
 def score(dice)
   score = 0
   totals = [0] * 6
-  dice.each_with_object(totals) { |i, totals| totals[i-1] += 1 }
+  dice.each_with_object(totals) { |elem, memo| memo[elem - 1] += 1 }
   6.times do |ins|
     next unless totals[ins] >= 3
     score += cond_one(ins)
@@ -54,7 +53,6 @@ def score(dice)
   score += totals[1] * 100 + totals[5] * 50
 end
 # rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
 
 # sadasf af sf aafsf
 class AboutScoringProject < Neo::Koan
