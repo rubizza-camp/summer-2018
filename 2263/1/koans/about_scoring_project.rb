@@ -35,10 +35,10 @@ def score(dice)
   hash = dice.each_with_object(Hash.new(0)) { |number, accum| accum[number] += 1 }
   hash.each do |key, number|
     case number
-    when (1..2)
+    when 1..2
       score += number * 100 if key == 1
       score += number * 50 if key == 5
-    when (3..6)
+    when 3..6
       score += key * 100 + (number - 3) * 50 if key == 5
       score += 1000 + (number - 3) * 100 if key == 1
       score += key * 100 if key != 5 && key != 1
