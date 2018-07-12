@@ -112,11 +112,16 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # :reek:ManualDispatch
-  # :reek:UtilityFunction
+  # class AllMessageCatcher
   class AllMessageCatcher
+    # This method smells of :reek:UtilityFunction and :reek:ControlParameter
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>" || super
+    end
+
+    # This method smells of :reek:UnusedParameters
+    def respond_to_missing?(*)
+      true
     end
   end
 
