@@ -14,7 +14,7 @@ class BattleExpert
     show_top_battlers(battlers, top_bad_words)
   end
 
-  def find_popular_words(top_words = 30, name)
+  def find_popular_words(name, top_words = 30)
     if find_all_battlers.include? name
       battles_titles = take_battles_titles(name)
       PopularWordsCounter.count(battles_titles, top_words)

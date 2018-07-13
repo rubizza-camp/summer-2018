@@ -8,7 +8,7 @@ OptionParser.new do |parser|
   end
   parser.on('--top-words=') do |top_words|
     parser.on('--name=') do |name|
-      restorator.find_popular_words(top_words.to_i, name)
+      restorator.find_popular_words(name, top_words.to_i)
     end
   end
 end.parse!
