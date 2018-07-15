@@ -1,3 +1,8 @@
+# :reek:FeatureEnvy
+# :reek:NestedIterators
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:IrresponsibleModule
 # PopularWords
 class PopularWords
   def hash_all_words(name)

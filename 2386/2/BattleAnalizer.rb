@@ -4,6 +4,8 @@ require_relative 'Counters'
 require_relative 'ParticipantService'
 require_relative 'PopularWords'
 
+# :reek:TooManyStatements
+# :reek:UtilityFunction
 # Main logic class
 class BattleAnalizer
   PATH_FOLDER = 'Rapbattle'.freeze

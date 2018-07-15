@@ -1,3 +1,4 @@
+# :reek:TooManyInstanceVariables
 # Class of Participant
 class Participant
   attr_reader :name, :battles, :bad_words, :bad_in_round, :words_in_round

@@ -1,5 +1,7 @@
 require_relative 'Counters'
 require_relative 'Participant'
+
+# :reek:UtilityFunction
 # Participant Service
 class ParticipantService
   PATH_FOLDER = 'Rapbattle'.freeze
