@@ -3,6 +3,7 @@ require_relative 'class_rapper'
 
 class Analysis
   # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def first_level(lim)
     rappers_array = rappers_hash_with_info.values
     rappers_array.each(&:count_words)
