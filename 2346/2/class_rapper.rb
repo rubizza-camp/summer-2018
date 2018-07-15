@@ -1,5 +1,6 @@
 require 'russian_obscenity'
 
+# :reek:TooManyInstanceVariables
 # Class for our tasks
 class Rapper
   attr_reader :name, :battles, :bad_words, :total_words, :total_rounds, :average_bad
@@ -25,6 +26,8 @@ class Rapper
     @name = name.length > other_name.length ? other_name : name
   end
 
+  # :reek:TooManyStatements
+  # :reek:NestedIterators
   def count_words
     battles.each do |battle_name|
       rounds = 0

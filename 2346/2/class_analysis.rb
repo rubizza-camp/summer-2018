@@ -1,6 +1,7 @@
 require 'pathname'
 require_relative 'class_rapper'
 
+# :reek:TooManyStatements
 # class Analysis
 class Analysis
   def first_level(lim)
