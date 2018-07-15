@@ -24,10 +24,9 @@ def organize_top_bad_words(words, bad_words, battles, rounds, number)
                           bad_words_per_battle: bad_words_number.fdiv(battles[name]),
                           words_per_round: words[name].fdiv(rounds[name]) })
   end
-  list = list.sort { |first, second| first[1][:bad_words_per_battle] <=> second[1][:bad_words_per_battle] }
+  list = list.sort_by { |element| element[1][:bad_words_per_battle] }
   list = list.reverse.to_h
-  list = delete_excess(list, number)
-  list
+  delete_excess(list, number)
 end
 
 def organize_top_words(list, number)
@@ -42,12 +41,14 @@ def organize_top_words(list, number)
 end
 
 def print_top_bad_words(list)
-  puts '+---------------------------+------------+----------------------+------------------------------+--------------------------+'
+  print '+---------------------------+------------+-------------------'
+  print "---+------------------------------+--------------------------+\n"
   list.each do |name, info|
     printf("| %-25s | %-2d battles | %-4d total bad words | %-7.2f bad words per battle | %-8.2f words per round |\n",
            name.to_s + ':', info[:battles], info[:bad_words], info[:bad_words_per_battle], info[:words_per_round])
   end
-  puts '+---------------------------+------------+----------------------+------------------------------+--------------------------+'
+  print '+---------------------------+------------+-------------------'
+  print "---+------------------------------+--------------------------+\n"
 end
 
 def print_top_words(list)

@@ -6,31 +6,52 @@ class ArgsValidator
 
   def initialize
     ARGV.each do |arg|
-      if arg =~ /(?<=^--top-bad-words=)\d+$/ # --top-bad-words=VALUE pattern
-        @top_bad_words = arg.match(/(?<=^--top-bad-words=)\d+$/).to_s.to_i
-        next
-      elsif arg =~ /^--top-bad-words$/ # --top-bad-words pattern
-        @top_bad_words = 5
-        next
-      elsif arg =~ /(?<=^--top-words=)\d+$/ # --top-words=VALUE pattern
-        @top_words = arg.match(/(?<=^--top-words=)\d+$/).to_s.to_i
-        next
-      elsif arg =~ /^--top-words$/ # --top-words pattern
-        @top_words = 30
-        next
-      elsif arg =~ /(?<=^--name=)\w+$/ # --name=VALUE pattern
-        @name = arg.match(/(?<=^--name=)\w+$/).to_s
-        next
-      elsif arg =~ /(^--help$|^-h$)/ # --help or -h pattern
-        @help = true
-        view_help
-        next
+      if !check_top_bad_words(arg) && !check_top_words(arg) && !check_name(arg) && !check_help(arg)
+        raise ValidatorOptionError, arg
       end
-      raise ValidatorOptionError, arg
     end
   end
 
   private
+
+  def check_top_bad_words(arg)
+    if arg =~ /(?<=^--top-bad-words=)\d+$/
+      @top_bad_words = arg.match(/(?<=^--top-bad-words=)\d+$/).to_s.to_i
+      return true
+    elsif arg =~ /^--top-bad-words$/
+      @top_bad_words = 5
+      return true
+    end
+    false
+  end
+
+  def check_top_words(arg)
+    if arg =~ /(?<=^--top-words=)\d+$/
+      @top_words = arg.match(/(?<=^--top-words=)\d+$/).to_s.to_i
+      return true
+    elsif arg =~ /^--top-words$/
+      @top_words = 30
+      return true
+    end
+    false
+  end
+
+  def check_name(arg)
+    if arg =~ /(?<=^--name=)\w+$/
+      @name = arg.match(/(?<=^--name=)\w+$/).to_s
+      return true
+    end
+    false
+  end
+
+  def check_help(arg)
+    if arg =~ /(^--help$|^-h$)/
+      @help = true
+      view_help
+      return true
+    end
+    false
+  end
 
   def view_help
     puts <<-HELP.strip_heredoc

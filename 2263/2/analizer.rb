@@ -1,6 +1,7 @@
 require 'russian_obscenity'
 require 'active_support/all'
 
+# rubocop:disable Metrics/ClassLength
 # Class for analizyng versus battles
 class Analyzer
   attr_reader :paths
@@ -9,7 +10,7 @@ class Analyzer
     @paths = Dir[path + '/*'] # Path to directory with texts
   end
 
-  def set_path(new_path)
+  def path=(new_path)
     raise AnalizerArgumentError, new_path unless new_path.respond_to?(:to_s)
     @paths = Dir[new_path.to_s + '/*']
   end
@@ -17,7 +18,7 @@ class Analyzer
   def words(name = nil)
     list = {}
     @paths.each do |path|
-      name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s # Looking for name
+      name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s # Name pattern
       raise AnalizerTextNameError, path if name_in_file == ''
       if !name || name_in_file == name
         words_number = count_words(path)
@@ -119,12 +120,7 @@ class Analyzer
       words = line.split(/[^[[:word:]]\*]+/)
       next if round_check(words)
       words.each do |word|
-        word = to_lower(word).to_sym
-        if all_words.key?(word)
-          all_words[word] += 1
-        else
-          all_words[word] = 1
-        end
+        all_words.key?(to_lower(word).to_sym) ? all_words[word] += 1 : all_words[word] = 1
       end
     end
     all_words
@@ -142,11 +138,7 @@ class Analyzer
 
   def add_entry_all_words(name, all_words, list)
     name = name.to_sym
-    if list.key?(name)
-      list[name] = merge_with_sum(list[name], all_words)
-    else
-      list[name] = all_words
-    end
+    list[name] = list.key?(name) ? merge_with_sum(list[name], all_words) : all_words
     list
   end
 
@@ -161,20 +153,23 @@ class Analyzer
     first_hash
   end
 
-  def round_check(words) # Check if it's round description line
-    if !words[1].to_i.zero? && (words[0] == 'Раунд' || words[0] == 'раунд')
+  # Check if it's round description line
+  def round_check(words)
+    if !words[1].to_i.zero? && words[0].match(/(Р|р)аунд/)
       true
-    elsif !words[0].to_i.zero? && (words[1] == 'Раунд' || words[1] == 'раунд')
+    elsif !words[0].to_i.zero? && words[1].match(/(Р|р)аунд/)
       true
     else
       false
     end
   end
 
-  def to_lower(word) # Downcase russian symbols
+  # Downcase russian symbols
+  def to_lower(word)
     word.mb_chars.downcase!.to_s
   end
 end
+# rubocop:enable Metrics/ClassLength
 
 # Exception that is raised if text file doesn't match pattern
 class AnalizerTextNameError < StandardError
