@@ -1,11 +1,20 @@
 require 'russian_obscenity'
 require 'terminal-table'
 
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/PerceivedComplexity
 # info[rapper_name] = [num_of_battles, num_of_rounds, aver_all_words_per_round, whole_num_of_bad_words,
 #                             aver_num_of_bad_words_per_battle, words_top_list{}]
+# :reek:TooManyStatements
+# :reek:NestedIterators
 def run
   ARGV.each do |command|
-    all_battles = Dir.entries('./').select { |entry| !entry.start_with?('.') && File.exist?(entry) &&  File.extname(entry) == '' }.sort
+    all_battles = Dir.entries('./').select do |entry| !entry.start_with?('.') &&
+      File.exist?(entry) &&
+      File.extname(entry) == ''
+    end
+    all_battles.sort!
     info = collect_names(all_battles)
     if command.include?('--top-bad-words=')
       top_bad(command.split('=')[1].to_i, info, all_battles)
@@ -16,8 +25,9 @@ def run
   end
 end
 
+# :reek:TooManyStatements
 def top_bad(num_top, info, all_battles)
-  info.keys.each { |rapper| info = analyze(all_battles, rapper, num_top, info) }
+  info.keys.each { |rapper| info = analyze(all_battles, rapper, info) }
   output_table = []
   counter = -1
   info.sort_by { |_key, value| value[3] }.reverse.to_h.keys.each do |rapper|
@@ -28,16 +38,17 @@ def top_bad(num_top, info, all_battles)
     output_table[counter] << "#{info[rapper][4]} bad words per battle"
     output_table[counter] << "#{info[rapper][2]} words per round"
   end
-  puts (Terminal::Table.new :rows => output_table[0...num_top])
+  puts Terminal::Table.new rows: output_table[0...num_top]
 end
 
-def top_words(num_top)
-end
+def top_words() end
 
+# :reek:UtilityFunction
 def double?(battle)
   battle.partition(/( против | vs )/).first.include?(' & ')
 end
 
+# :reek:TooManyStatements
 def collect_names(battles)
   names_array = []
   info = {}
@@ -50,9 +61,11 @@ def collect_names(battles)
   info
 end
 
-def analyze(all_battles, rapper, num_top, info)
+def analyze(all_battles, rapper, info)
   rapper_battles = []
-  all_battles.each { |battle| rapper_battles << battle if battle.partition(/( против | vs | VS )/).first.include?(rapper) }
+  all_battles.each do |battle|
+    rapper_battles << battle if battle.partition(/( против | vs | VS )/).first.include?(rapper)
+  end
   info[rapper][0] = rapper_battles.size
   all_words = 0
   rapper_battles.each do |battle|
@@ -61,7 +74,8 @@ def analyze(all_battles, rapper, num_top, info)
     counter = 1 if counter.zero?
     info[rapper][1] = counter
     all_words = lyrics_from(battle, rapper).split.size
-    lyrics_from(battle, rapper).split.each { |word| info[rapper][3] += 1 if (word.include?('*') || RussianObscenity.obscene?(word)) }
+    lyrics_from(battle, rapper).split.each { |word| info[rapper][3] += 1 if word.include?('*') ||
+                                                                            RussianObscenity.obscene?(word) }
   end
   info[rapper][2] = (all_words.to_f / info[rapper][1]).round(2)
   info[rapper][4] = (info[rapper][3].to_f / info[rapper][0]).round(2)
@@ -81,8 +95,8 @@ def lyrics_from(battle, rapper = false)
           lyrics += ' ' + line.strip
         end
       elsif line.include?("#{rapper}:")
-          do_write = true
-          lyrics += ' ' + line.split("#{rapper}:")[1].strip
+        do_write = true
+        lyrics += ' ' + line.split("#{rapper}:")[1].strip
       end
     end
   else
@@ -92,3 +106,6 @@ def lyrics_from(battle, rapper = false)
 end
 
 run
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/PerceivedComplexity
