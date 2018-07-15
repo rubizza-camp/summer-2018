@@ -59,7 +59,7 @@ class TopWordsAnalizator
   def rm_excess_words(words)
     words.each { |word| words.delete(word) if word.size < 3 }
     words = words.reject(&:nil?)
-    words.each { |word| words.delete(word) if !check_noun(word) }
+    words.each { |word| words.delete(word) unless check_noun(word) }
     words = words.reject(&:nil?)
   end
 

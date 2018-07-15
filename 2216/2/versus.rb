@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 require 'optparse'
 require 'russian_obscenity'
 require 'unicode'
