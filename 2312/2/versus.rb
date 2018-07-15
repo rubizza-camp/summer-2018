@@ -8,11 +8,11 @@ require 'terminal-table'
 #                             aver_num_of_bad_words_per_battle, words_top_list{}]
 # :reek:TooManyStatements
 # :reek:NestedIterators
+# :reek:FeatureEnvy
 def run
   ARGV.each do |command|
-    all_battles = Dir.entries('./').select do |entry| !entry.start_with?('.') &&
-      File.exist?(entry) &&
-      File.extname(entry) == ''
+    all_battles = Dir.entries('./').select do |entry|
+      !entry.start_with?('.') && File.exist?(entry) && File.extname(entry) == ''
     end
     all_battles.sort!
     info = collect_names(all_battles)
@@ -26,6 +26,7 @@ def run
 end
 
 # :reek:TooManyStatements
+# :reek:FeatureEnvy
 def top_bad(num_top, info, all_battles)
   info.keys.each { |rapper| info = analyze(all_battles, rapper, info) }
   output_table = []
@@ -33,10 +34,8 @@ def top_bad(num_top, info, all_battles)
   info.sort_by { |_key, value| value[3] }.reverse.to_h.keys.each do |rapper|
     counter += 1
     output_table[counter] = [rapper]
-    output_table[counter] << "#{info[rapper][0]} battles"
-    output_table[counter] << "#{info[rapper][3]} bad words"
-    output_table[counter] << "#{info[rapper][4]} bad words per battle"
-    output_table[counter] << "#{info[rapper][2]} words per round"
+    output_table[counter] << "#{info[rapper][0]} battles" << "#{info[rapper][3]} bad words"
+    output_table[counter] << "#{info[rapper][4]} bad words per battle" << "#{info[rapper][2]} words per round"
   end
   puts Terminal::Table.new rows: output_table[0...num_top]
 end
@@ -49,6 +48,7 @@ def double?(battle)
 end
 
 # :reek:TooManyStatements
+# :reek:FeatureEnvy
 def collect_names(battles)
   names_array = []
   info = {}
@@ -61,6 +61,9 @@ def collect_names(battles)
   info
 end
 
+# :reek:TooManyStatements
+# :reek:NestedIterators
+# :reek:FeatureEnvy
 def analyze(all_battles, rapper, info)
   rapper_battles = []
   all_battles.each do |battle|
@@ -74,18 +77,21 @@ def analyze(all_battles, rapper, info)
     counter = 1 if counter.zero?
     info[rapper][1] = counter
     all_words = lyrics_from(battle, rapper).split.size
-    lyrics_from(battle, rapper).split.each { |word| info[rapper][3] += 1 if word.include?('*') ||
-                                                                            RussianObscenity.obscene?(word) }
+    lyrics_from(battle, rapper).split.each do |word|
+      info[rapper][3] += 1 if word.include?('*') || RussianObscenity.obscene?(word)
+    end
   end
   info[rapper][2] = (all_words.to_f / info[rapper][1]).round(2)
   info[rapper][4] = (info[rapper][3].to_f / info[rapper][0]).round(2)
   info = info.sort.to_h
 end
 
-def lyrics_from(battle, rapper = false)
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+def lyrics_from(battle, rapper = '')
   text = IO.read(battle)
   lyrics = ''
-  if !rapper
+  if rapper != ''
     do_write = false
     text.each_line do |line|
       if do_write
