@@ -8,9 +8,12 @@ OptionParser.new do |parser|
     puts 'Самые нецензурные участники'
     analyzer.first_level(max.to_i)
   end
-  parser.on('--name=') do |name|
-    parser.on('--top-words=') do |qty|
+  parser.on('--top-words=') do |qty|
+    parser.on('--name=') do |name|
       analyzer.second_level(name, qty.to_i)
     end
+  end
+  parser.on('--name=') do |name|
+    analyzer.second_level(name, 30)
   end
 end.parse!

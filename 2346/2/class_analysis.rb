@@ -1,9 +1,8 @@
 require 'pathname'
 require_relative 'class_rapper'
 
-# :reek:TooManyStatements
-# class Analysis
 class Analysis
+  # :reek:FeatureEnvy
   def first_level(lim)
     rappers_array = rappers_hash_with_info.values
     rappers_array.each(&:count_words)
@@ -16,6 +15,7 @@ class Analysis
     end
   end
 
+  # :reek:TooManyStatements
   def second_level(name, qty)
     rappers_hash = rappers_hash_with_info
     temp_key = rappers_hash.find_key_for_rapper(name)
@@ -30,6 +30,7 @@ class Analysis
 
   private
 
+  # :reek:TooManyStatements
   def rappers_hash_with_info
     rappers_hash = {}
     pn = Pathname('./rap-battles/')
@@ -43,6 +44,9 @@ class Analysis
     rappers_hash
   end
 
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
+  # :reek:NestedIterators
   def count_top_words(rapper, qty)
     dictionary = {}
     exclude = array_with_exceptions
@@ -59,8 +63,8 @@ class Analysis
   end
 end
 
-# class Hash
 class Hash
+  # :reek:FeatureEnvy
   def find_key_for_rapper(rapper_name)
     keys.find do |key|
       str_x = rapper_name.downcase
@@ -69,6 +73,7 @@ class Hash
     end
   end
 
+  # :reek:TooManyStatements
   def update_hash(rapper_name, rapper_battle)
     temp_key = find_key_for_rapper(rapper_name)
     if temp_key
