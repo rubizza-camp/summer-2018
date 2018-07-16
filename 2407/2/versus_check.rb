@@ -19,7 +19,7 @@ class BadWordsCounter
     battles.each do |battle|
       total_bad_words += count_bad_words(Dir.chdir(INPUT_FOLDER) { File.read(battle) })
     end
-    bad_words
+    total_bad_words
   end
 
   def self.count_bad_words(file)
