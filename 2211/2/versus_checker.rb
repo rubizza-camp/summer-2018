@@ -21,7 +21,7 @@ class TopBadWords
     printf('%-25s ', @members[number][:name])
     printf('| %-2d battles ', @members[number][:battles])
     printf('| %-4d  total bad words ', @members[number][:bad_words])
-    printf('| %-3.2f  bad words per battle ', @members[number][:avr_in_battle])
+    printf('| %-3.2f  bad words per battle ', @members[number][:avr_words])
     printf('| %-4d  words per round\n', @members[number][:words_per_round])
   end
 
@@ -52,12 +52,16 @@ class TopBadWords
   def new_member(member_name)
     member = {}
     member[:name] = member_name
+    create_cases(member)
+    @members << member
+  end
+
+  def create_cases(member)
     member[:battles] = 0
     member[:bad_words] = 0
-    member[:avr_in_battle] = 0
+    member[:avr_words] = 0
     member[:words_per_round] = 0
     member[:rounds] = 0
-    @members << member
   end
 
   def add_info(member, file)
@@ -98,8 +102,8 @@ class TopBadWords
 
   def words_number_in_battle(member, words_array)
     number = words_array.size
-    member[:avr_in_battle] = number / member[:battles] if member[:avr_in_battle].zero?
-    member[:avr_in_battle] = (number / member[:battles] + member[:avr_in_battle]) / 2.0 unless member[:avr_in_battle].zero?
+    member[:avr_words] = number / member[:battles] if member[:avr_words].zero?
+    member[:avr_words] = (number / member[:battles] + member[:avr_words]) / 2.0 unless member[:avr_words].zero?
   end
 
   def words_counter_at_the_tail(line)
@@ -142,15 +146,14 @@ class TopWords
   end
 
   def words_sort
-    temp = []
-    @words.each { |elen| temp << elem.to_a }
+    @words.each { |elem| temp << elem.to_a }
     temp.flatten!(1)
     temp.sort! { |first, second| (first[1] <=> second[1]) * -1 }
   end
 
   def call_sorted_words(number)
     temp = words_sort
-    number.to_i.times do |num|b
+    number.to_i.times do |num|
       puts "#{temp[num][0]} - #{temp[num][1]} times"
     end
   end
