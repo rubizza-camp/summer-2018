@@ -1,6 +1,7 @@
 require 'io/console'
 require 'optparse'
 require 'russian_obscenity/base'
+require 'docopt'
 
 # 1st tas
 class TopBadWords
@@ -8,7 +9,7 @@ class TopBadWords
     foul_language(number)
   end
 
-  def foul_language(number)ч
+  def foul_language(number)
     find_members_name
     sort_result(@members)
     number.to_i.times do |num|
@@ -194,10 +195,9 @@ class TopWords
 end
 
 def file_analysis
-  require 'docopt'
   doc = %{
   Battle analysis
-  
+
   Usage:
     #{__FILE__} --top-bad-words=<top_bad_words_number>
     #{__FILE__} --top-words=<top_words_number> --name=<name>
