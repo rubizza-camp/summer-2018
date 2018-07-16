@@ -5,7 +5,6 @@
 # :reek:TooManyStatements
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
 def get_top_bad(top, destination)
   rapers = get_rapers destination
 
@@ -39,6 +38,5 @@ def get_top_bad(top, destination)
   end
   puts "\n"
 end
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
