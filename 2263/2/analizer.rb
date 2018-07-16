@@ -15,45 +15,46 @@ class Analyzer
     @paths = Dir[new_path.to_s + '/*']
   end
 
+  # :reek:TooManyStatements
   def words(name = nil)
     list = {}
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s # Name pattern
       raise AnalizerTextNameError, path if name_in_file == ''
       if !name || name_in_file == name
-        words_number = count_words(path)
-        list = add_entry(name_in_file, words_number, list)
+        list = add_entry(name_in_file, count_words(path), list)
       end
     end
     list
   end
 
+  # :reek:TooManyStatements
   def bad_words(name = nil)
     list = {}
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
       raise AnalizerTextNameError, path if name_in_file == ''
       if !name || name_in_file == name
-        bad_words_number = count_bad_words(path)
-        list = add_entry(name_in_file, bad_words_number, list)
+        list = add_entry(name_in_file, count_bad_words(path), list)
       end
     end
     list
   end
 
+  # :reek:TooManyStatements
   def rounds(name = nil)
     list = {}
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
       raise AnalizerTextNameError, path if name_in_file == ''
       if !name || name_in_file == name
-        rounds_number = count_rounds(path)
-        list = add_entry(name_in_file, rounds_number, list)
+        list = add_entry(name_in_file, count_rounds(path), list)
       end
     end
     list
   end
 
+  # :reek:TooManyStatements
   def battles(name = nil)
     list = {}
     @paths.each do |path|
@@ -64,14 +65,14 @@ class Analyzer
     list
   end
 
+  # :reek:TooManyStatements
   def all_words(name = nil)
     list = {}
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
       raise AnalizerTextNameError, path if name_in_file == ''
       if !name || name_in_file == name
-        all_words = count_all_words(path)
-        list = add_entry_all_words(name_in_file, all_words, list)
+        list = add_entry_all_words(name_in_file, count_all_words(path), list)
       end
     end
     list
@@ -79,6 +80,7 @@ class Analyzer
 
   private
 
+  # :reek:TooManyStatements
   def count_words(path)
     words_counter = 0
     file = File.open(path)
@@ -90,6 +92,7 @@ class Analyzer
     words_counter
   end
 
+  # :reek:TooManyStatements
   def count_bad_words(path)
     bad_words_counter = 0
     file = File.open(path)
@@ -103,6 +106,7 @@ class Analyzer
     bad_words_counter
   end
 
+  # :reek:TooManyStatements
   def count_rounds(path)
     rounds_counter = 0
     file = File.open(path)
@@ -113,6 +117,7 @@ class Analyzer
     rounds_counter.zero? ? 1 : rounds_counter
   end
 
+  # :reek:TooManyStatements
   def count_all_words(path)
     all_words = {}
     file = File.open(path)
@@ -126,6 +131,7 @@ class Analyzer
     all_words
   end
 
+  # :reek:TooManyStatements
   def add_entry(name, number, list)
     name = name.to_sym
     if list.key?(name)
@@ -142,6 +148,7 @@ class Analyzer
     list
   end
 
+  # :reek:TooManyStatements
   def merge_with_sum(first_hash, second_hash)
     second_hash.each_key do |key|
       if first_hash.key?(key)
@@ -155,9 +162,9 @@ class Analyzer
 
   # Check if it's round description line
   def round_check(words)
-    if !words[1].to_i.zero? && words[0].match(/(Р|р)аунд/)
+    if !words[1].to_i.zero? && words[0] =~ /(Р|р)аунд/
       true
-    elsif !words[0].to_i.zero? && words[1].match(/(Р|р)аунд/)
+    elsif !words[0].to_i.zero? && words[1] =~ /(Р|р)аунд/
       true
     else
       false
