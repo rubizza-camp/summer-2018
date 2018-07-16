@@ -3,6 +3,7 @@ require 'yaml'
 require 'russian_obscenity'
 require 'terminal-table'
 require 'optparse'
+require 'russian'
 
 ALIASES = YAML.load_file('alias.yml')
 rappers = {}
@@ -20,7 +21,7 @@ class Participant
 
   # :reek:NilCheck
   def self.name_from_file(filename)
-    name = filename.split('против').first.split('/').last.strip
+    name = filename.split(/ против | vs | VS /).first.split('/').last.strip
     ALIASES.find do |_, aliases|
       aliases.include?(name)
     end&.first || name
@@ -44,8 +45,8 @@ class Participant
   def table_row
     [
       @name,
-      "#{battle_count} батлов",
-      "#{bad_words} нецензурных слов",
+      "#{battle_count} " + Russian.pluralize(battle_count.to_i, 'баттл', 'баттла', 'баттлов'),
+      "#{bad_words} нецензурных " + Russian.pluralize(bad_words.to_i, 'слово', 'слова', 'слов'),
       "#{bad_words_per_battle.round(2)} слова на баттл ",
       "#{words_per_round.round(2)} слов в раунде"
     ]
