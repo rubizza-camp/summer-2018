@@ -1,8 +1,10 @@
 # :reek:FeatureEnvy
 
-#class Battler
+# class Battler
 class Battler
-  FOLDER_PATH = '/home/polia/summer-2018/2420/2/'.freeze
+  Dir.chdir('/home/polia/2/2_WORK/')
+  FOLDER_PATH = Dir.pwd
+  VERSUS = /\bvs\b|\bVS\b|\bпротив\b/
   attr_reader :name
 
   def initialize(name)
@@ -11,23 +13,23 @@ class Battler
 
   def self.battler_names_list
     files = Dir.entries(FOLDER_PATH).reject { |file_name| File.directory?(file_name) || file_name[0].include?('.') }
-    name_battler = files.map { |all_file_names| all_file_names.lstrip.split(/\bvs\b|\bVS\b|\bпротив\b/).first }
-    name_battler.uniq
+    name_battlers = files.map { |all_file_names| all_file_names.lstrip.split(VERSUS).first }
+    name_battlers.uniq
   end
 
-  def find_battles
-    Dir.chdir(FOLDER_PATH)
-    Dir.glob([" #{name}*", "#{name}*"])
+  def all_battles
+    Dir.pwd
+    @all_battles ||= Dir.glob([" #{name}*", "#{name}*"])
   end
 
   def battles_count
-    find_battles.count
+    @battles_count ||= all_battles.count
   end
 
   def all_battles_text
     text = ''
-    find_battles.each do |file_name|
-      text << IO.read("#{FOLDER_PATH}#{file_name}")
+    all_battles.each do |file_name|
+      text << IO.read("#{FOLDER_PATH}/#{file_name}")
     end
     text.gsub!(/^\s+|\n|\r|\s+$|-|–/, ' ')
   end
@@ -36,8 +38,11 @@ class Battler
     all_battles_text.split.count
   end
 
+  def bad_words
+    @bad_words ||= File.read("#{FOLDER_PATH}bad_words").split(' ')
+  end
+
   def bad_words_count
-    bad_words = File.read("#{FOLDER_PATH}bad_words").split(' ')
     sum_bad_words = 0
     bad_words.each_index do |index|
       sum_bad_words += all_battles_text.gsub(bad_words[index]).count
@@ -46,11 +51,11 @@ class Battler
   end
 
   def words_in_battle
-    all_battles_words_count / battles_count
+    @words_in_battle ||= all_battles_words_count / battles_count
   end
 
   def words_in_raund
-    all_battles_words_count / (battles_count * 3)
+    @words_in_raund ||= all_battles_words_count / (battles_count * 3)
   end
 
   def text_without_preposition

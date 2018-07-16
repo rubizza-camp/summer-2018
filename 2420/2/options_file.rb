@@ -18,11 +18,13 @@ OptionParser.new do |opts|
 end.parse!
 
 if options[:top_bad_words] > 0
-  battler = Battler.battler_names_list.map { |name| Battler.new(name) }
-  battler = battler.sort_by(&:bad_words_count)
-  battler = battler.pop(options[:top_bad_words]).reverse
+  battlers = Battler.battler_names_list
+                    .map { |name| Battler.new(name) }
+                    .sort_by(&:bad_words_count)
+                    .pop(options[:top_bad_words])
+                    .reverse
   rows = []
-  battler.map do |member|
+  battlers.map do |member|
     rows << [member.name.to_s,
              "#{member.battles_count} батлов",
              "#{member.bad_words_count} нецензурных слов ",
@@ -37,7 +39,7 @@ unless options[:name].empty?
   rows = []
   name_battler = []
   names = Battler.battler_names_list
-  names.each_index { |index| name_battler[index] = names[index].split.first }
+  names.each_with_index { |name, index| name_battler[index] = name.split.first }
   if name_battler.include?(options[:name])
     result = Battler.new(options[:name]).text_without_preposition
     result.split(' ').each_with_object(Hash.new(0)) do |word, counter|
