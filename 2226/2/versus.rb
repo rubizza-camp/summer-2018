@@ -120,7 +120,7 @@ class Raper
 
   # rubocop:disable Metrics/AbcSize
   def print_top_words(top_words, name)
-    if list_all_rapers.include? name
+    if list_all_rapers.include?(name)
       the_most_used_words(top_words, name).each do |elem|
         puts elem[0].to_s + ' - ' + elem[1].to_s + ' раз'
       end
