@@ -1,12 +1,12 @@
-# rubocop:disable Layout/Tab
 # :reek:FeatureEnvy
 
+#class Battler
 class Battler
   FOLDER_PATH = '/home/polia/summer-2018/2420/2/'.freeze
   attr_reader :name
 
   def initialize(name)
-				@name = name
+    @name = name
   end
 
   def self.battler_names_list
@@ -27,7 +27,7 @@ class Battler
   def all_battles_text
     text = ''
     find_battles.each do |file_name|
-						text << IO.read("#{FOLDER_PATH}#{file_name}")
+      text << IO.read("#{FOLDER_PATH}#{file_name}")
     end
     text.gsub!(/^\s+|\n|\r|\s+$|-|–/, ' ')
   end
@@ -40,7 +40,7 @@ class Battler
     bad_words = File.read("#{FOLDER_PATH}bad_words").split(' ')
     sum_bad_words = 0
     bad_words.each_index do |index|
-    		sum_bad_words += all_battles_text.gsub(bad_words[index]).count
+      sum_bad_words += all_battles_text.gsub(bad_words[index]).count
     end
     sum_bad_words
   end
@@ -57,10 +57,8 @@ class Battler
     all_texts = all_battles_text.downcase!
     prepositions_list = File.read("#{FOLDER_PATH}prepositions").split(',')
     prepositions_list.each do |preposition|
-  	   all_texts.gsub!(/#{preposition}[аояиеёю ]/, '')
-  	 end
+      all_texts.gsub!(/#{preposition}[аояиеёю ]/, '')
+    end
     all_texts
   end
 end
-
-# rubocop:enable Layout/Tab
