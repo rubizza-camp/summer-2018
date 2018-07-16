@@ -42,6 +42,7 @@ class TotalWordsInRoundCounter
   end
 end
 
+# rubocop:disable TooManyStatements
 class BattleCheck
   def describe_battlers(top_bad_words)
     battlers = []
