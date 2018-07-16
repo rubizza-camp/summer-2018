@@ -11,27 +11,27 @@ class TopBadWords
 
   def foul_language(number)
     find_members_name
-    sort_result(@members)
+    sort_result
     number.to_i.times do |num|
       result_output(num)
     end
   end
 
   def result_output(number)
-      printf('%-25s ', @members[number][:name])
-      printf('| %-2d battles ', @members[number][:battles])
-      printf('| %-4d  total bad words ', @members[number][:bad_words])
-      printf('| %-3.2f  bad words per battle ', @members[number][:average_number_in_the_battle])
-      printf('| %-4d  words per round\n', @members[number][:words_per_round])
+    printf('%-25s ', @members[number][:name])
+    printf('| %-2d battles ', @members[number][:battles])
+    printf('| %-4d  total bad words ', @members[number][:bad_words])
+    printf('| %-3.2f  bad words per battle ', @members[number][:avr_in_battle])
+    printf('| %-4d  words per round\n', @members[number][:words_per_round])
   end
 
-  def sort_result(arr)
-    arr.sort_by! { |k| k[:bad_words] * -1 }
+  def sort_result
+    @members.sort_by! { |key| key[:bad_words] * -1 }
   end
 
   def find_members_name
     @members = []
-    Dir.foreach('versus-battle') do |file| 
+    Dir.foreach('versus-battle') do |file|
       for_delete = file[/\s{1}(против|vs|VS){1}\s{1}.+\z/]
       member_name = file.chomp(for_delete)
       verification_of_existence(member_name, file)
@@ -54,7 +54,7 @@ class TopBadWords
     member[:name] = member_name
     member[:battles] = 0
     member[:bad_words] = 0
-    member[:average_number_in_the_battle] = 0
+    member[:avr_in_battle] = 0
     member[:words_per_round] = 0
     member[:rounds] = 0
     @members << member
@@ -98,8 +98,8 @@ class TopBadWords
 
   def words_number_in_battle(member, words_array)
     number = words_array.size
-    member[:average_number_in_the_battle] = number / member[:battles] if member[:average_number_in_the_battle].zero?
-    member[:average_number_in_the_battle] = (number / member[:battles] + member[:average_number_in_the_battle]) / 2.0 unless member[:average_number_in_the_battle].zero?
+    member[:avr_in_battle] = number / member[:battles] if member[:avr_in_battle].zero?
+    member[:avr_in_battle] = (number / member[:battles] + member[:avr_in_battle]) / 2.0 unless member[:avr_in_battle].zero?
   end
 
   def words_counter_at_the_tail(line)
@@ -143,15 +143,15 @@ class TopWords
 
   def words_sort
     temp = []
-    @words.each { |el| temp << el.to_a }
+    @words.each { |elen| temp << elem.to_a }
     temp.flatten!(1)
-    temp.sort! { |a, b| (a[1] <=> b[1]) * -1 }
+    temp.sort! { |first, second| (first[1] <=> second[1]) * -1 }
   end
 
   def call_sorted_words(number)
     temp = words_sort
-    number.to_i.times do |i|
-      puts "#{temp[i][0]} - #{temp[i][1]} times"
+    number.to_i.times do |num|b
+      puts "#{temp[num][0]} - #{temp[num][1]} times"
     end
   end
 
@@ -179,9 +179,9 @@ class TopWords
     @words.detect { |mem| mem[word.to_sym] }
   end
 
-  def new_word(w)
+  def new_word(word)
     new_word = {}
-    new_word[w.to_sym] = 0
+    new_word[word.to_sym] = 0
     @words << new_word
   end
 
