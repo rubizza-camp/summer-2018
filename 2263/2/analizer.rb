@@ -21,9 +21,7 @@ class Analyzer
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s # Name pattern
       raise AnalizerTextNameError, path if name_in_file == ''
-      if !name || name_in_file == name
-        list = add_entry(name_in_file, count_words(path), list)
-      end
+      list = add_entry(name_in_file, count_words(path), list) if !name || name_in_file == name
     end
     list
   end
@@ -34,9 +32,7 @@ class Analyzer
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
       raise AnalizerTextNameError, path if name_in_file == ''
-      if !name || name_in_file == name
-        list = add_entry(name_in_file, count_bad_words(path), list)
-      end
+      list = add_entry(name_in_file, count_bad_words(path), list) if !name || name_in_file == name
     end
     list
   end
@@ -47,9 +43,7 @@ class Analyzer
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
       raise AnalizerTextNameError, path if name_in_file == ''
-      if !name || name_in_file == name
-        list = add_entry(name_in_file, count_rounds(path), list)
-      end
+      list = add_entry(name_in_file, count_rounds(path), list) if !name || name_in_file == name
     end
     list
   end
@@ -71,9 +65,7 @@ class Analyzer
     @paths.each do |path|
       name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
       raise AnalizerTextNameError, path if name_in_file == ''
-      if !name || name_in_file == name
-        list = add_entry_all_words(name_in_file, count_all_words(path), list)
-      end
+      list = add_entry_all_words(name_in_file, count_all_words(path), list) if !name || name_in_file == name
     end
     list
   end
