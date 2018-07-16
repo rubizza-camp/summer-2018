@@ -99,7 +99,8 @@ class Analyzer
       words = line.split(/[^[[:word:]]\*]+/)
       next if round_check(words)
       words.each do |word|
-        all_words.key?(to_lower(word).to_sym) ? all_words[word] += 1 : all_words[word] = 1
+        word = to_lower(word).to_sym
+        all_words[word] = all_words.key?(word) ? all_words[word] + 1 : 1
       end
     end
     all_words
