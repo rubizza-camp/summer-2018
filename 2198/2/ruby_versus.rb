@@ -87,14 +87,14 @@ rappers.each do |rapper|
   rappers_battles[rapper][:bad_words_per_battle] = rappers_battles[rapper][:bad_words].to_f / battles.count
   rappers_battles[rapper][:words_per_round] = words_in_rounds(battles).to_f / count_rounds(battles)
 end
+rappers_battles = rappers_battles.sort_by { |name, data| -data[:bad_words] }
 
 rapper_statistic = rappers_battles.each_with_object([]) do |(rapper_name, rapper_data), accumulator|
-  accumulator << [rapper_name, rapper_data[:battles_count], rapper_data[:bad_words], rapper_data[:bad_words_per_battle], rapper_data[:words_per_round]]
+  accumulator << [rapper_name, "#{rapper_data[:battles_count]} баттлов", "#{rapper_data[:bad_words]} нецензурных слов", "#{rapper_data[:bad_words_per_battle].round(2)} слова на баттл", "#{rapper_data[:words_per_round].round(2)} слов в раунде"]
 end
 
 table = Terminal::Table.new do |t|
-  t.rows = rapper_statistic.sort_by { |a, b, c, d, e| -c }.first(top_bad_words)
-  t.headings = ['Рэпер', 'Кол-во баттлов', 'Кол-во нецензурных слов', 'Кол-во слов на баттл', 'Кол-во слов в раунде']
+  t.rows = rapper_statistic.first(top_bad_words)
   t.style = { :border_top => false, :border_bottom => false }
 end
 puts table
