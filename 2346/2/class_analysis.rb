@@ -38,10 +38,6 @@ class Hash
     end
   end
 
-  def compare_key_and_name(key, name)
-    name =~ /^#{key}.*/ || key =~ /^#{name}.*/ || name.chop == key.chop
-  end
-
   def update_hash(rapper_battle)
     rapper_name = rapper_battle.gsub(%r{(\./rap-battles/) ?}, '').gsub(/( против | vs | VS ).*/, '')
     temp_key = rapper_key?(rapper_name)
@@ -72,10 +68,7 @@ class Hash
       keys.each { |key| puts key }
     end
   end
-end
 
-# special Hash
-class Hash
   def count_top_words(rapper, qty)
     exclude = array_with_exceptions
     rapper.battles.each { |battle_name| count_top_words_in_line(battle_name, exclude) }
@@ -95,6 +88,12 @@ class Hash
 
   def print_dictionary(qty)
     sort { |wordx, wordy| wordy[1] <=> wordx[1] }.first(qty).each { |elem| puts "\"#{elem[0]}\" - #{elem[1]} раз" }
+  end
+
+  private
+
+  def compare_key_and_name(key, name)
+    name =~ /^#{key}.*/ || key =~ /^#{name}.*/ || name.chop == key.chop
   end
 
   def array_with_exceptions
