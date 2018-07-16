@@ -33,9 +33,7 @@ module Battles
     def find_rhymes(rhyme_type)
       text.each_with_index.map do |line, index|
         next_line = text[index + rhyme_type]
-        if line && next_line
-          [[last_word(line), last_word(next_line)], "#{line}\n#{next_line}"]
-        end
+        [[last_word(line), last_word(next_line)], "#{line}\n#{next_line}"] if line && next_line
       end.compact.to_h
     end
 

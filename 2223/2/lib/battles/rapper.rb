@@ -20,7 +20,7 @@ module Battles
     end
 
     def select_popular_words(words)
-      words.each.inject(Hash.new(0)) do |popular_words, word|
+      words.each_with_object(Hash.new(0)) do |word, popular_words|
         popular_words[consider_word(word)] += 1
         popular_words
       end.sort_by(&:last).to_h

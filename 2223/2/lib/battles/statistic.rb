@@ -3,7 +3,6 @@ require_relative 'parser'
 
 module Battles
   class Statistic
-
     def self.call(params)
       Statistic.new(params).call
     end
@@ -49,8 +48,6 @@ module Battles
         error_find_rapper(name)
       end
     end
-
-    private
 
     def error_find_rapper(name)
       puts "Рэпер #{name} не известен мне. Зато мне известны:"
