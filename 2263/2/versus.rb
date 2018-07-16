@@ -64,6 +64,7 @@ end
 begin
   args = ArgsValidator.new
   analyzer = Analyzer.new
+  analyzer_each_word = AnalyzerEachWord.new
   name = args.name
   top_bad_words = args.top_bad_words
   top_words = args.top_words
@@ -88,7 +89,7 @@ begin
     print_top_bad_words(list)
   end
   if top_words
-    all_words = analyzer.each_word(name)
+    all_words = analyzer_each_word.each_word(name)
     list = organize_top_words(all_words, top_words)
     print_top_words(list)
   end

@@ -8,11 +8,10 @@ class Analyzer
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
     @list = {}
-    @words_hash = {}
   end
 
   def path=(new_path)
-    raise AnalizerArgumentError, new_path unless new_path.respond_to?(:to_s)
+    raise AnalyzerArgumentError, new_path unless new_path.respond_to?(:to_s)
     @paths = Dir[new_path.to_s + '/*']
   end
 
@@ -52,31 +51,17 @@ class Analyzer
     @list
   end
 
-  def each_word(name = nil)
-    @list = {}
-    @paths.each do |path|
-      name_in_file = get_name_in_file(path)
-      explore_file_each_word(path, name_in_file) if !name || name_in_file == name
-    end
-    @list
-  end
-
   private
 
   def get_name_in_file(path)
     name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
-    raise AnalizerTextNameError, path if name_in_file == ''
+    raise AnalyzerTextNameError, path if name_in_file == ''
     name_in_file
   end
 
   def explore_file(name_in_file)
     words_number = yield
     add_entry_to_list(name_in_file, words_number)
-  end
-
-  def explore_file_each_word(path, name)
-    words_hash = count_each_word(path)
-    add_entry_each_word(name, words_hash)
   end
 
   def count_words(path)
@@ -118,27 +103,9 @@ class Analyzer
     rounds_counter.zero? ? 1 : rounds_counter
   end
 
-  def count_each_word(path)
-    @words_hash = {}
-    file = File.open(path)
-    file.each do |line|
-      words = to_word_array(line)
-      next if round_description?(words)
-      handle_word_array(words)
-    end
-    @words_hash
-  end
-
   def to_word_array(line)
     words = line.split(/[^[[:word:]]\*]+/)
     words
-  end
-
-  def handle_word_array(words)
-    words.each do |word|
-      word = to_lower(word).to_sym
-      @words_hash[word] = @words_hash.key?(word) ? @words_hash[word] + 1 : 1
-    end
   end
 
   def add_entry_to_list(name, number)
@@ -146,7 +113,33 @@ class Analyzer
     @list[name] = @list.key?(name) ? @list[name] + number : number
   end
 
-  def add_entry_each_word(name, words_hash)
+  def round_description?(words)
+    return true if !words[1].to_i.zero? && words[0] =~ /(Р|р)аунд/
+    return true if !words[0].to_i.zero? && words[1] =~ /(Р|р)аунд/
+    false
+  end
+end
+
+# Class for making hash of each word if file
+class AnalyzerEachWord < Analyzer
+  def initialize(path = __dir__ + '/texts')
+    @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
+    @list = {}
+    @words_hash = {}
+  end
+
+  def each_word(name = nil)
+    @list = {}
+    @paths.each do |path|
+      name_in_file = get_name_in_file(path)
+      explore_file(path, name_in_file) if !name || name_in_file == name
+    end
+    @list
+  end
+
+  private
+
+  def add_entry_to_list(name, words_hash)
     name = name.to_sym
     @list[name] = @list.key?(name) ? merge_with_sum(@list[name], words_hash) : words_hash
   end
@@ -158,14 +151,27 @@ class Analyzer
     first_hash
   end
 
-  def round_description?(words)
-    if !words[1].to_i.zero? && (words[0] == 'Раунд' || words[0] == 'раунд')
-      true
-    elsif !words[0].to_i.zero? && (words[1] == 'Раунд' || words[1] == 'раунд')
-      true
-    else
-      false
+  def handle_word_array(words)
+    words.each do |word|
+      word = to_lower(word).to_sym
+      @words_hash[word] = @words_hash.key?(word) ? @words_hash[word] + 1 : 1
     end
+  end
+
+  def count_each_word(path)
+    @words_hash = {}
+    file = File.open(path)
+    file.each do |line|
+      words = to_word_array(line)
+      next if round_description?(words)
+      handle_word_array(words)
+    end
+    @words_hash
+  end
+
+  def explore_file(path, name)
+    words_hash = count_each_word(path)
+    add_entry_to_list(name, words_hash)
   end
 
   # Downcase russian symbols
@@ -175,7 +181,7 @@ class Analyzer
 end
 
 # Exception that is raised if text file doesn't match pattern
-class AnalizerTextNameError < StandardError
+class AnalyzerTextNameError < StandardError
   def initialize(path)
     @file = path
   end
@@ -186,7 +192,7 @@ class AnalizerTextNameError < StandardError
 end
 
 # Exception that is raised if new analizer path can't be translated to string
-class AnalizerArgumentError < StandardError
+class AnalyzerArgumentError < StandardError
   def initialize(path)
     @path = path
   end

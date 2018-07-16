@@ -1,8 +1,6 @@
 require 'active_support/all'
 
 # Command line arguments parser for versus.rb
-# :reek:FeatureEnvy
-# :reek:ControlParameter
 class ArgsValidator
   attr_reader :top_bad_words, :top_words, :name, :help
 
