@@ -88,7 +88,7 @@ begin
     print_top_bad_words(list)
   end
   if top_words
-    all_words = analyzer.all_words(name)
+    all_words = analyzer.each_word(name)
     list = organize_top_words(all_words, top_words)
     print_top_words(list)
   end
