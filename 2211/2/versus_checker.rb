@@ -9,13 +9,13 @@ class TopBadWords
     foul_language(number)
   end
 
-  private
-
   def foul_language(number)
     find_members_name
     sort_result
     number.to_i.times do |num|
-      result_output(num)
+      out = Output.new
+      out.first_result_output(@members[num])
+      puts
     end
   end
 
@@ -105,28 +105,19 @@ class TopBadWords
   def sort_result
     @members.sort_by! { |key| key[:bad_words] * -1 }
   end
-
-  def result_output(number)
-    printf('%-25s ', @members[number][:name])
-    printf('| %-2d battles ', @members[number][:battles])
-    printf('| %-4d  total bad words ', @members[number][:bad_words])
-    printf('| %-3.2f  bad words per battle ', @members[number][:avr_words])
-    printf('| %-4d  words per round', @members[number][:words_per_round])
-    puts
-  end
 end
 
 class TopWords
-  def initialize(number = 30, name)
-    favourite_words(number, name)
+  def initialize(name, number = 30)
+    favourite_words(name, number)
   end
 
-  private
-
-  def favourite_words(number, name)
+  def favourite_words(name, number)
     @words = []
     member_exist(name)
-    call_sorted_words(number) unless @words.empty?
+    sorted = words_sort
+    out = Output.new
+    out.second_result_output(number, sorted) unless @words.empty?
     output_all_members(name) if @words.empty?
   end
 
@@ -144,10 +135,14 @@ class TopWords
     IO.foreach(file) do |line|
       words_array << line.scan(/[А-яёA-z\d]+[^\s,\.\-\?\!]*/i)
     end
-    words_array.flatten!
-    words_array.map(&:downcase!)
+    words_array_pretty_view(words_array)
     words_often(words_array)
     Dir.chdir('..')
+  end
+
+  def words_array_pretty_view(array)
+    array.flatten!
+    array.map(&:downcase!)
   end
 
   def words_often(arr)
@@ -160,13 +155,6 @@ class TopWords
 
   def search_in_words_array(word)
     @words.detect { |mem| mem[word.to_sym] }
-  end
-
-  def call_sorted_words(number)
-    temp = words_sort
-    number.to_i.times do |num|
-      puts "#{temp[num][0]} - #{temp[num][1]} times"
-    end
   end
 
   def output_all_members(name)
@@ -193,7 +181,22 @@ class TopWords
     new_word[word.to_sym] = 0
     @words << new_word
   end
+end
 
+class Output
+  def first_result_output(member)
+    printf('%-25s ', member[:name])
+    printf('| %-2d battles ', member[:battles])
+    printf('| %-4d  total bad words ', member[:bad_words])
+    printf('| %-3.2f  bad words per battle ', member[:avr_words])
+    printf('| %-4d  words per round', member[:words_per_round])
+  end
+
+  def second_result_output(number, arr)
+    number.to_i.times do |num|
+      puts "#{arr[num][0]} - #{arr[num][1]} times"
+    end
+  end
 end
 
 def file_analysis
@@ -224,8 +227,9 @@ def call_doc(doc)
 end
 
 def call_method(args)
+
   TopBadWords.new(args['--top-bad-words'].to_s) if args['--top-bad-words']
-  TopWords.new(args['--top-words'].to_s, args['--name'].to_s) if args['--top-words']
+  TopWords.new(args['--name'].to_s, args['--top-words'].to_s) if args['--top-words']
   TopWords.new(args['--name'].to_s) if args['--name'] && !args['--top-words']
 end
 
