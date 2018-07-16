@@ -9,7 +9,7 @@ class PopularWords
     search_battles(name).each_with_object(Hash.new(0)) do |word, word_count|
       File.open("Rapbattle/#{word}", 'r').each_line do |line|
         next if line["/Раунд \d/i"]
-        line.split(' ').select { |each_word| each_word.length >= 4 }
+        line.split(' ').select { |each_word| wort_test(each_word) }
             .select do |term|
           word_count[term] += 1
         end
@@ -35,5 +35,12 @@ class PopularWords
   def search_battles(name)
     Dir.entries('Rapbattle/')
        .select { |files| /\b#{name} (против|vs)\b/i =~ files }
+  end
+
+  def wort_test(word)
+    answer = true
+    string = File.open('Предлоги.txt', 'r', &:read)
+    answer = false if string.include?(word)
+    answer
   end
 end

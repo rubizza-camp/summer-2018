@@ -1,7 +1,7 @@
-require_relative 'BattleAnalizer'
+require_relative 'BattleAnalyzer'
 require 'optparse'
 
-analizer = BattleAnalizer.new
+analizer = BattleAnalyzer.new
 OptionParser.new do |parser|
   parser.on('--top-bad-words=') do |top_bad_words|
     analizer.process_participants(top_bad_words)

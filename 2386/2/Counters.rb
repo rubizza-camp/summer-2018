@@ -4,18 +4,16 @@ require 'russian_obscenity'
 class Counters
   PATH_FOLDER = 'Rapbattle'.freeze
   def self.count_normal(battles)
-    words = 0
-    battles.each do |battle|
-      words += Dir.chdir(PATH_FOLDER) { File.read(battle) }
-                  .gsub(/[.!-?,:]/, ' ').strip.split.count
+    words = battles.inject(0) do |sum, battle|
+      sum + Dir.chdir(PATH_FOLDER) { File.read(battle) }
+               .gsub(/[.!-?,:]/, ' ').strip.split.count
     end
-    words / (battles.size * 3)
+    words / (battles.size * 3) # in every battle 3 rounds
   end
 
   def self.count_bad(battles)
-    bad_words = 0
-    battles.each do |battle|
-      bad_words += count_bad_words(Dir.chdir(PATH_FOLDER) { File.read(battle) })
+    bad_words = battles.inject(0) do |sum, battle|
+      sum + count_bad_words(Dir.chdir(PATH_FOLDER) { File.read(battle) })
     end
     bad_words
   end
