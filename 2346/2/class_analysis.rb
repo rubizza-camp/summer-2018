@@ -3,12 +3,12 @@ require_relative 'class_rapper'
 
 # class to analyze texts
 class Analysis
-  def first_level(lim)
+  def self.first_level(lim)
     rappers_array = {}.create_rapper_hash.create_result_array
     lim <= rappers_array.size ? lim.times { |ind| rappers_array[ind].print } : rappers_array.each(&:print)
   end
 
-  def second_level(name, qty)
+  def self.second_level(name, qty)
     {}.create_rapper_hash.result_for_second(name, qty)
   end
 end
