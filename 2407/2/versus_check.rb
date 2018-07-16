@@ -3,8 +3,7 @@ require 'terminal-table'
 require 'russian_obscenity'
 require 'optparse'
 
-# Declaring constant
-BATTLES_FOLDER = 'rap-battles'.freeze
+INPUT_FOLDER = 'rap-battles'.freeze
 
 class Battler
   attr_reader :name, :data
@@ -18,7 +17,7 @@ class BadWordsCounter
   def self.count(battles)
     total_bad_words = 0
     battles.each do |battle|
-      total_bad_words += count_bad_words(Dir.chdir(BATTLES_FOLDER) { File.read(battle) })
+      total_bad_words += count_bad_words(Dir.chdir(INPUT_FOLDER) { File.read(battle) })
     end
     bad_words
   end
@@ -37,7 +36,7 @@ class TotalWordsInRoundCounter
   def self.count(battles)
     words = 0
     battles.each do |battle|
-      words += Dir.chdir(BATTLES_FOLDER) { File.read(battle) }.gsub(/[.!-?,:]/, ' ').strip.split.count
+      words += Dir.chdir(INPUT_FOLDER) { File.read(battle) }.gsub(/[.!-?,:]/, ' ').strip.split.count
     end
     words / (battles.size * 3)
   end
@@ -56,7 +55,7 @@ class BattleCheck
   # :reek:UtilityFunction
   def find_all_battlers
     battlers = []
-    Dir.chdir(BATTLES_FOLDER) do
+    Dir.chdir(INPUT_FOLDER) do
       Dir.glob('*против*').each do |title|
         battlers << title.split('против').first.strip
       end
@@ -82,7 +81,7 @@ class BattleCheck
   # :reek:UtilityFunction
   def take_battles_titles(battler)
     battles_titles = []
-    Dir.chdir(BATTLES_FOLDER) do
+    Dir.chdir(INPUT_FOLDER) do
       Dir.glob("*#{battler}*").each do |title|
         battles_titles << title if title.split('против').first.include? battler
       end
@@ -108,7 +107,6 @@ class BattleCheck
     row
   end
 end
-
 
 battlers_table = BattleCheck.new
 
