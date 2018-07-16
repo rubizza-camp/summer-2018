@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
-Dir["./DAO/*.rb"].each {|file| require file }
+Dir['Models/*.rb'].each {|file| load(file) }
+Dir['DAO/*.rb'].each {|file| require_relative file }
 
 BAD_WORDS_KEY = '--top-bad-words'
 ARTIST_NAME_KEY = '--name'
@@ -9,13 +10,9 @@ HELP_KEY = '--help'
 
 DEFAULT_RANGE = 30
 
-def bad_words(range)
+def bad_words()
   puts ('Under construction')
-  if (1..100).cover?(range)
-    puts('Incorrect range taken.')
-    exit(1)
-  end
-  puts $base_of_artists.sort_by_bad_word[0..range]
+  #TODO: First task with bad words
 end
 
 def top_words(*args)
@@ -23,7 +20,7 @@ def top_words(*args)
   artist = args[1]
   range = args[0]
   artist_exist = false
-  DAO::Artist_DAO.get_artists().each {|artist_base|
+  DAO.Artist_DAO.get_artists().each {|artist_base|
     if artist_base.name == artist
       artist_exist = true;
       break;
@@ -46,23 +43,17 @@ def plagiat()
 end
 
 def get_help
-  hdao = DAO.HelperDAO.new
-  puts hdao.ReadFromFile('../template/help.txt')
-
-  #TODO: Load it from template
+  puts HelperDAO.new.read_from_file('../template/help.txt')
 end
 
-$base_of_artists
 def main
   valid_keys = [BAD_WORDS_KEY, ARTIST_NAME_KEY, RANGE_KEY, PLAG_KEY, HELP_KEY]
   include_in_valid_keys = false
   ARGV.each { |arg| include_in_valid_keys = valid_keys.any?{ |valid_key| arg.include?(valid_key) }}
   puts('No valid keys taken. Using key "--help" to get help.') if !include_in_valid_keys || !(1..2).include?(ARGV.size)
-
+  $base_of_battles = DAO::BattleDAO.new.get_battles_list('../data/battle_text/*')
   get_help() if ARGV.size == 1 && ARGV.include?(HELP_KEY)
-  $base_of_artists = []
-  DAO::ArtistDAO.new.get_all_artists.each { |artists| $base_of_artists << artists }
-  bad_words(String.new(ARGV[0]).slice(BAD_WORDS_KEY.length + 1, ARGV[0].length)) if ARGV.size == 1 && ARGV[0].include?(BAD_WORDS_KEY)
+  bad_words() if ARGV.size == 1 && ARGV.include?(BAD_WORDS_KEY)
   top_words(String.new(ARGV[0]).slice(ARTIST_NAME_KEY.length + 1, ARGV[0].length)) if ARGV.size == 1 && ARGV[0].include?(ARTIST_NAME_KEY)
   top_words(String.new(ARGV[0]).slice(RANGE_KEY.length + 1, ARGV[0].length), String.new(ARGV[1]).slice(ARTIST_NAME_KEY.length + 1, ARGV[1].length)) if ARGV.size == 2 && ARGV[1].include?(ARTIST_NAME_KEY) && ARGV[0].include?(RANGE_KEY)
   plagiat() if ARGV.size == 1 && ARGV.include?(PLAG_KEY)
