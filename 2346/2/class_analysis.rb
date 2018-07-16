@@ -1,93 +1,86 @@
 require 'pathname'
 require_relative 'class_rapper'
 
+# class to analyze texts
 class Analysis
-  # :reek:FeatureEnvy
-  # :reek:TooManyStatements
   def first_level(lim)
-    rappers_array = rappers_hash_with_info.values
-    rappers_array.each(&:count_words)
-    rappers_array.sort! { |one, second| second.average_bad <=> one.average_bad }
-    if lim <= rappers_array.size
-      lim.times { |ind| rappers_array[ind].print }
-    else
-      rappers_array.each(&:print)
-      puts "Рэперов меньше, чем #{lim}"
-    end
+    rappers_array = {}.create_rapper_hash.create_result_array
+    lim <= rappers_array.size ? lim.times { |ind| rappers_array[ind].print } : rappers_array.each(&:print)
   end
 
-  # :reek:TooManyStatements
   def second_level(name, qty)
-    rappers_hash = rappers_hash_with_info
-    temp_key = rappers_hash.find_key_for_rapper(name)
-    if temp_key
-      count_top_words(rappers_hash[temp_key], qty)
-    else
-      puts "Рэпер #{name} мне не известен. Зато мне известны: "
-      rappers_hash.keys.each { |key| puts key }
-      false
-    end
+    {}.create_rapper_hash.result_for_second(name, qty)
   end
+end
 
-  private
-
-  # :reek:TooManyStatements
-  def rappers_hash_with_info
-    rappers_hash = {}
+# special Hash
+class Hash
+  def find_files
     pn = Pathname('./rap-battles/')
     all_paths = pn.children
+    all_paths
+  end
+
+  def create_rapper_hash
+    rappers_hash = {}
+    all_paths = find_files
     all_paths.each do |path|
-      rapper_battle = path.to_s
-      rapper_name = rapper_battle.gsub(%r{(\./rap-battles/) ?}, '')
-      rapper_name = rapper_name.gsub(/( против | vs | VS ).*/, '')
-      rappers_hash = rappers_hash.update_hash(rapper_name, rapper_battle)
+      rappers_hash = rappers_hash.update_hash(path.to_s)
     end
     rappers_hash
   end
 
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
-  # :reek:NestedIterators
-  def count_top_words(rapper, qty)
-    dictionary = {}
-    exclude = array_with_exceptions
-    rapper.battles.each do |battle_name|
-      IO.foreach(battle_name.to_s) { |line| dictionary = dictionary.find_right_top_words(line, exclude) }
-    end
-    dictionary.print_dictionary(qty)
-  end
-
-  def array_with_exceptions
-    arr = []
-    IO.foreach('./exceptions.txt') { |line| arr << line.delete("\n") }
-    arr
-  end
-end
-
-class Hash
-  # :reek:FeatureEnvy
-  def find_key_for_rapper(rapper_name)
+  def rapper_key?(rapper_name)
+    rapper_name = rapper_name.downcase
     keys.find do |key|
-      str_x = rapper_name.downcase
-      str_y = key.downcase
-      str_x =~ /^#{str_y}.*/ || str_y =~ /^#{str_x}.*/ || str_x.chop == str_y.chop
+      key = key.downcase
+      compare_key_and_name(key, rapper_name)
     end
   end
 
-  # :reek:TooManyStatements
-  def update_hash(rapper_name, rapper_battle)
-    temp_key = find_key_for_rapper(rapper_name)
+  def update_hash(rapper_battle)
+    rapper_name = rapper_battle.gsub(%r{(\./rap-battles/) ?}, '').gsub(/( против | vs | VS ).*/, '')
+    temp_key = rapper_key?(rapper_name)
     if temp_key
-      existing_rapper = self[temp_key]
-      existing_rapper.push_one_battle(rapper_battle)
-      existing_rapper.choose_better_name(rapper_name)
+      add_battle_to_existing_rapper(temp_key, rapper_name, rapper_battle)
     else
-      self[rapper_name] = Rapper.new(rapper_name, rapper_battle)
+      self[rapper_name] = BadRapper.new(rapper_name, rapper_battle)
     end
     self
   end
 
-  def find_right_top_words(line, exclude)
+  def add_battle_to_existing_rapper(key, name, battle)
+    rapper = self[key]
+    rapper.push_one_battle(battle)
+    rapper.choose_better_name(name)
+  end
+
+  def create_result_array
+    values.each(&:count_words).sort! { |one, second| second.average_bad <=> one.average_bad }
+  end
+
+  def result_for_second(name, qty)
+    temp_key = rapper_key?(name)
+    if temp_key
+      {}.count_top_words(self[temp_key], qty)
+    else
+      puts "Рэпер #{name} мне не известен. Зато мне известны: "
+      keys.each { |key| puts key }
+    end
+  end
+
+  def count_top_words(rapper, qty)
+    exclude = array_with_exceptions
+    rapper.battles.each { |battle_name| count_top_words_in_line(battle_name, exclude) }
+    print_dictionary(qty)
+  end
+
+  def count_top_words_in_line(battle_name, exclude)
+    dictionary = self
+    IO.foreach(battle_name.to_s) { |line| dictionary = dictionary.right_top_words(line, exclude) }
+  end
+
+  def right_top_words(line, exclude)
     words = line.downcase.scan(/[ёа-яa-z\*]+/)
     words.each { |word| key?(word) && !exclude.include?(word) ? self[word] += 1 : self[word] = 1 }
     self
@@ -95,5 +88,17 @@ class Hash
 
   def print_dictionary(qty)
     sort { |wordx, wordy| wordy[1] <=> wordx[1] }.first(qty).each { |elem| puts "\"#{elem[0]}\" - #{elem[1]} раз" }
+  end
+
+  private
+
+  def compare_key_and_name(key, name)
+    name =~ /^#{key}.*/ || key =~ /^#{name}.*/ || name.chop == key.chop
+  end
+
+  def array_with_exceptions
+    arr = []
+    IO.foreach('./exceptions.txt') { |line| arr << line.delete("\n") }
+    arr
   end
 end
