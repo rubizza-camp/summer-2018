@@ -27,16 +27,22 @@ class Participant
     end&.first || name
   end
 
-  # :reek:TooManyStatements
   def filthy(filename)
     @battle_count += 1
     text = File.read(filename)
     words = text.scan(/[а-яА-ЯёЁ*]+/)
     words.delete('***')
+    words_and_round_counts(words, text)
+  end
+
+  def words_and_round_counts(words, text)
     @words_count += words.length
     rounds_count = text.scan(/Раунд \d/).length
     @rounds_count += rounds_count.zero? ? 1 : rounds_count
+    bad_words_find(words)
+  end
 
+  def bad_words_find(words)
     @bad_words += words.count do |word|
       word.include?('*') || RussianObscenity.obscene?(word)
     end
