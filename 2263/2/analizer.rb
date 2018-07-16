@@ -98,10 +98,15 @@ class Analyzer
     file.each do |line|
       words = line.split(/[^[[:word:]]\*]+/)
       next if round_check(words)
-      words.each do |word|
-        word = to_lower(word).to_sym
-        all_words[word] = all_words.key?(word) ? all_words[word] + 1 : 1
-      end
+      count_words_array(words, all_words)
+    end
+    all_words
+  end
+
+  def count_words_array(words, all_words)
+    words.each do |word|
+      word = to_lower(word).to_sym
+      all_words[word] = all_words.key?(word) ? all_words[word] + 1 : 1
     end
     all_words
   end
