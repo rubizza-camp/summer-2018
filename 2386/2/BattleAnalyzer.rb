@@ -50,9 +50,12 @@ class BattleAnalyzer
   end
 
   def get_participant_as_row(participant)
-    row = [participant.name, "#{participant.battles} батлов"]
-    row += ["#{participant.bad_words} нецензурных слов"]
-    row += ["#{participant.bad_in_round.round(2)} слов на батл"]
-    row + ["#{participant.words_in_round} слов в раунде"]
+    [
+      participant.name,
+      "#{participant.battles} батлов",
+      "#{participant.bad_words} нецензурных слов",
+      "#{participant.bad_in_round.round(2)} слов на батл",
+      "#{participant.words_in_round} слов в раунде"
+    ]
   end
 end

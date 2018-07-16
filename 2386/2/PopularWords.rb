@@ -28,8 +28,7 @@ class PopularWords
   end
 
   def sort_hash(raper_name)
-    prepare_hash(raper_name)
-      .sort_by { |_word, count| count }
+    prepare_hash(raper_name).sort_by { |_, count| count }
   end
 
   def search_battles(name)
