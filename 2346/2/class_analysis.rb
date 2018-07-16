@@ -4,17 +4,17 @@ require_relative 'class_rapper'
 # class to analyze texts
 class Analysis
   def first_level(lim)
-    rappers_array = RappersHash.new.create_rapper_hash.create_result_array
+    rappers_array = {}.create_rapper_hash.create_result_array
     lim <= rappers_array.size ? lim.times { |ind| rappers_array[ind].print } : rappers_array.each(&:print)
   end
 
   def second_level(name, qty)
-    RappersHash.new.create_rapper_hash.result_for_second(name, qty)
+    {}.create_rapper_hash.result_for_second(name, qty)
   end
 end
 
 # special Hash
-class RappersHash < Hash
+class Hash
   def find_files
     pn = Pathname('./rap-battles/')
     all_paths = pn.children
@@ -22,7 +22,7 @@ class RappersHash < Hash
   end
 
   def create_rapper_hash
-    rappers_hash = RappersHash.new
+    rappers_hash = {}
     all_paths = find_files
     all_paths.each do |path|
       rappers_hash = rappers_hash.update_hash(path.to_s)
@@ -30,7 +30,7 @@ class RappersHash < Hash
     rappers_hash
   end
 
-  def key?(rapper_name)
+  def rapper_key?(rapper_name)
     rapper_name = rapper_name.downcase
     keys.find do |key|
       key = key.downcase
@@ -44,7 +44,7 @@ class RappersHash < Hash
 
   def update_hash(rapper_battle)
     rapper_name = rapper_battle.gsub(%r{(\./rap-battles/) ?}, '').gsub(/( против | vs | VS ).*/, '')
-    temp_key = key?(rapper_name)
+    temp_key = rapper_key?(rapper_name)
     if temp_key
       add_battle_to_existing_rapper(temp_key, rapper_name, rapper_battle)
     else
@@ -64,9 +64,9 @@ class RappersHash < Hash
   end
 
   def result_for_second(name, qty)
-    temp_key = key?(name)
+    temp_key = rapper_key?(name)
     if temp_key
-      Dictionary.new.count_top_words(self[temp_key], qty)
+      {}.count_top_words(self[temp_key], qty)
     else
       puts "Рэпер #{name} мне не известен. Зато мне известны: "
       keys.each { |key| puts key }
@@ -75,7 +75,7 @@ class RappersHash < Hash
 end
 
 # special Hash
-class Dictionary < Hash
+class Hash
   def count_top_words(rapper, qty)
     exclude = array_with_exceptions
     rapper.battles.each { |battle_name| count_top_words_in_line(battle_name, exclude) }
