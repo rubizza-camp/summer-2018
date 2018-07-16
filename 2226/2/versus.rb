@@ -145,17 +145,22 @@ end
 options = { 'top-bad-words' => nil, 'top-words' => 30, 'name' => nil }
 
 parser = OptionParser.new do |opts|
-  opts.banner = 'Info for all options'
-  opts.on('-bad-words', '--top-bad-words=number', 'Yeap, its top-bad-words') do |number|
+  opts.banner = 'Use help for that programm'
+  opts.on('-bad-words', '--top-bad-words=number', 'Enter number of rapers you want to see') do |number|
     options['top-bad-words'] = number
   end
 
-  opts.on('-top-words', '--top-words=number', 'Yeap, its top-words') do |number|
+  opts.on('-top-words', '--top-words=number', 'Enter number of top words you want to see') do |number|
     options['top-words'] = number
   end
 
-  opts.on('name', '--name=name', 'Yeap, its name') do |name|
+  opts.on('-n', '--name=name', 'Enter name of the raper you want to see') do |name|
     options['name'] = name
+  end
+
+  opts.on('-h', '--help', 'Use this option for more info') do
+    puts opts
+    exit
   end
 end
 
