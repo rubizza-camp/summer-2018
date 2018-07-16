@@ -15,6 +15,7 @@ def word_counter(file_path)
 
   get_bad.each_line do |line|
     words = line.split
+
     words.each do |word|
       bad_words_array << word
     end
@@ -28,10 +29,12 @@ def word_counter(file_path)
       next
     end
     words = line.split
+
     words.each do |word|
       word = word.gsub(/,.!?'":/, '')
       words_count += 1
       words_per_round += 1
+
       bad_words_array.each do |bw|
         bad_words_count += 1 if word.downcase.include? bw.downcase
       end

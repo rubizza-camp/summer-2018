@@ -1,5 +1,4 @@
 # :reek:DuplicateMethodCall
-# :reek:NestedIterators
 # :reek:UtilityFunction
 # :reek:TooManyStatements
 # rubocop:disable Metrics/AbcSize

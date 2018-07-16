@@ -1,3 +1,4 @@
+# This method returns top Rapers uses bad words
 # :reek:DuplicateMethodCall
 # :reek:NestedIterators
 # :reek:FeatureEnvy
@@ -18,6 +19,7 @@ def get_top_bad(top, destination)
   end
 
   delimiter = 1
+  puts "\n"
   rapers.sort_by { |_k, val| [-val.bad_words] }.each do |_key, value|
     break if delimiter > top
     average = value.bad_words.fdiv(value.battles).round(2)
@@ -35,6 +37,7 @@ def get_top_bad(top, destination)
     puts result
     delimiter += 1
   end
+  puts "\n"
 end
 # rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/AbcSize

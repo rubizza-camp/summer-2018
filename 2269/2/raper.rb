@@ -1,4 +1,4 @@
-# Class that represents each Rap Singer
+# Class that represents each Rap Singer.
 # :reek:Attribute
 # :reek:TooManyInstanceVariables
 class Raper

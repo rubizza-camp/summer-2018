@@ -28,9 +28,11 @@ def top_word_count(destination, raper_name, count)
 
     text_file.each_line do |line|
       words = line.chomp.split(/[,\s\.?!\"«»:—;[&quot]-]+/)
+
       words.each do |word|
         next if word.empty? || word.length < 3
         is_word = true
+
         no_word_array.each do |value|
           is_word = false if word.downcase.eql? value
         end

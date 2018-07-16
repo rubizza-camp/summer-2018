@@ -10,7 +10,7 @@ require_relative 'top_word_counter'
 destination = Dir.pwd + '/text'
 if !ARGF.argv[0].nil?
   param = ARGF.argv[0].split('=')
-  unless param[0].eql? '--name'
+  unless '--name'.eql?(param[0]) || '--help'.eql?(param[0])
     count = param[1].to_i
     if count < 1
       STDERR.puts("\nAborted! Wrong parameter \"#{param[0]}\" value. It can't be \"#{param[1]}\".\n")
@@ -35,6 +35,14 @@ if !ARGF.argv[0].nil?
     end
   elsif param[0].eql? '--name'
     top_word_count destination, param[1], 30
+  elsif param[0].eql? '--help'
+    puts "\nCommand --name=<name> show top 30 the most often found words of Raper <name>"
+    puts 'Also using command --top-words=<count> with --name=<name> shows' \
+         ' top <count> the most often found words of Raper <name>'
+    puts 'Usage: ruby versus.rb --name=Galat or ruby versus.rb --top-words=10 --name=Galat'
+    puts "\nCommand --top-bad-words=<count> will show top <count> of most bad words Rapers"
+    puts 'Usage: ruby versus.rb --top-bad-words=5'
+    puts
   else
     STDERR.puts("\nAborted! Wrong parameter \"#{param[0]}\".\n")
     exit(false)
