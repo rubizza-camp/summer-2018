@@ -21,7 +21,7 @@ class TopWord
     @top_words = {}
 	end
 
-	# This method smells of :reek:NestedIterators
+  # This method smells of :reek:NestedIterators
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:UncommunicativeVariableName
   def check_all_words

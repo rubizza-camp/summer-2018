@@ -13,8 +13,6 @@ require 'terminal-table'
 # rubocop:disable Layout/ElseAlignment
 # rubocop:disable Layout/Tab
 # rubocop:disable Layout/TrailingWhitespace
-top_words = 30
-name_b = 'MC Неизвестный'
 
 OptionParser.new do |opts|
   opts.on('--top-bad-words=') do |bad|
