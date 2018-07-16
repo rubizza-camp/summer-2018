@@ -8,7 +8,7 @@ class TopBadWords
     foul_language(number)
   end
 
-  def foul_language(number)
+  def foul_language(number)ч
     find_members_name
     sort_result(@members)
     number.to_i.times do |num|
@@ -113,10 +113,11 @@ class TopBadWords
     number = words_array.size
     return member[:words_per_round] = number / member[:rounds] if member[:words_per_round].zero?
     return member[:words_per_round] = (number / member[:rounds] + member[:words_per_round]) / 2.0 unless member[:words_per_round].zero?
+  end
 end
 
 class TopWords
-  def initialize(number, name)
+  def initialize(name, number = 30)
     favourite_words(number, name)
   end
 
@@ -200,6 +201,7 @@ def file_analysis
   Usage:
     #{__FILE__} --top-bad-words=<top_bad_words_number>
     #{__FILE__} --top-words=<top_words_number> --name=<name>
+    #{__FILE__} --name=<name>
 
   Options:
     --top-bad-words=<top_bad_words_number>
@@ -222,6 +224,7 @@ end
 def call_method(args)
   TopBadWords.new(args['--top-bad-words'].to_s) if args['--top-bad-words']
   TopWords.new(args['--top-words'].to_s, args['--name'].to_s) if args['--top-words']
+  TopWords.new(args['--name'].to_s) if args['--name'] && args['--top-words'].nil?
 end
 
 file_analysis
