@@ -77,6 +77,11 @@ end
 class WordsAnalyzer < BattlesAnalyzer
   attr_reader :paths
 
+  def initialize(path = __dir__ + '/texts')
+    @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
+    @list = {}
+  end
+
   def words(name = nil)
     @list = {}
     @paths.each do |path|
