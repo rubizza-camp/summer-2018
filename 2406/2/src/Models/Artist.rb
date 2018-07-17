@@ -9,9 +9,7 @@ class Artist
   def bad_words_capacity
     counter = 0
     @battle_list.each do |battle|
-      battle.each do |word|
-        counter += 1 if word.include?('*') || RussianObscenity.obscene?(word)
-      end
+      counter += bad_words_in_battle(battle)
     end
     counter
   end
@@ -33,5 +31,13 @@ class Artist
   def initialize(name)
     @name = name
     @battle_list = []
+  end
+
+  private
+
+  def bad_words_in_battle(battle)
+    counter = 0
+    battle.each { |word| counter += 1 if word.include?('*') || RussianObscenity.obscene?(word) }
+    counter
   end
 end
