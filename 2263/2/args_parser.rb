@@ -1,9 +1,8 @@
 require 'optparse'
 require 'active_support/all'
 
-# Parse command line arguments
-class ArgsParser
-  attr_reader :help_message, :options
+class Help
+  attr_reader :help_message
 
   def initialize
     @help_message = <<-HELP
@@ -26,7 +25,10 @@ class ArgsParser
     print @help_message
     exit
   end
+end
 
+# Parse command line arguments
+class ArgsParser
   # Gem syntax doesn't allow to reduse iterators nesting
   # :reek:NestedIterators
   def parse_options

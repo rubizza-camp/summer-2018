@@ -5,20 +5,19 @@ class TopBadWordsOutput
   attr_reader :battles_analyzer, :words_analyzer, :number, :name
   attr_reader :list
 
-  def initialize(battles_analyzer, words_analyzer, number, name = nil)
+  def initialize(battles_analyzer, words_analyzer, number)
     @battles_analyzer = battles_analyzer
     @words_analyzer = words_analyzer
     @number = number
-    @name = name
     @list = {}
   end
 
   def calculate
     @list = {}
-    words = @words_analyzer.words(@name)
-    bad_words = @words_analyzer.bad_words(@name)
-    battles = @battles_analyzer.battles(@name)
-    rounds = @battles_analyzer.rounds(@name)
+    words = @words_analyzer.words
+    bad_words = @words_analyzer.bad_words
+    battles = @battles_analyzer.battles
+    rounds = @battles_analyzer.rounds
     organize(words, bad_words, battles, rounds)
   end
 
@@ -65,16 +64,15 @@ class TopWordsOutput < TopBadWordsOutput
   attr_reader :battles_analyzer, :words_analyzer, :number, :name
   attr_reader :list
 
-  def initialize(each_word_analyzer, number, name = nil)
+  def initialize(each_word_analyzer, number)
     @each_word_analyzer = each_word_analyzer
     @number = number
-    @name = name
     @list = {}
   end
 
   def calculate
     @list = {}
-    @list = @each_word_analyzer.each_word(name)
+    @list = @each_word_analyzer.each_word
     organize
   end
 
@@ -83,7 +81,7 @@ class TopWordsOutput < TopBadWordsOutput
       print_border
       printf("| %-29s |\n", name.to_s + ':')
       print_border
-      words_hash.each { |word, num| printf("| %-15s - %3d times   |\n", word, num) }
+      print_core(words_hash)
     end
     print_border
   end
@@ -112,21 +110,27 @@ class TopWordsOutput < TopBadWordsOutput
     words_hash
   end
 
+  def print_core(words_hash)
+    words_hash.each { |word, num| printf("| %-15s - %3d times   |\n", word, num) }
+  end
+
   def print_border
     puts '+-------------------------------+'
   end
 end
 
-def define_top_bad_words(option)
-  top_bad_words = 5 if option == :default
-  top_bad_words = option.to_i if option.class == String
-  top_bad_words
-end
+class DefaultOptions
+  def top_bad_words(option)
+    top_bad_words = 5 if option == :default
+    top_bad_words = option.to_i if option.class == String
+    top_bad_words
+  end
 
-def define_top_words(option)
-  top_words = 30 if option == :default
-  top_words = option.to_i if option.class == String
-  top_words
+  def top_words(option)
+    top_words = 30 if option == :default
+    top_words = option.to_i if option.class == String
+    top_words
+  end
 end
 
 def print_unknown_name(name)
@@ -143,9 +147,9 @@ end
 begin
   args_parser = ArgsParser.new
   options = args_parser.parse_options
-  args_parser.show_help if options[:help]
-  top_bad_words = define_top_bad_words(options[:top_bad_words])
-  top_words = define_top_words(options[:top_words])
+  Help.new.show_help if options[:help]
+  top_bad_words = DefaultOptions.new.top_bad_words(options[:top_bad_words])
+  top_words = DefaultOptions.new.top_words(options[:top_words])
   name = options[:name]
   if name
     battles = BattlesAnalyzer.new.battles
@@ -153,15 +157,15 @@ begin
     print_unknown_action(name) if !top_bad_words && !top_words
   end
   if top_bad_words
-    battles_analyzer = BattlesAnalyzer.new
-    words_analyzer = WordsAnalyzer.new
-    output = TopBadWordsOutput.new(battles_analyzer, words_analyzer, top_bad_words, name)
+    battles_analyzer = BattlesAnalyzer.new(name)
+    words_analyzer = WordsAnalyzer.new(name)
+    output = TopBadWordsOutput.new(battles_analyzer, words_analyzer, top_bad_words)
     output.calculate
     output.print_result
   end
   if top_words
-    each_word_analyzer = EachWordAnalyzer.new
-    output = TopWordsOutput.new(each_word_analyzer, top_words, name)
+    each_word_analyzer = EachWordAnalyzer.new(name)
+    output = TopWordsOutput.new(each_word_analyzer, top_words)
     output.calculate
     output.print_result
   end

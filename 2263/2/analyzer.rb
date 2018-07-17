@@ -3,11 +3,12 @@ require 'active_support/all'
 
 # Counts battles and rounds, can take path to directory with text files
 class BattlesAnalyzer
-  attr_reader :paths
+  attr_reader :paths, :name
   attr_reader :list
 
-  def initialize(path = __dir__ + '/texts')
-    @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
+  def initialize(name = nil)
+    @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
+    @name = name
     @list = {} # Output hash
   end
 
@@ -17,20 +18,20 @@ class BattlesAnalyzer
   end
 
   # :reek:TooManyStatements
-  def rounds(name = nil)
+  def rounds
     @list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_rounds(path) } if !name || name_in_file == name
+      explore_file(name_in_file) { count_rounds(path) } if !@name || name_in_file == @name
     end
     @list
   end
 
-  def battles(name = nil)
+  def battles
     @list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      add_entry_to_list(name_in_file, 1) if !name || name_in_file == name
+      add_entry_to_list(name_in_file, 1) if !@name || name_in_file == @name
     end
     @list
   end
@@ -80,29 +81,30 @@ end
 
 # Counts words and bad words, can take path to directory with text files
 class WordsAnalyzer < BattlesAnalyzer
-  attr_reader :paths
+  attr_reader :paths, :name
   attr_reader :list
 
-  def initialize(path = __dir__ + '/texts')
-    @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
+  def initialize(name = nil)
+    @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
+    @name = name
     @list = {} # Output hash
   end
 
-  def words(name = nil)
+  def words
     @list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_words(path) } if !name || name_in_file == name
+      explore_file(name_in_file) { count_words(path) } if !@name || name_in_file == @name
     end
     @list
   end
 
   # :reek:TooManyStatements
-  def bad_words(name = nil)
+  def bad_words
     @list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_bad_words(path) } if !name || name_in_file == name
+      explore_file(name_in_file) { count_bad_words(path) } if !@name || name_in_file == @name
     end
     @list
   end
@@ -139,23 +141,24 @@ class WordsAnalyzer < BattlesAnalyzer
   end
 end
 
-# Makes hash which contains each using word and number of it's reiteration, can take path to directory with text files
+# Makes hash which contains each using word and number of it's reiteration, can take name of one rapper
 class EachWordAnalyzer < BattlesAnalyzer
-  attr_reader :paths
+  attr_reader :paths, :name
   attr_reader :list
 
-  def initialize(path = __dir__ + '/texts')
-    @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
+  def initialize(name = nil)
+    @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
+    @name = name
     @list = {}
     @words_hash = {}
   end
 
   # :reek:TooManyStatements
-  def each_word(name = nil)
+  def each_word
     @list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_each_word(path) } if !name || name_in_file == name
+      explore_file(name_in_file) { count_each_word(path) } if !@name || name_in_file == @name
     end
     @list
   end
