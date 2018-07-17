@@ -1,8 +1,10 @@
 require 'optparse'
 require 'active_support/all'
 
+# Parse command line arguments
 class ArgsParser
   attr_reader :help_message, :options
+
   def initialize
     @help_message = <<-HELP
       Usage: versus.rb [options]
@@ -28,6 +30,8 @@ class ArgsParser
 
   private
 
+  # Синтаксис гема заставляет использовать вложенные конструкции
+  # :reek:NestedIterators
   def parse_options
     OptionParser.new do |option|
       option.on('-h', '--help') { |opt| @options[:help] = opt }
@@ -38,6 +42,7 @@ class ArgsParser
     default_mapper
   end
 
+  # If argument takes without optional value it marks like :default, not nil
   def default_mapper
     @options.each { |key, value| @options[key] = :default unless value }
   end

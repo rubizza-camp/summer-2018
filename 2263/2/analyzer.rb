@@ -1,13 +1,14 @@
 require 'russian_obscenity'
 require 'active_support/all'
 
-# sdfsdf
+# Counts battles and rounds, can take path to directory with text files
 class BattlesAnalyzer
   attr_reader :paths
+  attr_reader :list
 
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
-    @list = {}
+    @list = {} # Output hash
   end
 
   def path=(new_path)
@@ -15,6 +16,7 @@ class BattlesAnalyzer
     @paths = Dir[new_path.to_s + '/*']
   end
 
+  # :reek:TooManyStatements
   def rounds(name = nil)
     @list = {}
     @paths.each do |path|
@@ -42,7 +44,7 @@ class BattlesAnalyzer
   end
 
   def explore_file(name_in_file)
-    number = yield
+    number = yield # Takes method which counts nessesary value
     add_entry_to_list(name_in_file, number)
   end
 
@@ -51,6 +53,7 @@ class BattlesAnalyzer
     @list[name] = @list.key?(name) ? @list[name] + number : number
   end
 
+  # :reek:TooManyStatements
   def count_rounds(path)
     rounds_counter = 0
     file = File.open(path)
@@ -66,6 +69,7 @@ class BattlesAnalyzer
     words
   end
 
+  # Check if the line is round description, like "Раунд 3 ..."
   def round_description?(words)
     return true if !words[1].to_i.zero? && words[0] =~ /(Р|р)аунд/
     return true if !words[0].to_i.zero? && words[1] =~ /(Р|р)аунд/
@@ -73,13 +77,14 @@ class BattlesAnalyzer
   end
 end
 
-# Class f123123
+# Counts words and bad words, can take path to directory with text files
 class WordsAnalyzer < BattlesAnalyzer
   attr_reader :paths
+  attr_reader :list
 
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
-    @list = {}
+    @list = {} # Output hash
   end
 
   def words(name = nil)
@@ -130,9 +135,10 @@ class WordsAnalyzer < BattlesAnalyzer
   end
 end
 
-# Class for making hash of each word if file
+# Makes hash which contains each using word and number of it's reiteration, can take path to directory with text files
 class EachWordAnalyzer < BattlesAnalyzer
   attr_reader :paths
+  attr_reader :list
 
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
@@ -140,6 +146,7 @@ class EachWordAnalyzer < BattlesAnalyzer
     @words_hash = {}
   end
 
+  # :reek:TooManyStatements
   def each_word(name = nil)
     @list = {}
     @paths.each do |path|
@@ -156,6 +163,7 @@ class EachWordAnalyzer < BattlesAnalyzer
     @list[name] = @list.key?(name) ? merge_with_sum(@list[name], words_hash) : words_hash
   end
 
+  # Works like Hash.merge, but summarize values of repeated keys
   def merge_with_sum(first_hash, second_hash)
     second_hash.each_key do |key|
       first_hash.key?(key) ? first_hash[key] += second_hash[key] : first_hash.merge(key => second_hash[key])
@@ -170,6 +178,7 @@ class EachWordAnalyzer < BattlesAnalyzer
     end
   end
 
+  # :reek:TooManyStatements
   def count_each_word(path)
     @words_hash = {}
     file = File.open(path)
@@ -186,7 +195,7 @@ class EachWordAnalyzer < BattlesAnalyzer
   end
 end
 
-# Exception that is raised if text file doesn't match pattern
+# Exception that is raised if text file doesn't match name pattern
 class AnalyzerTextNameError < StandardError
   def initialize(path)
     @file = path
@@ -197,7 +206,7 @@ class AnalyzerTextNameError < StandardError
   end
 end
 
-# Exception that is raised if new analizer path can't be translated to string
+# Exception that is raised if new path can't be converted to string
 class AnalyzerArgumentError < StandardError
   def initialize(path)
     @path = path
