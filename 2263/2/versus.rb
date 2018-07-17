@@ -36,9 +36,9 @@ class TopBadWordsOutput
   def organize(words, bad_words, battles, rounds)
     bad_words.each do |name, bad_words_number|
       @list.merge!(name => { battles: battles[name],
-                            bad_words: bad_words_number,
-                            bad_words_per_battle: bad_words_number.fdiv(battles[name]),
-                            words_per_round: words[name].fdiv(rounds[name]) })
+                             bad_words: bad_words_number,
+                             bad_words_per_battle: bad_words_number.fdiv(battles[name]),
+                             words_per_round: words[name].fdiv(rounds[name]) })
     end
     sort
     @list = delete_excess(@list)
@@ -87,7 +87,7 @@ class TopWordsOutput < TopBadWordsOutput
     end
     print_border
   end
-  
+
   private
 
   def organize
@@ -117,13 +117,13 @@ class TopWordsOutput < TopBadWordsOutput
   end
 end
 
-def set_top_bad_words(option)
+def define_top_bad_words(option)
   top_bad_words = 5 if option == :default
   top_bad_words = option.to_i if option.class == String
   top_bad_words
 end
 
-def set_top_words(option)
+def define_top_words(option)
   top_words = 30 if option == :default
   top_words = option.to_i if option.class == String
   top_words
@@ -144,8 +144,8 @@ begin
   args_parser = ArgsParser.new
   options = args_parser.parse_options
   args_parser.show_help if options[:help]
-  top_bad_words = set_top_bad_words(options[:top_bad_words])
-  top_words = set_top_words(options[:top_words])
+  top_bad_words = define_top_bad_words(options[:top_bad_words])
+  top_words = define_top_words(options[:top_words])
   name = options[:name]
   if name
     battles = BattlesAnalyzer.new.battles

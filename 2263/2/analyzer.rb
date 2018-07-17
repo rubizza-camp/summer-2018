@@ -70,7 +70,7 @@ class BattlesAnalyzer
     words
   end
 
-  # Check if the line is round description, like "Раунд 3 ..."
+  # Check if the line is round description
   def round_description?(words)
     return true if !words[1].to_i.zero? && words[0] =~ /(Р|р)аунд/
     return true if !words[0].to_i.zero? && words[1] =~ /(Р|р)аунд/

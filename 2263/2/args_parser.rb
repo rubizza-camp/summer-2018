@@ -27,7 +27,7 @@ class ArgsParser
     exit
   end
 
-  # Синтаксис не позволяет сократить вложенность
+  # Gem syntax doesn't allow to reduse iterators nesting
   # :reek:NestedIterators
   def parse_options
     options = {}
