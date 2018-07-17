@@ -9,11 +9,9 @@ class TopBadWordsOutput
     @battles_analyzer = battles_analyzer
     @words_analyzer = words_analyzer
     @number = number
-    @list = {}
   end
 
   def calculate
-    @list = {}
     words = @words_analyzer.words
     bad_words = @words_analyzer.bad_words
     battles = @battles_analyzer.battles
@@ -21,9 +19,9 @@ class TopBadWordsOutput
     organize(words, bad_words, battles, rounds)
   end
 
-  def print_result
+  def print_result(list)
     print_border
-    @list.each do |name, info|
+    list.each do |name, info|
       printf("| %-25s | %-2d battles | %-4d total bad words | %-7.2f bad words per battle | %-8.2f words per round |\n",
              name.to_s + ':', info[:battles], info[:bad_words], info[:bad_words_per_battle], info[:words_per_round])
     end
@@ -33,19 +31,20 @@ class TopBadWordsOutput
   private
 
   def organize(words, bad_words, battles, rounds)
+    list = {}
     bad_words.each do |name, bad_words_number|
-      @list.merge!(name => { battles: battles[name],
-                             bad_words: bad_words_number,
-                             bad_words_per_battle: bad_words_number.fdiv(battles[name]),
-                             words_per_round: words[name].fdiv(rounds[name]) })
+      list.merge!(name => { battles: battles[name],
+                            bad_words: bad_words_number,
+                            bad_words_per_battle: bad_words_number.fdiv(battles[name]),
+                            words_per_round: words[name].fdiv(rounds[name]) })
     end
-    sort
-    @list = delete_excess(@list)
+    list = sort(list)
+    delete_excess(list)
   end
 
-  def sort
-    @list = @list.sort_by { |element| element[1][:bad_words_per_battle] }
-    @list = @list.reverse.to_h
+  def sort(list)
+    list = list.sort_by { |element| element[1][:bad_words_per_battle] }
+    list.reverse.to_h
   end
 
   def delete_excess(list)
@@ -67,17 +66,15 @@ class TopWordsOutput < TopBadWordsOutput
   def initialize(each_word_analyzer, number)
     @each_word_analyzer = each_word_analyzer
     @number = number
-    @list = {}
   end
 
   def calculate
-    @list = {}
-    @list = @each_word_analyzer.each_word
-    organize
+    list = @each_word_analyzer.each_word
+    organize(list)
   end
 
-  def print_result
-    @list.each do |name, words_hash|
+  def print_result(list)
+    list.each do |name, words_hash|
       print_border
       printf("| %-29s |\n", name.to_s + ':')
       print_border
@@ -88,11 +85,11 @@ class TopWordsOutput < TopBadWordsOutput
 
   private
 
-  def organize
+  def organize(list)
     disabled_words_list = scan_dictionary
-    @list.each do |name, words_hash|
-      @list[name] = sort(words_hash, disabled_words_list)
-      @list[name] = delete_excess(@list[name])
+    list.each do |name, words_hash|
+      list[name] = sort(words_hash, disabled_words_list)
+      list[name] = delete_excess(list[name])
     end
   end
 
@@ -106,8 +103,7 @@ class TopWordsOutput < TopBadWordsOutput
   def sort(words_hash, disabled_words_list)
     words_hash.delete_if { |word| disabled_words_list.include?(word.to_s) }
     words_hash = words_hash.sort_by { |element| element[1] }
-    words_hash = words_hash.reverse.to_h
-    words_hash
+    words_hash.reverse.to_h
   end
 
   def print_core(words_hash)
@@ -160,14 +156,14 @@ begin
     battles_analyzer = BattlesAnalyzer.new(name)
     words_analyzer = WordsAnalyzer.new(name)
     output = TopBadWordsOutput.new(battles_analyzer, words_analyzer, top_bad_words)
-    output.calculate
-    output.print_result
+    list = output.calculate
+    output.print_result(list)
   end
   if top_words
     each_word_analyzer = EachWordAnalyzer.new(name)
     output = TopWordsOutput.new(each_word_analyzer, top_words)
-    output.calculate
-    output.print_result
+    list = output.calculate
+    output.print_result(list)
   end
 rescue AnalyzerTextNameError => exeption
   exeption.show_message
