@@ -3,22 +3,26 @@
 # :reek:NestedIterators
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
-def get_top_bad(top, destination)
+def top_bad_word_rapers(top, destination)
   rapers = get_rapers destination
 
   rapers.each do |_key, value|
     value.file_name.each do |file|
       hash = word_counter(destination + '/' + file)
-      value.add_words_count hash[:total]
-      value.add_bad_words hash[:bad]
-      value.words_round = hash[:round]
+      value.set_result hash[:total], hash[:bad], hash[:round]
     end
   end
+  print_out rapers, top
+end
 
+# :reek:DuplicateMethodCall
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
+def print_out(rapers, top)
   delimiter = 1
-  puts "\n"
   rapers.sort_by { |_k, val| [-val.bad_words] }.each do |_key, value|
     break if delimiter > top
     average = value.bad_words.fdiv(value.battles).round(2)
@@ -36,7 +40,7 @@ def get_top_bad(top, destination)
     puts result
     delimiter += 1
   end
-  puts "\n"
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/LineLength

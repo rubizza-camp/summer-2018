@@ -12,16 +12,9 @@ def top_word_count(destination, raper_name, count)
     rapers.each { |_key, value| puts value.name }
     exit(true)
   end
-  no_word = File.open(Dir.pwd + '/no words')
-  no_word_array = []
+  config = YAML.safe_load(File.open('config.yml').read)
+  no_word_array = config['excluded_words']
   word_count = {}
-
-  no_word.each_line do |line|
-    words = line.split
-    words.each do |word|
-      no_word_array << word
-    end
-  end
 
   rapers[raper_name].file_name.each do |file|
     text_file = File.open(destination + '/' + file)

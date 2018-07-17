@@ -4,21 +4,16 @@
 # :reek:TooManyStatements
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
 def word_counter(file_path)
   words_count = 0
   words_per_round = 0
   array_round = []
   bad_words_count = 0
-  bad_words_array = []
-  get_bad = File.open(Dir.pwd + '/bad word dict')
 
-  get_bad.each_line do |line|
-    words = line.split
+  config = YAML.safe_load(File.open('config.yml').read)
+  bad_words_array = config['bad_words']
 
-    words.each do |word|
-      bad_words_array << word
-    end
-  end
   file = File.open(file_path)
 
   file.each_line do |line|
@@ -43,5 +38,6 @@ def word_counter(file_path)
   hash = { total: words_count, bad: bad_words_count, round: (array_round.sum / array_round.length) }
   hash
 end
+# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
