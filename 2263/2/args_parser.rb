@@ -20,30 +20,31 @@ class ArgsParser
       if there are several rounds, they must be defined with line that matchs to
       ((Р|р)аунд NUM)|(NUM (Р|р)аунд) pattern.
     HELP
-    @options = {}
-    parse_options
   end
 
   def show_help
     print @help_message
+    exit
+  end
+
+  # Синтаксис не позволяет сократить вложенность
+  # :reek:NestedIterators
+  def parse_options
+    options = {}
+    OptionParser.new do |option|
+      option.on('-h', '--help') { |opt| options[:help] = opt }
+      option.on('--top-bad-words [VALUE]') { |opt| options[:top_bad_words] = opt }
+      option.on('--top-words [VALUE]') { |opt| options[:top_words] = opt }
+      option.on('--name VALUE') { |opt| options[:name] = opt }
+    end.parse!
+    default_mapper(options)
+    options
   end
 
   private
 
-  # Синтаксис гема заставляет использовать вложенные конструкции
-  # :reek:NestedIterators
-  def parse_options
-    OptionParser.new do |option|
-      option.on('-h', '--help') { |opt| @options[:help] = opt }
-      option.on('--top-bad-words [VALUE]') { |opt| @options[:top_bad_words] = opt }
-      option.on('--top-words [VALUE]') { |opt| @options[:top_words] = opt }
-      option.on('--name VALUE') { |opt| @options[:name] = opt }
-    end.parse!
-    default_mapper
-  end
-
   # If argument takes without optional value it marks like :default, not nil
-  def default_mapper
-    @options.each { |key, value| @options[key] = :default unless value }
+  def default_mapper(options)
+    options.each { |key, value| options[key] = :default unless value }
   end
 end

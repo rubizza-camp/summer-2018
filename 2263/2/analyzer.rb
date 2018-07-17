@@ -44,8 +44,9 @@ class BattlesAnalyzer
   end
 
   def explore_file(name_in_file)
-    number = yield # Takes method which counts nessesary value
-    add_entry_to_list(name_in_file, number)
+    value = 0
+    value = yield if block_given? # Takes block which counts nessesary value
+    add_entry_to_list(name_in_file, value)
   end
 
   def add_entry_to_list(name, number)
@@ -96,6 +97,7 @@ class WordsAnalyzer < BattlesAnalyzer
     @list
   end
 
+  # :reek:TooManyStatements
   def bad_words(name = nil)
     @list = {}
     @paths.each do |path|
@@ -107,6 +109,7 @@ class WordsAnalyzer < BattlesAnalyzer
 
   private
 
+  # :reek:TooManyStatements
   def count_words(path)
     words_counter = 0
     file = File.open(path)
@@ -117,6 +120,7 @@ class WordsAnalyzer < BattlesAnalyzer
     words_counter
   end
 
+  # :reek:TooManyStatements
   def count_bad_words(path)
     bad_words_counter = 0
     file = File.open(path)
