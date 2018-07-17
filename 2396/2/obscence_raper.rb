@@ -1,18 +1,18 @@
 require './battle'
 require './raper'
 
-# This method smells of :reek:TooManyStatements
 class ObscenceRaper
-  def self.the_most_obscene_rappers(quantity = nil)
-    obj_rapers = Raper.all
-    quantity ||= obj_rapers.size
-    if obj_rapers.empty?
-      puts 'Object empty or nil'
-    else
-      obj_sort = obj_rapers.sort_by do |obj|
-        1 - obj.size_bad_words
-      end[0..(quantity - 1)]
-      obj_sort.each { |obj| puts obj.show }
-    end
+  # This method smells of :reek:FeatureEnvy
+  def the_most_obscene_rappers(quantity = nil)
+    rap_objects = Raper.all
+    quantity ||= rap_objects.size
+    obj_sort = rap_objects.sort_by do |obj|
+      1 - obj.bad_words.size
+    end[0..(quantity - 1)]
+    show_stats(obj_sort)
+  end
+
+  def show_stats(obj_raper)
+    obj_raper.each { |obj| puts obj.show }
   end
 end

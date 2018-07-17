@@ -26,13 +26,16 @@ class Battle
     rapers
   end
 
-  # This method smells of :reek:NestedIterators
   def handling_files
     @files.each do |file_name|
-      file_name.split(/\sпротив|\svs/i, 2).each do |name|
-        new_name = name.strip.gsub(/\(.*\)/, '').strip.upcase
-        write_to_hash(new_name, file_name) unless new_name.empty?
-      end
+      handling_file(file_name)
+    end
+  end
+
+  def handling_file(file_name)
+    file_name.split(/\sпротив|\svs/i, 2).each do |name|
+      new_name = name.strip.gsub(/\(.*\)/, '').strip.upcase
+      write_to_hash(new_name, file_name) unless new_name.empty?
     end
   end
 

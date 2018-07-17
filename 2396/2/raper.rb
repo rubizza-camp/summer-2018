@@ -3,16 +3,15 @@ require 'russian'
 require 'json'
 require 'russian_obscenity'
 require './battle'
-# This method smells of :reek:TooManyInstanceVariables:
+# This method smells of :reek:TooManyInstanceVariables
 class Raper
   FILE_BAD_WORDS       = 'bad_words.json'.freeze
   FILE_PRONOUNS        = 'pronouns.json'.freeze
   DICTIONARY_BAD_WORDS = JSON.parse(File.read(FILE_BAD_WORDS))
   PRONOUNS             = JSON.parse(File.read(FILE_PRONOUNS))
-  # This method smells of :reek:Attribute
-  attr_accessor :name, :rap_files
-  # This method smells of :reek:Attribute
-  attr_accessor :count_words_in_round, :bad_words, :count_rounds, :favorite_words
+
+  attr_reader :name, :rap_files
+  attr_reader :count_words_in_round, :bad_words, :count_rounds, :favorite_words
 
   def initialize(name, files = '')
     @name                 = name
@@ -23,16 +22,8 @@ class Raper
     @favorite_words       = Hash.new(0)
   end
 
-  def size_bad_words
-    bad_words.size
-  end
-
-  def count_batl
-    rap_files.size
-  end
-
   def avg_words_battle
-    averaged = (size_bad_words / 1.0 / count_batl).round(2)
+    averaged = (bad_words.size / 1.0 / rap_files.size).round(2)
     sugar = Russian.p(averaged, 'слово', 'слова', 'слов', 'слов')
     averaged = averaged.to_s
     "#{averaged.ljust(6)} #{sugar} на баттл".ljust(25)
@@ -53,13 +44,17 @@ class Raper
     !Dir.glob("#{Battle::FOLDER}/*#{raper}*").size.zero?
   end
 
-  # This method smells of :reek:TooManyStatements
   def show
-    word_batl     = Russian.p(count_batl, 'баттл', 'баттла', 'баттлов')
-    foul_lang     = Russian.p(size_bad_words, 'нецензурное слово', 'нецензурных слова', 'нецензурных слов')
+    word_batl     = Russian.p(rap_files.size, 'баттл', 'баттла', 'баттлов')
+    foul_lang     = Russian.p(bad_words.size, 'нецензурное слово', 'нецензурных слова', 'нецензурных слов')
+    col_two = "#{rap_files.size.to_s.ljust(3)} #{word_batl}"
+    col_three = "#{format('%3s ', bad_words.size)} #{foul_lang}"
+    result_show(col_two, col_three)
+  end
+
+  def result_show(col_two, col_three)
     col_one = name.ljust(25)
-    col_two = "#{count_batl.to_s.ljust(3)} #{word_batl}".ljust(12)
-    col_three = "#{format('%3s ', size_bad_words)} #{foul_lang}"
+    col_two = col_two.ljust(12)
     "#{col_one} | #{col_two} | #{col_three} | #{avg_words_battle} | #{avg_words_rounds}"
   end
 
@@ -75,15 +70,11 @@ class Raper
     end
   end
 
-  # This method smells of :reek:TooManyStatements
   def self.all
-    rapers = Battle.new.rapers_all
     obj_rapers = []
-    index = 0
-    rapers.each do |rap, info|
-      obj_rapers[index] = Raper.new(rap, info)
-      obj_rapers[index].stats
-      index += 1
+    Battle.new.rapers_all.each do |name, files|
+      obj_rapers.push(Raper.new(name, files))
+      obj_rapers[obj_rapers.size - 1].stats
     end
     obj_rapers
   end
@@ -98,34 +89,41 @@ class Raper
   end
 
   # This method smells of :reek:FeatureEnvy
-  # This method smells of :reek:TooManyStatements
   def handling_text(text)
-    arr_words = text.delete(",.!?\"\':;«»").split(' ')
-    arr_words.select! { |word| word.size > 3 }
-    self.count_words_in_round += arr_words.size
+    arr_words = clearing_text_from_garbage(text)
+    @count_words_in_round += arr_words.size
     arr_words.map!(&:downcase)
-    arr_words -= PRONOUNS
-    arr_words.each { |word| favorite_words[word] += 1 }
+    counting_favorite_words(arr_words)
     handling_bad_words(arr_words)
+  end
+
+  # This method smells of :reek:UtilityFunction
+  def clearing_text_from_garbage(text)
+    arr_words = text.delete(",.!?\"\':;«»").split(' ')
+    arr_words = arr_words.select! { |word| word.size > 3 }
+    arr_words - PRONOUNS
+  end
+
+  def counting_favorite_words(arr_words)
+    arr_words.each { |word| @favorite_words[word] += 1 }
   end
 
   def handling_bad_words(arr_words)
     arr_words.select! { |str| check_bad_words(str) }
-    self.bad_words |= arr_words.uniq
+    @bad_words |= arr_words.uniq
   end
 
+  # This method smells of :reek:UtilityFunction
   def check_bad_words(str)
     str =~ /\*/ || RussianObscenity.obscene?(str) ||
       DICTIONARY_BAD_WORDS.include?(str)
   end
 
-  # This method smells of :reek:TooManyStatements
   def fetch_count_rounds
     rap_files.each do |file|
-      text = File.read(file)
-      value = text.split(/Раунд\s[0-9]\./).size
+      value = File.read(file).split(/Раунд\s[0-9]\./).size
       value.zero? ? 1 : value - 1
-      self.count_rounds += value
+      @count_rounds += value
     end
   end
 end
