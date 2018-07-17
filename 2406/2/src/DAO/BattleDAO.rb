@@ -5,8 +5,7 @@ module DAO
       indata_from_file = HelperDAO.new.read_from_file('../data/Alias.config')
       @alias = []
       indata_from_file.each_with_index do |ally, i|
-        @alias[i] = ally.gsub(/ {2,}/, '')
-        @alias[i] = @alias[i].gsub(/\n/, '')
+        @alias[i] = ally.gsub(/ {2,}\n/, '')
       end
     end
 

@@ -16,6 +16,7 @@ def bad_words(range)
     exit(1)
   end
   base_of_artists = DAO::BattleDAO.new.get_artist_list_from_battles('../data/battle_text/*')
+  base_of_artists.each {|artist| puts "#{artist.name}) #{artist.get_bad_words}"}
   #print base_of_artists
 end
 

@@ -1,3 +1,4 @@
+require 'russian_obscenity'
 class Artist
   attr_reader :name, :battle_list
 
@@ -6,7 +7,9 @@ class Artist
   end
 
   def get_bad_words
-    0
+    counter = 0
+    @battle_list.each {|battle| battle.each{|word| counter += 1 if word.include?('*') || RussianObscenity.obscene?(word)}}
+    counter
   end
 
   def get_words_in_battle_average
