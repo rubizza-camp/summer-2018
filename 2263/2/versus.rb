@@ -63,13 +63,14 @@ end
 
 begin
   args = ArgsValidator.new
-  analyzer = Analyzer.new
-  analyzer_each_word = AnalyzerEachWord.new
+  battles_analyzer = BattlesAnalyzer.new
+  words_analyzer = WordsAnalyzer.new
+  each_word_analyzer = EachWordAnalyzer.new
   name = args.name
   top_bad_words = args.top_bad_words
   top_words = args.top_words
   if name
-    battles = analyzer.battles
+    battles = battles_analyzer.battles
     unless battles.key?(name.to_sym)
       puts "I don't know MC #{name}, but I know these:"
       battles.each_key { |each_name| puts each_name }
@@ -81,22 +82,22 @@ begin
     end
   end
   if top_bad_words
-    words = analyzer.words(name)
-    bad_words = analyzer.bad_words(name)
-    battles = analyzer.battles(name)
-    rounds = analyzer.rounds(name)
+    words = words_analyzer.words(name)
+    bad_words = words_analyzer.bad_words(name)
+    battles = battles_analyzer.battles(name)
+    rounds = battles_analyzer.rounds(name)
     list = organize_top_bad_words(words, bad_words, battles, rounds, top_bad_words)
     print_top_bad_words(list)
   end
   if top_words
-    all_words = analyzer_each_word.each_word(name)
+    all_words = each_word_analyzer.each_word(name)
     list = organize_top_words(all_words, top_words)
     print_top_words(list)
   end
 rescue ValidatorOptionError => exept
   exept.show_message
-rescue AnalizerTextNameError => exept
+rescue AnalyzerTextNameError => exept
   exept.show_message
-rescue AnalizerArgumentError => exept
+rescue AnalyzerArgumentError => exept
   exept.show_message
 end

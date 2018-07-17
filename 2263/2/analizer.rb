@@ -1,10 +1,8 @@
 require 'russian_obscenity'
 require 'active_support/all'
 
-# Class for analizyng versus battles
-class Analyzer
-  attr_reader :paths
-
+# sdfsdf
+class BattlesAnalyzer
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
     @list = {}
@@ -13,24 +11,6 @@ class Analyzer
   def path=(new_path)
     raise AnalyzerArgumentError, new_path unless new_path.respond_to?(:to_s)
     @paths = Dir[new_path.to_s + '/*']
-  end
-
-  def words(name = nil)
-    @list = {}
-    @paths.each do |path|
-      name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_words(path) } if !name || name_in_file == name
-    end
-    @list
-  end
-
-  def bad_words(name = nil)
-    @list = {}
-    @paths.each do |path|
-      name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_bad_words(path) } if !name || name_in_file == name
-    end
-    @list
   end
 
   def rounds(name = nil)
@@ -51,7 +31,7 @@ class Analyzer
     @list
   end
 
-  private
+private
 
   def get_name_in_file(path)
     name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
@@ -63,6 +43,57 @@ class Analyzer
     words_number = yield
     add_entry_to_list(name_in_file, words_number)
   end
+
+  def add_entry_to_list(name, number)
+    name = name.to_sym
+    @list[name] = @list.key?(name) ? @list[name] + number : number
+  end
+
+  def count_rounds(path)
+    rounds_counter = 0
+    file = File.open(path)
+    file.each do |line|
+      words = to_word_array(line)
+      rounds_counter += 1 if round_description?(words)
+    end
+    rounds_counter.zero? ? 1 : rounds_counter
+  end
+
+  def to_word_array(line)
+    words = line.split(/[^[[:word:]]\*]+/)
+    words
+  end
+
+  def round_description?(words)
+    return true if !words[1].to_i.zero? && words[0] =~ /(Р|р)аунд/
+    return true if !words[0].to_i.zero? && words[1] =~ /(Р|р)аунд/
+    false
+  end
+end
+
+# Class f123123
+class WordsAnalyzer < BattlesAnalyzer
+  attr_reader :paths
+
+  def words(name = nil)
+    @list = {}
+    @paths.each do |path|
+      name_in_file = get_name_in_file(path)
+      explore_file(name_in_file) { count_words(path) } if !name || name_in_file == name
+    end
+    @list
+  end
+
+  def bad_words(name = nil)
+    @list = {}
+    @paths.each do |path|
+      name_in_file = get_name_in_file(path)
+      explore_file(name_in_file) { count_bad_words(path) } if !name || name_in_file == name
+    end
+    @list
+  end
+
+  private
 
   def count_words(path)
     words_counter = 0
@@ -92,36 +123,10 @@ class Analyzer
     end
     counter
   end
-
-  def count_rounds(path)
-    rounds_counter = 0
-    file = File.open(path)
-    file.each do |line|
-      words = to_word_array(line)
-      rounds_counter += 1 if round_description?(words)
-    end
-    rounds_counter.zero? ? 1 : rounds_counter
-  end
-
-  def to_word_array(line)
-    words = line.split(/[^[[:word:]]\*]+/)
-    words
-  end
-
-  def add_entry_to_list(name, number)
-    name = name.to_sym
-    @list[name] = @list.key?(name) ? @list[name] + number : number
-  end
-
-  def round_description?(words)
-    return true if !words[1].to_i.zero? && words[0] =~ /(Р|р)аунд/
-    return true if !words[0].to_i.zero? && words[1] =~ /(Р|р)аунд/
-    false
-  end
 end
 
 # Class for making hash of each word if file
-class AnalyzerEachWord < Analyzer
+class EachWordAnalyzer < BattlesAnalyzer
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
     @list = {}
