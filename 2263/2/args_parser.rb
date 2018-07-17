@@ -29,18 +29,19 @@ end
 
 # Parse command line arguments
 class ArgsParser
+  attr_reader :options
+
   # Gem syntax doesn't allow to reduse iterators nesting
   # :reek:NestedIterators
-  def parse_options
-    options = {}
+  def initialize
+    @options = {}
     OptionParser.new do |option|
-      option.on('-h', '--help') { |opt| options[:help] = opt }
-      option.on('--top-bad-words [VALUE]') { |opt| options[:top_bad_words] = opt }
-      option.on('--top-words [VALUE]') { |opt| options[:top_words] = opt }
-      option.on('--name VALUE') { |opt| options[:name] = opt }
+      option.on('-h', '--help') { |opt| @options[:help] = opt }
+      option.on('--top-bad-words [VALUE]') { |opt| @options[:top_bad_words] = opt }
+      option.on('--top-words [VALUE]') { |opt| @options[:top_words] = opt }
+      option.on('--name VALUE') { |opt| @options[:name] = opt }
     end.parse!
-    default_mapper(options)
-    options
+    default_mapper(@options)
   end
 
   private

@@ -13,8 +13,7 @@ class BattlesAnalyzer
   end
 
   def path=(new_path)
-    raise AnalyzerArgumentError, new_path unless new_path.respond_to?(:to_s)
-    @paths = Dir[new_path.to_s + '/*']
+    @paths = Dir[new_path + '/*']
   end
 
   # :reek:TooManyStatements
@@ -210,16 +209,5 @@ class AnalyzerTextNameError < StandardError
 
   def show_message
     puts "Error. Name of #{@file} doesn't match to pattern (<name> VS/Против)"
-  end
-end
-
-# Exception that is raised if new path can't be converted to string
-class AnalyzerArgumentError < StandardError
-  def initialize(path)
-    @path = path
-  end
-
-  def show_message
-    puts "Error. Object #{@path} doesn't respond to method to_s."
   end
 end
