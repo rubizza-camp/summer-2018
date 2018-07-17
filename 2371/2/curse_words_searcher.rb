@@ -14,6 +14,7 @@ class Author
   end
 
   def add_battle(battle_file_name)
+    return unless File.file?("./texts/#{battle_file_name}")
     @battles << battle_file_name
     manage_battle_text(File.read("./texts/#{battle_file_name}"))
   end
@@ -39,8 +40,8 @@ class Author
   end
 end
 
-# The CurseWordsSearcher responsible for searching authors info in files
-class CurseWordsSearcher
+# The AuthorsInfoSearcher responsible for searching authors info in files
+class AuthorsInfoSearcher
   def initialize(rows)
     @thread = Thread.new do
       0.step(1000, 5) do |step|
@@ -48,13 +49,12 @@ class CurseWordsSearcher
         sleep(0.5)
       end
     end
-    @files_name = Dir.entries('./texts/').reject { |item| item =~ /^\./i }
     @authors = []
     @show_rows = rows.to_i
   end
 
-  def start
-    @files_name.each do |name|
+  def search_info_in_files(files)
+    files.each do |name|
       parse_battle_files(name)
     end
     show_info
@@ -81,19 +81,24 @@ class CurseWordsSearcher
   end
 end
 
-if ARGV.empty?
-  puts 'To start searching add command --top-bad-words=<<number_of_top>>'
-elsif !ARGV[0][/\d+/]
-  puts 'Write correct command "--top-bad-words=<<number_of_top>>"'
-elsif ARGV.length != 1
-  puts 'Too many arguments'
-else
-  begin
-    @files_name = Dir.entries('./texts/').reject { |item| item =~ /^\./i }
-    CurseWordsSearcher.new(ARGV[0][/\d+/]).start
-  rescue StandardError => _e
-    warn 'No battles files in directory "texts"!
-Add battle files to "texts" folder'
+# The Application responsible for checks params and start project
+class Application
+  def run
+    return puts 'Not found "texts" directory' unless File.directory?('./texts/')
+    return puts 'Argument to start search --top-bad-words=<<number>>' \
+if ARGV.empty? || !ARGV[0][/=\d+$/i]
+    return puts 'Too many arguments' if ARGV.length != 1
+    manage
+  end
+
+  private
+
+  def manage
+    @searcher = AuthorsInfoSearcher.new(ARGV[0][/\d+/])
+                                   .search_info_in_files(Dir.entries('./texts/')
+                                      .reject { |item| item =~ /^\./i })
   end
 end
+
+Application.new.run
 exit
