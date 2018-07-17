@@ -1,17 +1,9 @@
-# this class analyzes the line
-class LineAnalyzer
+# this class analyzes provided line and returns a writeable one
+class Line
   attr_reader :line
 
   def initialize(line)
     @line = line
-  end
-
-  def do_write?(rapper, toggle)
-    if @line.start_with?(/\w+:/)
-      false
-    elsif @line.include?("#{rapper}:") || toggle
-      true
-    end
   end
 
   def writable_line(rapper)
@@ -22,5 +14,15 @@ class LineAnalyzer
       lyrics += ' ' + @line.strip if do_write
     end
     lyrics
+  end
+
+  private
+
+  def do_write?(rapper, toggle)
+    if @line.start_with?(/\w+:/)
+      false
+    elsif @line.include?("#{rapper}:") || toggle
+      true
+    end
   end
 end
