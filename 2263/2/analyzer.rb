@@ -3,6 +3,8 @@ require 'active_support/all'
 
 # sdfsdf
 class BattlesAnalyzer
+  attr_reader :paths
+
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
     @list = {}
@@ -40,8 +42,8 @@ private
   end
 
   def explore_file(name_in_file)
-    words_number = yield
-    add_entry_to_list(name_in_file, words_number)
+    number = yield
+    add_entry_to_list(name_in_file, number)
   end
 
   def add_entry_to_list(name, number)
@@ -74,7 +76,7 @@ end
 # Class f123123
 class WordsAnalyzer < BattlesAnalyzer
   attr_reader :paths
-
+  
   def words(name = nil)
     @list = {}
     @paths.each do |path|
@@ -100,8 +102,7 @@ class WordsAnalyzer < BattlesAnalyzer
     file = File.open(path)
     file.each do |line|
       words = to_word_array(line)
-      next if round_description?(words)
-      words_counter += words.size
+      words_counter += words.size unless round_description?(words)
     end
     words_counter
   end
@@ -111,8 +112,7 @@ class WordsAnalyzer < BattlesAnalyzer
     file = File.open(path)
     file.each do |line|
       words = to_word_array(line)
-      next if round_description?(words)
-      bad_words_counter = check_obscenity(words, bad_words_counter)
+      bad_words_counter = check_obscenity(words, bad_words_counter) unless round_description?(words)
     end
     bad_words_counter
   end
@@ -127,6 +127,8 @@ end
 
 # Class for making hash of each word if file
 class EachWordAnalyzer < BattlesAnalyzer
+  attr_reader :paths
+
   def initialize(path = __dir__ + '/texts')
     @paths = Dir[path + '/*'] # Path to directory with texts convertes to array of paths to each file
     @list = {}
@@ -137,7 +139,7 @@ class EachWordAnalyzer < BattlesAnalyzer
     @list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(path, name_in_file) if !name || name_in_file == name
+      explore_file(name_in_file) { count_each_word(path) } if !name || name_in_file == name
     end
     @list
   end
@@ -168,15 +170,9 @@ class EachWordAnalyzer < BattlesAnalyzer
     file = File.open(path)
     file.each do |line|
       words = to_word_array(line)
-      next if round_description?(words)
-      handle_word_array(words)
+      handle_word_array(words) unless round_description?(words)
     end
     @words_hash
-  end
-
-  def explore_file(path, name)
-    words_hash = count_each_word(path)
-    add_entry_to_list(name, words_hash)
   end
 
   # Downcase russian symbols

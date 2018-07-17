@@ -1,5 +1,5 @@
-require_relative 'args_validator'
-require_relative 'analizer'
+require_relative 'args_parser'
+require_relative 'analyzer'
 
 def scan_dictionary
   disabled_words_list = []
@@ -94,10 +94,10 @@ begin
     list = organize_top_words(all_words, top_words)
     print_top_words(list)
   end
-rescue ValidatorOptionError => exept
-  exept.show_message
-rescue AnalyzerTextNameError => exept
-  exept.show_message
-rescue AnalyzerArgumentError => exept
-  exept.show_message
+rescue ValidatorOptionError => exeption
+  exeption.show_message
+rescue AnalyzerTextNameError => exeption
+  exeption.show_message
+rescue AnalyzerArgumentError => exeption
+  exeption.show_message
 end
