@@ -5,15 +5,15 @@ require 'russian_obscenity'
 class Battle
   attr_reader :battle_file_path
 
-  def initialize(battle)
-    @battle_file_path = battle
+  def initialize(battle_file_path)
+    @battle_file_path = battle_file_path
   end
 
-  def double?
+  def paired?
     @battle_file_path.partition(/( против | vs )/).first.include?(' & ')
   end
 
-  def fill_info(info, rapper)
+  def process_battle(info, rapper)
     info[1] += count_rounds
     info[6] += all_words(rapper).size
     info[3] += bad_words_amount(rapper)
@@ -39,7 +39,7 @@ class Battle
   end
 
   def lyrics_by(rapper = '')
-    if double?
+    if paired?
       lyrics_double(rapper).split(/[.,!?:;-]/).join(' ')
     else
       lyrics_single.split(/[.,!?:;-]/).join(' ')

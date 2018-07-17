@@ -3,12 +3,12 @@ require 'terminal-table'
 
 # BattlersTable prints a table of data, you provide to it
 class BattlersTable
-  attr_reader :battlers_info, :num_top
+  attr_reader :info_about_battlers, :num_top
 
   include ReturnInfo
 
-  def initialize(battlers_info, num_top)
-    @battlers_info = battlers_info
+  def initialize(info_about_battlers, num_top)
+    @info_about_battlers = info_about_battlers
     @num_top = num_top
     @table = []
   end
@@ -20,7 +20,7 @@ class BattlersTable
   private
 
   def output_table(counter = -1)
-    @battlers_info.sort_by { |_key, value| value[3] }.reverse.to_h.keys.each do |rapper|
+    @info_about_battlers.sort_by { |_key, value| value[3] }.reverse.to_h.keys.each do |rapper|
       counter += 1
       fill_table_global(rapper, counter)
     end
