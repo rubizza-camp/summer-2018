@@ -1,7 +1,7 @@
 require_relative 'args_parser'
 require_relative 'analyzer'
 
-class TopBadWordsOutput
+class TopBadWordsOrganizer
   attr_reader :battles_analyzer, :words_analyzer, :number, :name
   attr_reader :list
 
@@ -17,15 +17,6 @@ class TopBadWordsOutput
     battles = @battles_analyzer.battles
     rounds = @battles_analyzer.rounds
     organize(words, bad_words, battles, rounds)
-  end
-
-  def print_result(list)
-    print_border
-    list.each do |name, info|
-      printf("| %-25s | %-2d battles | %-4d total bad words | %-7.2f bad words per battle | %-8.2f words per round |\n",
-             name.to_s + ':', info[:battles], info[:bad_words], info[:bad_words_per_battle], info[:words_per_round])
-    end
-    print_border
   end
 
   private
@@ -52,14 +43,9 @@ class TopBadWordsOutput
     list.delete_if { (counter += 1) > number }
     list
   end
-
-  def print_border
-    print '+---------------------------+------------+-------------------'
-    print "---+------------------------------+--------------------------+\n"
-  end
 end
 
-class TopWordsOutput < TopBadWordsOutput
+class TopWordsOrganizer < TopBadWordsOrganizer
   attr_reader :battles_analyzer, :words_analyzer, :number, :name
   attr_reader :list
 
@@ -71,16 +57,6 @@ class TopWordsOutput < TopBadWordsOutput
   def calculate
     list = @each_word_analyzer.each_word
     organize(list)
-  end
-
-  def print_result(list)
-    list.each do |name, words_hash|
-      print_border
-      printf("| %-29s |\n", name.to_s + ':')
-      print_border
-      print_core(words_hash)
-    end
-    print_border
   end
 
   private
@@ -105,13 +81,45 @@ class TopWordsOutput < TopBadWordsOutput
     words_hash = words_hash.sort_by { |element| element[1] }
     words_hash.reverse.to_h
   end
+end
 
-  def print_core(words_hash)
-    words_hash.each { |word, num| printf("| %-15s - %3d times   |\n", word, num) }
+class TopBadWordsPrinter
+  def print_top_bad_words(list)
+    print_border
+    list.each do |name, info|
+      printf("| %-25s | %-2d battles | %-4d total bad words | %-7.2f bad words per battle | %-8.2f words per round |\n",
+             name.to_s + ':', info[:battles], info[:bad_words], info[:bad_words_per_battle], info[:words_per_round])
+    end
+    print_border
   end
+
+  private
+
+  def print_border
+    print '+---------------------------+------------+-------------------'
+    print "---+------------------------------+--------------------------+\n"
+  end
+end
+
+class TopWordsPrinter
+  def print_top_words(list)
+    list.each do |name, words_hash|
+      print_border
+      printf("| %-29s |\n", name.to_s + ':')
+      print_border
+      print_core(words_hash)
+    end
+    print_border
+  end
+
+  private
 
   def print_border
     puts '+-------------------------------+'
+  end
+  
+  def print_core(words_hash)
+    words_hash.each { |word, num| printf("| %-15s - %3d times   |\n", word, num) }
   end
 end
 
@@ -155,15 +163,13 @@ begin
   if top_bad_words
     battles_analyzer = BattlesAnalyzer.new(name)
     words_analyzer = WordsAnalyzer.new(name)
-    output = TopBadWordsOutput.new(battles_analyzer, words_analyzer, top_bad_words)
-    list = output.calculate
-    output.print_result(list)
+    list = TopBadWordsOrganizer.new(battles_analyzer, words_analyzer, top_bad_words).calculate
+    TopBadWordsPrinter.new.print_top_bad_words(list)
   end
   if top_words
     each_word_analyzer = EachWordAnalyzer.new(name)
-    output = TopWordsOutput.new(each_word_analyzer, top_words)
-    list = output.calculate
-    output.print_result(list)
+    list = TopWordsOrganizer.new(each_word_analyzer, top_words).calculate
+    TopWordsPrinter.new.print_top_words(list)
   end
 rescue AnalyzerTextNameError => exeption
   exeption.show_message
