@@ -1,6 +1,6 @@
 require_relative 'work_with_dir'
 require_relative 'work_with_battles'
-require 'terminal-table'
+# require 'terminal-table'
 
 class LevelManager
   def self.find_top_battlers(count)

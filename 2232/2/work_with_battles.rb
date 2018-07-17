@@ -1,7 +1,7 @@
 require_relative 'work_with_dir'
 require_relative 'battler'
 require_relative 'top_word'
-require 'russian_obscenity'
+# require 'russian_obscenity'
 
 class WorkWithBattles
   PREPOSITIONS = 'prepositions'.freeze
@@ -51,6 +51,7 @@ class WorkWithBattles
   end
 
   def self.init_bat(params)
+    # multiplication of params[0] by 3. 3 is the number of rounds in the battle
     Battler.new(params[3], params[0], params[1], (Float(params[1]) / params[0]).round(2), params[2] / (params[0] * 3))
   end
 

@@ -1,5 +1,6 @@
 require_relative 'level_manager'
-require 'unicode_utils'
+require 'bundler'
+Bundler.require
 require 'optparse'
 
 OptionParser.new do |parser|
@@ -12,6 +13,6 @@ OptionParser.new do |parser|
     end
   end
   parser.on('--name=') do |name|
-    LevelManager.find_top_words(name, 30)
+    LevelManager.find_top_words(name, 30) # default word count
   end
 end.parse!
