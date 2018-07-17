@@ -3,7 +3,7 @@ require 'optparse'
 class ArgsParser
   attr_reader :help_message, :options
   def initialize
-    @help_message =%{
+    @help_message = %{
       Usage: versus.rb [options]
 
       --help -h               displays this message
@@ -13,9 +13,10 @@ class ArgsParser
       -tw --top-words=<num>       displays top <num> words of each rapper (default 30)
 
       -n --name=<name>           specifies the above options to given rapper name
-      }
-      @options = {}
-      parse_orions
+
+}
+    @options = {}
+    parse_options
   end
 
   def show_help
@@ -23,13 +24,14 @@ class ArgsParser
   end
 
   private
-  
-  def parse_orions
+
+  def parse_options
     OptionParser.new do |option|
-      option.on("-h", "--help", "Show help") { |option| @options[:help] = option }
-      option.on("-tbw", "--top-bad-words [VALUE]", "dododo") { |option| @options[:top_bad_words] = option }
-      option.on("-tw", "--top-words [VALUE]", "dododo") { |option| @options[:top_words] = option }
-      option.on("n", "--name VALUE", "dododo") { |option| @options[:name] = option }
+      option.on('-h', '--help') { |opt| @options[:help] = opt }
+      option.on('--top-bad-words [VALUE]') { |opt| @options[:top_bad_words] = opt }
+      option.on('--top-words [VALUE]') { |opt| @options[:top_words] = opt }
+      option.on('--name VALUE') { |opt| @options[:name] = opt }
     end.parse!
+    @options.each { |key, value| @options[key] = :default unless value }
   end
 end

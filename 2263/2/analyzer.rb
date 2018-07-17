@@ -33,7 +33,7 @@ class BattlesAnalyzer
     @list
   end
 
-private
+  private
 
   def get_name_in_file(path)
     name_in_file = path.match(%r{(?<=/texts/\s).*?((?=\s+против\s+)|(?=\s+VS\s+)|(?=\s+vs\s+))}).to_s
@@ -76,7 +76,7 @@ end
 # Class f123123
 class WordsAnalyzer < BattlesAnalyzer
   attr_reader :paths
-  
+
   def words(name = nil)
     @list = {}
     @paths.each do |path|

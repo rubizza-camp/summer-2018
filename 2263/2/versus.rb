@@ -62,13 +62,19 @@ def print_top_words(list)
 end
 
 begin
-  args = ArgsValidator.new
+  options = ArgsParser.new.options
   battles_analyzer = BattlesAnalyzer.new
   words_analyzer = WordsAnalyzer.new
   each_word_analyzer = EachWordAnalyzer.new
-  name = args.name
-  top_bad_words = args.top_bad_words
-  top_words = args.top_words
+  if options[:help]
+    ArgsParser.new.show_help
+    exit
+  end
+  top_bad_words = 5 if options[:top_bad_words] == :default
+  top_bad_words = options[:top_bad_words].to_i if options[:top_bad_words].class == String
+  top_words = 30 if options[:top_words] == :default
+  top_words = options[:top_words].to_i if options[:top_words].class == String
+  name = options[:name]
   if name
     battles = battles_analyzer.battles
     unless battles.key?(name.to_sym)
@@ -94,8 +100,6 @@ begin
     list = organize_top_words(all_words, top_words)
     print_top_words(list)
   end
-rescue ValidatorOptionError => exeption
-  exeption.show_message
 rescue AnalyzerTextNameError => exeption
   exeption.show_message
 rescue AnalyzerArgumentError => exeption
