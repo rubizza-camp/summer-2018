@@ -1,9 +1,6 @@
-require 'pry'
 require 'yaml'
-require 'russian_obscenity'
-require 'terminal-table'
-require 'optparse'
-require 'russian'
+require 'bundler'
+Bundler.require
 
 ALIASES = YAML.load_file('alias.yml')
 rappers = {}
