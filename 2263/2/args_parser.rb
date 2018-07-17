@@ -46,7 +46,7 @@ class ArgsParser
 
   private
 
-  # If argument takes without optional value it marks like :default, not nil
+  # If argument takes without optional value it marks like :default
   def default_mapper(options)
     options.each { |key, value| options[key] = :default unless value }
   end

@@ -1,10 +1,11 @@
 require 'russian_obscenity'
 require 'active_support/all'
 
-# Counts battles and rounds, can take path to directory with text files
+# Counts battles and rounds, can take name of one rappe
 class BattlesAnalyzer
   attr_reader :paths, :name
   attr_reader :list
+  attr_writer :name
 
   def initialize(name = nil)
     @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
@@ -78,17 +79,9 @@ class BattlesAnalyzer
   end
 end
 
-# Counts words and bad words, can take path to directory with text files
+# Counts words and bad words, can take name of one rapper
 class WordsAnalyzer < BattlesAnalyzer
-  attr_reader :paths, :name
-  attr_reader :list
-
-  def initialize(name = nil)
-    @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
-    @name = name
-    @list = {} # Output hash
-  end
-
+  # :reek:TooManyStatements
   def words
     @list = {}
     @paths.each do |path|
@@ -142,9 +135,6 @@ end
 
 # Makes hash which contains each using word and number of it's reiteration, can take name of one rapper
 class EachWordAnalyzer < BattlesAnalyzer
-  attr_reader :paths, :name
-  attr_reader :list
-
   def initialize(name = nil)
     @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
     @name = name
