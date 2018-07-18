@@ -103,14 +103,13 @@ class Handler
       next unless File.file?(file_name)
       rapper_name = find_artist_by_name(file_name)
       rappers[rapper_name] ||= Artist.new(rapper_name)
-      binding.pry
       rappers[rapper_name].add_battles(file_name)
     end
   end
 
   def find_artist_by_name(file_name)
-  	rappers.class.equal?(Hash)
-    file_name.split(/#|против|vs|VS|aka/) \
+    rappers.class.equal?(Hash)
+    file_name.split(/#|против|vs|VS|aka/)\
              .first.split('/').last.strip
   end
 end
