@@ -16,7 +16,7 @@
 # This method smells of :reek:FeatureEnvy
 def triangle_check_error(sides_to_check)
   sorted_sides_to_check = sides_to_check.sort
-  sides_sum_check = (sides_to_check[0] + sides_to_check[1]) > sides_to_check[2]
+  sides_sum_check = (sorted_sides_to_check[0] + sorted_sides_to_check[1]) > sorted_sides_to_check[2]
   raise TriangleError if sides_to_check.any? { |side| side <= 0 }
   raise TriangleError unless sides_sum_check
 end
