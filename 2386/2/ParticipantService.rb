@@ -21,7 +21,7 @@ class ParticipantService
   end
 
   def bad_in_round(participant, participants_titles)
-    (bad_words(participant).to_f / participants_titles.size)
+    bad_words(participant).to_f / participants_titles.size
   end
 
   def words_in_round(participant)

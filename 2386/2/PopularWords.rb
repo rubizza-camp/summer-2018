@@ -37,9 +37,6 @@ class PopularWords
   end
 
   def wort_test(word)
-    answer = true
-    string = File.open('Предлоги.txt', 'r', &:read)
-    answer = false if string.include?(word)
-    answer
+    !File.open('Предлоги.txt', 'r', &:read).include?(word)
   end
 end

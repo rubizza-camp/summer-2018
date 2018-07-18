@@ -41,15 +41,13 @@ class BattleAnalyzer
   end
 
   def show_top_participants(participants, top_bad_words)
-    rows = []
-    top_bad_words.to_i.times do |ind|
-      rows << get_participant_as_row(participants[ind])
-    end
+    rows = participants.first(top_bad_words.to_i)
+                       .map { |participant| get_participant_row(participant) }
     table = Terminal::Table.new rows: rows
     puts table
   end
 
-  def get_participant_as_row(participant)
+  def get_participant_row(participant)
     [
       participant.name,
       "#{participant.battles} батлов",
