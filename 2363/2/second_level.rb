@@ -1,4 +1,4 @@
-load 'modules.rb'
+require_relative 'modules.rb'
 
 # Class find the most popular words of battler
 class TopWordsParser
@@ -8,9 +8,14 @@ class TopWordsParser
     @name = choosen_name
     @num = choosen_num - 1
     @data = {}
+  end
+
+  def call
     find_name_and_words_from_files
     output_words_of_battler
   end
+
+  private
 
   def find_name_and_words_from_files
     Dir[File.expand_path('.') + '/rap-battles/*'].each do |file|
