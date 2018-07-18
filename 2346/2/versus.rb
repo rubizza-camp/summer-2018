@@ -14,7 +14,11 @@ OptionParser.new do |parser|
     Analysis.second_level(name, 30)
   end
   parser.on_tail('-h', '--help') do
+<<<<<<< HEAD
     puts "\nПоложите папку rap-battles в папку /2/ с .rb файлами. Запустите versus.rb с нужными параметрами"
+=======
+    puts "\nПоложите папку rap-battles в папку с .rb файлами. Запустите versus.rb с нужными параметрами"
+>>>>>>> 4554c91c72e730fc4d64ac6ea8f12591c3127c54
     puts
     puts parser
   end
