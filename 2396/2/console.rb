@@ -55,12 +55,12 @@ class Console
 
   def raper_find
     raper = Raper.new(@options[:name])
-    raper.fetch_files
+    raper.fetch_files_one_raper
     raper.show_favorite_words(@options[:top_words])
   end
 
   def raper_not_find
     puts "Рэпер #{options[:name]} не известен мне. Зато мне известны:"
-    Battle.show_names_rapers
+    DataRapers::Battle.show_names_rapers
   end
 end

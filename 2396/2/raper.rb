@@ -2,24 +2,30 @@ require 'active_support/inflector'
 require 'russian'
 require 'json'
 require 'russian_obscenity'
-require './battle'
-# This method smells of :reek:TooManyInstanceVariables
+require './data_rapers'
+require './count_rounds'
+
 class Raper
+  include RoundDataCollection
   FILE_BAD_WORDS       = 'bad_words.json'.freeze
-  FILE_PRONOUNS        = 'pronouns.json'.freeze
   DICTIONARY_BAD_WORDS = JSON.parse(File.read(FILE_BAD_WORDS))
-  PRONOUNS             = JSON.parse(File.read(FILE_PRONOUNS))
 
   attr_reader :name, :rap_files
-  attr_reader :count_words_in_round, :bad_words, :count_rounds, :favorite_words
+  attr_reader :bad_words, :favorite_words
 
   def initialize(name, files = '')
     @name                 = name
     @rap_files            = files
     @bad_words            = []
-    @count_rounds         = 0
-    @count_words_in_round = 0
     @favorite_words       = Hash.new(0)
+  end
+
+  def count_rounds
+    fetch_data_rounds(rap_files)[:count_rounds]
+  end
+
+  def count_words_in_round
+    fetch_data_rounds(rap_files)[:count_words]
   end
 
   def avg_words_battle
@@ -37,11 +43,10 @@ class Raper
 
   def stats
     fetch_bad_words
-    fetch_count_rounds
   end
 
   def self.raper?(raper)
-    !Dir.glob("#{Battle::FOLDER}/*#{raper}*").size.zero?
+    !Dir.glob("#{DataRapers::Battle::FOLDER}/*#{raper}*").size.zero?
   end
 
   def show
@@ -64,15 +69,15 @@ class Raper
     arr.each { |key, value| puts "#{key} - #{value}" }
   end
 
-  def fetch_files
-    @rap_files = Dir.glob("#{Battle::FOLDER}/*#{name}*").reject do |file|
+  def fetch_files_one_raper
+    @rap_files = Dir.glob("#{DataRapers::Battle::FOLDER}/*#{name}*").reject do |file|
       File.directory? file
     end
   end
 
   def self.all
     obj_rapers = []
-    Battle.new.rapers_all.each do |name, files|
+    DataRapers::Battle.new.rapers_all.each do |name, files|
       obj_rapers.push(Raper.new(name, files))
       obj_rapers[obj_rapers.size - 1].stats
     end
@@ -90,18 +95,10 @@ class Raper
 
   # This method smells of :reek:FeatureEnvy
   def handling_text(text)
-    arr_words = clearing_text_from_garbage(text)
-    @count_words_in_round += arr_words.size
+    arr_words = DataRapers::Battle.clearing_text_from_garbage(text)
     arr_words.map!(&:downcase)
     counting_favorite_words(arr_words)
     handling_bad_words(arr_words)
-  end
-
-  # This method smells of :reek:UtilityFunction
-  def clearing_text_from_garbage(text)
-    arr_words = text.delete(",.!?\"\':;«»").split(' ')
-    arr_words = arr_words.select! { |word| word.size > 3 }
-    arr_words - PRONOUNS
   end
 
   def counting_favorite_words(arr_words)
@@ -117,13 +114,5 @@ class Raper
   def check_bad_words(str)
     str =~ /\*/ || RussianObscenity.obscene?(str) ||
       DICTIONARY_BAD_WORDS.include?(str)
-  end
-
-  def fetch_count_rounds
-    rap_files.each do |file|
-      value = File.read(file).split(/Раунд\s[0-9]\./).size
-      value.zero? ? 1 : value - 1
-      @count_rounds += value
-    end
   end
 end

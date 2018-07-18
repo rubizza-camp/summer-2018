@@ -1,4 +1,4 @@
-require './battle'
+require './data_rapers'
 require './raper'
 
 class ObscenceRaper
