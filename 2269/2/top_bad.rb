@@ -28,8 +28,8 @@ def print_out(rapers, top)
              RuPropisju.choose_plural(bad_words, 'нецензурное', 'нецензурных', 'нецензурных') + ' ' +
              RuPropisju.choose_plural(bad_words, 'слово', 'слова', 'слов').ljust(5) + ' | ' +
              bad_words.fdiv(value.battles).round(2).to_s.ljust(6) + ' ' +
-        RuPropisju.choose_plural(bad_words.fdiv(value.battles).round(2), 'слово', 'слова', 'слова') +
-        ' на баттл | '.ljust(12) + value.words_round.to_s.ljust(5) + ' ' +
+             RuPropisju.choose_plural(bad_words.fdiv(value.battles).round(2), 'слово', 'слова', 'слова') +
+             ' на баттл | '.ljust(12) + value.words_round.to_s.ljust(5) + ' ' +
              RuPropisju.choose_plural(value.words_round, 'слово', 'слова', 'слов').ljust(5) +
              ' в раунде |'.ljust(11)
     puts result
