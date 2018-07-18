@@ -1,8 +1,10 @@
 require 'russian_obscenity'
 
-class Helper
-  def self.words_on_round(battles)
-    all_words(battles).count / (battles.count * 3)
+module Helper
+  ROUNDS_PER_BATTLE = 3
+
+  def self.words_per_round(battles)
+    all_words(battles).count / (battles.count * ROUNDS_PER_BATTLE)
   end
 
   def self.sort_data(data)
