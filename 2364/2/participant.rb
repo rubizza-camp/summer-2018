@@ -1,4 +1,5 @@
-load 'modules.rb'
+require_relative 'count_words.rb'
+require_relative 'participant.rb'
 
 # Class participant with data:
 # name of participant, number of all battles,
@@ -22,14 +23,18 @@ class Participant
   end
 
   def count_words(value)
-    words = participant_data[:all_texts].downcase.delete('.,!?—«»').split(' ').reject { |word| word.size < 5 }
-    FunctionalMethods.output_words(words, value)
+    words = participant_data[:all_texts]
+    CountWords.new(words, value).output_words
   end
 
   def to_str
     bad_words = participant_data[:bad_words]
     average_words = participant_data[:words_amount] / participant_data[:rounds]
-    average_bad_words = (bad_words.to_f / battles).round(2)
+    average_bad_words = if battles.zero?
+                          0
+                        else
+                          (bad_words.to_f / battles).round(2)
+                        end
     create_row(bad_words, average_words, average_bad_words)
   end
 
