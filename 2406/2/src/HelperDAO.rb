@@ -1,5 +1,6 @@
 class HelperDAO
   FILE_NAME_LENGTH = 21
+  BATTLES = '../data/battle_text/*'.freeze
 
   # Function doesn't work without all that statements
   # This method smells of :reek:TooManyStatements
@@ -43,7 +44,8 @@ class HelperDAO
 
   # Function doesn't work without all that statements, because work with file
   # This method smells of :reek:TooManyStatements
-  def self.artist_list(path_to_folder)
+  def self.artist_list
+    path_to_folder = BATTLES
     artists = []
     Dir[path_to_folder].each do |file|
       artists << take_artist(artists, find_artist(artists, take_artist_name(file)), take_artist_name(file))

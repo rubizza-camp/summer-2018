@@ -1,6 +1,15 @@
 class Helper
   require 'terminal-table'
 
+  VALID_KEY_COLLECTION = [BAD_WORDS_KEY, ARTIST_KEY, RANGE_KEY, PLAG_KEY, HELP_KEY].freeze
+
+  def self.artist_exist(args)
+    HelperDAO.artist_list.each do |artist_base|
+      return true if args.join('') == artist_base.name.delete(' ')
+    end
+    false
+  end
+
   def self.load_alias_list
     indata_from_file = HelperDAO.read_from_file('../data/Alias.config')
     alias_name = []
@@ -12,13 +21,10 @@ class Helper
   # Creation of new method not justified
   # This method smells of :reek:NestedIterators
   def self.check_arguments(args)
-    include_in_valid_keys = false
     args.each do |arg|
-      include_in_valid_keys = [BAD_WORDS_KEY, ARTIST_NAME_KEY, RANGE_KEY, PLAG_KEY, HELP_KEY].any? do |valid_key|
-        arg.include?(valid_key)
-      end
+      return true unless arg.include?(ARTIST_KEY)
+      return false unless VALID_KEY_COLLECTION.any? { |valid_key| arg.include?(valid_key) }
     end
-    include_in_valid_keys
   end
 
   def self.create_rows(row, base_of_artists, range)
@@ -38,8 +44,18 @@ class Helper
     end
   end
 
+  # That disable need, because it's command method and use like some kind of entrypoint. Decomposition is not recomended
+  # rubocop:disable Metrics/AbcSize
+  def self.command_call_top_words(args)
+    top_words(args[0].gsub("#{ARTIST_KEY}=", '')) if args.size == 1 && args[0].include?(ARTIST_KEY)
+    top_words(args[0].gsub("#{RANGE_KEY}=", ''), args[1].gsub("#{ARTIST_KEY}=", '') + args[2..args.size].join(' '))\
+    if args.size >= 2 && args[0].include?(RANGE_KEY)
+  end
+  # rubocop:enable Metrics/AbcSize
+
   def self.send_command(args)
     help if args.size == 1 && args.include?(HELP_KEY)
+    command_call_top_words(args)
     bad_words(args[0].gsub("#{BAD_WORDS_KEY}=", '')) if args.size == 1 && args[0].include?(BAD_WORDS_KEY)
   end
 
