@@ -1,116 +1,96 @@
 require 'optparse'
 require 'terminal-table'
-# :reek:TooManyStatements
-# :reek:UtilityFunction
-# :reek:RepeatedConditional
+require 'russian_obscenity'
+require 'pry'
+require 'russian'
+
 # Top bad rapers from versus battle
-class TopRapers
-  def number_battles(name)
-    battles = []
-    Dir.glob('rap-battles2/*') do |file_name|
-      battles << file_name if file_name.match?(/[^\s]#{name}/)
+class Battles
+    def initialize
+        @battles = Dir.glob('rap-battles2/*')
+        @battles_of_rappers = battles_of_rappers
     end
-    battles.size
-  end
-
-  def bad_words(name)
-    bad_words = []
-    Dir.glob('rap-battles2/*') do |file|
-      if file.match?(/[^\s]#{name}/)
-        text = File.read(file)
-        rude_word = text.scan(/[*]/)
-        bad_words << rude_word
-      end
-    end
-    bad_words.flatten!
-    bad_words.size
-  end
-
-  def uniq_names
-    names = []
-    Dir.entries('rap-battles2').map { |file_name| names << file_name.split(/(против | vs)/i).first }
-    names.uniq!.sort!
-    names = names[3..-1]
-    names.map(&:strip!)
-  end
-
-  def average_bad_words(name)
-    average = bad_words(name).fdiv(number_battles(name))
-    average.round(2)
-  end
-  # :reek:NestedIterators
-  # :reek:FeatureEnvy
-
-  def words_rounds(name)
-    words = 0
-    Dir.glob('rap-battles2/*') do |file|
-      if file.match?(/[^\s]#{name}/)
-        File.read(file).each_line do |line|
-          words += line.split.size
+    
+    def find_names_of_the_rappers
+        all_rappers = @battles_of_rappers.each_with_object([]) do |(key, _value), names|
+            names << key.split(/(против | vs)/i).first
         end
-      end
+        all_rappers.map!(&:strip).uniq!
     end
-    words / all_words(name)
-  end
+    
+    def battles_of_rappers
+        @battles.each_with_object({}) do |name_of_battle, all_battles|
+            all_battles[name_of_battle.split(%r{^(rap-battles2/){1}.*?})[2]] = File.read(name_of_battle)
+            all_battles
+        end
+    end
+    
+    def find_all_battles(name)
+        @battles_of_rappers.select { |battle| battle.match(/^#{name}/) }
+    end
+    
+    def count_of_bad_words(name)
+        text = find_all_battles(name).values.join
+        count = text.count('*')
+        count + RussianObscenity.find(text).size
+    end
+    
+    def average_bad_words_in_battle(name)
+        (count_of_bad_words(name) / number_of_battles(name).to_f).round(2)
+    end
+    
+    def rounds_of_rappers(name)
+        rounds = find_all_battles(name).values.join.scan(/Раунд\s[1-9]/).size
+        rounds.zero? ? 3 : rounds
+    end
+    
+    def count_words_in_rounds(name)
+        list_of_battles = find_all_battles(name)
+        words = list_of_battles.values.join(' ').split(/[[:space:]]/).size
+        (words.to_f / rounds_of_rappers(name)).round(2)
+    end
+    
+    def number_of_battles(name)
+        find_all_battles(name).size
+    end
+    
+    # :reek:TooManyStatements
+    def stats_of_rappers(number)
+        stats = {}
+        find_names_of_the_rappers.each do |name|
+            stats[name] = [number_of_battles(name), count_of_bad_words(name),
+            average_bad_words_in_battle(name), count_words_in_rounds(name)]
+        end
+        otsorted_stats = stats.sort_by { |_name, battle_stats| battle_stats[1] }.to_a.reverse
+        otsorted_stats.first(number.to_i)
+    end
+    
+    # :reek:DuplicateMethodCall
+    # :reek:UtilityFunction
+    def make_rows(name, battle_stats)
+        [
+        name,
+        "#{battle_stats[0]} " + Russian.pluralize(battle_stats[0].to_i, 'баттл', 'баттла', 'баттлов'),
+        "#{battle_stats[1]} нецензурных " + Russian.pluralize(battle_stats[1].to_i, 'слово', 'слова', 'слов'),
+        "#{battle_stats[2]} слов на баттл",
+        "#{battle_stats[3]} слов в раунде"
+        ]
+    end
+    
+    def make_table(number)
+        rows = stats_of_rappers(number).each_with_object([]) do |(name, battle_stats), row|
+            row << make_rows(name, battle_stats)
+        end
+        Terminal::Table.new rows: rows
+    end
+end
 
-  def all_words(name)
-    all_rounds = 0
-    Dir.glob('rap-battles2/*') do |file|
-      if file.match?(/[^\s]#{name}/)
-        text = File.read(file)
-        round = text.scan(/Раунд\s[1-9]/)
-        all_rounds += round = round.size
-        all_rounds += 3 if round.zero?
-      end
-    end
-    all_rounds
-  end
-
-  def stats_of_rapers(number)
-    true_stats = {}
-    unformatted_stats = {}
-    uniq_names.each do |val|
-      unformatted_stats[val] = [number_battles(val), bad_words(val), average_bad_words(val), words_rounds(val)]
-    end
-    true_stats = sort_and_reverse_hash(unformatted_stats, true_stats)
-    true_stats.shift
-    true_stats.first(number.to_i)
-  end
-
-  def sort_and_reverse_hash(unformatted_stats, true_stats)
-    unformatted_stats = unformatted_stats.sort_by { |_key, value| value[1] }
-    unformatted_stats.reverse!
-    unformatted_stats.each do |elem|
-      true_stats[elem[0]] = elem[1]
-    end
-    true_stats
-  end
-  # :reek:FeatureEnvy
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Layout/AlignArray
-
-  def make_table(number)
-    true_stats = {}
-    stats_of_rapers(number).each do |elem|
-      true_stats[elem[0]] = elem[1]
-    end
-    rows = []
-    true_stats.each do |key, value|
-      rows << [key.to_s, value[0].to_s + ' баттлов', value[1].to_s + ' нецензурных слов',
-      value[2].to_s + ' слова на баттл', value[3].to_s + ' слова в раунде']
-    end
-    Terminal::Table.new rows: rows
-  end
-  # rubocop:enable Layout/AlignArray
-  # rubocop:enable Metrics/AbcSize
-
-  options = { 'top-bad-words' => nil }
-  parser = OptionParser.new do |opts|
+options = { 'top-bad-words' => nil }
+parser = OptionParser.new do |opts|
     opts.banner = 'Info for all options'
     opts.on('--top-bad-words=number', 'top-bad-words') do |number|
-      options['top-bad-words'] = number
+        options['top-bad-words'] = number
     end
-  end
-  parser.parse!
-  puts TopRapers.new.make_table(options['top-bad-words']) unless options['top-bad-words'].nil?
 end
+parser.parse!
+puts Battles.new.make_table(options['top-bad-words']) unless options['top-bad-words'].nil?
