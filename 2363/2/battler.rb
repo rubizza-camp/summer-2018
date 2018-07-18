@@ -8,17 +8,16 @@ require 'terminal-table'
 # round, words that battler said
 class Battler
   attr_reader :name, :stats, :bad_words_per_battle
-  def initialize(*args)
-    @name = args[0]
+  def initialize(battler_name)
+    @name = battler_name
     @stats = { battles: 0, bad_words: 0, rounds: 0, words: 0 } # hash store numbers
-    update_stats(args[1])
   end
 
-  def update_stats(data)
+  def update_stats(battler_states)
     @stats[:battles] += 1
-    @stats[:bad_words] += data[:bad_words]
-    @stats[:rounds] += data[:rounds]
-    @stats[:words] += data[:words]
+    @stats[:bad_words] += battler_states[:bad_words]
+    @stats[:rounds] += battler_states[:rounds]
+    @stats[:words] += battler_states[:words]
   end
 
   def create_str_for_output
