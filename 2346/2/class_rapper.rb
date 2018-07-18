@@ -12,9 +12,7 @@ class Rapper
 
   def push_one_battle(some_battle)
     battles.push(some_battle)
-<<<<<<< HEAD
     self
-=======
   end
 
   def choose_better_name(other_name)
@@ -25,58 +23,6 @@ end
 # class for our tasks
 class BadRapper < Rapper
   attr_reader :bad_words, :total_words, :total_rounds, :average_bad
-
-  def initialize(name, battle_name)
-    super(name, battle_name)
-    @bad_words = 0
-    @total_words = 0
-    @total_rounds = 0
-    @average_bad = 0
-  end
-
-  def print
-    puts name.ljust(23) + '| ' + battles_to_s + '| ' + bad_words_to_s + '| ' + average_bad_to_s + '| ' + average_rounds
->>>>>>> 4554c91c72e730fc4d64ac6ea8f12591c3127c54
-  end
-
-  def count_words
-    battles.each { |battle_name| count_words_in_battle(battle_name) }
-  end
-end
-
-<<<<<<< HEAD
-# class for our tasks
-class BadRapper < Rapper
-  attr_reader :bad_words, :total_words, :total_rounds, :average_bad
-=======
-  def count_words_in_battle(battle_name)
-    rounds = 0
-    IO.foreach(battle_name.to_s) do |line|
-      count_words_in_line(line)
-      rounds += 1 if line[/[Рр]аунд ?\d/]
-    end
-    update_for_count_words(rounds)
-  end
-
-  def count_words_in_line(line)
-    words_arr = line.split
-    words_arr.each { |word| @bad_words += 1 if word.include?('*') }
-    @bad_words += RussianObscenity.find(line).size
-    @total_words += words_arr.length
-  end
-
-  def update_for_count_words(rounds)
-    @total_rounds += rounds.zero? ? 1 : rounds
-    @average_bad = bad_words.to_f / battles.size
-  end
-
-  private
-
-  def battles_to_s
-    s_battles = "#{battles.size} баттл#{ending_of_numb_battles}"
-    s_battles.ljust(10)
-  end
->>>>>>> 4554c91c72e730fc4d64ac6ea8f12591c3127c54
 
   def initialize(name, battle_name)
     super(name, battle_name)
