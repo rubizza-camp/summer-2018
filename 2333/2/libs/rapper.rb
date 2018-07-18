@@ -9,6 +9,10 @@ class Rapper
     @battles = battles
   end
 
+  def stats
+    [@name, @battles.count, all_mats, mats_on_battle, words_on_round]
+  end
+
   def all_mats
     mats = 0
     RussianObscenity.dictionary = [:default, './my_dictionary.yml']

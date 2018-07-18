@@ -1,5 +1,6 @@
 require 'terminal-table'
-require_relative './analyzer.rb'
+require_relative './top_bad_words_analyzer.rb'
+require_relative './top_words_analyzer.rb'
 
 module AnalyzerPrinter
   PATTERN = ' %-25s| %10s | %20s | %20s | %20s |'.freeze
