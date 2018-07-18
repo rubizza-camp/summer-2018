@@ -16,9 +16,6 @@ end
 # :reek:DuplicateMethodCall
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
 def print_out(rapers, top)
   delimiter = 1
   rapers.sort_by { |_k, val| [-val.bad_words] }.each do |_key, value|
@@ -31,14 +28,11 @@ def print_out(rapers, top)
              RuPropisju.choose_plural(bad_words, 'нецензурное', 'нецензурных', 'нецензурных') + ' ' +
              RuPropisju.choose_plural(bad_words, 'слово', 'слова', 'слов').ljust(5) + ' | ' +
              bad_words.fdiv(value.battles).round(2).to_s.ljust(6) + ' ' +
-             RuPropisju.choose_plural(bad_words.fdiv(value.battles).round(2), 'слово', 'слова', 'слова') + ' на баттл | '.ljust(12) +
-             value.words_round.to_s.ljust(5) + ' ' +
+        RuPropisju.choose_plural(bad_words.fdiv(value.battles).round(2), 'слово', 'слова', 'слова') +
+        ' на баттл | '.ljust(12) + value.words_round.to_s.ljust(5) + ' ' +
              RuPropisju.choose_plural(value.words_round, 'слово', 'слова', 'слов').ljust(5) +
              ' в раунде |'.ljust(11)
     puts result
     delimiter += 1
   end
 end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/LineLength
