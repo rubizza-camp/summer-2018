@@ -2,8 +2,7 @@
 
 # class Battler
 class Battler
-  Dir.chdir('/home/polia/summer-2018/2420/2/')
-  FOLDER_PATH = Dir.pwd
+  FOLDER_PATH = Dir.pwd.freeze
   VERSUS = /\bvs\b|\bVS\b|\bпротив\b/
   attr_reader :name
 
@@ -17,29 +16,12 @@ class Battler
     name_battlers.uniq
   end
 
-  def all_battles
-    Dir.chdir("#{FOLDER_PATH}/Texts/")
-    @all_battles ||= Dir.glob([" #{name}*", "#{name}*"])
-  end
-
   def battles_count
     @battles_count ||= all_battles.count
   end
 
-  def all_battles_text
-    text = ''
-    all_battles.each do |file_name|
-      text << IO.read("#{FOLDER_PATH}/Texts/#{file_name}")
-    end
-    text.gsub!(/^\s+|\n|\r|\s+$|-|–/, ' ')
-  end
-
   def all_battles_words_count
     all_battles_text.split.count
-  end
-
-  def bad_words
-    @bad_words ||= File.read("#{FOLDER_PATH}/bad_words").split(' ')
   end
 
   def bad_words_count
@@ -65,5 +47,24 @@ class Battler
       all_texts.gsub!(/#{preposition}[аояиеёю ]/, '')
     end
     all_texts
+  end
+
+  private
+
+  def all_battles_text
+    text = ''
+    all_battles.each do |file_name|
+      text << IO.read("#{FOLDER_PATH}/Texts/#{file_name}")
+    end
+    text.gsub!(/^\s+|\n|\r|\s+$|-|–|,|\.|!|\?/, ' ')
+  end
+
+  def bad_words
+    @bad_words ||= File.read("#{FOLDER_PATH}/bad_words").split(' ')
+  end
+
+  def all_battles
+    Dir.chdir("#{FOLDER_PATH}/Texts/")
+    @all_battles ||= Dir.glob([" #{name}*", "#{name}*"])
   end
 end

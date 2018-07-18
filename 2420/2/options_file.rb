@@ -55,7 +55,7 @@ unless options[:name].empty?
     puts table
   else
     puts "Рэпер #{options[:name]} мне не известен. Зато мне известны: "
-    puts Battler.battler_names_list.pop(3)
+    puts names.pop(3)
     puts '...'
   end
 end
