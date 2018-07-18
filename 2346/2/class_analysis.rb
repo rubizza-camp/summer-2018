@@ -38,14 +38,16 @@ module BaseRappersHash
     rappers_hash[key].push_one_battle(battle).choose_better_name(name)
   end
 
-  def compare_key_and_name(key, name)
-    name =~ /^#{key}.*/ || key =~ /^#{name}.*/ || name.chop == key.chop
-  end
-
   def find_files
     pn = Pathname('./rap-battles/')
     all_paths = pn.children
     all_paths
+  end
+
+  private
+
+  def compare_key_and_name(key, name)
+    name =~ /^#{key}.*/ || key =~ /^#{name}.*/ || name.chop == key.chop
   end
 end
 
