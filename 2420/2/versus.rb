@@ -2,7 +2,7 @@
 
 # class Battler
 class Battler
-  Dir.chdir('/home/polia/2/2_WORK/')
+  Dir.chdir('/home/polia/summer-2018/2420/2/')
   FOLDER_PATH = Dir.pwd
   VERSUS = /\bvs\b|\bVS\b|\bпротив\b/
   attr_reader :name
@@ -12,13 +12,13 @@ class Battler
   end
 
   def self.battler_names_list
-    files = Dir.entries(FOLDER_PATH).reject { |file_name| File.directory?(file_name) || file_name[0].include?('.') }
+    files = Dir.entries("#{FOLDER_PATH}/Texts/").reject { |file_name| File.directory?(file_name) }
     name_battlers = files.map { |all_file_names| all_file_names.lstrip.split(VERSUS).first }
     name_battlers.uniq
   end
 
   def all_battles
-    Dir.pwd
+    Dir.chdir("#{FOLDER_PATH}/Texts/")
     @all_battles ||= Dir.glob([" #{name}*", "#{name}*"])
   end
 
@@ -29,7 +29,7 @@ class Battler
   def all_battles_text
     text = ''
     all_battles.each do |file_name|
-      text << IO.read("#{FOLDER_PATH}/#{file_name}")
+      text << IO.read("#{FOLDER_PATH}/Texts/#{file_name}")
     end
     text.gsub!(/^\s+|\n|\r|\s+$|-|–/, ' ')
   end
@@ -39,13 +39,13 @@ class Battler
   end
 
   def bad_words
-    @bad_words ||= File.read("#{FOLDER_PATH}bad_words").split(' ')
+    @bad_words ||= File.read("#{FOLDER_PATH}/bad_words").split(' ')
   end
 
   def bad_words_count
     sum_bad_words = 0
-    bad_words.each_index do |index|
-      sum_bad_words += all_battles_text.gsub(bad_words[index]).count
+    bad_words.each do |bad_word|
+      sum_bad_words += all_battles_text.gsub(bad_word).count
     end
     sum_bad_words
   end
@@ -60,7 +60,7 @@ class Battler
 
   def text_without_preposition
     all_texts = all_battles_text.downcase!
-    prepositions_list = File.read("#{FOLDER_PATH}prepositions").split(',')
+    prepositions_list = File.read("#{FOLDER_PATH}/prepositions").split(',')
     prepositions_list.each do |preposition|
       all_texts.gsub!(/#{preposition}[аояиеёю ]/, '')
     end

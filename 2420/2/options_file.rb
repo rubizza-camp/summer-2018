@@ -26,8 +26,8 @@ if options[:top_bad_words] > 0
   rows = []
   battlers.map do |member|
     rows << [member.name.to_s,
-             "#{member.battles_count} батлов",
-             "#{member.bad_words_count} нецензурных слов ",
+             " #{member.battles_count} батлов",
+             " #{member.bad_words_count} нецензурных слов ",
              " #{member.words_in_battle}  слова на батл ",
              " #{member.words_in_raund} слова в раунде"]
   end
@@ -39,10 +39,11 @@ unless options[:name].empty?
   rows = []
   name_battler = []
   names = Battler.battler_names_list
-  names.each_with_index { |name, index| name_battler[index] = name.split.first }
+  names.each { |name| name_battler << name.split.first }
   if name_battler.include?(options[:name])
-    result = Battler.new(options[:name]).text_without_preposition
-    result.split(' ').each_with_object(Hash.new(0)) do |word, counter|
+    result = Battler.new(options[:name])
+                    .text_without_preposition.split(' ')
+                    .each_with_object(Hash.new(0)) do |word, counter|
       counter[word] += 1
     end
     counter = result.to_a.sort_by { |_word, count| count }
