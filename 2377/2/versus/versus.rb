@@ -11,10 +11,10 @@ p = Printer.new
 exp = /((\w|\d|.|\s)*?)(?=против|[vV][Ss] )/
 rappers_array = []
 @files = Dir.glob('*[^.rb]')
-#  -----------------------------------------------------заполнение массива реперами
-@files.each do |file|  # сделать наверное методы для этого
+#  ---------------------------------
+@files.each do |file| # split in methods
   if rappers_array.any? { |raper| raper.name == file[exp] }
-    r = rappers_array.find { |r| r.name == file[exp] }
+    r = rappers_array.find { |rapper| rapper.name == file[exp] }
     r.count_bad_words(file)
     r.count_words_per_round(file)
     r.find_favourite_words(file) if r.name == " #{@option_name} "
@@ -27,41 +27,28 @@ rappers_array = []
     rappers_array.push(r)
   end
 end
-# --------------------------------------------------------заполнение массива реперами
+# -----------------------------------
 
 sorted_rappers = rappers_array.sort_by { |r| -r.bad_words }
-sorted_rappers.each do |rapper|
-  rapper.count_words_per_battle
-end
-
+sorted_rappers.each(&:count_words_per_battle)
 
 unless option_bad_words.nil?
   if option_bad_words.to_i < sorted_rappers.size
     p.print(option_bad_words.to_i, sorted_rappers)
-  else 
+  else
     puts 'Too much.'
   end
 end
 
-
 unless @option_name.nil?
   option_words = 30 if option_words.nil?
   current = sorted_rappers.find { |r| r.name == " #{@option_name} " }
-  unless current.nil?
+  if !current.nil?
     p.print_words(option_words.to_i, current.fav_words)
   else
-    puts "I don't know #{@option_name} but I know:" 
+    puts "I don't know #{@option_name} but I know:"
     sorted_rappers.each do |r|
       puts r.name
-    end   
+    end
   end
 end
-
-
-
-
-
-
-
-
-
