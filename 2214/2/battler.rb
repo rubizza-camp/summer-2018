@@ -11,11 +11,7 @@ class Battler
   end
 
   def number_of_battles
-    count_of_battles = 0
-    Dir.glob("#{BATTLES_FOLDER}/*#{@name}*").each do |title|
-      count_of_battles += 1 if title.split('против').first.include? @name
-    end
-    count_of_battles
+    Dir.glob("#{BATTLES_FOLDER}/*#{@name}*").select { |title| title.split('против').first.include? @name }.count
   end
 
   def number_of_bad_words
