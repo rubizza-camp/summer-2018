@@ -1,5 +1,4 @@
 require_relative './statistic.rb'
-require 'pry'
 
 class TopWords < Statistic
   attr_reader :amount, :name, :headings

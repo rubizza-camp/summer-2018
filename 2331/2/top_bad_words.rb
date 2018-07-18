@@ -1,12 +1,11 @@
 require_relative './statistic.rb'
-require 'pry'
 
 class TopBadWords < Statistic
   def initialize(options)
     @amount = options[:top_bad_words]
     @result = []
     @headings = ['Name', 'Amount of battles', 'Amount of bad words', 'Amount words on battle', 'Words on raund']
-    super()
+    super
   end
 
   def print_result
