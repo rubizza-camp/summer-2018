@@ -66,7 +66,7 @@ class TablePrinter
     0.upto(3) do |index|
       row += make_cell(participant_in_top[1][index], column_names[index], props[index + 1]) + '|'
     end
-     row
+    row
   end
 end
 # ----------------------------------------------------------------------------------------------------
