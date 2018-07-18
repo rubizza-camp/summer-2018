@@ -1,5 +1,5 @@
 require 'optparse'
-load 'parser.rb'
+require_relative 'parser.rb'
 
 # Class versus is main class
 class Versus
@@ -7,12 +7,15 @@ class Versus
   def initialize
     @value = 0
     @name = nil
+  end
+
+  def run
     OptionParser.new do |opts|
       parse_top_bad_words(opts)
       parse_top_words(opts)
       parse_name(opts)
     end.parse!
-    Parser.new(value, name)
+    Parser.new.call(name, value)
   end
 
   def parse_top_bad_words(opts)
@@ -34,4 +37,4 @@ class Versus
   end
 end
 
-Versus.new
+Versus.new.run
