@@ -14,6 +14,7 @@
 #   about_triangle_project_2.rb
 
 # This method smells of :reek:FeatureEnvy
+# This method smells of :reek:TooManyStatements
 def triangle_check_error(sides_to_check)
   raise TriangleError if sides_to_check.count != 3
   sorted_sides_to_check = sides_to_check.sort
