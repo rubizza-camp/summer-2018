@@ -1,8 +1,7 @@
 class TopWordsAnalizator
-  
   def initialize
     @counts = {}
-  end  
+  end
 
   def search_top_words_for_the_participant(participant_name, file_names, num_for_output)
     make_counts(participant_name, file_names)
@@ -31,7 +30,8 @@ class TopWordsAnalizator
   end
 
   def check_if_the_right_battle(file_name, name)
-    file_name[file_name.index('/') + 1..-1].strip.index(name) == 0
+    file_name[file_name.index('/') + 1..-1].strip.index(name) &&
+      file_name[file_name.index('/') + 1..-1].strip.index(name).zero?
   end
 
   def read_words(name_of_file)

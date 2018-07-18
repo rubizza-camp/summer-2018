@@ -23,9 +23,9 @@ class ParticipantSelector
     first_name = names[0]
     second_name = names[1]
     if first_name.size != second_name.size && (first_name.include?(second_name) || second_name.include?(first_name))
-      removing_name = first_name.size > second_name.size ? first_name : second_name
+      first_name.size > second_name.size ? first_name : second_name
     else
-      removing_name = ''
+      ''
     end
   end
 end

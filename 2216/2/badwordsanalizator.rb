@@ -9,7 +9,7 @@ class BadWordsAnalizator
 
   def collect_inf_about(participant_name, file_names, participants_bad_words)
     file_names.each do |file_name|
-      read_battle(file_name) if file_name[file_name.index('/') + 1..-1].strip.index(participant_name) == 0
+      read_battle(file_name) if check_if_the_right_battle(file_name, name)
     end
     @raund_num = 1 if @raund_num.zero?
     participants_bad_words[participant_name] = [@battles_num, @bad_words_num, @bad_words_num / @battles_num,
@@ -17,6 +17,11 @@ class BadWordsAnalizator
   end
 
   private
+
+  def check_if_the_right_battle(file_name, name)
+    file_name[file_name.index('/') + 1..-1].strip.index(name) &&
+      file_name[file_name.index('/') + 1..-1].strip.index(name).zero?
+  end
 
   def read_battle(file_name)
     words = divide_into_words(file_name)
