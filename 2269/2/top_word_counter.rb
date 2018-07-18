@@ -6,7 +6,7 @@
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
 def top_word_count(destination, raper_name, count)
-  rapers = get_rapers destination
+  rapers = get_rapers_list destination
   unless rapers.key? raper_name
     puts "\nРэпер #{raper_name} не судился. Осуждены следующие:\n\n"
     rapers.each { |_key, value| puts value.name }

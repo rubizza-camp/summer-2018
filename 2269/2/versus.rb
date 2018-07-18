@@ -6,7 +6,6 @@ require_relative 'top_bad'
 require_relative 'rapers_list'
 require_relative 'top_word_counter'
 
-# rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/BlockNesting
 destination = Dir.pwd + '/text'
 if !ARGF.argv[0].nil?
@@ -52,5 +51,4 @@ else
   count = 1_000
   get_top_bad count, destination
 end
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/BlockNesting
