@@ -131,4 +131,8 @@ OptionParser.new do |parser|
     top_participants = ParticipantStore.new.top_by_bad_words(top_bad_words.to_i)
     puts Terminal::Table.new(rows: top_participants.map(&:table_row))
   end
+  parser.on('--help') do
+    puts 'Usage:'
+    puts 'Parameter --top-bad-words=N show N the most abusive rapers.'
+  end
 end.parse!
