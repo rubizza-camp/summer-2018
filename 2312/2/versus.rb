@@ -1,4 +1,3 @@
-require './battle'
 require './battlers_table'
 require './modules'
 

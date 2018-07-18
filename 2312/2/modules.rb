@@ -32,18 +32,18 @@ module FillMethods
   end
 
   # :reek:UtilityFunction
-  def extract_battlers_names(battlers_names, battle)
-    rapper = battle.partition(/( против | vs | VS )/).first + ' & '
-    splitted_rapper = rapper.split(' & ')
-    battlers_names << splitted_rapper.first.strip
-    battlers_names << splitted_rapper[1].strip if Battle.new(battle).paired?
+  def extract_battlers_names(battlers_names, battle_file_path)
+    rapper_name = battle_file_path.partition(/( против | vs | VS )/).first + ' & '
+    splitted_rapper_name = rapper_name.split(' & ')
+    battlers_names << splitted_rapper_name.first.strip
+    battlers_names << splitted_rapper_name[1].strip if Battle.new(battle_file_path).paired?
     battlers_names
   end
 
   def fill_battlers_names_array
     battlers_names = []
-    @all_battles_paths.each do |battle|
-      battlers_names = extract_battlers_names(battlers_names, battle)
+    @all_battles_paths.each do |battle_file_path|
+      battlers_names = extract_battlers_names(battlers_names, battle_file_path)
     end
     battlers_names
   end
