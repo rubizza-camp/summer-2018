@@ -46,8 +46,9 @@ class ArgsParser
 
   def options_default_values
     options = @options
-    options = default_top_bad_words
-    options = default_top_words
+    options = default_top_bad_words(options)
+    options = default_top_words(options)
+    options
   end
 
   private
@@ -57,12 +58,13 @@ class ArgsParser
     @options.each { |key, value| @options[key] = :default unless value }
   end
 
-  def default_top_bad_words
-    options[:top_bad_words] = "5" if @options[:top_bad_words] == :default
+  def default_top_bad_words(options)
+    options[:top_bad_words] = '5' if @options[:top_bad_words] == :default
+    options
   end
 
-  def default_top_words
-    options[:top_words] = "30" if @options[:top_words] == :default
+  def default_top_words(options)
+    options[:top_words] = '30' if @options[:top_words] == :default
     options
   end
 end

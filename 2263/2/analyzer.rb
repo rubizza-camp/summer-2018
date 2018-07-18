@@ -87,7 +87,7 @@ class WordsAnalyzer < BattlesAnalyzer
     @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
     @name = name
   end
-  
+
   # :reek:TooManyStatements
   def words
     list = {}
@@ -205,7 +205,7 @@ end
 class AnalyzerTextNameError < StandardError
   def initialize(path, message = nil)
     @file = path
-    message ? @message = default_message : @message = message
+    @message = message ? default_message : message
   end
 
   private
