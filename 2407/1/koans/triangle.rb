@@ -15,10 +15,11 @@
 
 # This method smells of :reek:FeatureEnvy
 def triangle_check_error(sides_to_check)
+  raise TriangleError if sides_to_check.count != 3
   sorted_sides_to_check = sides_to_check.sort
-  sides_sum_check = (sorted_sides_to_check[0] + sorted_sides_to_check[1]) > sorted_sides_to_check[2]
-  raise TriangleError if sides_to_check.any? { |side| side <= 0 }
-  raise TriangleError unless sides_sum_check
+  sorted_sides_sum_check = (sorted_sides_to_check[0] + sorted_sides_to_check[1]) > sorted_sides_to_check[2]
+  raise TriangleError if sorted_sides_to_check.any? { |side| side <= 0 }
+  raise TriangleError unless sorted_sides_sum_check
 end
 
 UNIQUE_SIDES_COUNT_TO_TRIANGLE_TYPE_MAP = { 1 => :equilateral, 2 => :isosceles, 3 => :scalene }.freeze
@@ -26,8 +27,7 @@ UNIQUE_SIDES_COUNT_TO_TRIANGLE_TYPE_MAP = { 1 => :equilateral, 2 => :isosceles, 
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:FeatureEnvy
 # This method smells of :reek:TooManyStatements
-def triangle(side_a, side_b, side_c)
-  sides = [side_a, side_b, side_c]
+def triangle(*sides)
   triangle_check_error(sides)
   unique_sides_count = sides.uniq.count
   UNIQUE_SIDES_COUNT_TO_TRIANGLE_TYPE_MAP[unique_sides_count]
