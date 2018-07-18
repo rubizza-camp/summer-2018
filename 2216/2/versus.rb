@@ -4,57 +4,70 @@ require 'unicode'
 require_relative 'badwordsanalizator'
 require_relative 'topwordsanalizator'
 
-# This method smells of :reek:UtilityFunction
-def get_rest_properties(properties, participant_inf)
-  1.upto(4) do |index|
-    participant_inf[1][index - 1] = participant_inf[1][index - 1].to_s
-    properties[index] << participant_inf[1][index - 1]
+class TablePrinter
+  def output_top(bad_words, top_number)
+    top_participant = []
+    properties = Array.new(5) { 0 }
+    get_top_participants(bad_words, top_participant, top_number)
+    print_top_participant(top_participant, properties)
   end
-end
 
-# This method smells of :reek:TooManyStatements
-# This method smells of :reek:FeatureEnvy
-# This method smells of :reek:UtilityFunction
-def get_properties_for_grid(partic_in_top, prop_array)
-  prop = Array.new(5) { [] }
-  partic_in_top.map do |value|
-    prop[0] << value[0]
-    get_rest_properties(prop, value)
+  private
+
+  def get_top_participants(bad_words, top_participant, top_number)
+    bad_words = bad_words.sort_by { |_key, value| value[2] }.reverse
+    top_number.times { top_participant << bad_words.shift }
   end
-  0.upto(4) do |index|
-    prop_array[index] = prop[index].max_by(&:size).size + 1
+
+  def print_top_participant(top_participant, properties)
+    get_the_properties_for_grid(top_participant, properties)
+    top_participant.each { |participant| print_the_row(participant, properties) }
   end
-end
 
-# This method smells of :reek:TooManyStatements
-# This method smells of :reek:UtilityFunction
-def get_rest_row(row, partic_in_top, prop)
-  names_of_columns = [' баттлов', ' нецензурных слов', ' слов на баттл', ' слов в раунде']
-  0.upto(3) do |index|
-    cell = partic_in_top[1][index] + names_of_columns[index]
-    cell += ' ' while cell.size != prop[index + 1] + names_of_columns[index].size
-    row += cell + '|'
+  def get_the_properties_for_grid(participant_in_top, properties_for_cell)
+    cell_arrays = Array.new(5) { [] }
+    participant_in_top.each { |participant_inf| get_name_field(cell_arrays, participant_inf) }
+    get_prop_array(properties_for_cell, cell_arrays)
   end
-  row
-end
 
-# This method smells of :reek:FeatureEnvy
-def print_row(partic_in_top, properties)
-  row = ''
-  cell = partic_in_top[0]
-  cell += ' ' while cell.size != properties[0]
-  row += cell + '|' + get_rest_row(row, partic_in_top, properties)
-  puts row
-end
+  def get_name_field(cell_arrays, participant_inf)
+    cell_arrays[0] << participant_inf[0]
+    get_the_rest_properties(cell_arrays, participant_inf)
+  end
 
-# This method smells of :reek:TooManyStatements
-def output_top(bad_words, top_number)
-  top_partic = []
-  properties = Array.new(5) { 0 }
-  bad_words = bad_words.sort_by { |_key, value| value[2] }.reverse
-  top_number.times { top_partic << bad_words.shift }
-  get_properties_for_grid(top_partic, properties)
-  top_partic.each { |participant| print_row(participant, properties) }
+  def get_the_rest_properties(cells, participant_inf)
+    1.upto(4) do |index|
+      participant_inf[1][index - 1] = participant_inf[1][index - 1].to_s
+      cells[index] << participant_inf[1][index - 1]
+    end
+  end
+
+  def get_prop_array(cell_properties_array, cells)
+    0.upto(4) do |index|
+      cell_properties_array[index] = cells[index].max_by(&:size).size + 1
+    end
+  end
+
+  def print_the_row(participant_in_top, properties)
+    row = ''
+    row += make_cell(participant_in_top[0], '', properties[0]) + '|' +
+           get_the_rest_inf_for_row(row, participant_in_top, properties)
+    puts row
+  end
+
+  def make_cell(criterion, column_name, prop_cell_size)
+    cell = criterion + column_name
+    cell += ' ' while cell.size != prop_cell_size + column_name.size
+    cell
+  end
+
+  def get_the_rest_inf_for_row(row, participant_in_top, props)
+    column_names = [' баттлов', ' нецензурных слов', ' слов на баттл', ' слов в раунде']
+    0.upto(3) do |index|
+      row += make_cell(participant_in_top[1][index], column_names[index], props[index + 1]) + '|'
+    end
+     row
+  end
 end
 # ----------------------------------------------------------------------------------------------------
 
@@ -83,27 +96,29 @@ parser.parse!
 if options.values.all?(&:nil?)
   puts 'Wrong number of parameters'
 else
-  participants_bad_words = {}
-  names_of_files = Dir['rap-battles/*']
-  participants_names = []
+  participant_bad_words = {}
+  file_names = Dir['rap-battles/*']
+  participant_names = []
   input_vars = options.reject { |_key, value| value.nil? }
 
   file_with_names = File.open('participants', 'r')
-  file_with_names.each_line { |line| participants_names << line.chop! }
+  file_with_names.each_line { |line| participant_names << line.chop! }
   file_with_names.close
 
   # first level
   # --------------------------------------------------------------------------------------------
   if input_vars.include?(:top_bad_words)
-    until options[:top_bad_words] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
-      print 'Enter integer Number: '
+    until options[:top_bad_words] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/ &&
+          Integer(options[:top_bad_words]) <= participant_names.size
+      print 'Enter correct integer Number: '
       options[:top_bad_words] = gets.chomp
     end
-    participants_names.each do |name|
+    participant_names.each do |name|
       analizator = BadWordsAnalizator.new
-      analizator.collect_inf_about(name, names_of_files, participants_bad_words)
+      analizator.collect_inf_about(name, file_names, participant_bad_words)
     end
-    output_top(participants_bad_words, Integer(options[:top_bad_words]))
+    printer = TablePrinter.new
+    printer.output_top(participant_bad_words, Integer(options[:top_bad_words]))
   end
   # -------------------------------------------------------------------------------------------
 
@@ -112,12 +127,12 @@ else
   if input_vars.include?(:name)
     options[:top_words] = 30 if options[:top_words].nil? || options[:top_bad_words] == ''
     options[:name] = options[:name].tr('_', ' ')
-    if participants_names.include?(options[:name])
+    if participant_names.include?(options[:name])
       analizator = TopWordsAnalizator.new
-      analizator.search_top_words_for_participant(options[:name], names_of_files, Integer(options[:top_words]))
+      analizator.search_top_words_for_the_participant(options[:name], file_names, Integer(options[:top_words]))
     else
       puts 'Неизвестное имя ' + options[:name] + '. Вы можете ввести одно из следующих имён: '
-      participants_names.each { |name| puts name }
+      participant_names.each { |name| puts name }
     end
   end
   # -------------------------------------------------------------------------------------------

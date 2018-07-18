@@ -1,73 +1,76 @@
 class TopWordsAnalizator
-  # This method smells of :reek:TooManyStatements
-  def search_top_words_for_participant(name, names_of_files, num_for_output)
-    counts = {}
-    # remove excess symbols
-    words = find_all_words(name, names_of_files).map! { |word| word.gsub(/[,:;.?!«»]|&quot/, '') }
-    words = rm_excess_words(words).each { |word| counts[word] = words.count(word) unless counts.include?(word) }
-    counts = counts.sort_by { |_key, value| value }.reverse
-    output_words(counts, num_for_output)
+  
+  def initialize
+    @counts = {}
+  end  
+
+  def search_top_words_for_the_participant(participant_name, file_names, num_for_output)
+    make_counts(participant_name, file_names)
+    @counts = @counts.sort_by { |_key, value| value }.reverse
+    output_words(num_for_output)
+  end
+
+  def self.print_top_words(word_with_count)
+    puts "#{word_with_count[0]} - #{word_with_count[1]} раз"
   end
 
   private
 
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  def find_all_words(name, names_of_files)
+  def make_counts(name, file_names)
+    words = find_all_words(name, file_names)
+    remove_excess_symbols(words).each { |word| words.delete(word) if word.size < 3 || !check_noun(word) }
+    words.reject(&:nil?).map! { |word| @counts[word] = words.count(word) unless @counts.include?(word) }
+  end
+
+  def find_all_words(name, file_names)
     words = []
-    names_of_files.each do |f_name|
-      words += read_words(f_name) if f_name.include?(name) && (f_name.index(name) == f_name.index('/') + 2 ||
-                                    f_name.index(name) == f_name.index('/') + 1)
+    file_names.each do |file_name|
+      words += read_words(file_name) if check_if_the_right_battle(file_name, name)
     end
     words
   end
 
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
+  def check_if_the_right_battle(file_name, name)
+    file_name[file_name.index('/') + 1..-1].strip.index(name) == 0
+  end
+
   def read_words(name_of_file)
     text = ''
-    raund_text = ''
-    fname = File.open(name_of_file, 'r')
-    fname.each_line { |line| identify_round(text, raund_text, line) }
-    text << raund_text
-    fname.close
-    text = Unicode.downcase(text).split(' ').select { |word| word.match(/[^\s]+[a-zA-Z]*[а-яА-я]*[^\s]+/) }
+    round_text = ''
+    File.open(name_of_file, 'r').each_line { |line| define_round(text, round_text, line) }
+    make_words(text, round_text)
   end
 
-  # rubocop:disable RedundantMatch
-  # This method smells of :reek:UtilityFunction
-  def identify_round(content, raund_content, line_of_battle)
-    if line_of_battle.match(/Раунд [1|2|3][^\s]*/)
-      content << raund_content
+  def define_round(content, round_content, line_of_battle)
+    if line_of_battle.match(/Раунд [1|2|3][^\s]*/) && round_content != ''
+      content << round_content
     else
-      raund_content << line_of_battle + ' '
+      round_content << line_of_battle + ' '
     end
   end
-  # rubocop:enable RedundantMatch
 
-  # This method smells of :reek:ControlParameter
+  def make_words(text, round_text)
+    text << round_text
+    Unicode.downcase(text).split(' ').select { |word| word.match(/[^\s]+[a-zA-Z]*[а-яА-я]*[^\s]+/) }
+  end
+
+  def remove_excess_symbols(words)
+    words.map! { |word| word.gsub(/[,:;.?!«»]|&quot/, '') }
+  end
+
   def check_noun(word)
     noun_is_find = false
-    file = File.open('word_rus.txt', 'r')
-    file.each_line { |line| noun_is_find = true if word == line.chop! }
+    File.open('word_rus.txt', 'r').each_line do |line|
+      noun_is_find = line.chop!.eql?(word)
+      break if noun_is_find
+    end
     noun_is_find
   end
 
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
-  # This method smells of :reek:UtilityFunction
-  def rm_excess_words(words)
-    words.each { |word| words.delete(word) if word.size < 3 }
-    words = words.reject(&:nil?)
-    words.each { |word| words.delete(word) unless check_noun(word) }
-    words = words.reject(&:nil?)
-  end
-
-  # This method smells of :reek:FeatureEnvy
-  def output_words(counts_of_words, num_for_output)
+  def output_words(num_for_output)
     num_for_output.times do
-      word_with_count = counts_of_words.shift
-      puts word_with_count[0] + ' - ' + word_with_count[1].to_s + ' раз'
+      word_with_count = @counts.shift
+      TopWordsAnalizator.print_top_words(word_with_count)
     end
   end
 end
