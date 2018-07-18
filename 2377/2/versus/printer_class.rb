@@ -16,8 +16,8 @@ class Printer
 
   def print_words(num, hash)
     rows = []
-    i = 0
-    while i < num
+    i = 1
+    while i <= num
       rows << [hash.keys[i], hash[hash.keys[i]]]
       i += 1
     end

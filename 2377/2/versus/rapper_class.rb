@@ -6,51 +6,47 @@ class Rapper
     @bad_words = 0
     @rounds = 0
     @words = 0
-    @file_array = [] # тут лежат строки строки строки 
     @words_per_round = 0
     @battles = 1
     @fav_words = {}
   end
- 
-  # тут что-то не очень красиво 
+
   def count_bad_words(filename)
     bad_words = 0
     word_array = []
-    read_file(filename)
-    @file_array.each do |line|
+    file_array = []
+    read_file(filename, file_array)
+    file_array.each do |line|
       word_array += line.split
     end
-    word_array.each do |word|
-      bad_words += 1 if RussianObscenity.obscene?(word) || word[/\W*\*\W*/]
-    end
-    @bad_words += bad_words
+   @bad_words += word_array.count { |w| RussianObscenity.obscene?(w) || w[/\W*\*\W*/] }
   end
   
   # сделать так как хотел ментор и посмотреть вообще на этот метод что-то он какой-то странный
-  def read_file(filename) # исправить на inject
-    @file_array.clear
+  def read_file(filename, file_array) # исправить на inject
     File.foreach filename do |line|
-       @file_array.push(line)
+       file_array.push(line)
      end
   end
     
   def count_rounds_and_words(filename)
     words_array = []
-    read_file(filename)
-    count_rounds
-    count_words(words_array)
+    file_array = []
+    read_file(filename, file_array)
+    count_rounds(file_array)
+    count_words(words_array, file_array)
     rounds_check
   end
   # сделать чтобы регексп большой не повторялся дважды
   
-  def count_rounds
-    rounds = @file_array.count { |line| line[/((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/] }
+  def count_rounds(file_array)
+    rounds = file_array.count { |line| line[/((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/] }
     @rounds += rounds
   end
 
-  def count_words(words_array)
+  def count_words(words_array, file_array)
     words = []
-    words_array = @file_array.delete_if { |line| line[/((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/] }
+    words_array = file_array.delete_if { |line| line[/((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/] }
     words_array.each do |line|
       words += line.split
     end
@@ -69,8 +65,8 @@ class Rapper
   def count_words_per_battle
     @words_per_battle = @bad_words / @battles
   end
-# ПОЧИНИТЬ СИМПЛ ВОРД ДИКШИОНАРРИ ПОЧЕМУ ОН НЕ РАБОТАЕТ ПОЧЕМУ ПОЧЕМУ ПОЧЕМУ ААААААААААА
 
+# разбить на методы поменьше
   def sort_fav_words
     @fav_words = @fav_words.sort_by { |_key, value| -value }.to_h
   end
@@ -78,7 +74,12 @@ class Rapper
   def find_favourite_words(filename)
   fav_words = Hash.new 0
   word_array = []
-  not_counting = ['не', 'в', 'и', 'ты', 'я', 'что', 'на', 'с', '-', 'как', 'это', 'тебя', 'меня', 'он', 'за', 'мне', 'все', 'бы', 'кто', 'был', 'про', 'же', 'а', 'просто', 'так', 'его', 'от', 'мой', 'вы', 'по', 'если', 'твой', 'из', 'тебе', 'есть', 'то', 'к', 'тут', 'даже', 'под', 'но', '–', 'у', 'ведь', 'мы', 'для', 'где', 'вот', 'только', 'здесь', 'чтобы', 'до', 'там', 'или', 'чем', 'когда', 'ты,', 'все', 'быть', 'нет,', 'ни', 'тоже', 'ну', 'лишь', 'потому', 'еще', 'без', 'почему', 'было', 'будет', 'нет', 'со', 'всех', 'будто', 'раз', 'этом', 'то,', 'после', 'пока', 'твоя', 'лет', 'их', 'сколько', 'о', 'хоть', 'да', 'она', 'б', 'теперь', 'вам', 'чтоб', 'ему', 'этот', 'себя', 'него', 'я,', 'ли', 'такой', 'тебя,', 'твоих', 'вас', 'назад', 'во', 'всего', 'об', 'них', 'им', 'сам', 'тот', 'свой', 'этим', 'хотя', 'себе', 'нам', 'моя', '', 'всё', 'может', 'тех', 'твои', 'каждый', 'тем', 'тобой', 'сюда', 'они', 'уже', 'вообще', 'сейчас', 'сегодня', 'всю', 'итак', 'том', 'кстати', 'против', 'твоей', 'твою', 'твоего', 'её', 'словно', 'вместо', 'этой', 'короче', 'типа', 'ее', 'между', 'твое', 'нас', 'какой', 'надо', 'ей', 'столько', 'всем', 'перед', 'итоге', 'мной', 'мои', 'больше', 'ещё', 'значит', 'настолько', 'лучше', 'сразу', 'при', 'свою', 'своей', 'пор', 'ним', 'давай']
+  buf = []
+  not_counting = []
+  read_file('simple_words_dictionary.txt', buf)
+    buf.each do |line|
+      not_counting += line.split
+    end
     File.foreach filename do |line|
       word_array += line.split
     end
