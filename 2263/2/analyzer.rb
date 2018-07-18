@@ -9,7 +9,6 @@ class BattlesAnalyzer
   def initialize(name = nil)
     @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
     @name = name
-    @list = {} # Output hash
   end
 
   def path=(new_path)
@@ -18,21 +17,21 @@ class BattlesAnalyzer
 
   # :reek:TooManyStatements
   def rounds
-    @list = {}
+    list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_rounds(path) } if !@name || name_in_file == @name
+      explore_file(name_in_file, list) { count_rounds(path) } if !@name || name_in_file == @name
     end
-    @list
+    list
   end
 
   def battles
-    @list = {}
+    list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      add_entry_to_list(name_in_file, 1) if !@name || name_in_file == @name
+      add_entry_to_list(name_in_file, 1, list) if !@name || name_in_file == @name
     end
-    @list
+    list
   end
 
   private
@@ -43,15 +42,16 @@ class BattlesAnalyzer
     name_in_file
   end
 
-  def explore_file(name_in_file)
+  def explore_file(name_in_file, list)
     value = 0
     value = yield if block_given? # Takes block which counts nessesary value
-    add_entry_to_list(name_in_file, value)
+    add_entry_to_list(name_in_file, value, list)
   end
 
-  def add_entry_to_list(name, number)
+  def add_entry_to_list(name, number, list)
     name = name.to_sym
-    @list[name] = @list.key?(name) ? @list[name] + number : number
+    list[name] = list.key?(name) ? list[name] + number : number
+    list
   end
 
   # :reek:TooManyStatements
@@ -86,27 +86,26 @@ class WordsAnalyzer < BattlesAnalyzer
   def initialize(name = nil)
     @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
     @name = name
-    @list = {} # Output hash
   end
   
   # :reek:TooManyStatements
   def words
-    @list = {}
+    list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_words(path) } if !@name || name_in_file == @name
+      list = explore_file(name_in_file, list) { count_words(path) } if !@name || name_in_file == @name
     end
-    @list
+    list
   end
 
   # :reek:TooManyStatements
   def bad_words
-    @list = {}
+    list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_bad_words(path) } if !@name || name_in_file == @name
+      list = explore_file(name_in_file, list) { count_bad_words(path) } if !@name || name_in_file == @name
     end
-    @list
+    list
   end
 
   private
@@ -149,28 +148,27 @@ class EachWordAnalyzer < BattlesAnalyzer
   def initialize(name = nil)
     @paths = Dir[__dir__ + '/texts/*'] # Path to directory with texts convertes to array of paths to each file
     @name = name
-    @list = {}
-    @words_hash = {}
   end
 
   # :reek:TooManyStatements
   def each_word
-    @list = {}
+    list = {}
     @paths.each do |path|
       name_in_file = get_name_in_file(path)
-      explore_file(name_in_file) { count_each_word(path) } if !@name || name_in_file == @name
+      list = explore_file(name_in_file, list) { count_each_word(path) } if !@name || name_in_file == @name
     end
-    @list
+    list
   end
 
   private
 
-  def add_entry_to_list(name, words_hash)
+  def add_entry_to_list(name, words_hash, list)
     name = name.to_sym
-    @list[name] = @list.key?(name) ? merge_with_sum(@list[name], words_hash) : words_hash
+    list[name] = list.key?(name) ? merge_with_sum(list[name], words_hash) : words_hash
+    list
   end
 
-  # Works like Hash.merge, but summarize values of repeated keys
+  # Works like Hash#merge, but summarize values of repeated keys
   def merge_with_sum(first_hash, second_hash)
     second_hash.each_key do |key|
       first_hash.key?(key) ? first_hash[key] += second_hash[key] : first_hash.merge(key => second_hash[key])
@@ -178,22 +176,23 @@ class EachWordAnalyzer < BattlesAnalyzer
     first_hash
   end
 
-  def handle_word_array(words)
+  def handle_word_array(words, words_hash)
     words.each do |word|
       word = to_lower(word).to_sym
-      @words_hash[word] = @words_hash.key?(word) ? @words_hash[word] + 1 : 1
+      words_hash[word] = words_hash.key?(word) ? words_hash[word] + 1 : 1
     end
+    words_hash
   end
 
   # :reek:TooManyStatements
   def count_each_word(path)
-    @words_hash = {}
+    words_hash = {}
     file = File.open(path)
     file.each do |line|
       words = to_word_array(line)
-      handle_word_array(words) unless round_description?(words)
+      words_hash = handle_word_array(words, words_hash) unless round_description?(words)
     end
-    @words_hash
+    words_hash
   end
 
   # Downcase russian symbols
