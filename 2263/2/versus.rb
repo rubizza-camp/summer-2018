@@ -2,20 +2,6 @@ require_relative 'args_parser'
 require_relative 'analyzer'
 require_relative 'organizer'
 
-class DefaultOptions
-  def top_bad_words(option)
-    top_bad_words = 5 if option == :default
-    top_bad_words = option.to_i if option.class == String
-    top_bad_words
-  end
-
-  def top_words(option)
-    top_words = 30 if option == :default
-    top_words = option.to_i if option.class == String
-    top_words
-  end
-end
-
 def print_unknown_name(name)
   puts "I don't know MC #{name}, but I know these:"
   battles.each_key { |each_name| puts each_name }
@@ -28,11 +14,10 @@ def print_unknown_action(name)
 end
 
 begin
-  args_parser = ArgsParser.new
-  options = args_parser.options
+  options = ArgsParser.new.options_default_values
   Help.new.show_help if options[:help]
-  top_bad_words = DefaultOptions.new.top_bad_words(options[:top_bad_words])
-  top_words = DefaultOptions.new.top_words(options[:top_words])
+  top_bad_words = options.key?(:top_bad_words) ? options[:top_bad_words].to_i : nil
+  top_words = options.key?(:top_words) ? options[:top_words].to_i : nil
   name = options[:name]
   if name
     battles = BattlesAnalyzer.new.battles
@@ -50,6 +35,8 @@ begin
     list = TopWordsOrganizer.new(each_word_analyzer, top_words).organize
     TopWordsPrinter.new.print_result(list)
   end
-rescue AnalyzerTextNameError => exeption
-  exeption.show_message
+rescue AnalyzerTextNameError => exception
+  puts exception.message
+rescue OptionParser::InvalidOption => exception
+  puts exception.message.capitalize
 end

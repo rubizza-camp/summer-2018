@@ -1,7 +1,6 @@
 # Organizes top_words list and leads it to a good form to output
 class TopBadWordsOrganizer
-  attr_reader :battles_analyzer, :words_analyzer, :number, :name
-  attr_reader :list
+  attr_reader :battles_analyzer, :words_analyzer, :number
 
   def initialize(battles_analyzer, words_analyzer, number)
     @battles_analyzer = battles_analyzer
@@ -38,15 +37,14 @@ class TopBadWordsOrganizer
 
   def delete_excess(list)
     counter = 0
-    list.delete_if { (counter += 1) > number }
+    list.delete_if { (counter += 1) > @number }
     list
   end
 end
 
 # Organizes top_words list and leads it to a good form to output
 class TopWordsOrganizer < TopBadWordsOrganizer
-  attr_reader :battles_analyzer, :words_analyzer, :number, :name
-  attr_reader :list
+  attr_reader :battles_analyzer, :words_analyzer, :number
 
   def initialize(each_word_analyzer, number)
     @each_word_analyzer = each_word_analyzer

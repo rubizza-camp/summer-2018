@@ -203,11 +203,14 @@ end
 
 # Exception that is raised if text file doesn't match name pattern
 class AnalyzerTextNameError < StandardError
-  def initialize(path)
+  def initialize(path, message = nil)
     @file = path
+    message ? @message = default_message : @message = message
   end
 
-  def show_message
-    puts "Error. Name of #{@file} doesn't match to pattern (<name> VS/Против)"
+  private
+
+  def default_message
+    "Error. Name of #{@file} doesn't match to pattern (<name> VS/Против)"
   end
 end
