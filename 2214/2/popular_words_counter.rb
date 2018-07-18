@@ -11,17 +11,14 @@ class PopularWordsCounter
   end
 
   def self.get_words(file)
-    file.downcase!.strip!
-    words = file.gsub(/[.,!?:;«»<>&'()]/, ' ').split
+    words = file.gsub(/[.,!?:;«»<>&'()]/, ' ').downcase.strip.split
     words.each { |word| words.delete(word) if File.read(PREPOSITIONS_FILE).split("\n").include? word }
     words
   end
 
   def self.find_popular_words(words)
-    words_with_quantity = []
-    words.uniq.each { |word| words_with_quantity << WordWithQuantity.new(word, words.count(word)) }
+    words_with_quantity = words.uniq.map { |word| WordWithQuantity.new(word, words.count(word)) }
     words_with_quantity.sort_by!(&:quantity).reverse!
-    words_with_quantity
   end
 
   def self.show_popular_words(top_words, popular_words)

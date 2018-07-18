@@ -6,7 +6,7 @@
 
 ###Примеры работы программы:
 
-**ruby versus.rb --top-bad-words=3**
+**ruby run.rb --top-bad-words=3**
 
 Output:
 
@@ -14,7 +14,7 @@ Output:
 Oxxxymiron | 7 батлов  | 24 нецензурных слова | 3.42 слова на баттл  | 317 слов в раунде  |
 Галат      | 3 батла   | 2 нецензурных слов   | 0.66 слова на баттл  | 207 слов в раунде  |
 
-**ruby versus.rb --top-words=20 --name=Толик**
+**ruby run.rb --top-words=20 --name=Толик**
 
 Output:
 
@@ -24,7 +24,7 @@ Oxxxymiron
 Галат
 ...
 
-**ruby versus.rb --top-words=5 --name=Oxxymiron**
+**ruby run.rb --top-words=5 --name=Oxxymiron**
 
 Output:
 

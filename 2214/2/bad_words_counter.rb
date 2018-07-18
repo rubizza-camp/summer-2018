@@ -13,9 +13,8 @@ class BadWordsCounter
   def self.count_bad_words(file)
     bad_words = 0
     file.split.each do |word|
-      bad_words += 1 if RussianObscenity.obscene?(word)
+      bad_words += 1 if RussianObscenity.obscene?(word) || word.include?('*')
     end
-    bad_words += file.count('*')
     bad_words
   end
 end

@@ -1,4 +1,5 @@
 class WordsInRoundCounter
+  ROUNDS_IN_BATTLE = 3
   def self.count(battles, battler_name, count_of_battles)
     words = 0
     battles.each do |battle|
@@ -6,6 +7,6 @@ class WordsInRoundCounter
         words += battle.text.gsub(/[.!-?,:]/, ' ').strip.split.count
       end
     end
-    words / (count_of_battles * 3)
+    words / (count_of_battles * ROUNDS_IN_BATTLE)
   end
 end
