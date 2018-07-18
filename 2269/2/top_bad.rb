@@ -16,6 +16,9 @@ end
 # :reek:DuplicateMethodCall
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
 def print_out(rapers, top)
   delimiter = 1
   rapers.sort_by { |_k, val| [-val.bad_words] }.each do |_key, value|
@@ -36,3 +39,6 @@ def print_out(rapers, top)
     delimiter += 1
   end
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/LineLength
