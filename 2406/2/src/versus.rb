@@ -1,6 +1,6 @@
 Dir['Models/*.rb'].each { |file| load(file) }
-Dir['DAO/*.rb'].each { |file| require_relative file }
-require 'Helper.rb'
+require_relative 'HelperDAO.rb'
+require_relative 'Helper.rb'
 
 BAD_WORDS_KEY = '--top-bad-words'.freeze
 ARTIST_NAME_KEY = '--name'.freeze
@@ -14,7 +14,7 @@ BATTLES = '../data/battle_text/*'.freeze
 def bad_words(*args)
   range = args[0] ? DEFAULT_RANGE : Integer(args[0])
   puts('Incorrect range taken.') unless (1..100).cover?(range)
-  base_of_artists = DAO::HelperDAO.artist_list_from_battles(BATTLES).sort_by(&:get_battle_capacity).reverse.uniq
+  base_of_artists = HelperDAO.artist_list(BATTLES).sort_by(&:bad_words_capacity).reverse.uniq
   puts Helper.create_table(base_of_artists, range)
 end
 

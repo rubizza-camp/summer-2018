@@ -17,17 +17,13 @@ class HelperDAO
 
   def self.find_artist(artist_list, name)
     artist_result_num = 0
-    name = Helper.find_artist_name(artist_list, name)
+    name = find_artist_name(name)
     artist_list.each_with_index { |artist, index| artist_result_num = index if artist.name == name }
     artist_result_num
   end
 
-  def need_create_new_artist?
-    if artist_num.is_zero?
-      Artist.new(mc)
-    else
-      artists[artist_num]
-    end
+  def self.take_artist(artists, artist_num, artist_name)
+    artist_num.zero? ? Artist.new(artist_name) : artists[artist_num]
   end
 
   def self.take_artist_name(file)
@@ -35,10 +31,24 @@ class HelperDAO
     file.split('против')[0]
   end
 
+  def self.find_artist_name(name)
+    Helper.load_alias_list.each do |ally_name|
+      if ally_name.split(';').include?(name)
+        name = ally_name[0]
+        break
+      end
+    end
+    name
+  end
+
+  # Function doesn't work without all that statements, because work with file
+  # This method smells of :reek:TooManyStatements
   def self.artist_list(path_to_folder)
+    artists = []
     Dir[path_to_folder].each do |file|
-      artists << need_create_new_artist?
-      artists[find_artist(artists, take_artist_name(file))].add_battle(Helper.exclude_words(read_from_buffer(buffer)))
+      artists << take_artist(artists, find_artist(artists, take_artist_name(file)), take_artist_name(file))
+      artist = artists[find_artist(artists, take_artist_name(file))]
+      artist.add_battle(Helper.exclude_words(Helper.read_from_buffer(read_from_file(file))))
     end
     artists
   end
