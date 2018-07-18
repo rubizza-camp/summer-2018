@@ -17,6 +17,7 @@ module RoundDataCollection
     { count_rounds: handing_size_round(meaning), count_words: count_words }
   end
 
+  # This method smells of :reek:UtilityFunction
   def handing_size_round(count_rounds)
     (count_rounds.zero? ? 1 : count_rounds - 1)
   end
