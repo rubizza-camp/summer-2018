@@ -1,5 +1,3 @@
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
 def get_rapers_list(destination)
   hash = {}
   Dir.entries(destination).reject { |file| File.directory? file }.each do |file|
@@ -12,7 +10,6 @@ def get_rapers_list(destination)
   hash
 end
 
-# :reek:UtilityFunction
 def setup_raper(hash, raper_name, file)
   hash[raper_name].add_battle file, raper_name
 end
