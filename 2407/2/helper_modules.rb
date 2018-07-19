@@ -1,49 +1,26 @@
+require_relative 'rap_battle.rb'
+require_relative 'battler.rb'
+
 # Contains all methods without instance
-module PrepareBattlersTableHelper
-  def self.prepare_battlers_table(battlers)
-    find_all_battlers.each { |battler_name| battlers << process_battler(battler_name) }
-    battlers = battlers.sort_by! { |battler| battler.words_data[1] }.reverse!
-    battlers
+module ReadFromFile
+  def self.sorted_battlers
+    battlers.sort_by!(&:number_of_bad_words).reverse
   end
 
-  def self.find_all_battlers
-    battlers = []
+  def self.battlers
+    battlers_name.map { |battler_name| Battler.new(battler_name, battles) }
+  end
+
+  def self.battles
     Dir.chdir(INPUT_FOLDER) do
-      Dir.glob('*против*').each do |title|
-        battlers << title.split('против').first.strip
-      end
+      Dir.glob('*против*').map { |title| Battle.new(title, File.read(title)) }
     end
-    battlers.uniq
   end
 
-  def self.process_battler(battler_name)
-    battles_titles = take_battles_titles(battler_name)
-    total_bad_words = count_total_bad_words(battler_name)
-    words_in_round = count_words_in_each_battle(battler_name)
-    average_bad_words_number = avg_number(total_bad_words, battles_titles)
-    Battler.new(battler_name, battles_titles.size, total_bad_words, average_bad_words_number, words_in_round)
-  end
-
-  def self.count_total_bad_words(battler)
-    BadWordsCounter.count(take_battles_titles(battler))
-  end
-
-  def self.count_words_in_each_battle(battler)
-    TotalWordsInRoundCounter.count(take_battles_titles(battler))
-  end
-
-  def self.avg_number(total_bad_words, battles_titles)
-    (total_bad_words.to_f / battles_titles.size).round(2)
-  end
-
-  def self.take_battles_titles(battler)
-    battles_titles = []
+  def self.battlers_name
     Dir.chdir(INPUT_FOLDER) do
-      Dir.glob("*#{battler}*").each do |title|
-        battles_titles << title if title.split('против').first.include? battler
-      end
+      Dir.glob('*против*').map { |title| title.split('против').first.strip }.uniq
     end
-    battles_titles
   end
 end
 
@@ -51,8 +28,9 @@ module BattlerAsRow
   # This method smells of :reek:DuplicateMethodCall
   def self.get_battler_as_row(battler)
     row = []
-    row += [battler.name.to_s, "#{battler.words_data[0]} баттлов", "#{battler.words_data[1]} нецензурных слов"]
-    row += ["#{battler.words_data[2]} слова на баттл", "#{battler.words_data[3]} слов в раунде"]
+    row += [battler.name.to_s]
+    row += ["#{battler.number_of_battles} баттлов", "#{battler.number_of_bad_words} нецензурных слов"]
+    row += ["#{battler.bad_words_per_round} слова на баттл", "#{battler.average_number_of_words} слов в раунде"]
     row
   end
 end
