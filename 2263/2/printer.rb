@@ -30,7 +30,7 @@ class Printer
   end
 
   def sort_words(name, rapper_obj, hash)
-    hash[name] = rapper_obj.unique_words.sort_by { |word, number| -number }.to_h
+    hash[name] = rapper_obj.unique_words.sort_by { |_word, number| -number }.to_h
     hash
   end
 

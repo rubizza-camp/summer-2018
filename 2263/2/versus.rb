@@ -28,6 +28,7 @@ begin
     print_unknown_name(name_opt, rappers_hash) unless rappers_hash.key?(name_opt.to_sym)
     print_unknown_action(name_opt) if !top_bad_words_opt && !top_words_opt
   end
+
   rappers_hash = Explorer.new(name_opt).explore
   Printer.new(rappers_hash).top_rude_rappers(top_bad_words_opt) if top_bad_words_opt
   if top_words_opt
@@ -36,12 +37,4 @@ begin
   end
 rescue OptionParser::InvalidOption => exception
   puts exception.message.capitalize
-rescue ExplorerFileNameError => exception
-  puts exception.message
-rescue RapperObjectError => exception
-  puts exception.message
-rescue BattleFileError => exception
-  puts exception.message
-rescue PrinterFileError => exception
-  puts exception.message
 end

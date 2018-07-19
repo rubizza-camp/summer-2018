@@ -27,7 +27,8 @@ class Battle
     line.split(/[^[[:word:]]\*]+/)
   end
 
-  # Check if the line is round description
+  # :reek:ControlParameter (it's possible to easy fix this reek worning by moving
+  # regexp check directly to inspect_file method, but it will reduce readability)
   def round_description?(line)
     return true if line =~ /(^(Р|р)аунд \d)|(^\d (Р|р)аунд)/
     false

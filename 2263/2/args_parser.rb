@@ -46,10 +46,8 @@ class ArgsParser
   end
 
   def options_default_values
-    options = @options
-    options = default_top_bad_words(options)
-    options = default_top_words(options)
-    options
+    options = default_top_bad_words(@options)
+    default_top_words(options)
   end
 
   private
