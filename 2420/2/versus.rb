@@ -60,7 +60,7 @@ class Battler
   end
 
   def bad_words
-    @bad_words ||= File.read("#{FOLDER_PATH}/bad_words").split(' ')
+    @bad_words ||= File.read("#{FOLDER_PATH}/bad").split(',')
   end
 
   def all_battles

@@ -24,12 +24,21 @@ if options[:top_bad_words] > 0
                     .pop(options[:top_bad_words])
                     .reverse
   rows = []
-  battlers.map do |member|
+  ending = ''
+  battlers.each do |member|
+    battles = member.battles_count
+    if battles < 2 
+      ending = ''
+    elsif battles > 1 && battles <= 4
+      ending = 'a'
+    elsif battles >= 5
+      ending = 'ов'
+    end
     rows << [member.name.to_s,
-             " #{member.battles_count} батлов",
+             " #{battles} батл" + ending,
              " #{member.bad_words_count} нецензурных слов ",
              " #{member.words_in_battle}  слова на батл ",
-             " #{member.words_in_raund} слова в раунде"]
+             " #{member.words_in_raund} слов в раунде"]
   end
   table = Terminal::Table.new rows: rows
   puts table
@@ -58,4 +67,12 @@ unless options[:name].empty?
     puts names.pop(3)
     puts '...'
   end
+end
+
+
+class TopBadWordsCounter
+
+end
+
+class BattlerMostUsableWordsCounter
 end
