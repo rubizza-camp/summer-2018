@@ -1,6 +1,6 @@
 require_relative 'word_with_quantity'
 
-class PopularWordsCounter
+module PopularWordsCounter
   PREPOSITIONS_FILE = 'Предлоги'.freeze
   def self.count(battles, battler_name, top_words)
     files = battles_of_battler(battles, battler_name).map(&:text).join(' ')

@@ -1,7 +1,7 @@
 require 'russian_obscenity'
 require_relative 'battle'
 
-class BadWordsCounter
+module BadWordsCounter
   def self.count(battles, battler_name)
     files = battles_of_battler(battles, battler_name).map(&:text).join(' ')
     count_bad_words(files)

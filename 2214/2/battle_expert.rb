@@ -1,12 +1,10 @@
-require 'commander'
 require 'terminal-table'
-require_relative 'bad_words_counter'
-require_relative 'words_in_round_counter'
 require_relative 'popular_words_counter'
 require_relative 'battler'
 require_relative 'battle'
 
 class BattleExpert
+  include PopularWordsCounter
   BATTLES_FOLDER = 'Battles'.freeze
   def describe_battlers(top_bad_words)
     show_top_battlers(sorted_battlers, top_bad_words)

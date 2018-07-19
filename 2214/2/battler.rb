@@ -3,6 +3,8 @@ require_relative 'words_in_round_counter'
 require_relative 'battle'
 
 class Battler
+  include BadWordsCounter
+  include WordsInRoundCounter
   BATTLES_FOLDER = 'Battles'.freeze
   attr_reader :name
   def initialize(name, battles)

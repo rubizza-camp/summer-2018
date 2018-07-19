@@ -1,4 +1,4 @@
-class WordsInRoundCounter
+module WordsInRoundCounter
   ROUNDS_IN_BATTLE = 3
   def self.count(battles, battler_name, count_of_battles)
     words = battles_of_battler(battles, battler_name).map(&:text).join(' ').gsub(/[\p{P}]/, ' ').split.count
