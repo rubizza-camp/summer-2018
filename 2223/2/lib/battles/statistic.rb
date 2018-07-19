@@ -74,7 +74,7 @@ module Battles
     end
 
     def other_rappers(name)
-      rappers.delete_if { |author| author.name == name }
+      rappers.reject { |author| author.name == name }
     end
 
     def show_rhyme(name, rhyme)

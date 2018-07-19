@@ -15,7 +15,7 @@ module Battles
     end
 
     def popular_words
-      words = speeches.map(&:key_words).flatten
+      words = speeches.flat_map(&:key_words)
       select_popular_words(words)
     end
 
@@ -51,7 +51,7 @@ module Battles
     end
 
     def amount_words
-      speeches.map(&:words).flatten.size
+      speeches.flat_map(&:words).size
     end
 
     def amount_bad_words
