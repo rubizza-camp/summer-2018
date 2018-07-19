@@ -42,19 +42,16 @@ module BattlesHelper
   end
 
   def words_battler(text_bat)
-    words = []
     prepositions = File.read(PREPOSITIONS).split(',')
-    text_bat.split.uniq.map do |el|
-      words << TopWord.new(el, text_bat.split.count(el)) unless prepositions.include?(el)
+    words = text_bat.split.uniq.each_with_object([]) do |el, arr|
+      arr << TopWord.new(el, text_bat.split.count(el)) unless prepositions.include?(el)
     end
     words.sort_by(&:count).reverse
   end
 
   def text_battler(name_bat)
-    all_text = []
-    DirectoryHelper.take_all_battles.map do |el|
-      all_text << DirectoryHelper.take_text_battler(el) if name_battler(el).eql?(name_bat)
+    DirectoryHelper.take_all_battles.each_with_object([]) do |el, arr|
+      arr << DirectoryHelper.take_text_battler(el) if name_battler(el).eql?(name_bat)
     end
-    all_text
   end
 end
