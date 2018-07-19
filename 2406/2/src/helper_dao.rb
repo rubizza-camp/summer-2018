@@ -1,4 +1,4 @@
-require_relative 'Parser.rb'
+require_relative 'parser.rb'
 
 module HelperDAO
   BATTLES = '../data/battle_text/*'.freeze

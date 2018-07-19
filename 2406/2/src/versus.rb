@@ -1,6 +1,6 @@
 Dir['Models/*.rb'].each { |file| load(file) }
 
-require_relative 'CommandProccessor.rb'
+require_relative 'command_proccessor.rb'
 # Disabled because main function is entrypoint and class using not necessary
 # rubocop:disable Style/MixinUsage
 include CommandProccessor

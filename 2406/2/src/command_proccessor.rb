@@ -1,5 +1,5 @@
-require_relative 'Helper.rb'
-require_relative 'HelperDAO.rb'
+require_relative 'helper.rb'
+require_relative 'helper_dao.rb'
 
 module CommandProccessor
   BAD_WORDS_KEY = '--top-bad-words'.freeze
