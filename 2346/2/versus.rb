@@ -13,6 +13,9 @@ OptionParser.new do |parser|
   parser.on('--name=', 'Имя участника') do |name|
     Analysis.second_level(name, 30)
   end
+  parser.on('--plagiat', 'Проанализировать тексты и найти рифмы, которые разные участники тырили у других.') do
+    Analysis.third_level
+  end
   parser.on_tail('-h', '--help') do
     puts "\nПоложите папку rap-battles в папку /2/ с .rb файлами. Запустите versus.rb с нужными параметрами"
     puts

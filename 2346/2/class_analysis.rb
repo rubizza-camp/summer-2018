@@ -1,5 +1,6 @@
 require 'pathname'
 require_relative 'class_rapper'
+require_relative 'third_level'
 
 # class to analyze texts
 class Analysis
@@ -13,6 +14,12 @@ class Analysis
     rappers_hash = RappersHashWithDictionary.new
     rappers_hash.result_for_second(name, qty)
   end
+end
+
+def find_files
+  pn = Pathname('./rap-battles/')
+  all_paths = pn.children
+  all_paths
 end
 
 module BaseRappersHash
@@ -36,12 +43,6 @@ module BaseRappersHash
 
   def add_battle_to_existing_rapper(key, name, battle)
     rappers_hash[key].push_one_battle(battle).choose_better_name(name)
-  end
-
-  def find_files
-    pn = Pathname('./rap-battles/')
-    all_paths = pn.children
-    all_paths
   end
 
   private
