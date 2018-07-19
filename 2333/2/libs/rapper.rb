@@ -2,18 +2,17 @@ require 'russian_obscenity'
 
 # class Rapper
 class Rapper
-  attr_reader :name, :battles, :number_of_bad_words
+  attr_reader :name, :battles
   ROUNDS_ON_BATTLE = 3
 
   def initialize(name, battles)
     @name = name
     @battles = battles
-    @number_of_bad_words = bad_words
+    RussianObscenity.dictionary = [:default, './my_dictionary.yml']
   end
 
-  def bad_words
-    RussianObscenity.dictionary = [:default, './my_dictionary.yml']
-    RussianObscenity.find(@battles.join(' ')).map { |word| battles_words.count(word) }.reduce(:+)
+  def number_of_bad_words
+    unique_bad_words.map { |word| battles_words.count(word) }.reduce(:+)
   end
 
   def battles_words
@@ -26,5 +25,11 @@ class Rapper
 
   def words_on_round
     battles_words.count / (@battles.count * ROUNDS_ON_BATTLE)
+  end
+
+  private
+
+  def unique_bad_words
+    RussianObscenity.find(@battles.join(' '))
   end
 end

@@ -4,11 +4,12 @@ require_relative './analyzer_printer.rb'
 require_relative './names_searcher.rb'
 
 # VersusBattle text analyzer
+# :reek:ControlParameter
 class TopWordsAnalyzer
-  def initialize(rappers, take_value, selected_name)
+  def initialize(rappers, selected_name, take_value)
     @rappers = rappers
-    @take_value = take_value.to_i
     @name = selected_name
+    @take_value = take_value || 30
   end
 
   def top_words

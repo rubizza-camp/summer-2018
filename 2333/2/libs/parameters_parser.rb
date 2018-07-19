@@ -3,7 +3,6 @@ require 'optparse'
 # Parameters parser
 class ParametersParser
   attr_reader :options
-  PARAMETERS = %w[--top-bad-words= --top-words= --name=].freeze
   def initialize
     @options = {}
     parse

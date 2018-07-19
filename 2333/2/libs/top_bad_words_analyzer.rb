@@ -21,6 +21,6 @@ class TopBadWordsAnalyzer
   end
 
   def sorted_rappers_by_number_of_bad_words
-    @rappers.sort_by!(&:number_of_bad_words).reverse!
+    @rappers.sort_by(&:number_of_bad_words).reverse
   end
 end
