@@ -3,6 +3,7 @@ require 'optparse'
 # Parameters parser
 class ParametersParser
   attr_reader :options
+  PARAMETERS = %w[--top-bad-words= --top-words= --name=].freeze
   def initialize
     @options = {}
     parse
@@ -10,15 +11,13 @@ class ParametersParser
 
   private
 
+  # :reek:TooManyStatements
+  # :reek:NestedIterators
   def parse
     OptionParser.new do |opts|
-      add_options(opts, '--top-bad-words=', :top_bad_words)
-      add_options(opts, '--top-words=', :top_words)
-      add_options(opts, '--name=', :name)
+      opts.on('--top-bad-words=', '') { |value| @options[:top_bad_words] = value }
+      opts.on('--top-words=', '') { |value| @options[:top_words] = value }
+      opts.on('--name=', '') { |value| @options[:name] = value }
     end.parse!
-  end
-
-  def add_options(opts, option, key)
-    opts.on(option, '') { |value| @options[key] = value }
   end
 end

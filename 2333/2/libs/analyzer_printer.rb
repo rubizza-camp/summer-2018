@@ -10,6 +10,17 @@ module AnalyzerPrinter
              'Amount of words on round'].freeze
   FIRST_COLUMN = 0
 
+  def self.table_rows_of_sorted_rappers(rappers)
+    rows = rappers.map do |rapper|
+      [rapper.name,
+       rapper.battles.count,
+       rapper.number_of_bad_words,
+       rapper.bad_words_on_battle,
+       rapper.words_on_round]
+    end
+    rows
+  end
+
   def self.print_top_bad_words(rappers)
     table = Terminal::Table.new(rows: table_rows_of_sorted_rappers(rappers), headings: HEADING)
     table.columns.each_with_index do |_value, index|
@@ -28,18 +39,5 @@ module AnalyzerPrinter
   def self.print_rappers_names(rappers_names, name)
     puts "Рэпер #{name} не известен мне. Зато мне известны:"
     rappers_names.each { |item| puts item }
-  end
-
-  private
-
-  def table_rows_of_sorted_rappers(rappers)
-    rows = rappers.map do |rapper|
-      [rapper.name,
-       rapper.battles.count,
-       rapper.number_of_bad_words,
-       rapper.bad_words_on_battle,
-       rapper.words_on_round]
-    end
-    rows
   end
 end
