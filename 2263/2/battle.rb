@@ -24,8 +24,7 @@ class Battle
   end
 
   def to_word_array(line)
-    words = line.split(/[^[[:word:]]\*]+/)
-    words
+    line.split(/[^[[:word:]]\*]+/)
   end
 
   # Check if the line is round description

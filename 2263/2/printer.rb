@@ -13,9 +13,8 @@ class Printer
   end
 
   def top_words(number = nil, dictionary_file = nil)
-    dictionary = dictionary_file ? scan_dictionary(dictionary_file) : nil
-    sorted_hash = sort_top_words
-    cleaned_hash = clean_top_words(sorted_hash, number, dictionary)
+    sorted_hash = @rappers_hash.each_with_object({}) { |(name, rapper_obj), hash| sort_words(name, rapper_obj, hash) }
+    cleaned_hash = clean_top_words(sorted_hash, number, dictionary_file)
     print_top_words(cleaned_hash)
   end
 
@@ -30,10 +29,9 @@ class Printer
     @rappers_hash.sort_by { |pair| -pair[1].obscene_words_per_battle }.to_h
   end
 
-  def sort_top_words
-    @rappers_hash.each_with_object({}) do |(name, rapper_obj), hash|
-      hash[name] = rapper_obj.unique_words.sort_by { |word, number| -number }.to_h
-    end
+  def sort_words(name, rapper_obj, hash)
+    hash[name] = rapper_obj.unique_words.sort_by { |word, number| -number }.to_h
+    hash
   end
 
   def pick_first(hash, number)
@@ -42,7 +40,8 @@ class Printer
     hash
   end
 
-  def clean_top_words(hash, number, dictionary)
+  def clean_top_words(hash, number, dictionary_file)
+    dictionary = dictionary_file ? scan_dictionary(dictionary_file) : nil
     hash.each do |name, words_hash|
       hash[name] = clean_with_dictionary(words_hash, dictionary) if dictionary
       hash[name] = pick_first(words_hash, number)
@@ -81,20 +80,14 @@ class Printer
 
   def print_top_words(rappers_hash)
     rappers_hash.each do |name, words_hash|
-      print_words_name(name)
-      words_hash.each { |word, num| printf("| %-15s | %3d times   |\n", word, num) }
+      printf("+-----------------+-------------+\n| %-29s |\n+-----------------+-------------+\n", name.to_s + ':')
+      print_words(words_hash)
     end
-    print_words_border
-  end
-
-  def print_words_name(name)
-    print_words_border
-    printf("| %-29s |\n", name.to_s + ':')
-    print_words_border
-  end
-
-  def print_words_border
     puts '+-----------------+-------------+'
+  end
+
+  def print_words(words_hash)
+    words_hash.each { |word, num| printf("| %-15s | %3d times   |\n", word, num) }
   end
 end
 
