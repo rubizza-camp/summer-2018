@@ -14,25 +14,23 @@ class Rapper
     @fav_words = {}
   end
 
+  # inject made everything so much easier
   # :reek:UncommunicativeVariableName
   # :reek:TooManyStatements
   def count_bad_words(filename)
     exp = /\W*\*\W*/
-    word_arr = []
-    file_array = []
-    read_file(filename, file_array)
-    file_array.each do |line|
-      word_arr += line.split
-    end
+    file = File.readlines(filename).inject { |str, line| str << line }
+    word_arr = file.split
     @bad_words += word_arr.count { |w| RussianObscenity.obscene?(w) || w[exp] }
   end
 
   # :reek:UtilityFunction
-  # do with inject
+  # do with inject наконец сделала бооооооооожееееееееее
   def read_file(filename, file_array)
     File.foreach filename do |line|
       file_array.push(line)
     end
+    
   end
 
   # :reek:TooManyStatements
@@ -75,11 +73,11 @@ class Rapper
     @words_per_battle = @bad_words / @battles
   end
 
-  # divide in small methods somehow
   def sort_fav_words
     @fav_words = @fav_words.sort_by { |_key, value| -value }.to_h
   end
 
+  # divide in small methods somehow
   # :reek:DuplicateMethodCall
   # :reek:TooManyStatements
   def find_favourite_words(filename)
@@ -87,13 +85,10 @@ class Rapper
     word_array = []
     buf = []
     not_counting = []
-    read_file('simple_words_dictionary.txt', buf)
-    buf.each do |line|
-      not_counting += line.split
-    end
-    File.foreach filename do |line|
-      word_array += line.split
-    end
+    dict = File.readlines('simple_words_dictionary.txt').inject { |str, line| str << line }
+    not_counting = dict.split
+    file = File.readlines(filename).inject { |str, line| str << line }
+    word_array = file.split
     prepare_words(word_array, not_counting)
     word_array.each { |word| fav_words[word] += 1 }
     @fav_words.merge!(fav_words) { |_key, first, second| first + second }
