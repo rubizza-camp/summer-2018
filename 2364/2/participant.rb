@@ -28,18 +28,30 @@ class Participant
   end
 
   def to_str
-    bad_words = participant_data[:bad_words]
-    average_words = participant_data[:words_amount] / participant_data[:rounds]
-    average_bad_words = if battles.zero?
-                          0
-                        else
-                          (bad_words.to_f / battles).round(2)
-                        end
-    create_row(bad_words, average_words, average_bad_words)
+    average_words = check_average_words
+    average_bad_words = check_average_bad_words
+    create_row(average_words, average_bad_words)
   end
 
-  def create_row(bad_words, average_words, average_bad_words)
-    first_row = [name, "#{battles} батлов", "#{bad_words} нецензурных слов"]
+  def check_average_bad_words
+    if battles.zero?
+      0
+    else
+      (participant_data[:bad_words].to_f / battles).round(2)
+    end
+  end
+
+  def check_average_words
+    rounds = participant_data[:rounds]
+    if rounds.zero?
+      0
+    else
+      participant_data[:words_amount] / rounds
+    end
+  end
+
+  def create_row(average_words, average_bad_words)
+    first_row = [name, "#{battles} батлов", "#{participant_data[:bad_words]} нецензурных слов"]
     second_row = ["#{average_bad_words} слова на баттл", "#{average_words} слова в раунде"]
     first_row + second_row
   end

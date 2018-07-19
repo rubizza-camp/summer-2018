@@ -7,18 +7,20 @@ class CreateData
     @text = nil
   end
 
-  def take_name
-    name = file_name.split('/').last.split('(').first.split(/ против | vs | VS | & | && /).first.strip
-    name = '(Pra(Killa\'Gramm)' if name == ''
-    name
-  end
-
   def take_data
     File.open(file_name, 'r') do |file|
       @text = file.read
       create_data
     end
     data
+  end
+
+  private
+
+  def take_name
+    name = file_name.split('/').last.split('(').first.split(/ против | vs | VS | & | && /).first.strip
+    name = '(Pra(Killa\'Gramm)' if name == ''
+    name
   end
 
   def create_data
