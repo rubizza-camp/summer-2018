@@ -1,19 +1,17 @@
 # Check battles
 class BattleCheck
-  include SomeMethods
+  include PrepareBattlersTableHelper
+  include BattlerAsRow
   def describe_battlers(top_bad_words)
     battlers = []
-    SomeMethods.prepare_battlers_table(battlers)
+    PrepareBattlersTableHelper.prepare_battlers_table(battlers)
     display_top_battlers(battlers, top_bad_words)
   end
 
   private
 
   def display_top_battlers(battlers, top_bad_words)
-    rows = []
-    top_bad_words.times do |ind|
-      rows << SomeMethods.get_battler_as_row(battlers[ind])
-    end
+    rows = battlers[0...top_bad_words].map { |battler| BattlerAsRow.get_battler_as_row(battler) }
     table = Terminal::Table.new rows: rows
     puts table
   end

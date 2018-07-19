@@ -1,7 +1,7 @@
 require 'commander'
 require 'terminal-table'
 require 'optparse'
-load 'modules.rb'
+require_relative 'helper_modules.rb'
 require_relative 'battler.rb'
 require_relative 'bad_words_counter.rb'
 require_relative 'total_words_in_round_counter.rb'

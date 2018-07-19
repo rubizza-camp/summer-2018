@@ -1,5 +1,5 @@
 # Contains all methods without instance
-module SomeMethods
+module PrepareBattlersTableHelper
   def self.prepare_battlers_table(battlers)
     find_all_battlers.each { |battler_name| battlers << process_battler(battler_name) }
     battlers = battlers.sort_by! { |battler| battler.words_data[1] }.reverse!
@@ -16,12 +16,12 @@ module SomeMethods
     battlers.uniq
   end
 
-  def self.process_battler(battler)
-    battles_titles = take_battles_titles(battler)
-    total_bad_words = count_total_bad_words(battler)
-    words_in_round = count_words_in_each_battle(battler)
+  def self.process_battler(battler_name)
+    battles_titles = take_battles_titles(battler_name)
+    total_bad_words = count_total_bad_words(battler_name)
+    words_in_round = count_words_in_each_battle(battler_name)
     average_bad_words_number = avg_number(total_bad_words, battles_titles)
-    Battler.new(battler, battles_titles.size, total_bad_words, average_bad_words_number, words_in_round)
+    Battler.new(battler_name, battles_titles.size, total_bad_words, average_bad_words_number, words_in_round)
   end
 
   def self.count_total_bad_words(battler)
@@ -45,7 +45,9 @@ module SomeMethods
     end
     battles_titles
   end
+end
 
+module BattlerAsRow
   # This method smells of :reek:DuplicateMethodCall
   def self.get_battler_as_row(battler)
     row = []
