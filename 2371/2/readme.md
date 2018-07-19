@@ -16,7 +16,7 @@ $ gem install terminal-table
  
 # Run Project
 
-Run **curse_words_searcher.rb** with command **--top-bad-words=<<number>>**
+Run **application.rb** with command **--top-bad-words="number"**
 
 #### Example
 
