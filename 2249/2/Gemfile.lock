@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    OptionParser (0.5.1)
+    russian_obscenity (0.0.1)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
+    unicode-display_width (1.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  OptionParser (~> 0.5.1)
+  russian_obscenity (~> 0.0.1)
+  terminal-table (~> 1.8)
+
+BUNDLED WITH
+   1.16.1
