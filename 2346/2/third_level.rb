@@ -50,6 +50,8 @@ class Rhymes
     @battle = file_name
   end
 
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
   def make_rhymes_from_words(words)
     words.each_index do |ind|
       one_part_of_rhyme = words[ind]
@@ -62,6 +64,7 @@ class Rhymes
     rhymes.uniq!
   end
 
+  # :reek:FeatureEnvy
   def all_rhymes_pairs_excluding_self(rhymes_objects)
     rhymes_pairs_list = []
     rhymes_objects.each do |rhyme_object|
