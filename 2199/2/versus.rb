@@ -32,7 +32,7 @@ class Battle
 
   def words
     return @words if @words
-    @words = text.scan(/[а-яА-ЯёЁ*]+/)
+    @words = text.scan(/[\wа-яА-ЯёЁ*]+/)
     @words.delete('***')
     @words
   end
@@ -47,15 +47,17 @@ class Participant
     @battles = []
   end
 
-  def add_battle(filename)
-    @battles << Battle.new(filename)
+  def add_battle(battle)
+    @bad_words_count = nil
+    @battles << battle
   end
 
   def table_row
     [
       @name,
-      "#{battles_count} " + Russian.pluralize(battles_count.to_i, 'баттл', 'баттла', 'баттлов'),
-      "#{bad_words_count} нецензурных " + Russian.pluralize(bad_words_count.to_i, 'слово', 'слова', 'слов'),
+      "#{battles_count} #{Russian.pluralize(battles_count.to_i, 'баттл', 'баттла', 'баттлов')}",
+      "#{bad_words_count} "\
+      "#{Russian.pluralize(bad_words_count.to_i, 'нецензурное слово', 'нецензурных слова', 'нецензурных слов ')}",
       "#{bad_words_per_battle.round(2)} слова на баттл ",
       "#{words_per_round.round(2)} слов в раунде"
     ]
@@ -90,10 +92,8 @@ end
 
 # class Participant store
 class ParticipantStore
-  attr_reader :participants
-
-  def initialize
-    @participants = load_participants
+  def initialize(battles_folder)
+    @battles_folder = battles_folder
   end
 
   def top_by_bad_words(limit)
@@ -102,33 +102,36 @@ class ParticipantStore
 
   private
 
-  # :reek:DuplicateMethodCall
-  # :reek:FeatureEnvy
-  def load_participants
-    Dir.glob('rap-battles/*').each_with_object({}) do |filename, participants|
+  def participants
+    @participants ||= Dir.glob("#{@battles_folder}/*").each_with_object({}) do |filename, participants_store|
       next unless File.file?(filename)
-      original_name = find_participant_for_file(filename)
-      participants[original_name] ||= Participant.new(original_name)
-      participants[original_name].add_battle(filename)
+      original_name = ParticipantNameLoader.new(filename).participant_name
+      participant = participants_store[original_name] ||= Participant.new(original_name)
+      participant.add_battle(Battle.new(filename))
     end
+  end
+end
+
+# class detects original participant name
+class ParticipantNameLoader
+  ALIASES = YAML.load_file('alias.yml')
+
+  def initialize(filename)
+    @filename = filename
   end
 
   # :reek:NilCheck
-  def find_participant_for_file(filename)
-    name = filename.split(/ против | vs /i).first.split('/').last.strip
-    aliases.find do |_, aliases|
+  def participant_name
+    name = @filename.split(/ против | vs /i).first.split('/').last.strip
+    ALIASES.find do |_, aliases|
       aliases.include?(name)
     end&.first || name
-  end
-
-  def aliases
-    @aliases ||= YAML.load_file('alias.yml')
   end
 end
 
 OptionParser.new do |parser|
   parser.on('--top-bad-words=') do |top_bad_words|
-    top_participants = ParticipantStore.new.top_by_bad_words(top_bad_words.to_i)
+    top_participants = ParticipantStore.new('rap-battles').top_by_bad_words(top_bad_words.to_i)
     puts Terminal::Table.new(rows: top_participants.map(&:table_row))
   end
   parser.on('--help') do
