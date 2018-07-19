@@ -1,10 +1,12 @@
 require_relative 'args_parser'
-require_relative 'analyzer'
-require_relative 'organizer'
+require_relative 'explorer'
+require_relative 'rapper'
+require_relative 'battle'
+require_relative 'printer'
 
-def print_unknown_name(name)
+def print_unknown_name(name, rappers_hash)
   puts "I don't know MC #{name}, but I know these:"
-  battles.each_key { |each_name| puts each_name }
+  rappers_hash.each_key { |rapper_name| puts rapper_name.to_s }
   exit
 end
 
@@ -15,28 +17,31 @@ end
 
 begin
   options = ArgsParser.new.options_default_values
+
   Help.new.show_help if options[:help]
-  top_bad_words = options.key?(:top_bad_words) ? options[:top_bad_words].to_i : nil
-  top_words = options.key?(:top_words) ? options[:top_words].to_i : nil
-  name = options[:name]
-  if name
-    battles = BattlesAnalyzer.new.battles
-    print_unknown_name(name) unless battles.key?(name.to_sym)
-    print_unknown_action(name) if !top_bad_words && !top_words
+  top_bad_words_opt = options.key?(:top_bad_words) ? options[:top_bad_words].to_i : nil
+  top_words_opt = options.key?(:top_words) ? options[:top_words].to_i : nil
+  name_opt = options[:name]
+
+  rappers_hash = Explorer.new.explore
+  if name_opt
+    print_unknown_name(name_opt, rappers_hash) unless rappers_hash.key?(name_opt.to_sym)
+    print_unknown_action(name_opt) if !top_bad_words_opt && !top_words_opt
   end
-  if top_bad_words
-    battles_analyzer = BattlesAnalyzer.new(name)
-    words_analyzer = WordsAnalyzer.new(name)
-    list = TopBadWordsOrganizer.new(battles_analyzer, words_analyzer, top_bad_words).organize
-    TopBadWordsPrinter.new.print_result(list)
+  rappers_hash = Explorer.new(name_opt).explore
+  Printer.new(rappers_hash).top_rude_rappers(top_bad_words_opt) if top_bad_words_opt
+  if top_words_opt
+    dictionary = File.open('disabled_words_dictionary')
+    Printer.new(rappers_hash).top_words(top_words_opt, dictionary)
   end
-  if top_words
-    each_word_analyzer = EachWordAnalyzer.new(name)
-    list = TopWordsOrganizer.new(each_word_analyzer, top_words).organize
-    TopWordsPrinter.new.print_result(list)
-  end
-rescue AnalyzerTextNameError => exception
-  puts exception.message
 rescue OptionParser::InvalidOption => exception
   puts exception.message.capitalize
+rescue ExplorerFileNameError => exception
+  puts exception.message
+rescue RapperObjectError => exception
+  puts exception.message
+rescue BattleFileError => exception
+  puts exception.message
+rescue PrinterFileError => exception
+  puts exception.message
 end

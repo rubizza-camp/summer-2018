@@ -1,6 +1,7 @@
 require 'optparse'
 require 'active_support/all'
 
+# Class, that contains help message and prints it
 class Help
   attr_reader :help_message
 
@@ -27,7 +28,7 @@ class Help
   end
 end
 
-# Parse command line arguments
+# Class, that parse command line arguments
 class ArgsParser
   attr_reader :options
 
