@@ -6,6 +6,10 @@ class Line
     @line = line
   end
 
+  def in_separate_words
+    line.split.map { |word| Word.new(word) }
+  end
+
   def writable_line(rapper)
     lyrics = ''
     do_write = false

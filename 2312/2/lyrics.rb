@@ -1,3 +1,4 @@
+# this class is needed to return the whole text of file as string
 class Lyrics
   def initialize(battle_file_path, paired)
     @battle_file_path = battle_file_path
@@ -27,9 +28,10 @@ class Lyrics
   end
 
   def line_belongs_to?(rapper_name, line)
-    if line.start_with?(/\w+:/) && !line.include?("#{rapper_name}:")
+    line_includes_rapper_name = line.include?("#{rapper_name}:")
+    if line.start_with?(/\w+:/) && !line_includes_rapper_name
       @line_belongs_to_rapper = false
-    elsif line.include?("#{rapper_name}:") || @line_belongs_to_rapper
+    elsif line_includes_rapper_name || @line_belongs_to_rapper
       @line_belongs_to_rapper = true
     end
   end

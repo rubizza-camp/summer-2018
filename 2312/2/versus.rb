@@ -1,22 +1,16 @@
 require './battlers_table'
-require './modules'
+require './rapper'
+require './battle'
 
-# info_about_battlers[rapper_name] = [num_of_battles, num_of_rounds, aver_all_words_per_round, whole_num_of_bad_words,
-#                             aver_num_of_bad_words_per_battle, words_top_list{}, all_words_amount]
+# battlers = {rapper_name: Rapper.new(rapper_name), , {}, ...}
 
 # shutting reek down because I don't have any idea, how to rewrite my code without this error
-# :reek:InstanceVariableAssumption
 # it is main class, it's analyzes all battle texts in current directory
 class Versus
-  attr_reader :all_battles_paths, :info_about_battlers, :battlers_names
-
-  include FillMethods
-  include ReturnInfo
-
   def initialize
-    collect_all_battles
     @battlers_names = []
-    collect_names
+    @battlers = {}
+    collect_battlers
   end
 
   def run
@@ -26,40 +20,32 @@ class Versus
     end
   end
 
-  private
-
-  def collect_all_battles
-    @all_battles_paths = Dir.entries('./').select do |entry|
-      !entry.start_with?('.') && File.exist?(entry) && File.extname(entry) == '' && File.basename(entry) != 'Gemfile'
-    end
-    @all_battles_paths.sort!
-  end
-
   def top_bad(num_top)
-    @info_about_battlers.keys.each { |rapper| @info_about_battlers = analyze_rapper(rapper) }
-    BattlersTable.new(@info_about_battlers, num_top).print
+    BattlersTable.new(@battlers, num_top).print
   end
 
-  def collect_names
-    info_buffer = {}
-    @battlers_names = fill_battlers_names_array
-    @battlers_names.each { |name| info_buffer[name] = [0, 0, 0.0, 0, 0.0, {}, 0] }
-    @info_about_battlers = info_buffer
+  def self.all_battles_files
+    Dir.entries('./').select do |entry|
+      !entry.start_with?('.') && File.exist?(entry) && File.extname(entry) == '' && File.basename(entry) != 'Gemfile'
+    end.sort!
   end
 
-  def collect_battles_of(rapper)
-    rapper_battles = []
-    @all_battles_paths.each do |battle_path|
-      rapper_battles << battle_path if battle_path.partition(/( против | vs | VS )/).first.include?(rapper)
-    end
-    rapper_battles
+  def collect_battlers
+    battlers_names = Versus.fill_battlers_names_array.uniq.sort
+    battlers_names.each { |rapper_name| @battlers[rapper_name] = Rapper.new(rapper_name, Versus.all_battles_files) }
+    @battlers.sort.to_h
   end
 
-  def analyze_rapper(rapper)
-    rapper_battles = collect_battles_of(rapper)
-    @info_about_battlers[rapper][0] = rapper_battles.size
-    fill_counted_info(rapper, rapper_battles)
-    @info_about_battlers.sort.to_h
+  def self.fill_battlers_names_array
+    Versus.all_battles_files.flat_map { |battle_file_path| Versus.extract_battlers_names(battle_file_path) }
+  end
+
+  def self.extract_battlers_names(battle_file_path)
+    rapper_name = battle_file_path.split(/( против | vs | VS )/).first + ' & '
+    rappers_names = rapper_name.split(' & ')
+    battlers_names = [rappers_names.first.strip]
+    battlers_names << rappers_names.last.strip if Battle.paired?(battle_file_path)
+    battlers_names
   end
 end
 
