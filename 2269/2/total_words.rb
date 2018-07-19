@@ -1,9 +1,3 @@
-# :reek:DuplicateMethodCall
-# :reek:NestedIterators
-# :reek:UtilityFunction
-# :reek:TooManyStatements
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
 def word_counter(file_path)
   words_count = 0
   words_per_round = 0
@@ -37,5 +31,3 @@ def word_counter(file_path)
   hash = { total: words_count, bad: bad_words_count, round: (array_round.sum / array_round.length) }
   hash
 end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
