@@ -1,8 +1,10 @@
+#!/usr/bin/ruby
 require 'optparse'
 require 'russian_obscenity'
 require 'unicode'
 require_relative 'badwordsanalizator'
 require_relative 'topwordsanalizator'
+require_relative 'battle'
 
 class TablePrinter
   def output_top(bad_words, top_number)
@@ -15,7 +17,7 @@ class TablePrinter
   private
 
   def get_top_participants(bad_words, top_participant, top_number)
-    bad_words = bad_words.sort_by { |_key, value| value[2] }.reverse
+    bad_words = bad_words.sort_by { |_key, value| value[1] }.reverse
     top_number.times { top_participant << bad_words.shift }
   end
 
@@ -97,7 +99,6 @@ if options.values.all?(&:nil?)
   puts 'Wrong number of parameters'
 else
   participant_bad_words = {}
-  file_names = Dir['rap-battles/*']
   participant_names = []
   input_vars = options.reject { |_key, value| value.nil? }
 
@@ -113,10 +114,13 @@ else
       print 'Enter correct integer Number: '
       options[:top_bad_words] = gets.chomp
     end
+
     participant_names.each do |name|
-      analizator = BadWordsAnalizator.new
-      analizator.collect_inf_about(name, file_names, participant_bad_words)
+      battle = Battle.new(name)
+      analyzer = BadWordsAnalyzer.new(battle.titles)
+      participant_bad_words[name] = analyzer.analyze_bad
     end
+
     printer = TablePrinter.new
     printer.output_top(participant_bad_words, Integer(options[:top_bad_words]))
   end
@@ -127,9 +131,11 @@ else
   if input_vars.include?(:name)
     options[:top_words] = 30 if options[:top_words].nil? || options[:top_bad_words] == ''
     options[:name] = options[:name].tr('_', ' ')
+
     if participant_names.include?(options[:name])
-      analizator = TopWordsAnalizator.new
-      analizator.search_top_words_for_the_participant(options[:name], file_names, Integer(options[:top_words]))
+      battle = Battle.new(options[:name])
+      analyzer = TopWordsAnalyzer.new(battle.titles, Integer(options[:top_words]))
+      analyzer.analyze_top
     else
       puts 'Неизвестное имя ' + options[:name] + '. Вы можете ввести одно из следующих имён: '
       participant_names.each { |name| puts name }
