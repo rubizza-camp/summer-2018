@@ -39,11 +39,11 @@ module Versus
 
   def self.file_name_check(filename)
     if filename.include?('против')
-      filename.include?('aka') ? filename[0, filename.index('aka')].strip! : filename[0, filename.index('против')].strip!
+      filename.include?('aka') ? filename[0, filename.index('aka')] : filename[0, filename.index('против')]
     elsif filename.include?('VS')
-      filename[0, filename.index('VS')].strip!
+      filename[0, filename.index('VS')]
     elsif filename.include?('vs')
-      filename[0, filename.index('vs')].strip!
+      filename[0, filename.index('vs')]
     end
   end
 
@@ -54,7 +54,7 @@ module Versus
   def self.collect_all_names
     array = []
     collect_all_files.each do |filename|
-      array <<  file_name_check(filename)
+      array <<  file_name_check(filename).strip!
     end
     array.sort.uniq!
   end
