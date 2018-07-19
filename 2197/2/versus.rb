@@ -7,6 +7,7 @@ require_relative 'battl'
 require_relative 'artist'
 
 OptionParser.new do |parser|
+  # binding.pry
   parser.on('--top-bad-words=') do |top_bad_words|
     number_rappers = Handler.new.sort_top_rappers(top_bad_words.to_i)
     system('clear')
