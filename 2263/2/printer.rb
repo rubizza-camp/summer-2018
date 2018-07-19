@@ -21,8 +21,7 @@ class Printer
   private
 
   def check_rappers_hash(hash)
-    raise(PrinterListError, hash) if hash.class != Hash || hash.values.any? { |value| value.class != Rapper }
-    hash
+    hash.values.any? { |value| value.class != Rapper } ? raise(PrinterHashError, hash) : hash
   end
 
   def sort_obscene_words
@@ -102,5 +101,18 @@ class PrinterFileError < StandardError
 
   def default_message
     "Error. #{@file} is not a File object"
+  end
+end
+
+class PrinterHashError < StandardError
+  def initialize(obj, message = nil)
+    @obj = obj
+    @message = message ? default_message : message
+  end
+
+  private
+
+  def default_message
+    "Error. #{@obj} is not a hash of Battle"
   end
 end
