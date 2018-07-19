@@ -2,6 +2,7 @@ require_relative 'args_parser'
 require_relative 'explorer'
 require_relative 'rapper'
 require_relative 'battle'
+require_relative 'handler'
 require_relative 'printer'
 
 def print_unknown_name(name, rappers_hash)
@@ -30,10 +31,10 @@ begin
   end
 
   rappers_hash = Explorer.new(name_opt).explore
-  Printer.new(rappers_hash).top_rude_rappers(top_bad_words_opt) if top_bad_words_opt
+  Handler.new(rappers_hash, Printer.new).top_rude_rappers(top_bad_words_opt) if top_bad_words_opt
   if top_words_opt
     dictionary = File.open('disabled_words_dictionary')
-    Printer.new(rappers_hash).top_words(top_words_opt, dictionary)
+    Handler.new(rappers_hash, Printer.new).top_words(top_words_opt, dictionary)
   end
 rescue OptionParser::InvalidOption => exception
   puts exception.message.capitalize
