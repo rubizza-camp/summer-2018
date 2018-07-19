@@ -1,10 +1,4 @@
 source 'https://rubygems.org'
-<<<<<<< HEAD
 gem 'OptionParser', '~> 0.5.1'
 gem 'russian_obscenity', '~> 0.0.1'
 gem 'terminal-table', '~> 1.8'
-=======
-gem 'russian_obscenity', '~> 0.0.1'
-gem 'terminal-table', '~> 1.8'
-gem 'OptionParser', '~> 0.5.1'
->>>>>>> 2dc3005b38212ab846d387cf165768431f133534
