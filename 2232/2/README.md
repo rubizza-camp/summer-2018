@@ -7,7 +7,7 @@
 ###Примеры работы программы:
 
 ```
-$ ruby versus.rb --top-bad-words=3
+$ ruby run.rb --top-bad-words=3
 ```
 ![](https://pp.userapi.com/c849320/v849320869/30aa4/VhrHln52-dc.jpg)
 ```

@@ -1,17 +1,18 @@
-require_relative 'work_with_dir'
-require_relative 'work_with_battles'
-# require 'terminal-table'
+require_relative 'helpers/battles_helper'
 
 class LevelManager
-  def self.find_top_battlers(count)
-    list_battlers = WorkWithDir.take_all_battles.map { |el| WorkWithBattles.out_name_bat(el) }.uniq
-    battlers = WorkWithBattles.top_battlers(list_battlers)
-    headings = ['Battler', 'Number of battles', 'Number of curses', 'Curses in battle', 'Words in part']
-    WorkWithBattles.tabular_output(battlers[0...count], headings)
+  include BattlesHelper
+
+  BATTLE_HEADINGS = ['Battler', 'Number of battles', 'Number of curses', 'Curses in battle', 'Words in part'].freeze
+  WORD_HEADINGS = ['Battler', 'Top words'].freeze
+
+  def find_top_battlers(count)
+    battlers = top_battlers
+    tabular_output(battlers[0...count], BATTLE_HEADINGS)
   end
 
-  def self.find_top_words(name_bat, count)
-    words = WorkWithBattles.top_words(name_bat)
-    WorkWithBattles.tabular_output(words[0...count], ['Battler', 'Top words']) unless words.empty?
+  def find_top_words(name_bat, count)
+    words = top_words(name_bat)
+    tabular_output(words[0...count], WORD_HEADINGS) unless words.empty?
   end
 end
