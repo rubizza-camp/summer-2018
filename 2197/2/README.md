@@ -6,6 +6,7 @@ filthy words in of participants of VERSUS battles. This utility can accept param
 At the first level of this task, all filthy words of all battles are analyzed. Also, the number of battles, rounds, and all words of battle are counted. Algorithm of searching filthy words search all words that contain * symbol and check all words with [gem 'russian_obscenity'](github.com/oranmor/russian_obscenity).
 
 User can send parametr `--top-bad-words=,<number>`, what will accepted by this utility and show <number> of battlers with the highest amount of filthy words.
+Also you can use --help to watch how to use --top-bad-words parametr
 As well, this app count number of battles and number of rounds of every participant.
 For table output was used [gem 'terminal-table'](https://github.com/tj/terminal-table)
 
