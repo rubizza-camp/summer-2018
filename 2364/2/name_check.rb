@@ -14,6 +14,8 @@ class NameCheck
     first_name[0..size_difference] == second_name[0..size_difference]
   end
 
+  private
+
   def size_compare
     fsize = first_name.size
     ssize = second_name.size
