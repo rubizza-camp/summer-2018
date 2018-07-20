@@ -18,6 +18,15 @@ class Explorer
     rappers_hash
   end
 
+  def names_list
+    names_list = []
+    @paths.each do |path|
+      name = get_name_in_file(path)
+      names_list << name unless names_list.include?(name)
+    end
+    names_list
+  end
+
   private
 
   def get_name_in_file(path)

@@ -22,7 +22,7 @@ class Help
     HELP
   end
 
-  def show_help
+  def show_help_and_exit
     print @help_message
     exit
   end
