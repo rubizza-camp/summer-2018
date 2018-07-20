@@ -1,12 +1,13 @@
 # Class for comparing names
-class NameCheck
+class NameChecker
   attr_reader :first_name, :second_name
+
   def initialize(first_name, second_name)
     @first_name = first_name
     @second_name = second_name
   end
 
-  def name_check
+  def run
     size = size_compare
     part_size = 0
     part_size = size / 3.to_i if size > 3

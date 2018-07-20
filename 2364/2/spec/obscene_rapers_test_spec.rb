@@ -1,18 +1,16 @@
-require_relative '../parser.rb'
-require_relative '../participant.rb'
-require_relative '../count_words.rb'
-require_relative '../name_check.rb'
-require_relative '../create_data.rb'
+require_relative '../obscene_rapers'
 
-describe ObsceneRapers do
-  it 'check if class of obscene_rapers ObsceneRapers' do
-    obscene_rapers = ObsceneRapers.new(0, [])
-    expect(ObsceneRapers).to eq obscene_rapers.class
+describe ObsceneRapersFinder do
+  it 'check creating table of obscene rapers' do
+    file_path = Dir['./rap-battles/*']
+    obscene_rapers = ObsceneRapersFinder.new(0, file_path)
+    expect(obscene_rapers.participants.size).to eq(124)
   end
 
-  it 'check rows' do
-    obscene_rapers = ObsceneRapers.new(0, [])
-    obscene_rapers.create_rows
-    expect([]).to eq obscene_rapers.rows
+  it 'check creating table of obscene rapers' do
+    file_path = Dir['./rap-battles/*']
+    obscene_rapers = ObsceneRapersFinder.new(30, file_path)
+    obscene_rapers.run
+    expect(obscene_rapers.participants.size).to eq(30)
   end
 end

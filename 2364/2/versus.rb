@@ -1,9 +1,13 @@
 require 'optparse'
-require_relative 'parser.rb'
+require_relative 'obscene_rapers'
+require_relative 'top_words'
 
 # Class versus is main class
 class Versus
+  FILES_PATH = Dir['./rap-battles/*'].freeze
+
   attr_reader :value, :name
+
   def initialize
     @value = 0
     @name = nil
@@ -15,7 +19,17 @@ class Versus
       parse_top_words(opts)
       parse_name(opts)
     end.parse!
-    Parser.new.call(name, value)
+    choose_class
+  end
+
+  private
+
+  def choose_class
+    if name
+      TopWordsFinder.new(value, name, FILES_PATH).run
+    else
+      ObsceneRapersFinder.new(value, FILES_PATH).run
+    end
   end
 
   def parse_top_bad_words(opts)

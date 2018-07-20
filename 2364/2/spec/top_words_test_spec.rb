@@ -1,12 +1,15 @@
-require_relative '../parser.rb'
-require_relative '../participant.rb'
-require_relative '../count_words.rb'
-require_relative '../name_check.rb'
-require_relative '../create_data.rb'
+require_relative '../top_words'
 
-describe TopWords do
-  it 'check if class of top_words TopWords' do
-    top_words = TopWords.new(0, '', [])
-    expect(TopWords).to eq top_words.class
+describe TopWordsFinder do
+  it 'check raper in topwordsfinder' do
+    file_path = Dir['./rap-battles/*']
+    top_words = TopWordsFinder.new(0, 'Rickey F', file_path)
+    expect(top_words.participant.name).to eq('Rickey F')
+  end
+
+  it 'check raper in topwordsfinder' do
+    file_path = Dir['./rap-battles/*']
+    top_words = TopWordsFinder.new(0, 'Гриша', file_path)
+    expect(top_words.participant).to eq(nil)
   end
 end

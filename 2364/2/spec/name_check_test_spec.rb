@@ -1,17 +1,13 @@
-require_relative '../parser.rb'
-require_relative '../participant.rb'
-require_relative '../count_words.rb'
-require_relative '../name_check.rb'
-require_relative '../create_data.rb'
+require_relative '../name_checker'
 
-describe NameCheck do
-  it 'check if class of name_check NameCheck' do
-    name_check = NameCheck.new('', '')
-    expect(NameCheck).to eq name_check.class
+describe NameChecker do
+  it 'check two names' do
+    check = NameChecker.new('Oxxxymiron', "Oxxxymiron'a").run
+    expect(check).to be_truthy
   end
 
   it 'check two names' do
-    check = NameCheck.new('Oxxxymiron', "Oxxxymiron'a").name_check
-    expect(true).to eq check
+    check = NameChecker.new('Oxxymiron', "Oxxxymiron'a").run
+    expect(check).to be_falsy
   end
 end
