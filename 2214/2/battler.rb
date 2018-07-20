@@ -3,8 +3,6 @@ require_relative 'words_in_round_counter'
 require_relative 'battle'
 
 class Battler
-  include BadWordsCounter
-  include WordsInRoundCounter
   BATTLES_FOLDER = 'Battles'.freeze
   attr_reader :name
   def initialize(name, battles)
@@ -17,7 +15,7 @@ class Battler
   end
 
   def number_of_bad_words
-    BadWordsCounter.count(@battles, @name)
+    BadWordsCounter.new(@battles, @name).count
   end
 
   def bad_words_per_round
@@ -25,6 +23,6 @@ class Battler
   end
 
   def average_number_of_words
-    WordsInRoundCounter.count(@battles, @name, number_of_battles)
+    WordsInRoundCounter.new(@battles, @name, number_of_battles).count
   end
 end

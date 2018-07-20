@@ -1,17 +1,21 @@
 require 'russian_obscenity'
 require_relative 'battle'
+require_relative 'battles_by_name_giver'
 
-module BadWordsCounter
-  def self.count(battles, battler_name)
-    files = battles_of_battler(battles, battler_name).map(&:text).join(' ')
-    count_bad_words(files)
+class BadWordsCounter
+  include BattlesByNameGiver
+  def initialize(battles, battler_name)
+    @battles = battles
+    @battler_name = battler_name
   end
 
-  def self.count_bad_words(file)
-    file.split.select { |word| RussianObscenity.obscene?(word) || word.include?('*') }.count
+  def count
+    files.split.select { |word| RussianObscenity.obscene?(word) || word.include?('*') }.count
   end
 
-  def self.battles_of_battler(battles, battler_name)
-    battles.select { |battle| battle.title.split('против').first.include? battler_name }
+  private
+
+  def files
+    BattlesByNameGiver.take(@battles, @battler_name).map(&:text).join(' ')
   end
 end

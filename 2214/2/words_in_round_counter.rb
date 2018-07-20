@@ -1,11 +1,21 @@
-module WordsInRoundCounter
+require_relative 'battles_by_name_giver'
+
+class WordsInRoundCounter
+  include BattlesByNameGiver
   ROUNDS_IN_BATTLE = 3
-  def self.count(battles, battler_name, count_of_battles)
-    words = battles_of_battler(battles, battler_name).map(&:text).join(' ').gsub(/[\p{P}]/, ' ').split.count
-    words / (count_of_battles * ROUNDS_IN_BATTLE)
+  def initialize(battles, battler_name, count_of_battles)
+    @battles = battles
+    @battler_name = battler_name
+    @count_of_battles = count_of_battles
   end
 
-  def self.battles_of_battler(battles, battler_name)
-    battles.select { |battle| battle.title.split('против').first.include? battler_name }
+  def count
+    number_of_words / (@count_of_battles * ROUNDS_IN_BATTLE)
+  end
+
+  private
+
+  def number_of_words
+    BattlesByNameGiver.take(@battles, @battler_name).map(&:text).join(' ').gsub(/[\p{P}]/, ' ').split.count
   end
 end
