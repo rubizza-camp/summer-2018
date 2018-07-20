@@ -52,4 +52,10 @@ class TopWord
       puts word[0] + ' - ' + word[1].to_s + ' раз(а)'
     end
   end
+
+  def ready_top_words
+    check_all_words
+    pretexts_value
+    top_words_counter
+  end
 end

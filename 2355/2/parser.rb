@@ -4,15 +4,22 @@ require 'terminal-table'
 
 # This class is needed to parsing console params
 class Parser
-  attr_reader :bad_words, :top_words, :name
-
   def initialize
     @top_bad_words = []
     @top = TopBad.new
+    @name = ''
   end
 
-  def bad_words=(bad)
-    @bad_words = !bad.empty? ? bad.to_i : 1
+  # This method is needed in Parser class, but is doesn't depend on instance state
+  # This method smells of :reek:UtilityFunction
+  def bad_words(bad)
+    !bad.empty? ? bad.to_i : 1
+  end
+
+  # This method is needed in Parser class, but is doesn't depend on instance state
+  # This method smells of :reek:UtilityFunction
+  def top_words(most)
+    !most.empty? ? most.to_i : 30
   end
 
   def top_bad_words_values
@@ -21,20 +28,14 @@ class Parser
     @top_bad_words = (@top.top_obscenity.sort_by { |_key, val| val }).reverse
   end
 
-  def top_words=(most)
-    @top_words = !most.empty? ? most.to_i : 30
-  end
-
   def name_value(battler_name)
     @name = battler_name
   end
 
-  def print_top_words
+  def print_top_words(most)
     t_w = TopWord.new(@name)
-    t_w.check_all_words
-    t_w.pretexts_value
-    t_w.top_words_counter
-    t_w.res(top_words)
+    t_w.ready_top_words
+    t_w.res(top_words(most))
   end
 
   def raper
@@ -42,14 +43,14 @@ class Parser
     @top.battlers
   end
 
-  def name_check
+  def name_check(most)
     if @name.empty?
       puts 'Choose your destiny!'
     elsif !raper.include?(@name)
       puts 'Я не знаю рэпера ' + @name + ', но знаю таких: '
       raper.each { |battler| puts battler }
     else
-      print_top_words
+      print_top_words(most)
     end
   end
 
@@ -61,15 +62,19 @@ class Parser
     @top.average_words_in_round(elem).to_s
   end
 
-  def print_table
+  def table_content(table, bad)
+    bad_words(bad).times do |index|
+      value = @top_bad_words[index]
+      elem = value[0]
+      table << [elem, value[1].to_s + ' нецензурных слов(а)',
+                words_per_battle(elem) + ' слов(а) на баттл',
+                words_per_round(elem) + ' слов(а) в раунде']
+    end
+  end
+
+  def print_table(bad)
     table = Terminal::Table.new do |tb|
-      @bad_words.times do |index|
-        value = @top_bad_words[index]
-        elem = value[0]
-        tb << [elem, value[1].to_s + ' нецензурных слов(а)',
-               words_per_battle(elem) + ' слов(а) на баттл',
-               words_per_round(elem) + ' слов(а) в раунде']
-      end
+      table_content(tb, bad)
     end
     puts table
   end
