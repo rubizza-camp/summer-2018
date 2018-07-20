@@ -10,6 +10,10 @@ class BattlersTable
   end
 
   def print
+    if @num_top.zero?
+      puts ''
+      exit
+    end
     create_table
     puts Terminal::Table.new rows: @table[0...@num_top]
   end
