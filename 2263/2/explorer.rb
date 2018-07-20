@@ -51,7 +51,7 @@ end
 class ExplorerFileNameError < StandardError
   def initialize(path, message = nil)
     @path = path
-    @message = message ? default_message : message
+    @message = message || default_message
   end
 
   private

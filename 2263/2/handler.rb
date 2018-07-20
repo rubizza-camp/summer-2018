@@ -21,7 +21,7 @@ class Handler
   end
 
   def top_words(number = nil, dictionary_file = nil)
-    sorted_hash = @rappers_hash.each_with_object({}) { |(name, rapper_obj), hash| sort_words(name, rapper_obj, hash) }
+    sorted_hash = @rappers_hash.reduce({}) { |memo, (name, obj)| sort_words(name, obj, memo) }
     cleaned_hash = clean_top_words(sorted_hash, number, dictionary_file)
     print_top_words(cleaned_hash)
   end
@@ -64,8 +64,7 @@ class Handler
   def scan_dictionary(dictionary_file)
     check_file(dictionary_file)
     dictionary = []
-    dictionary_file.each { |word| dictionary << word.match(/.*(?=\n)/).to_s }
-    dictionary
+    dictionary_file.map { |word| word.split("\n") }.flatten
   end
 end
 
@@ -73,7 +72,7 @@ end
 class HandlerFileError < StandardError
   def initialize(file, message = nil)
     @file = file
-    @message = message ? default_message : message
+    @message = message || default_message
   end
 
   private
@@ -87,7 +86,7 @@ end
 class HandlerObjectError < StandardError
   def initialize(obj, message = nil)
     @obj = obj
-    @message = message ? default_message : message
+    @message = message || default_message
   end
 
   private

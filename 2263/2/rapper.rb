@@ -12,7 +12,7 @@ class Rapper
   end
 
   def add_battle(battle_obj)
-    battle_obj.class == Battle ? @battle_list << battle_obj : raise(RapperObjectError, battle_obj)
+    battle_obj.is_a?(Battle) ? @battle_list << battle_obj : raise(RapperObjectError, battle_obj)
   end
 
   def number_of_words
@@ -64,7 +64,7 @@ end
 class RapperObjectError < StandardError
   def initialize(object, message = nil)
     @object = object
-    @message = message ? default_message : message
+    @message = message || default_message
   end
 
   private
