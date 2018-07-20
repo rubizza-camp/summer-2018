@@ -7,7 +7,7 @@ module DirectoryHelper
   end
 
   # getting text of the battler
-  def self.take_text_battler(f_name)
-    File.read("#{BATTLE_LOC}/#{f_name}")
+  def self.take_text_battler(file_name)
+    File.read("#{BATTLE_LOC}/#{file_name}")
   end
 end

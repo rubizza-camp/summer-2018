@@ -1,35 +1,34 @@
 class Battler
-  ROUND_IN_BATLE = 3
+  ROUND_IN_BATTLE = 3
 
-  attr_reader :name_bat, :params
-  def initialize(name_bat, all_text)
-    @name_bat = name_bat
-    count_curse = counting_curse(all_text)
-    count_bat = all_text.size
+  attr_reader :name, :params
+  def initialize(name, texts)
+    @name = name
+    curses = counting_curses(texts)
     @params = {
-      count_bat: count_bat,
-      count_curse: count_curse,
-      curse_bat: curse_battle(count_curse, count_bat),
-      word_round: counting_word(all_text, count_bat)
+      battles: texts.size,
+      curses: curses,
+      curses_per_battle: count_curses(curses, texts.size),
+      words_per_round: count_words(texts)
     }
   end
 
   def show
-    [@name_bat, @params[:count_bat], @params[:count_curse], @params[:curse_bat], @params[:word_round]]
+    [@name, @params[:battles], @params[:curses], @params[:curses_per_battle], @params[:words_per_round]]
   end
 
   private
 
-  def curse_battle(count_curse, count_bat)
-    (count_curse.to_f / count_bat).round(2)
+  def count_curses(curses, battles)
+    (curses.to_f / battles).round(2)
   end
 
-  def counting_curse(all_text)
-    change_text = RussianObscenity.sanitize(all_text.join(' '), '<CR>')
+  def counting_curses(texts)
+    change_text = RussianObscenity.sanitize(texts.join(' '), '<CR>')
     change_text.scan('<CR>').size + change_text.count('*')
   end
 
-  def counting_word(all_text, count_bat)
-    all_text.join(' ').split.size / (ROUND_IN_BATLE * count_bat)
+  def count_words(texts)
+    texts.join(' ').split.size / (ROUND_IN_BATTLE * texts.size)
   end
 end

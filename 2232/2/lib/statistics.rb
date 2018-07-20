@@ -1,6 +1,6 @@
 require_relative 'helpers/battles_helper'
 
-class LevelManager
+class Statistics
   include BattlesHelper
 
   BATTLE_HEADINGS = ['Battler', 'Number of battles', 'Number of curses', 'Curses in battle', 'Words in part'].freeze
@@ -11,8 +11,8 @@ class LevelManager
     tabular_output(battlers[0...count], BATTLE_HEADINGS)
   end
 
-  def find_top_words(name_bat, count)
-    words = top_words(name_bat)
+  def find_top_words(name, count)
+    words = top_words(name)
     tabular_output(words[0...count], WORD_HEADINGS) unless words.empty?
   end
 end

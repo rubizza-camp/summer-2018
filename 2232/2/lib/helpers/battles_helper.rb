@@ -7,10 +7,10 @@ module BattlesHelper
 
   PREPOSITIONS = 'prepositions'.freeze
 
-  def top_words(name_bat)
-    text_bat = text_battler(name_bat)
+  def top_words(name)
+    text_bat = text_battler(name)
     if text_bat.empty?
-      puts "Рэпер #{name_bat} мне не известен. Выберите из списка:"
+      puts "Рэпер #{name} мне не известен. Выберите из списка:"
       puts battlers
       []
     else
@@ -20,7 +20,7 @@ module BattlesHelper
 
   def top_battlers
     battler = battlers.each_with_object([]) { |el, arr| arr << initialize_battler(el) }
-    battler.sort_by { |el| el.params[:curse_bat] }.reverse
+    battler.sort_by { |el| el.params[:curses_per_battle] }.reverse
   end
 
   def tabular_output(rows_arr, headings)
@@ -29,8 +29,8 @@ module BattlesHelper
 
   private
 
-  def initialize_battler(name_bat)
-    Battler.new(name_bat, text_battler(name_bat))
+  def initialize_battler(name)
+    Battler.new(name, text_battler(name))
   end
 
   def battlers
@@ -49,9 +49,9 @@ module BattlesHelper
     words.sort_by(&:count).reverse
   end
 
-  def text_battler(name_bat)
+  def text_battler(name)
     DirectoryHelper.take_all_battles.each_with_object([]) do |el, arr|
-      arr << DirectoryHelper.take_text_battler(el) if name_battler(el).eql?(name_bat)
+      arr << DirectoryHelper.take_text_battler(el) if name_battler(el).eql?(name)
     end
   end
 end
