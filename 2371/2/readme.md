@@ -16,7 +16,7 @@ $ gem install terminal-table
  
 # Run Project
 
-Run **application.rb** with command **--top-bad-words="number"**
+Run **app.rb** with command **--top-bad-words="number"**
 
 #### Example
 
