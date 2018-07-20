@@ -6,12 +6,5 @@ module BattlerAsRow
     row += ["#{battler.number_of_battles} баттлов", "#{battler.number_of_bad_words} нецензурных слов"]
     row += ["#{battler.bad_words_per_round} слова на баттл", "#{battler.average_number_of_words} слов в раунде"]
     row
-#    [
-#      battler.name.to_s,
-#      "#{battler.number_of_battles} баттлов",
-#      "#{battler.number_of_bad_words} нецензурных слов",
-#      "#{battler.bad_words_per_round} слова на баттл",
-#      "#{battler.average_number_of_words} слов в раунде"
-#    ]
   end
 end
