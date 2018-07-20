@@ -106,20 +106,20 @@ class RappersHashWithDictionary
     IO.foreach('./exceptions.txt') { |line| @exclude_array << line.delete("\n") }
   end
 
-  def result_for_second(name, qty)
+  def result_for_second(name, quantity)
     possible_key = find_rapper_key(name)
     if possible_key
-      count_top_words(rappers_hash[possible_key], qty)
+      count_top_words(rappers_hash[possible_key], quantity)
     else
       puts "Рэпер #{name} мне не известен. Зато мне известны: "
       rappers_hash.keys.each { |key| puts key }
     end
   end
 
-  def count_top_words(rapper, qty)
+  def count_top_words(rapper, quantity)
     array_with_exceptions
     rapper.battles.each { |battle_name| count_top_words_in_line(battle_name) }
-    print_dictionary(qty)
+    print_dictionary(quantity)
   end
 
   def count_top_words_in_line(battle_name)

@@ -5,9 +5,9 @@ OptionParser.new do |parser|
   parser.on('--top-bad-words=TOP', 'Список из TOP самых нецензурных участников') do |top|
     Analysis.first_level(top.to_i)
   end
-  parser.on('--top-words=', 'Самые популярные слова у участника') do |qty|
+  parser.on('--top-words=', 'Самые популярные слова у участника') do |quantity|
     parser.on('--name=') do |name|
-      Analysis.second_level(name, qty.to_i)
+      Analysis.second_level(name, quantity.to_i)
     end
   end
   parser.on('--name=', 'Имя участника') do |name|
