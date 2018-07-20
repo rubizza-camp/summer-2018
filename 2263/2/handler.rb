@@ -48,8 +48,7 @@ class Handler
   def clean_top_words(hash, number, dictionary_file)
     dictionary = dictionary_file ? scan_dictionary(dictionary_file) : nil
     hash.each do |name, words_hash|
-      hash[name] = clean_with_dictionary(words_hash, dictionary) if dictionary
-      hash[name] = words_hash.take(number)
+      hash[name] = clean_with_dictionary(words_hash, dictionary).take(number) if dictionary
     end
   end
 
