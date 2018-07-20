@@ -1,8 +1,8 @@
+require './line'
 # this class is needed to return the whole text of file as string
 class Lyrics
   def initialize(battle_file_path, paired)
     @battle_file_path = battle_file_path
-    @line_belongs_to_rapper = false
     @paired = paired
   end
 
@@ -21,18 +21,11 @@ class Lyrics
   end
 
   def lyrics_in_paired_battle_by(rapper_name)
+    line_belongs = false
     File.open(@battle_file_path, 'r').select do |line_text|
-      next unless line_belongs_to?(rapper_name, line_text)
+      line_belongs = Line.new(line_text).belongs_to?(rapper_name, line_belongs)
+      next unless line_belongs
       line_text.strip
     end.join(' ')
-  end
-
-  def line_belongs_to?(rapper_name, line)
-    line_includes_rapper_name = line.include?("#{rapper_name}:")
-    if line.start_with?(/\w+:/) && !line_includes_rapper_name
-      @line_belongs_to_rapper = false
-    elsif line_includes_rapper_name || @line_belongs_to_rapper
-      @line_belongs_to_rapper = true
-    end
   end
 end

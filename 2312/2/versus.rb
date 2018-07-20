@@ -44,7 +44,7 @@ class Versus
     rapper_name = battle_file_path.split(/( против | vs | VS )/).first + ' & '
     rappers_names = rapper_name.split(' & ')
     battlers_names = [rappers_names.first.strip]
-    battlers_names << rappers_names.last.strip if Battle.paired?(battle_file_path)
+    battlers_names << rappers_names.last.strip if Battle.new(battle_file_path).paired?
     battlers_names
   end
 end

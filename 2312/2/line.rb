@@ -1,31 +1,14 @@
-# this class analyzes provided line and returns a writeable one
+# this class shows belonging of line of lyrics to rapper
 class Line
-  attr_reader :line
-
   def initialize(line)
     @line = line
   end
 
-  def in_separate_words
-    line.split.map { |word| Word.new(word) }
-  end
-
-  def writable_line(rapper)
-    lyrics = ''
-    do_write = false
-    if do_write
-      do_write = do_write?(rapper, do_write)
-      lyrics += ' ' + @line.strip if do_write
-    end
-    lyrics
-  end
-
-  private
-
-  def do_write?(rapper, toggle)
-    if @line.start_with?(/\w+:/)
+  def belongs_to?(rapper_name, line_belongs)
+    line_includes_rapper_name = @line.include?("#{rapper_name}:")
+    if @line.start_with?(/\w+:/) && !line_includes_rapper_name
       false
-    elsif @line.include?("#{rapper}:") || toggle
+    elsif line_includes_rapper_name || line_belongs
       true
     end
   end

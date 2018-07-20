@@ -6,32 +6,33 @@ class BattlersTable
     @battlers = battlers
     @counter = -1
     @table = []
-    @table = create_table(num_top)
+    @num_top = num_top
   end
 
   def print
-    puts Terminal::Table.new rows: @table
+    create_table
+    puts Terminal::Table.new rows: @table[0...@num_top]
   end
 
   private
 
-  def create_table(num_top)
-    @battlers.sort_by { |_name, info| info.stats.words_info[:bad_words_num] }.reverse.to_h.keys.each do |name|
+  def create_table
+    @battlers.sort_by { |_name, info| info.stats.rapper_stats[:bad_words_num] }.reverse.to_h.keys.each do |name|
       @counter += 1
-      fill_table_global(name)
+      fill_table(name)
     end
-    @table[0...num_top]
   end
 
-  def fill_table_global(name)
+  def fill_table(name)
     info = @battlers[name]
     @table[@counter] = [name]
-    @table[@counter] << "#{info.overall[:battles_num]} battles" << "#{info.stats.words_info[:bad_words_num]} bad words"
-    fill_table_second(info)
+    bad_words_num = info.stats.rapper_stats[:bad_words_num]
+    @table[@counter] << "#{info.overall[:battles_num]} battles" << "#{bad_words_num} bad words"
+    fill_stats_in_table_from(info)
   end
 
-  def fill_table_second(info)
-    stats = info.stats.words_info
+  def fill_stats_in_table_from(info)
+    stats = info.stats.rapper_stats
     @table[@counter] << "#{stats[:bad_words_per_battle]} bad/battle" << "#{stats[:words_per_round]} words/round"
   end
 end
