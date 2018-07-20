@@ -1,6 +1,5 @@
 require_relative 'bad_words_counter'
 require_relative 'total_words_in_round_counter'
-require_relative 'battle'
 
 class Battler
   attr_reader :name

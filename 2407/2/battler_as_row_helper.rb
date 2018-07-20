@@ -1,5 +1,4 @@
 module BattlerAsRow
-  # This method smells of :reek:DuplicateMethodCall
   def self.get_battler_as_row(battler)
     row = []
     row += [battler.name.to_s]

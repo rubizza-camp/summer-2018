@@ -1,4 +1,3 @@
-require 'commander'
 require 'terminal-table'
 require_relative 'read_from_file_helper.rb'
 require_relative 'battler_as_row_helper.rb'

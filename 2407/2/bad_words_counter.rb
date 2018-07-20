@@ -1,5 +1,5 @@
 require 'russian_obscenity'
-require_relative 'battle.rb'
+require_relative 'rap_battle'
 
 # Counts obscene words
 class BadWordsCounter

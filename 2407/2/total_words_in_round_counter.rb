@@ -1,9 +1,9 @@
 # Counts average number of words per round
 class TotalWordsInRoundCounter
-  ROUNDS_IN_EACH_BATTLE = 3
+  ROUNDS_IN_BATTLE = 3
   def self.count(battles, battler_name, count_of_battles)
     words = battles_of_battler(battles, battler_name).map(&:text).join(' ').gsub(/[.!-?,:]/, ' ').split.count
-    words / (count_of_battles * ROUNDS_IN_EACH_BATTLE)
+    words / (count_of_battles * ROUNDS_IN_BATTLE)
   end
 
   def self.battles_of_battler(battles, battler_name)

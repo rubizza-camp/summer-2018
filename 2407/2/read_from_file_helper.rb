@@ -1,4 +1,3 @@
-require_relative 'rap_battle.rb'
 require_relative 'battler.rb'
 # Contains all methods without instance
 module ReadFromFile
