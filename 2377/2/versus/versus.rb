@@ -12,11 +12,11 @@ versus.sort_rappers
 versus.find_favourite_words
 versus.count_words_per_round
 
-p = Printer.new
+p = Printer.new(versus.rappers, versus.rounds)
 
 unless option_bad_words.nil?
   if option_bad_words.to_i < versus.rappers.size
-    p.print(option_bad_words.to_i, versus.rappers, versus.rounds)
+    p.print(option_bad_words.to_i)
   else
     puts 'Too much.'
   end

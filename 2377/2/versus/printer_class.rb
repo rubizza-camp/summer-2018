@@ -1,40 +1,36 @@
 require 'terminal-table'
 # Prints the information given in form of arrays
 class Printer
-  def printt(num, arr)
+  def initialize(rappers, rounds)
+    @rappers = rappers
+    @rounds = rounds
+  end
+
+  def print(num)
     rows = []
-    print_lines(arr, num, rows)
+    print_lines(num, rows)
     table = Terminal::Table.new do |tab|
       tab.rows = rows
     end
     puts table
   end
 
-  def print(num, rappers, rounds)
-    rows = []
-    print_lines(num, rappers, rounds, rows)
-    table = Terminal::Table.new do |tab|
-      tab.rows = rows
-    end
-    puts table
-  end
-
-  def print_lines(num, rappers, rounds, rows)
+  def print_lines(num, rows)
     itr = 0
     while itr < num
       buf = []
-      create_row(buf, rappers, rounds, itr)
+      create_row(buf, itr)
       rows << buf
       itr += 1
     end
   end
 
-  def create_row(buf, rappers, rounds, itr)
-    buf << rappers[itr].name
-    buf << "#{rappers[itr].battles} battles"
-    buf << "#{rappers[itr].bad_words} bad words"
-    buf << "#{rappers[itr].words_per_battle} words per battle"
-    buf << "#{rounds[itr]} words per round"
+  def create_row(buf, itr)
+    buf << @rappers[itr].name
+    buf << "#{@rappers[itr].battles} battles"
+    buf << "#{@rappers[itr].bad_words} bad words"
+    buf << "#{@rappers[itr].words_per_battle} words per battle"
+    buf << "#{@rounds[itr]} words per round"
   end
 
   # :reek:DuplicateMethodCall
