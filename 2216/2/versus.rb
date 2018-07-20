@@ -62,8 +62,8 @@ else
     end
 
     columns = participant_bad_words.min.flatten.size
-    printer = TablePrinter.new(participant_bad_words, Integer(options[:top_bad_words]), columns)
-    printer.output_top
+    table = BadWordsTable.new(participant_bad_words, Integer(options[:top_bad_words]), columns)
+    table.print('bad_words')
   end
   # -------------------------------------------------------------------------------------------
 
@@ -80,8 +80,12 @@ else
         battle = Battle.new(battle_title)
         battle_texts[battle_title] = battle.text
       end
-      analyzer = TopWordsAnalyzer.new(battle_texts, Integer(options[:top_words]))
-      analyzer.analyze_top
+      analyzer = TopWordsAnalyzer.new(battle_texts)
+      top_words = analyzer.analyze_top
+      Integer(options[:top_words]).times do
+        word_with_count = top_words.shift
+        puts "#{word_with_count[0]} - #{word_with_count[1]} раз"
+      end
     else
       puts 'Неизвестное имя ' + options[:name] + '. Вы можете ввести одно из следующих имён: '
       participant_names.each { |name| puts name }

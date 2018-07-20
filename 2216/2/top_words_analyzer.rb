@@ -1,18 +1,11 @@
 class TopWordsAnalyzer
-  def initialize(battles, top_number)
+  def initialize(battles)
     @battles = battles
-    @output_num = top_number
     @words = divide_into_words
   end
 
   def analyze_top
-    counts_of_top_words = make_counts_of_top_words
-    counts_of_top_words = counts_of_top_words.sort_by { |_key, value| value }.reverse
-    output_words(counts_of_top_words)
-  end
-
-  def self.print_top_words(word_with_count)
-    puts "#{word_with_count[0]} - #{word_with_count[1]} раз"
+    make_counts_of_top_words.sort_by { |_key, value| value }.reverse
   end
 
   private
@@ -32,12 +25,5 @@ class TopWordsAnalyzer
   def select_words(text)
     text = Unicode.downcase(text).split(' ').select! { |word| word.match(/[^\s]+[a-zA-Z]*[а-яА-я]*[^\s]+/) }
     text.map! { |word| word.gsub(/[,:;.?!«»]|&quot/, '') }
-  end
-
-  def output_words(counts_of_top_words)
-    @output_num.times do
-      word_with_count = counts_of_top_words.shift
-      TopWordsAnalyzer.print_top_words(word_with_count)
-    end
   end
 end

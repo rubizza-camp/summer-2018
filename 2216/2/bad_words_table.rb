@@ -1,14 +1,14 @@
-class TablePrinter
+class BadWordsTable
   def initialize(bad_words, top_number, columns)
     @bad_words = bad_words
     @top_number = top_number
     @columns = columns
   end
 
-  def output_top
+  def print(path)
     top_participant = make_top_participants
     properties = Array.new(@columns) { 0 }
-    print_top_participant(top_participant, properties)
+    print_top_participant(top_participant, properties, path)
   end
 
   private
@@ -24,9 +24,9 @@ class TablePrinter
     top_participant
   end
 
-  def print_top_participant(top_participant, properties)
+  def print_top_participant(top_participant, properties, path)
     get_the_properties_for_grid(top_participant, properties)
-    top_participant.each { |participant| print_the_row(participant, properties) }
+    top_participant.each { |participant| print_the_row(participant, properties, path) }
   end
 
   def get_the_properties_for_grid(participant_in_top, properties_for_cell)
@@ -56,11 +56,20 @@ class TablePrinter
     end
   end
 
-  def print_the_row(participant_in_top, properties)
+  def print_the_row(participant_in_top, properties, path)
+    to_consol = path == :console
     row = ''
     row += make_cell(participant_in_top[0], '', properties[0]) + '|' +
            get_the_rest_inf_for_row(row, participant_in_top, properties)
-    puts row
+    if to_consol
+      puts row
+    else
+      put_in_file(row, path)
+    end
+  end
+
+  def put_in_file(row, path)
+    File.open(path, 'a') { |line| line.puts row }
   end
 
   def make_cell(criterion, column_name, prop_cell_size)
