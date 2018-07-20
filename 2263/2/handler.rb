@@ -63,7 +63,6 @@ class Handler
 
   def scan_dictionary(dictionary_file)
     check_file(dictionary_file)
-    dictionary = []
     dictionary_file.map { |word| word.split("\n") }.flatten
   end
 end

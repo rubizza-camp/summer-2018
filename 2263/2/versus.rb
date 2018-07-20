@@ -20,11 +20,11 @@ begin
   options = ArgsParser.new.options_default_values
 
   Help.new.show_help_and_exit if options[:help]
-  top_bad_words_opt ||= options[:top_bad_words]&.to_i
-  top_words_opt ||= options[:top_words]&.to_i
+  top_bad_words_opt = options[:top_bad_words]&.to_i
+  top_words_opt = options[:top_words]&.to_i
   name_opt = options[:name]
 
-  explorer = Explorer.new(name_opt)
+  explorer = VersusBattle::Explorer.new(name_opt)
   names_list = explorer.names_list
   if name_opt
     print_unknown_name_and_exit(name_opt, names_list) unless names_list.include?(name_opt)
