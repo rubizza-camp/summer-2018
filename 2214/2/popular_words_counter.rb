@@ -15,12 +15,15 @@ class PopularWordsCounter
   private
 
   def popular_words
-    words.uniq.map { |word| WordWithQuantity.new(word, words.count(word)) }.sort_by(&:quantity).reverse
+    usefull_words.uniq.map { |word| WordWithQuantity.new(word, usefull_words.count(word)) }.sort_by(&:quantity).reverse
   end
 
-  def words
-    all_words = files.gsub(/[\p{P}]/, ' ').downcase.strip.split
+  def usefull_words
     all_words.reject { |word| File.read(PREPOSITIONS_FILE).split("\n").include? word }
+  end
+
+  def all_words
+    files.gsub(/[\p{P}]/, ' ').downcase.strip.split
   end
 
   def files

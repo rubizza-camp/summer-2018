@@ -13,7 +13,7 @@ class BattleExpert
 
   def find_popular_words(battler_name, top_words = 30)
     if battlers_names.include? battler_name
-      PopularWordsCounter.new(battlers.select { |battler| battler.name.eql?(battler_name) }.first, top_words).count
+      PopularWordsCounter.new(battlers.find { |battler| battler.name.eql? battler_name }, top_words).count
     else
       puts "Я не знаю МЦ #{battler_name}. Зато мне известны:"
       battlers_names.each { |battler| puts battler }
