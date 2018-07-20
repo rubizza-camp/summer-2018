@@ -1,7 +1,7 @@
 require 'terminal-table'
 # Prints the information given in form of arrays
 class Printer
-  def print(num, arr)
+  def printt(num, arr)
     rows = []
     print_lines(arr, num, rows)
     table = Terminal::Table.new do |tab|
@@ -10,19 +10,31 @@ class Printer
     puts table
   end
 
-  # :reek:UtilityFunction
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
-  def print_lines(arr, num, rows)
-    arr.first(num).each do |rapper|
-      buf = []
-      buf << rapper.name
-      buf << "#{rapper.battles} battles"
-      buf << "#{rapper.bad_words} bad words"
-      buf << "#{rapper.words_per_battle} words per battle"
-      buf << "#{rapper.words_per_round} words per round"
-      rows << buf
+  def print(num, rappers, rounds)
+    rows = []
+    print_lines(num, rappers, rounds, rows)
+    table = Terminal::Table.new do |tab|
+      tab.rows = rows
     end
+    puts table
+  end
+
+  def print_lines(num, rappers, rounds, rows)
+    itr = 0
+    while itr < num
+      buf = []
+      create_row(buf, rappers, rounds, itr)
+      rows << buf
+      itr += 1
+    end
+  end
+
+  def create_row(buf, rappers, rounds, itr)
+    buf << rappers[itr].name
+    buf << "#{rappers[itr].battles} battles"
+    buf << "#{rappers[itr].bad_words} bad words"
+    buf << "#{rappers[itr].words_per_battle} words per battle"
+    buf << "#{rounds[itr]} words per round"
   end
 
   # :reek:DuplicateMethodCall
@@ -32,7 +44,7 @@ class Printer
     rows = []
     itr = 1
     while itr <= num
-      rows << [hash.keys[itr], hash[hash.keys[itr]]]
+      rows << [hash.keys[itr], "#{hash[hash.keys[itr]]} words"]
       itr += 1
     end
     table = Terminal::Table.new do |tab|
