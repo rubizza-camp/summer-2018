@@ -2,6 +2,8 @@ require './storage'
 require './rappers_list'
 # class for rapper's data processing
 class RapperData
+  attr_reader :rapper_name
+
   def initialize(rapper_name)
     @rapper_name = rapper_name
   end
