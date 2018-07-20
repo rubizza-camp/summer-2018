@@ -1,25 +1,38 @@
-require_relative 'name_check.rb'
+require_relative 'name_checker'
+require_relative 'count_words'
 
 # Class fo printing top words
-class TopWords
-  attr_reader :value, :name, :participants
-  def initialize(value, name, participants)
+class TopWordsFinder
+  attr_reader :value, :argument_name, :participant
+
+  def initialize(value, name, file_names)
     @value = value
-    @name = name
-    @participants = participants
+    @argument_name = name
+    @participant = nil
+    create_participant(file_names)
   end
 
-  def print_top_words
-    answer = participants.find { |participant| NameCheck.new(participant.name, name).name_check }
-    if answer
-      answer.count_words(value)
+  def run
+    if participant
+      WordsCounter.new(participant.all_texts, value).run
     else
-      unknown_output
+      puts "Рэпер #{argument_name} не известен мне. Зато мне известны:\nRickey F\nOxxxymiron\nГалат"
     end
   end
 
-  def unknown_output
-    puts "Рэпер #{name} не известен мне. Зато мне известны:"
-    participants[0...3].each { |raper| puts raper.name }
+  private
+
+  def create_participant(file_names)
+    file_names.each do |file_name|
+      text = File.read(file_name)
+      name = NameParser.new(file_name).run
+      update_participant_text(name, text)
+    end
+  end
+
+  def update_participant_text(name, text)
+    check = NameChecker.new(argument_name, name).run
+    @participant ||= Participant.new(name) if check
+    @participant.update_text(text) if participant && check
   end
 end

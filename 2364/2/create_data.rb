@@ -1,34 +1,30 @@
+require_relative 'name_checker'
+require_relative 'name_parser'
+require 'russian_obscenity'
+
 # Class for creating data
-class CreateData
+class DataCreater
   attr_reader :file_name, :data, :text
+
   def initialize(file_name)
     @file_name = file_name
     @data = {}
     @text = nil
   end
 
-  def take_data
-    File.open(file_name, 'r') do |file|
-      @text = file.read
-      create_data
-    end
+  def run
+    @text = File.read(file_name)
+    create_data
     data
   end
 
   private
 
-  def take_name
-    name = file_name.split('/').last.split('(').first.split(/ против | vs | VS | & | && /).first.strip
-    name = '(Pra(Killa\'Gramm)' if name == ''
-    name
-  end
-
   def create_data
     create_rounds
     @data[:words_per_battle] = text.split(' ').size
-    @data[:bad_words] = count_bw
-    @data[:text] = text
-    @data[:name] = take_name
+    @data[:bad_words] = count_bad_words
+    @data[:name] = NameParser.new(file_name).run
   end
 
   def create_rounds
@@ -40,7 +36,7 @@ class CreateData
                      end
   end
 
-  def count_bw
+  def count_bad_words
     words = text.split(' ')
     words.count { |word| word.include? '*' } + RussianObscenity.find(text).size
   end
