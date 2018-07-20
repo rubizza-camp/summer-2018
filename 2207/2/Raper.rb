@@ -1,5 +1,8 @@
 require_relative 'RapersCounters'
 
+# The class Raper is responsible for models of rapers wich a saved and processed later
+# This method smells of :reek:TooManyInstanceVariables
+# Disable reek on this class becouse on my opinion in that example are not many variables
 class Raper
   extend RapersCounters
 

@@ -1,4 +1,6 @@
 require_relative 'BattleCounters'
+# The module RapersCounters is responsible for moduling hash with
+# needed keys and values for class Raper to initializing.
 module RapersCounters
   include Counters
   PATH_FOLDER = 'texts'.freeze
@@ -29,6 +31,8 @@ module RapersCounters
     count_normal(find_rapers_titles(raper))
   end
 
+  # This method smells of :reek:UtilityFunction
+  # I think it will be better to paste this code here in couse of small project
   def find_rapers_titles(raper)
     rapers_titles = []
     Dir.chdir(PATH_FOLDER) do

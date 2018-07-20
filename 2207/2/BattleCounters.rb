@@ -1,7 +1,9 @@
 require 'russian_obscenity'
-
+# The module Counters is responsible for counting words in text which done to him
 module Counters
   PATH_FOLDER = 'texts'.freeze
+  # This method smells of :reek:UtilityFunction
+  # I think it will be better to paste this code here in couse of small project
   def count_normal(battles)
     words = 0
     battles.each do |battle|
@@ -18,6 +20,8 @@ module Counters
     end
     bad_words
   end
+  # This method smells of :reek:UtilityFunction
+  # I think it will be better to paste this code here in couse of small project
 
   def count_bad_words(file)
     bad_words = 0

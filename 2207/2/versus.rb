@@ -8,6 +8,8 @@ require_relative 'RapersCounters'
 $rapers = []
 # rubocop:enable Style/GlobalVars
 
+# This method smells of :reek:UtilityFunction
+# I think it will be better to paste this code here in couse of small project
 def find_rapers
   rapers_names_only ||= begin
     rapers_names_only = []
@@ -30,11 +32,13 @@ end
 
 def show_top_rapers(rapers, top_bad_words)
   rows = []
-  top_bad_words.to_i.times { |i| rows << get_participant_as_row(rapers[i]) }
+  top_bad_words.to_i.times { |name_of_participant| rows << get_participant_as_row(rapers[name_of_participant]) }
   table = Terminal::Table.new rows: rows
   puts table
 end
 
+# This method smells of :reek:UtilityFunction
+# I think it will be better to paste this code here in couse of small project
 def get_participant_as_row(raper)
   row = [raper.name, "#{raper.battles} батлов"]
   row += ["#{raper.bad_words} нецензурных слов"]
