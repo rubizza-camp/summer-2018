@@ -1,14 +1,17 @@
 require 'optparse'
 require 'fileutils'
-require_relative 'first_level.rb'
-require_relative 'second_level.rb'
+require_relative 'first_level'
+require_relative 'second_level'
 
 # Class check command line
 class CommandLine
-  attr_reader :value, :name, :number_top_words
+  DEFAULT_NUMBER_TOP_WORDS = 30
+  DEFAULT_NUMBER_TOP_WORDS.freeze
+  PATH = File.expand_path('.') + '/rap-battles/*'
 
+  attr_reader :number_battlers_output, :name, :number_top_words
   def run
-    if CommandLine.check_dir
+    if check_dir
       OptionParser.new do |opts|
         check_for_bad_words(opts)
         check_num_and_name(opts)
@@ -19,8 +22,10 @@ class CommandLine
     output_result
   end
 
+  private
+
   def check_for_bad_words(opts)
-    opts.on('--top-bad-words=VALUE', 'Top of bad words') { |bad_words| @value = bad_words.to_i }
+    opts.on('--top-bad-words=VALUE', 'Top of bad words') { |bad_words| @number_battlers_output = bad_words.to_i }
   end
 
   def check_num_and_name(opts)
@@ -29,11 +34,12 @@ class CommandLine
   end
 
   def output_result
-    BadWordsParser.new.call(value) if value
-    TopWordsParser.new(name, number_top_words ? number_top_words : 30).call if name
+    BadWordsParser.new.call(number_battlers_output, PATH) if number_battlers_output
+    TopWordsParser.new(name, number_top_words ? number_top_words : DEFAULT_NUMBER_TOP_WORDS).call(PATH) if name
   end
 
-  def self.check_dir
+  # method check errors with files, i use it once, and write class for this little method so useless
+  def check_dir
     file = File.expand_path('.')
     FileUtils.rm_r Dir[file] if Dir.exist?(file + '/rap-battles/__MACOSX')
     Dir.exist?(file + '/rap-battles')
