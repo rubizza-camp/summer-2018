@@ -30,6 +30,7 @@ class WordAnalizer
     sort_fav_words
   end
 
+  # :reek:FeatureEnvy
   # :reek:UtilityFunction
   def prepare_words(word_array)
     word_array.map!(&:downcase)

@@ -15,6 +15,7 @@ class Printer
     puts table
   end
 
+  # :reek:FeatureEnvy
   def print_lines(num, rows)
     itr = 0
     while itr < num
@@ -25,6 +26,7 @@ class Printer
     end
   end
 
+  # :reek:DuplicateMethodCall
   def create_row(buf, itr)
     buf << @rappers[itr].name
     buf << "#{@rappers[itr].battles} battles"

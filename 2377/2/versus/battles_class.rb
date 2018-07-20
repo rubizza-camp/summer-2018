@@ -16,22 +16,20 @@ class Battle
     @line_array
   end
 
+  # :reek:TooManyStatements
   def count_words_per_round
+    words = []
     exp = /((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/
     count_rounds(exp)
-    words = count_words(exp)
-    @words_per_round = words / @rounds
+    words_array = @line_array.delete_if { |line| line[exp] }
+    words_array.each do |line|
+      words += line.split
+    end
+    @words_per_round = words.size / @rounds
   end
 
   def count_rounds(exp)
     @rounds = @line_array.count { |line| line[exp] }
     @rounds = 1 if @rounds.zero?
-  end
-
-  def count_words(exp)
-    words = []
-    words_array = @line_array.delete_if { |line| line[exp] }
-    words_array.inject(words) { |words, line| words += line.split }
-    words.size
   end
 end
