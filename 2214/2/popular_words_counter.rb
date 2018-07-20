@@ -13,7 +13,7 @@ module PopularWordsCounter
   end
 
   def self.find_popular_words(words)
-    words.uniq.map { |word| WordWithQuantity.new(word, words.count(word)) }.sort_by!(&:quantity).reverse!
+    words.uniq.map { |word| WordWithQuantity.new(word, words.count(word)) }.sort_by(&:quantity).reverse
   end
 
   def self.show_popular_words(top_words, popular_words)
