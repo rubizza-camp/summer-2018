@@ -60,6 +60,7 @@ class Versus
     end
   end
 
+  #:reek:TooManyStatements
   def favourite_words_of_rapper(rapper)
     bbb = @battles.find_all { |battle| battle.filename[@exp] == rapper.name }
     txt = WordAnalizer.new(rapper)
@@ -75,6 +76,7 @@ class Versus
     end
   end
 
+  #:reek:TooManyStatements
   def words_per_round(rapper)
     bbb = @battles.find_all { |battle| battle.filename[@exp] == rapper.name }
     buf = 0
