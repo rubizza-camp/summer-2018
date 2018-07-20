@@ -28,7 +28,6 @@ module Versus
     'Витя Classic' => ["Вити Classic'a", 'Витя CLassic', 'Вити Classic']
   }.freeze
 
-
   def self.rapper_list_check(key, array)
     array.product(RAPPERS_NAMES[key]) do |array_item, hash_key|
       array[array.index(array_item)] = key if hash_key == array_item
