@@ -1,7 +1,7 @@
 require 'russian_obscenity'
 
 # This class is needed to find and collect all obscenity from text files
-class FindObscenity
+class Obscenity
   attr_reader :obscenity
 
   def initialize(battler)
@@ -18,6 +18,11 @@ class FindObscenity
     File.new('./mistakes').each { |line| @mistakes << line.delete("\n") }
   end
 
+  # In methods first_check and check_rus_obs I use disabling reek:NestedIterators,
+  # because I believe that this method of implementing the search for specific words
+  # in a large text is the most acceptable.
+  # I would have each block do-end to make a separate function and call them all one by one,
+  # but in my opinion, this will lower the readability of the code.
   # This method smells of :reek:NestedIterators
   def first_check
     1.upto(dir_count) do |text|

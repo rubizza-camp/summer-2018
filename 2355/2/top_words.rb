@@ -4,6 +4,7 @@ class TopWord
 
   def initialize(battler)
     @battler = battler
+    @pretexts = []
     @words = []
     @top_words = {}
   end
@@ -12,35 +13,43 @@ class TopWord
     Dir[File.join("./rap-battles/#{@battler}/", '**', '*')].count { |file| File.file?(file) }
   end
 
-  # This method smells of :reek:NestedIterators
+  def clear_words(line)
+    line.split.each do |word|
+      word = word.delete '.', ',', '?»', '&quot', '!', ';'
+      @words << word
+    end
+  end
+
+  def check_words_in_text(text)
+    File.new("./rap-battles/#{@battler}/#{text}").each do |line|
+      clear_words(line)
+    end
+  end
+
   def check_all_words
     1.upto(dir_count) do |text|
-      File.new("./rap-battles/#{@battler}/#{text}").each do |line|
-        line.split.each do |word|
-          word = word.delete '.', ',', '?»', '&quot', '!', ';'
-          @words << word
-        end
-      end
+      check_words_in_text(text)
     end
   end
 
-  # This method smells of :reek:DuplicateMethodCall
-  # This method smells of :reek:TooManyStatements
+  def pretexts_value
+    File.new('./pretexts').each { |word| @pretexts << word.delete("\n") }
+  end
+
   def top_words_counter
-    pretexts = []
-    File.new('./pretexts').each { |line| pretexts << line.delete("\n") }
     while @words.any?
-      counter = 0
-      @words.each { |word| counter += 1 if word == @words[0] && !pretexts.include?(word) }
-      @top_words[@words[0]] = counter
-      @words.delete(@words[0])
+      check = @words.first
+      @top_words[check] = 0
+      @words.each { |word| @top_words[check] += 1 if word == check && !@pretexts.include?(word) }
+      @words.delete(check)
     end
   end
 
-  # This method smells of :reek:DuplicateMethodCall
   def res(value)
-    @top_words = @top_words.sort_by { |_key, val| val }
-    @top_words = @top_words.reverse
-    0.upto(value - 1) { |index| puts @top_words[index][0] + ' - ' + @top_words[index][1].to_s + ' раз(а)' }
+    @top_words = (@top_words.sort_by { |_key, val| val }).reverse
+    0.upto(value - 1) do |index|
+      word = @top_words[index]
+      puts word[0] + ' - ' + word[1].to_s + ' раз(а)'
+    end
   end
 end
