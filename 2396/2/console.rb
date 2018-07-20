@@ -1,6 +1,4 @@
-require 'optparse'
-require './obscence_raper'
-
+# Process input data from the console
 class Console
   attr_reader :options
 
@@ -42,25 +40,27 @@ class Console
   def process
     if @options[:top_bad_words]
       fetch_top_bad_words
-    elsif Raper.raper?(@options[:name]) == false
-      raper_not_find
-    elsif Raper.raper?(@options[:name]) == true
+    elsif Raper.raper?(@options[:name])
       raper_find
+    else
+      raper_not_find
     end
   end
 
+  private
+
   def fetch_top_bad_words
-    ObscenceRaper.new.the_most_obscene_rappers(@options[:top_bad_words])
+    Raper.the_most_obscene_rappers(@options[:top_bad_words])
   end
 
   def raper_find
     raper = Raper.new(@options[:name])
-    raper.fetch_files_one_raper
+    raper.fetch_files
     raper.show_favorite_words(@options[:top_words])
   end
 
   def raper_not_find
     puts "Рэпер #{options[:name]} не известен мне. Зато мне известны:"
-    DataRapers::Battle.show_names_rapers
+    Raper.show_all_names
   end
 end
