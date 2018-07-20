@@ -40,6 +40,7 @@ class BadRapper < Rapper
 
   def count_words
     battles.each { |battle_name| count_words_in_battle(battle_name) }
+    average_bad
   end
 
   def count_words_in_battle(battle_name)

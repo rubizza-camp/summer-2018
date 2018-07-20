@@ -7,19 +7,21 @@ class Analysis
   def self.first_level(lim)
     rappers_hash = BadRappersHash.new
     rappers_array = rappers_hash.array_as_result
-    lim <= rappers_array.size ? lim.times { |ind| rappers_array[ind].print } : rappers_array.each(&:print)
+    if lim <= rappers_array.size
+      lim.times { |ind| rappers_array[ind].print }
+    else
+      rappers_array.each(&:print)
+    end
   end
 
-  def self.second_level(name, qty)
+  def self.second_level(name, quantity)
     rappers_hash = RappersHashWithDictionary.new
-    rappers_hash.result_for_second(name, qty)
+    rappers_hash.result_for_second(name, quantity)
   end
 end
 
 def find_files
-  pn = Pathname('./rap-battles/')
-  all_paths = pn.children
-  all_paths
+  Pathname('./rap-battles/').children
 end
 
 module BaseRappersHash
@@ -33,7 +35,7 @@ module BaseRappersHash
     all_paths.each { |path| update_hash(path.to_s) }
   end
 
-  def rapper_key?(rapper_name)
+  def find_rapper_key(rapper_name)
     rapper_name = rapper_name.downcase
     rappers_hash.keys.find do |key|
       key = key.downcase
@@ -62,7 +64,7 @@ class BadRappersHash
 
   def update_hash(rapper_battle)
     rapper_name = rapper_battle.gsub(UNWANTEDBEGIN, '').gsub(UNWANTEDEND, '')
-    possible_key = rapper_key?(rapper_name)
+    possible_key = find_rapper_key(rapper_name)
     if possible_key
       add_battle_to_existing_rapper(possible_key, rapper_name, rapper_battle)
     else
@@ -71,7 +73,7 @@ class BadRappersHash
   end
 
   def array_as_result
-    rappers_hash.values.each(&:count_words).sort! { |one, second| second.average_bad <=> one.average_bad }
+    rappers_hash.values.sort_by(&:count_words).reverse
   end
 end
 
@@ -88,7 +90,7 @@ class RappersHashWithDictionary
 
   def update_hash(rapper_battle)
     rapper_name = rapper_battle.gsub(UNWANTEDBEGIN, '').gsub(UNWANTEDEND, '')
-    possible_key = rapper_key?(rapper_name)
+    possible_key = find_rapper_key(rapper_name)
     if possible_key
       add_battle_to_existing_rapper(possible_key, rapper_name, rapper_battle)
     else
@@ -96,8 +98,8 @@ class RappersHashWithDictionary
     end
   end
 
-  def print_dictionary(qty)
-    dict.sort { |wordx, wordy| wordy[1] <=> wordx[1] }.first(qty).each { |elem| puts "\"#{elem[0]}\" - #{elem[1]} раз" }
+  def print_dictionary(quantity)
+    dict.sort_by { |word| word[1] }.last(quantity).reverse_each { |elem| puts "\"#{elem[0]}\" - #{elem[1]} раз" }
   end
 
   def array_with_exceptions
@@ -105,7 +107,7 @@ class RappersHashWithDictionary
   end
 
   def result_for_second(name, qty)
-    possible_key = rapper_key?(name)
+    possible_key = find_rapper_key(name)
     if possible_key
       count_top_words(rappers_hash[possible_key], qty)
     else
