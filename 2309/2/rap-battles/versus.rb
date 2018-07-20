@@ -4,7 +4,7 @@ require 'terminal-table'
 class AllRapers
   attr_reader :all_rapers
 
-  def initilize
+  def initialize
     @all_rapers = {}
   end
 
@@ -26,15 +26,14 @@ class AllRapers
     read_variable_names.each do |names|
       names = names.split(',')
       if names.include? namee
-        add_name(names[0], battle)
-      else
-        add_name(namee, battle)
+        namee = names[0]
+        break
       end
     end
+    add_name(namee, battle)
   end
 
   def add_name(namee, line)
-    @all_rapers = @all_rapers.to_hash
     if @all_rapers.include?(namee)
       @all_rapers[namee] += [line]
     else
