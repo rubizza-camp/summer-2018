@@ -2,10 +2,12 @@ class Analysis
   def self.third_level
     all_paths = find_files
     rhymes_from_all_battles = []
-    all_paths.each { |path| rhymes_from_all_battles << search_rhymes(path.to_s) }
-    plagiats(rhymes_from_all_battles)
+    all_paths.each { |path| rhymes_from_all_battles << Plagiat.search_rhymes(path.to_s) }
+    Plagiat.print(rhymes_from_all_battles)
   end
+end
 
+class Plagiat
   def self.search_rhymes(file_name)
     rhymes_in_battle = Rhymes.new(file_name)
     words = last_words_in_lines(file_name)
@@ -13,7 +15,7 @@ class Analysis
     rhymes_in_battle
   end
 
-  def self.plagiats(rhymes_objects)
+  def self.print(rhymes_objects)
     rhymes_objects.each do |rhyme_current|
       rhymes_pairs_list = rhyme_current.all_rhymes_pairs_excluding_self(rhymes_objects)
       rhymes_plagiat = rhyme_current.rhymes & rhymes_pairs_list
@@ -42,6 +44,7 @@ class Analysis
   end
 end
 
+# :reek:FeatureEnvy
 class Rhymes
   attr_reader :rhymes, :battle
 
@@ -51,7 +54,6 @@ class Rhymes
   end
 
   # :reek:TooManyStatements
-  # :reek:FeatureEnvy
   def make_rhymes_from_words(words)
     words.each_index do |ind|
       one_part_of_rhyme = words[ind]
@@ -64,7 +66,6 @@ class Rhymes
     rhymes.uniq!
   end
 
-  # :reek:FeatureEnvy
   def all_rhymes_pairs_excluding_self(rhymes_objects)
     rhymes_pairs_list = []
     rhymes_objects.each do |rhyme_object|
