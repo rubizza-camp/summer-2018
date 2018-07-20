@@ -16,7 +16,7 @@ class Handler
 
   def top_rude_rappers(number = nil)
     sorted_hash = sort_obscene_words
-    cleaned_hash = pick_first(sorted_hash, number)
+    cleaned_hash = sorted_hash.take(number)
     print_top_rude_rappers(cleaned_hash)
   end
 
@@ -45,17 +45,11 @@ class Handler
     hash
   end
 
-  def pick_first(hash, number)
-    counter = 0
-    hash.delete_if { (counter += 1) > number } if number
-    hash
-  end
-
   def clean_top_words(hash, number, dictionary_file)
     dictionary = dictionary_file ? scan_dictionary(dictionary_file) : nil
     hash.each do |name, words_hash|
       hash[name] = clean_with_dictionary(words_hash, dictionary) if dictionary
-      hash[name] = pick_first(words_hash, number)
+      hash[name] = words_hash.take(number)
     end
   end
 
@@ -64,7 +58,7 @@ class Handler
   end
 
   def check_file(file)
-    file.class == File ? file : raise(HandlerFileError, file)
+    file.is_a?(File) ? file : raise(HandlerFileError, file)
   end
 
   def scan_dictionary(dictionary_file)
