@@ -1,9 +1,7 @@
 require 'russian_obscenity'
 require_relative 'battle'
-require_relative 'battles_by_name_giver'
 
 class BadWordsCounter
-  include BattlesByNameGiver
   def initialize(battles, battler_name)
     @battles = battles
     @battler_name = battler_name
@@ -16,6 +14,6 @@ class BadWordsCounter
   private
 
   def files
-    BattlesByNameGiver.take(@battles, @battler_name).map(&:text).join(' ')
+    @battles.map(&:text).join(' ')
   end
 end

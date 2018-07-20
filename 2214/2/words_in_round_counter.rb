@@ -1,7 +1,4 @@
-require_relative 'battles_by_name_giver'
-
 class WordsInRoundCounter
-  include BattlesByNameGiver
   ROUNDS_IN_BATTLE = 3
   def initialize(battles, battler_name, count_of_battles)
     @battles = battles
@@ -16,6 +13,6 @@ class WordsInRoundCounter
   private
 
   def number_of_words
-    BattlesByNameGiver.take(@battles, @battler_name).map(&:text).join(' ').gsub(/[\p{P}]/, ' ').split.count
+    @battles.map(&:text).join(' ').gsub(/[\p{P}]/, ' ').split.count
   end
 end

@@ -1,17 +1,15 @@
 require_relative 'word_with_quantity'
-require_relative 'battles_by_name_giver'
+require_relative 'battler'
 
 class PopularWordsCounter
-  include BattlesByNameGiver
   PREPOSITIONS_FILE = 'Предлоги'.freeze
-  def initialize(battles, battler_name, top_words)
-    @battles = battles
-    @battler_name = battler_name
+  def initialize(specific_battler, top_words)
+    @battles = specific_battler.battles
     @top_words = top_words
   end
 
   def count
-    popular_words[0...@top_words].map { |popular_word| puts "#{popular_word.word} - #{popular_word.quantity} раз" }
+    popular_words.first(@top_words).map { |popular_word| puts "#{popular_word.word} - #{popular_word.quantity} раз" }
   end
 
   private
@@ -26,6 +24,6 @@ class PopularWordsCounter
   end
 
   def files
-    BattlesByNameGiver.take(@battles, @battler_name).map(&:text).join(' ')
+    @battles.map(&:text).join(' ')
   end
 end

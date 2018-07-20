@@ -4,7 +4,7 @@ require_relative 'battle'
 
 class Battler
   BATTLES_FOLDER = 'Battles'.freeze
-  attr_reader :name
+  attr_reader :name, :battles
   def initialize(name, battles)
     @name = name
     @battles = battles
@@ -24,5 +24,15 @@ class Battler
 
   def average_number_of_words
     WordsInRoundCounter.new(@battles, @name, number_of_battles).count
+  end
+
+  def describe_yourself
+    [
+      name,
+      "#{number_of_battles} баттлов",
+      "#{number_of_bad_words} нецензурных слов",
+      "#{bad_words_per_round} слова на баттл",
+      "#{average_number_of_words} слов в раунде"
+    ]
   end
 end
