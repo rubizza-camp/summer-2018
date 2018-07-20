@@ -6,8 +6,8 @@ class TopWordsAnalyzer
   end
 
   def analyze_top
-    counts = make_counts
-    counts = counts.sort_by { |_key, value| value }.reverse
+    counts_of_top_words = make_counts_of_top_words
+    counts_of_top_words = counts_of_top_words.sort_by { |_key, value| value }.reverse
     output_words(counts)
   end
 
@@ -17,12 +17,12 @@ class TopWordsAnalyzer
 
   private
 
-  def make_counts
-    counts = {}
+  def make_counts_of_top_words
+    counts_of_top_words = {}
     @words.select { |word| word.size > 4 }.each do |word|
-      counts[word] = @words.count(word) unless counts.include?(word)
+      counts_of_top_words[word] = @words.count(word) unless counts_of_top_words.include?(word)
     end
-    counts
+    counts_of_top_words
   end
 
   def divide_into_words
@@ -34,9 +34,9 @@ class TopWordsAnalyzer
     text.map! { |word| word.gsub(/[,:;.?!«»]|&quot/, '') }
   end
 
-  def output_words(counts)
+  def output_words(counts_of_top_words)
     @output_num.times do
-      word_with_count = counts.shift
+      word_with_count = counts_of_top_words.shift
       TopWordsAnalyzer.print_top_words(word_with_count)
     end
   end
