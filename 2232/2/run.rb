@@ -1,4 +1,4 @@
-require_relative 'level_manager'
+require_relative 'lib/level_manager'
 require 'bundler'
 Bundler.require
 require 'optparse'
