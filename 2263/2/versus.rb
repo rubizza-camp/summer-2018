@@ -20,8 +20,8 @@ begin
   options = ArgsParser.new.options_default_values
 
   Help.new.show_help_and_exit if options[:help]
-  top_bad_words_opt = options.key?(:top_bad_words) ? options[:top_bad_words].to_i : nil
-  top_words_opt = options.key?(:top_words) ? options[:top_words].to_i : nil
+  top_bad_words_opt ||= options[:top_bad_words]&.to_i
+  top_words_opt ||= options[:top_words]&.to_i
   name_opt = options[:name]
 
   explorer = Explorer.new(name_opt)
