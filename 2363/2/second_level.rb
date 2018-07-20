@@ -1,26 +1,26 @@
-require_relative 'modules.rb'
+require_relative 'comparenames'
 
 # Class find the most popular words of battler
 class TopWordsParser
-  include SomeMethods
-  attr_reader :name, :data
+  attr_reader :name
+  attr_reader :data
   def initialize(choosen_name, choosen_num)
     @name = choosen_name
     @num = choosen_num - 1
     @data = {}
   end
 
-  def call
-    find_name_and_words_from_files
+  def call(path)
+    find_name_and_words_from_files(path)
     output_words_of_battler
   end
 
   private
 
-  def find_name_and_words_from_files
-    Dir[File.expand_path('.') + '/rap-battles/*'].each do |file|
-      parse_name(file)
-      get_words(file) if SomeMethods.compare_names(name_from_file, name)
+  def find_name_and_words_from_files(path)
+    Dir[path].each do |file|
+      battler_name = Parser.new(file).parse_name
+      get_words(file) if CompareNames.new(battler_name, name).call
     end
     puts "Рэпер #{name} не известен мне. Зато мне известны:\nRickey F\nOxxxymiron\nГалат" if @data == {}
   end
@@ -32,7 +32,7 @@ class TopWordsParser
   end
 
   def parse_words_of_battler(file)
-    words = file.read.split(/Раунд 1|Раунд 2|Раунд 3/).join.downcase.split(/[, \.:?!\n\r]+/)
+    words = File.read(file).split(/Раунд 1|Раунд 2|Раунд 3/).join.downcase.split(/[, \.:?!\n\r]+/)
     words.each do |word|
       @data[word] = @data.key?(word) && word.size > 4 ? @data[word] + 1 : 1
     end
