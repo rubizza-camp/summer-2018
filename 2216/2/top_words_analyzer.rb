@@ -8,7 +8,7 @@ class TopWordsAnalyzer
   def analyze_top
     counts_of_top_words = make_counts_of_top_words
     counts_of_top_words = counts_of_top_words.sort_by { |_key, value| value }.reverse
-    output_words(counts)
+    output_words(counts_of_top_words)
   end
 
   def self.print_top_words(word_with_count)
