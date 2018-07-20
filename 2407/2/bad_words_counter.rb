@@ -9,12 +9,7 @@ class BadWordsCounter
   end
 
   def self.count_bad_words(file)
-    local_bad_words = 0
-    file.split.each do |word|
-      local_bad_words += 1 if RussianObscenity.obscene?(word)
-    end
-    local_bad_words += file.count('*')
-    local_bad_words
+    file.split.select { |word| word.include?('*') || RussianObscenity.obscene?(word) }.count
   end
 
   def self.battles_of_battler(battles, battler_name)
