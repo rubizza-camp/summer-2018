@@ -1,3 +1,4 @@
+# This module store all text for every file
 module Storage
   def self.all_data
     Dir.glob('rap/*').each_with_object({}) do |file_name, hash|

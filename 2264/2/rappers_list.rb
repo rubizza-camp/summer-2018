@@ -1,3 +1,4 @@
+# This module srore all rappers
 module RappersList
   def self.find_all_rappers
     rappers = []
