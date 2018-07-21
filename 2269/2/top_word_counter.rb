@@ -1,24 +1,38 @@
-def top_word_count(destination, raper_name, count)
-  rapers = get_rapers_list destination
-  check_raper_name rapers, raper_name
-
-  config = YAML.safe_load(File.open('config.yml').read)
-  no_word_array = config['excluded_words']
-  word_count = {}
-
-  rapers[raper_name].file_name.each do |file|
-    text_file = File.open(destination + '/' + file)
-    parse_helper text_file, word_count, no_word_array
+# Class which helps to count words only (unions etc. are excluded)
+class TopWordHelper
+  def initialize
+    @no_word_array = read_from_file
+    @word_count = Hash.new(0)
   end
-  print_top_words(word_count, count)
+
+  def read_from_file
+    YAML.safe_load(File.open('config.yml').read)['excluded_words']
+  end
+
+  attr_reader :no_word_array, :word_count
+
+  def increase_word_counter(key)
+    @word_count[key] += 1
+  end
 end
 
-def print_top_words(words, count)
-  delimeter = 1
-  words.sort_by { |_k, val| -val }.each do |key, value|
-    break if delimeter > count
+def top_word_count(destination, raper_name, count)
+  check_raper_name get_rapers_list(destination), raper_name
+
+  helper = TopWordHelper.new
+
+  get_rapers_list(destination)[raper_name].words_info_during_battles.file_name.each do |file|
+    parse_helper File.open(destination + '/' + file), helper
+  end
+  print_top_words(helper, count)
+end
+
+def print_top_words(helper, count)
+  delimiter = 1
+  helper.word_count.sort_by { |_k, val| -val }.each do |key, value|
+    break if delimiter > count
     puts key.capitalize + ' - ' + value.to_s
-    delimeter += 1
+    delimiter += 1
   end
 end
 
@@ -29,21 +43,16 @@ def check_raper_name(rapers, raper_name)
   exit(true)
 end
 
-def parse_helper(text_file, word_count, no_word_array)
+def parse_helper(text_file, helper)
   text_file.each_line do |line|
-    words = line.chomp.split(/[,\s\.?!\"«»:—;[&quot]-]+/)
+    words = line.chomp.split(/[,\s.?!"«»:—;[&quot]-]+/)
 
     words.each do |word|
       next if word.empty? || word.length < 3
       is_word = true
 
-      no_word_array.each { |value| is_word = false if word.downcase.eql? value }
-      counter_helper(word_count, word) if is_word
+      helper.no_word_array.each { |value| is_word = false if word.downcase.eql? value }
+      helper.increase_word_counter word if is_word
     end
   end
-end
-
-def counter_helper(hash, key)
-  return hash[key] += 1 if hash[key]
-  hash[key] = 1
 end

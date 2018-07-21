@@ -35,7 +35,7 @@ def word_counter(file_path)
   helper = WordCounterHelper.new YAML.safe_load(File.open('config.yml').read)['bad_words']
 
   File.open(file_path).each_line do |line|
-    next if round? helper, line
+    next if round helper, line
 
     words_count helper, line.split
   end
@@ -55,7 +55,7 @@ def words_count(helper, words)
   end
 end
 
-def round?(helper, line)
+def round(helper, line)
   if line.include? 'Раунд'.downcase
     helper.save_word_count_round
     helper.drop_words_round_count

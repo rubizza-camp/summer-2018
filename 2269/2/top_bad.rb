@@ -25,9 +25,9 @@ def top_bad_word_rapers(top, destination)
   rapers = get_rapers_list destination
 
   rapers.each do |_key, value|
-    value.file_name.each do |file|
+    value.words_info_during_battles.file_name.each do |file|
       hash = word_counter(destination + '/' + file)
-      value.set_result hash[:total], hash[:bad], hash[:round]
+      value.words_info_during_battles.set_result hash[:total], hash[:bad], hash[:round]
     end
   end
   print_out rapers, top
@@ -35,16 +35,20 @@ end
 
 def print_out(rapers, top)
   delimiter = 1
-  rapers.sort_by { |_k, val| [-val.bad_words] }.each do |_key, value|
+  rapers.sort_by { |_k, val| [-val.words_info_during_battles.bad_words] }.each do |_key, value|
     break if delimiter > top
-    puts result_string value, value.bad_words.fdiv(value.battles).round(2)
+    puts result_string value, value.words_info_during_battles.bad_words.fdiv(value.battles).round(2)
     delimiter += 1
   end
 end
 
 def result_string(raper, average)
-  raper.name.ljust(25) + ' | ' + TopBad.plural_battle(raper.battles) +
-    TopBad.plural_bad(raper.bad_words) +
-    TopBad.plural_word_dec(average, ' на баттл | ') +
-    TopBad.plural_word(raper.words_round, ' в раунде |')
+  result = raper.name.ljust(25) + ' | ' + TopBad.plural_battle(raper.battles) +
+           TopBad.plural_bad(raper.words_info_during_battles.bad_words)
+  result_additional_info(result, raper, average)
+end
+
+def result_additional_info(result, raper, average)
+  result + TopBad.plural_word_dec(average, ' на баттл | ') +
+    TopBad.plural_word(raper.words_info_during_battles.words_round, ' в раунде |')
 end
