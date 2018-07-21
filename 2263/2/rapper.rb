@@ -62,6 +62,6 @@ class RapperObjectError < StandardError
   private
 
   def default_message
-    "Error. given object is not is not an object of Battle"
+    'Error. given object is not is not an object of Battle'
   end
 end

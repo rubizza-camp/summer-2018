@@ -33,6 +33,6 @@ class RoundObjectError < StandardError
   private
 
   def default_message
-    "Error. given object is not is not an object of Word"
+    'Error. given object is not is not an object of Word'
   end
 end

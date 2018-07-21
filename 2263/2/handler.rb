@@ -71,7 +71,7 @@ class HandlerFileError < StandardError
   private
 
   def default_message
-    "Error. given object is not a File"
+    'Error. given object is not a File'
   end
 end
 
@@ -85,6 +85,6 @@ class HandlerObjectError < StandardError
   private
 
   def default_message
-    "Error. given object is not is not an object of require classes"
+    'Error. given object is not is not an object of require classes'
   end
 end

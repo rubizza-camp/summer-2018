@@ -9,7 +9,7 @@ class FileExplorer
     line_counter = 0
     @file.each_with_object(Battle.new) do |file_line, battle|
       line = Line.new(file_line, line_counter += 1)
-      battle = explore_line(line, battle)
+      explore_line(line, battle)
     end
   end
 
@@ -21,15 +21,15 @@ class FileExplorer
 
   def explore_line(line, battle)
     if line.match_pattern?(@round_description_pattern)
-      return battle.add_round(Round.new)
+      battle.add_round(Round.new)
     else
       battle.add_round(Round.new) if line.first?
-      return add_line_to_last_round(line, battle)
+      add_line_to_last_round(line, battle)
     end
   end
 
   def add_line_to_last_round(line, battle)
-    line.word_objects.each { |word| battle.rounds_list.last.add_word(word)}
+    line.word_objects.each { |word| battle.rounds_list.last.add_word(word) }
   end
 end
 
@@ -44,7 +44,7 @@ class Line
   end
 
   def first?
-    return number_in_file == 1 ? true : false
+    number_in_file == 1
   end
 
   def match_pattern?(pattern)
@@ -59,7 +59,7 @@ class Line
 
   def to_word_array
     line = @line.split(/[^[[:word:]]\*]+/)
-    line.delete_if {|word| word == ""}
+    line.delete_if { |word| word == '' }
   end
 end
 
