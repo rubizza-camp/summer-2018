@@ -8,7 +8,7 @@ if parameter[:top_bad_words]
   inst = TopBattlers.new
   inst.result_table(parameter[:top_bad_words].to_i)
 elsif parameter[:name]
-  times = parameter[:top_words] || 20
+  times = parameter[:top_words] || 30
   inst = TopWords.new(times)
   inst.popular_words(parameter[:name])
 end

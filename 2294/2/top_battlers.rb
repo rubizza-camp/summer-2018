@@ -1,11 +1,10 @@
-require_relative './parameters_parser.rb'
 require_relative './analyze.rb'
 require 'russian_obscenity'
 require 'terminal-table'
 
 RussianObscenity.dictionary = [:default, 'dictionary.yml']
+
 # Form the table of top battlers with the biggest count of foul words
-# :reek:UtilityFunction
 class TopBattlers
   attr_reader :rapers, :result
 
@@ -14,7 +13,7 @@ class TopBattlers
     @result = []
   end
 
-  def result_table(count = 20)
+  def result_table(count)
     sort_list.first(count).each do |array|
       @result << Analyze.new(array.first, array.last).row
     end
@@ -28,15 +27,18 @@ class TopBattlers
     puts table
   end
 
-  def bad_words_searching(text)
+  def sort_list
+    @rapers.sort_by do |_key, value|
+      Bad.bad_words_counter(value.join(' '))
+    end.reverse!
+  end
+end
+
+# Bad words counter
+class Bad
+  def self.bad_words_counter(text)
     RussianObscenity.find(text).inject(0) do |count, bad|
       count + text.split(' ').count(bad)
     end
-  end
-
-  def sort_list
-    @rapers.sort_by do |_key, value|
-      bad_words_searching(value.join(' '))
-    end.reverse
   end
 end

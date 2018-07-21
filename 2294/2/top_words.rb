@@ -1,5 +1,6 @@
 require_relative './file_parser.rb'
 # calculate the most popular words in battlers text
+# Displays the list of most popular words of artist
 class TopWords
   attr_reader :statistic
 
@@ -29,8 +30,8 @@ class TopWords
 
   def warning_about_wrong_name(name)
     return if @hash.key?(name)
-    rapers_exampels = @hash.keys.sample
-    raise "Такого исполнителя нет,зато есть '#{rapers_exampels}'"
+    rapers_examples = @hash.keys.sample
+    puts "Такого исполнителя нет,зато есть '#{rapers_examples}'"
   end
 
   def clean_text(name)
@@ -41,7 +42,7 @@ class TopWords
 
   def sort_list
     statistic.sort_by { |_, key| key }.reverse.first(@size).each do |result|
-      puts "#{result.first.capitalize}-- #{result.last}"
+      puts "#{result.first.capitalize} - #{result.last}"
     end
   end
 end
