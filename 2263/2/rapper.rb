@@ -8,7 +8,7 @@ class Rapper
   end
 
   def add_battle(battle_obj)
-    battle_obj.is_a?(Battle) ? @battles_list << battle_obj : raise(RapperObjectError, battle_obj)
+    battle_obj.is_a?(Battle) ? @battles_list << battle_obj : raise(VersusExceptions::VersusObjectError, battle_obj)
   end
 
   def battles_number
@@ -49,19 +49,5 @@ class Rapper
 
   def words_per_round
     words_number.fdiv(rounds_number)
-  end
-end
-
-# Exception, that is raised when Rapper#add_battle takes not a Battle object
-class RapperObjectError < StandardError
-  def initialize(obj, message = default_message)
-    @obj = obj
-    @message = message
-  end
-
-  private
-
-  def default_message
-    'Error. given object is not is not an object of Battle'
   end
 end

@@ -16,7 +16,7 @@ class FileExplorer
   private
 
   def check_file(file)
-    file.is_a?(File) ? file : raise(FileExplorerFileError, file)
+    file.is_a?(File) ? file : raise(VersusExceptions::VersusFileError, file)
   end
 
   def explore_line(line, battle)
@@ -60,19 +60,5 @@ class Line
   def to_word_array
     line = @line.split(/[^[[:word:]]\*]+/)
     line.delete_if { |word| word == '' }
-  end
-end
-
-# Exception, that is raised when file given to FileExplorer is not a File object
-class FileExplorerFileError < StandardError
-  def initialize(obj, message = default_message)
-    @obj = obj
-    @message = message
-  end
-
-  private
-
-  def default_message
-    'Error. given object is not a File'
   end
 end

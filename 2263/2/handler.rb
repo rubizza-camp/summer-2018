@@ -22,22 +22,22 @@ class Handler
 
   def top_words(number = nil, dictionary_file = nil)
     sorted_hash = @rappers_hash.reduce({}) { |hash, (name, rapper)| hash.merge(name => rapper.unique_words_sorted) }
-    cleaned_hash = clean_top_words(sorted_hash, number, dictionary_file)
+    cleaned_hash = TopWordsCleaner.new(sorted_hash, number, dictionary_file).clean
     print_top_words(cleaned_hash)
   end
 
   private
 
   def check_rappers_hash(hash)
-    hash.values.any? { |value| !value.is_a?(Rapper) } ? raise(HandlerObjectError, hash) : hash
+    hash.values.any? { |value| !value.is_a?(Rapper) } ? raise(VersusExceptions::VersusObjectError, hash) : hash
   end
 
   def check_printer(printer)
-    printer.is_a?(Printer) ? printer : raise(HandlerObjectError, printer)
+    printer.is_a?(Printer) ? printer : raise(VersusExceptions::VersusObjectError, printer)
   end
 
   def check_file(file)
-    file.is_a?(File) ? file : raise(HandlerFileError, file)
+    file.is_a?(File) ? file : raise(VersusExceptions::VersusFileError, file)
   end
 
   def sort_obscene_words
@@ -50,41 +50,35 @@ class Handler
       hash[name] = clean_with_dictionary(words_hash, dictionary).take(number) if dictionary
     end
   end
-
-  def scan_dictionary(dictionary_file)
-    check_file(dictionary_file)
-    dictionary_file.map { |word| word.split("\n") }.flatten
-  end
-
-  def clean_with_dictionary(hash, dictionary)
-    hash.delete_if { |word| dictionary.include?(word.to_s) }
-  end
 end
 
-# Exception, that is raised when dictionary file given to Handlerr#top_words is not a File object
-class HandlerFileError < StandardError
-  def initialize(file, message = default_message)
-    @file = file
-    @message = message
+# Class, that cleans top_words with dictionary and taks some first values
+class TopWordsCleaner
+  def initialize(hash, number = nil, dictionary_file = nil)
+    @hash = hash
+    @number = number
+    @dictionary_file = dictionary_file
+  end
+
+  def clean
+    dictionary = @dictionary_file ? scan_dictionary : nil
+    @hash.each_key do |name|
+      clean_with_dictionary(name, dictionary) if dictionary
+      @hash[name] = @hash[name].take(@number) if @number
+    end
   end
 
   private
 
-  def default_message
-    'Error. given object is not a File'
-  end
-end
-
-# Exception, that is raised when Handler argument is not an object of require classes
-class HandlerObjectError < StandardError
-  def initialize(obj, message = default_message)
-    @obj = obj
-    @message = message
+  def check_dictionary
+    @dictionary_file.is_a?(File) ? @dictionary_file : raise(VersusExceptions::VersusFileError, @dictionary_file)
   end
 
-  private
+  def scan_dictionary
+    check_dictionary.map { |word| word.split("\n") }.flatten
+  end
 
-  def default_message
-    'Error. given object is not is not an object of require classes'
+  def clean_with_dictionary(name, dictionary)
+    @hash[name].delete_if { |word| dictionary.include?(word.to_s) }
   end
 end
