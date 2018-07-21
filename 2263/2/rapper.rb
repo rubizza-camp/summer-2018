@@ -1,75 +1,67 @@
-require 'russian_obscenity'
-require 'active_support/all'
-
-# Class that initialize with name and stores the list of all rapper's battles,
-# calculates different statistics about rapper
+# Rapper class :/
 class Rapper
   attr_reader :name, :battle_list
 
   def initialize(name)
     @name = name
-    @battle_list = []
+    @battles_list = []
   end
 
   def add_battle(battle_obj)
-    battle_obj.is_a?(Battle) ? @battle_list << battle_obj : raise(RapperObjectError, battle_obj)
+    battle_obj.is_a?(Battle) ? @battles_list << battle_obj : raise(RapperObjectError, battle_obj)
   end
 
-  def number_of_words
+  def battles_number
+    @battles_list.count
+  end
+
+  def rounds_number
+    @battles_list.reduce(0) { |sum, battle| sum + battle.rounds_number }
+  end
+
+  def words_number
     words.count
   end
 
-  def number_of_rounds
-    @battle_list.inject(0) { |all_rounds, battle| all_rounds + battle.rounds_number }
-  end
-
-  def number_of_battles
-    @battle_list.count
-  end
-
-  def number_of_obscene_words
-    words.select { |word| obscene?(word) }.count
-  end
-
-  def obscene_words_per_battle
-    number_of_obscene_words.fdiv(number_of_battles)
-  end
-
-  def words_per_round
-    number_of_words.fdiv(number_of_rounds)
+  def obscene_words_number
+    obscene_words.count
   end
 
   def words
-    @battle_list.inject([]) { |all_words, battle| all_words + battle.all_words }
+    @battles_list.reduce([]) { |words_array, battle| words_array + battle.words }
   end
 
   def unique_words
-    words.each_with_object(Hash.new(0)) { |word, hash| hash[to_lower(word).to_sym] += 1 }
+    words.each_with_object(Hash.new(0)) { |word, hash| hash[word.to_lower_symbol] += 1 }
   end
 
-  private
-
-  # Downcase russian symbols
-  def to_lower(word)
-    word.mb_chars.downcase!.to_s
+  def obscene_words
+    @battles_list.reduce([]) { |words_array, battle| words_array + battle.obscene_words }
   end
 
-  def obscene?(word)
-    return true if RussianObscenity.obscene?(word) || word.include?('*')
-    false
+  def unique_words_sorted
+    unique_words.sort_by { |_word, number| -number }.to_h
+  end
+
+  def obscene_words_per_battle
+    obscene_words_number.fdiv(battles_number)
+  end
+
+  def words_per_round
+    words_number.fdiv(rounds_number)
   end
 end
 
-# Exception that is raised when object given to Rapper#new_battle is not an Battle object
+# Exception, that is raised when Rapper#add_battle takes not a Battle object
 class RapperObjectError < StandardError
-  def initialize(object, message = nil)
-    @object = object
-    @message = message || default_message
+  def initialize(obj, message = default_message)
+    @obj = obj
+    @message = message
   end
 
   private
 
   def default_message
-    "Error. #{@object} is not a Battle object"
+    "Error. given object is not is not an object of Battle"
   end
 end

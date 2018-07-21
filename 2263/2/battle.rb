@@ -1,43 +1,46 @@
-# Class, that takes file with battle text, counts number of rounds, and makes the list of all words
+# Battle class :/
 class Battle
-  attr_reader :file, :rounds_number, :all_words
+  attr_reader :rounds_list
 
-  def initialize(file)
-    @file = check_file(file)
-    @rounds_number = 0
-    @all_words = []
-    inspect_file
+  def initialize
+    @rounds_list = []
   end
 
-  private
-
-  def check_file(file)
-    file.class == File ? file : raise(BattleFileError, file)
+  def add_round(round_obj)
+    round_obj.is_a?(Round) ? @rounds_list << round_obj : raise(BattleObjectError, round_obj)
   end
 
-  def inspect_file
-    round_description_pattern = /(^(Р|р)аунд \d)|(^\d (Р|р)аунд)/
-    @file.each do |line|
-      round_description_pattern.match?(line) ? @rounds_number += 1 : @all_words += to_word_array(line)
-    end
-    @rounds_number = 1 if @rounds_number.zero?
+  def rounds_number
+    @rounds_list.count
   end
 
-  def to_word_array(line)
-    line.split(/[^[[:word:]]\*]+/)
+  def words_number
+    words_list.count
+  end
+
+  def obscene_words_number
+    obscene_words.count
+  end
+
+  def words
+    @rounds_list.reduce([]) { |words_array, round| words_array + round.words }
+  end
+
+  def obscene_words
+    @rounds_list.reduce([]) { |obscene_words_array, round| obscene_words_array + round.obscene_words }
   end
 end
 
-# Exception, that is raised when Battle argument is not a File object
-class BattleFileError < StandardError
-  def initialize(file, message = nil)
-    @file = file
-    @message = message || default_message
+# Exception, that is raised when Battle takes not a Round object
+class BattleObjectError < StandardError
+  def initialize(obj, message = default_message)
+    @obj = obj
+    @message = message
   end
 
   private
 
   def default_message
-    "Error. #{@file} is not a File object"
+    'Error. Given object is not is not an object of Round'
   end
 end

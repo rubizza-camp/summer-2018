@@ -36,7 +36,7 @@ class Printer
   end
 end
 
-# Class, that produce body output to Printer class
+# Class, that produce body output for Printer class
 class RudeRappersBodyPrinter
   def initialize(name, obj)
     @name = name
@@ -45,7 +45,7 @@ class RudeRappersBodyPrinter
 
   def print_body
     printf("| %-26s | %-2d battles | %-4d total bad words | %-7.2f bad words per battle | %-8.2f words per round |\n",
-           @name.to_s + ':', @obj.number_of_battles, @obj.number_of_obscene_words,
+           @name.to_s + ':', @obj.battles_number, @obj.obscene_words_number,
            @obj.obscene_words_per_battle, @obj.words_per_round)
   end
 end
