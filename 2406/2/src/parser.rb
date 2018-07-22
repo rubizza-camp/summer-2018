@@ -18,10 +18,7 @@ module Parser
   end
 
   def self.find_artist_id(artist_list, name)
-    artist_result_num = 0
-    name = find_standard_artist_name(name)
-    artist_list.each_with_index { |artist, index| artist_result_num = index if artist.name == name }
-    artist_result_num
+    artist_list.index { |artist| artist.name == find_standard_artist_name(name) } || 0
   end
 
   def self.take_artist_instance(artists, artist_i, artist_name)

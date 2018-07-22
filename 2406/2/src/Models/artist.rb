@@ -16,7 +16,7 @@ class Artist
 
   def words_in_battle_average
     counter = 0
-    @battle_list.each { |battle| battle.each { counter += 1 } }
+    @battle_list.each { |battle| counter += battle.count }
     counter / battle_capacity
   end
 
@@ -36,8 +36,6 @@ class Artist
   private
 
   def bad_words_in_battle(battle)
-    counter = 0
-    battle.each { |word| counter += 1 if word.include?('*') || RussianObscenity.obscene?(word) }
-    counter
+    battle.count { |word| word.include?('*') || RussianObscenity.obscene?(word) }
   end
 end

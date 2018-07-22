@@ -3,10 +3,7 @@ module Helper
   DEFAULT_RANGE = 30
 
   def self.artist_exist(args)
-    HelperDAO.artist_list.each do |artist_base|
-      return true if args.join('') == artist_base.name.delete(' ')
-    end
-    false
+    HelperDAO.artist_list.any? { |artist_base| args.join('') == artist_base.name.delete(' ') }
   end
 
   def self.exclude_garbage(indata)
