@@ -31,7 +31,7 @@ class Rapper
     @battles_list.reduce([]) { |words_array, battle| words_array + battle.words }
   end
 
-  def unique_words
+  def each_word_occurrence
     words.each_with_object(Hash.new(0)) { |word, hash| hash[word.to_lower_symbol] += 1 }
   end
 
@@ -39,8 +39,8 @@ class Rapper
     @battles_list.reduce([]) { |words_array, battle| words_array + battle.obscene_words }
   end
 
-  def unique_words_sorted
-    unique_words.sort_by { |_word, number| -number }.to_h
+  def each_word_occurrence_sorted
+    each_word_occurrence.sort_by { |_word, number| -number }.to_h
   end
 
   def obscene_words_per_battle

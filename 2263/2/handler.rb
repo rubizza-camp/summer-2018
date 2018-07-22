@@ -21,7 +21,7 @@ class Handler
   end
 
   def top_words(number = nil, dictionary_file = nil)
-    sorted_hash = @rappers_hash.reduce({}) { |hash, (name, rapper)| hash.merge(name => rapper.unique_words_sorted) }
+    sorted_hash = @rappers_hash.reduce({}) { |hash, (name, rapper)| hash.merge(name => rapper.each_word_occurrence_sorted) }
     cleaned_hash = TopWordsCleaner.new(sorted_hash, number, dictionary_file).clean
     print_top_words(cleaned_hash)
   end

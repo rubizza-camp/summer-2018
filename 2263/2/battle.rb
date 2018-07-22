@@ -15,7 +15,7 @@ class Battle
   end
 
   def words_number
-    words_list.count
+    words.count
   end
 
   def obscene_words_number

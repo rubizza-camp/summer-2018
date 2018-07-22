@@ -1,7 +1,7 @@
 require 'russian_obscenity'
 
 # Word class :/
-class Word
+class Word < String
   attr_reader :word
 
   def initialize(word)
@@ -9,8 +9,7 @@ class Word
   end
 
   def obscene?
-    return true if RussianObscenity.obscene?(@word) || @word.include?('*')
-    false
+    RussianObscenity.obscene?(@word) || @word.include?('*')
   end
 
   def to_lower
