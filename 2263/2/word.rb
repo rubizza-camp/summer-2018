@@ -1,7 +1,7 @@
 require 'russian_obscenity'
 
 # Word class :/
-class Word < String
+class Word
   attr_reader :word
 
   def initialize(word)
