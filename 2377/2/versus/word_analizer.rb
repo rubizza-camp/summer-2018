@@ -2,9 +2,8 @@
 class WordAnalizer
   attr_reader :fav_words, :name
 
-  def initialize(rapper)
+  def initialize
     @fav_words = {}
-    @name = rapper.name
     @not_counting = []
   end
 
@@ -17,8 +16,7 @@ class WordAnalizer
     @fav_words = @fav_words.sort_by { |_key, value| -value }.to_h
   end
 
-  # :reek:DuplicateMethodCall
-  # :reek:TooManyStatements
+  # удалить "" пустое место которое считается как слово либо это пробел
   def find_favourite_words(battle)
     fav_words = Hash.new 0
     make_dictionary
@@ -30,8 +28,6 @@ class WordAnalizer
     sort_fav_words
   end
 
-  # :reek:FeatureEnvy
-  # :reek:UtilityFunction
   def prepare_words(word_array)
     word_array.map!(&:downcase)
     word_array.map! { |word| word[/[A-Za-zА-Яа-яёЁ0-9\*]*/] }
