@@ -17,6 +17,10 @@ class Rapper
   private
 
   def fetch_battles
-    Dir['rap-battles/*'].select { |file_name| Rapper.right_battle?(file_name, @rapper) }
+    battles = []
+    Dir['rap-battles/*'].select! { |file_name| Rapper.right_battle?(file_name, @rapper) }.each do |title|
+      battles << Battle.new(title)
+    end
+    battles
   end
 end
