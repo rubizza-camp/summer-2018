@@ -22,4 +22,3 @@ OptionParser.new do |parser|
     TopWordsLike.top_best_words(name) unless name == ''
   end
 end.parse!
-

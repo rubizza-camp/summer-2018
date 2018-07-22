@@ -1,6 +1,7 @@
 # - received the current file from the directory
 # - sorting with the help of regular expressions of bad words
 class ProcessingParticipant
+  # This method smells of :reek:TooManyStatements
   def self.raper_file_open(file)
     participant_file = File.open(file)
     # Total number of words in the battles and obscene words in the battles
@@ -12,6 +13,7 @@ class ProcessingParticipant
     participant_file.close
   end
 
+  # This method smells of :reek:TooManyStatements
   def self.processing_participant_file(file)
     total_words_array = []
     @bad_words = []

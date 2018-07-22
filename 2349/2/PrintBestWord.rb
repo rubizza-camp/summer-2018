@@ -8,11 +8,15 @@ class PrintBestWord < InitializingParticipants
     end
   end
 
+  def self.best_word_list_in(num_bat, name)
+    (0...name_batlers.length).step(1) do |count_qw|
+      puts "#{num_bat[5][count_qw][0]} - #{num_bat[5][count_qw][1]}" if num_bat[0].include?(name)
+    end
+  end
+
   def self.best_word_list(array, name)
     array.each do |li|
-      (0...name_batlers.length).step(1) do |count_qw|
-        puts "#{li[5][count_qw][0]} - #{li[5][count_qw][1]}" if li[0] == name
-      end
+      best_word_list_in(li, name)
     end
   end
 end
