@@ -27,9 +27,6 @@ class Battle
   end
 
   def words
-    return @words if @words
-    @words = text.scan(/[\wа-яА-ЯёЁ*]+/)
-    @words.delete('***')
-    @words
+    @words ||= text.scan(/[\wа-яА-ЯёЁ*]+/).tap { |words| words.delete('***') }
   end
 end
