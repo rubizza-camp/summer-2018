@@ -32,7 +32,8 @@ RAPPERS_NAMES = {
 module Versus
   def self.rapper_list_check(name, array)
     array.product(RAPPERS_NAMES[name]) do |rapper_name, synonym|
-      array[array.index(rapper_name)] = name if synonym == rapper_name
+      next unless synonym == rapper_name
+      array[array.index(rapper_name)] = name
     end
     array
   end
@@ -77,7 +78,8 @@ module Versus
   def self.count_bad_words(name)
     counts = []
     @files.each do |filename|
-      counts << bad_words_filter(filename) if name_check_condition(filename, name)
+      next unless name_check_condition(filename, name)
+      counts << bad_words_filter(filename)
     end
     counts.flatten.count
   end
@@ -88,7 +90,10 @@ module Versus
 
   def self.collect_all_texts(name)
     battle_texts = []
-    @files.each { |filename| battle_texts << File.read(filename) if name_check_condition(filename, name) }
+    @files.each do |filename|
+      next unless name_check_condition(filename, name)
+      battle_texts << File.read(filename)
+    end
     battle_texts
   end
 
