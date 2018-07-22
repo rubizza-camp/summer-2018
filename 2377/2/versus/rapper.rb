@@ -10,20 +10,20 @@ class Rapper
   end
 
   def words_per_battle
-    return words_per_battle = bad_words / @battles.size
+    bad_words / @battles.size
   end
 
   def bad_words
-    return bad_words ||= @battles.sum(&:count_bad_words)
+    @battles.sum(&:count_bad_words)
   end
 
   def words_per_round
-    return @battles.sum(&:count_words_per_round)
+    @battles.sum(&:count_words_per_round)
   end
 
   def fav_words
     anlz = WordAnalizer.new(@battles)
-    return anlz.fav_words_count
+    anlz.fav_words_count
   end
 
   # :reek:TooManyStatements
@@ -34,6 +34,6 @@ class Rapper
     row << "#{bad_words} bad words"
     row << "#{words_per_battle} words per battle"
     row << "#{words_per_round} words per round"
-    return row
+    row
   end
 end

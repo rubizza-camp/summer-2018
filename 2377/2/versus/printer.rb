@@ -7,8 +7,8 @@ class Printer
 
   def print_first_level(num)
     table = Terminal::Table.new do |tab|
-    create_rows(num, tab)
- end
+      create_rows(num, tab)
+    end
     puts table
   end
 
@@ -21,11 +21,11 @@ class Printer
   end
 
   def word(hash, number)
-    return @word = hash.keys[number]
+    @word = hash.keys[number]
   end
 
   def amount(hash, number)
-    return @amount = "#{hash[hash.keys[number]]} words"
+    @amount = "#{hash[hash.keys[number]]} words"
   end
 
   def create_table(rows)

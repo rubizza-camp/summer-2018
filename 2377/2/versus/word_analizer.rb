@@ -22,19 +22,19 @@ class WordAnalizer
 
   def dictionary
     dict = File.readlines('dictionary.yml').inject { |str, line| str << line }
-    return @dictionary = dict.split
+    @dictionary = dict.split
   end
 
   def prepare_words
     @word_array.map!(&:downcase)
     @word_array.map! { |word| word[/[A-Za-zА-Яа-яёЁ0-9\*]*/] }
-    @word_array.delete_if { |word| dictionary.include?(word) || word == ''}
+    @word_array.delete_if { |word| dictionary.include?(word) || word == '' }
   end
 
   def fav_words_make
     fav_words = Hash.new 0
     @word_array.each { |word| fav_words[word] += 1 }
-    return fav_words
+    fav_words
   end
 
   def word_array(battle)
@@ -46,6 +46,6 @@ class WordAnalizer
     @battles.each do |battle|
       find_favourite_words(battle)
     end
-    return @fav_words
+    @fav_words
   end
 end
