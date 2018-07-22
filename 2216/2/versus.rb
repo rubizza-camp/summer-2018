@@ -1,10 +1,12 @@
 require 'optparse'
 require 'russian_obscenity'
 require 'unicode'
-require_relative 'badwordsanalizator'
-require_relative 'topwordsanalizator'
+require 'active_support'
+require 'active_support/core_ext'
+require_relative 'bad_words_analyzer'
+require_relative 'top_words_analyzer'
 require_relative 'battle'
-require_relative 'table_printer'
+require_relative 'bad_words_table'
 require_relative 'rapper'
 
 # get env variables
@@ -52,18 +54,20 @@ else
 
     participant_names.each do |name|
       battle_texts = {}
+      battle_words = []
       participant = Rapper.new(name)
       participant.battles.each do |battle_title|
         battle = Battle.new(battle_title)
         battle_texts[battle_title] = battle.text
+        battle_words += battle.words
       end
-      analyzer = BadWordsAnalyzer.new(battle_texts)
+      analyzer = BadWordsAnalyzer.new(battle_texts, battle_words)
       participant_bad_words[name] = analyzer.analyze_bad
     end
 
     columns = participant_bad_words.min.flatten.size
     table = BadWordsTable.new(participant_bad_words, Integer(options[:top_bad_words]), columns)
-    table.print('bad_words')
+    table.print(:console)
   end
   # -------------------------------------------------------------------------------------------
 
@@ -75,12 +79,14 @@ else
 
     if participant_names.include?(options[:name])
       battle_texts = {}
+      battle_words = []
       participant = Rapper.new(options[:name])
       participant.battles.each do |battle_title|
         battle = Battle.new(battle_title)
         battle_texts[battle_title] = battle.text
+        battle_words += battle.words
       end
-      analyzer = TopWordsAnalyzer.new(battle_texts)
+      analyzer = TopWordsAnalyzer.new(battle_texts, battle_words)
       top_words = analyzer.analyze_top
       Integer(options[:top_words]).times do
         word_with_count = top_words.shift

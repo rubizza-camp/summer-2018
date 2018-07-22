@@ -1,7 +1,7 @@
 class TopWordsAnalyzer
-  def initialize(battles)
+  def initialize(battles, words)
     @battles = battles
-    @words = divide_into_words
+    @words = words
   end
 
   def analyze_top
@@ -16,14 +16,5 @@ class TopWordsAnalyzer
       counts_of_top_words[word] = @words.count(word) unless counts_of_top_words.include?(word)
     end
     counts_of_top_words
-  end
-
-  def divide_into_words
-    @battles.map { |_key, battle_text| select_words(battle_text) }.flatten
-  end
-
-  def select_words(text)
-    text = Unicode.downcase(text).split(' ').select! { |word| word.match(/[^\s]+[a-zA-Z]*[а-яА-я]*[^\s]+/) }
-    text.map! { |word| word.gsub(/[,:;.?!«»]|&quot/, '') }
   end
 end
