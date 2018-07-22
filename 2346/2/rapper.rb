@@ -23,6 +23,7 @@ module Rap
 
     def fill_battles
       battles.each(&:fill_rounds)
+      self
     end
 
     def battles_amount
