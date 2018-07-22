@@ -29,14 +29,10 @@ option_parser = OptionParser.new do |opts|
   end
 end
 
-unless File.directory?('./texts/')
-  puts NO_DIRECTORY
-  exit
-end
-
 begin
+  raise NO_DIRECTORY unless File.directory?('./texts/')
   @controller = RapBattlesController.new
-  @controller.battles_files(Dir.entries('./texts/').reject { |item| item =~ /^\./i })
+  @controller.upload_files(Dir.entries('./texts/').reject { |item| item =~ /^\./i })
   option_parser.parse! ARGV
 rescue OptionParser::InvalidOption => opt_error
   puts

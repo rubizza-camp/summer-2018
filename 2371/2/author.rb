@@ -20,19 +20,19 @@ class Author
     @battles.map(&:curse_words).flatten
   end
 
-  def words_percent
-    @battles.map(&:words_percent).inject(0, &:+)
+  def bad_words_per_battles
+    bad_words.size.to_f / @battles.size
   end
 
-  def words_per_battle
-    bad_words.size.to_f / @battles.size
+  def words_per_battles_rounds
+    @battles.map(&:words_per_round).inject(0, &:+)
   end
 
   def to_print
     [@name,
      "#{@battles.size} батлов",
      "#{bad_words.size} нецензурных слов",
-     "#{format('%.2f', words_per_battle)} слова на баттл",
-     "#{words_percent} слова в раунде"]
+     "#{format('%.2f', bad_words_per_battles)} слова на баттл",
+     "#{words_per_battles_rounds} слова в раунде"]
   end
 end
