@@ -2,20 +2,25 @@ require 'russian_obscenity'
 
 module Battles
   class Speech
-    attr_reader :raunds, :text
+    SNOW_RHYME = 1
+    CROSS_RHYME = 2
+    DEFAULT_SIZE_KEY_WORDS = 5
+    DEFAULT_NUMBER_ROUNDS = 3
+
+    attr_reader :rounds, :text
 
     def initialize(text)
       convert_text = convert_text(text)
-      raund_lines = raund_lines(convert_text)
-      @raunds = amount_raunds(raund_lines)
-      @text = convert_text - raund_lines
+      round_lines = round_lines(convert_text)
+      @rounds = total_rounds(round_lines)
+      @text = convert_text - round_lines
     end
 
-    def amount_bad_words
+    def total_bad_words
       convert_text = text.join(' ').gsub('**', '*')
-      amount_asterisks = convert_text.scan('*').size
+      total_asterisks = convert_text.scan('*').size
       obscenities = RussianObscenity.find(convert_text)
-      amount_asterisks + obscenities.delete_if { |word| word.include?('*') }.size
+      total_asterisks + obscenities.delete_if { |word| word.include?('*') }.size
     end
 
     def words
@@ -23,11 +28,11 @@ module Battles
     end
 
     def key_words
-      words.delete_if { |word| word.size < 5 }
+      words.delete_if { |word| word.size < DEFAULT_SIZE_KEY_WORDS }
     end
 
     def rhymes
-      find_rhymes(1).merge(find_rhymes(2))
+      find_rhymes(SNOW_RHYME).merge(find_rhymes(CROSS_RHYME))
     end
 
     def find_rhymes(rhyme_type)
@@ -49,12 +54,12 @@ module Battles
       line.scan(/[[:word:]]+/).last
     end
 
-    def raund_lines(text)
+    def round_lines(text)
       text.select { |line| line.match(/Раунд \d/) }
     end
 
-    def amount_raunds(raund_lines)
-      raund_lines.size.zero? ? 3 : raund_lines.size
+    def total_rounds(round_lines)
+      round_lines.size.zero? ? DEFAULT_NUMBER_ROUNDS : round_lines.size
     end
   end
 end

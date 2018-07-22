@@ -1,3 +1,3 @@
-require_relative 'lib/battles/statistic'
+require_relative 'lib/statistic'
 
-Battles::Statistic.call(ARGV)
+Statistic.call(ARGV)

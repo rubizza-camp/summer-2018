@@ -11,7 +11,7 @@ module Battles
     end
 
     def bad_words_for_battle
-      (amount_bad_words / amount_battles.to_f).round
+      (total_bad_words / total_battles.to_f).round
     end
 
     def popular_words
@@ -28,10 +28,10 @@ module Battles
 
     def information
       [name,
-       "#{amount_battles} #{Russian.p(amount_battles, 'батл', 'батла', 'батлов')}",
-       "#{amount_bad_words} нецензурных #{syntax_word(amount_bad_words)}",
+       "#{total_battles} #{Russian.p(total_battles, 'батл', 'батла', 'батлов')}",
+       "#{total_bad_words} нецензурных #{syntax_word(total_bad_words)}",
        "#{bad_words_for_battle} #{syntax_word(bad_words_for_battle)} на батл",
-       "#{words_for_raund} #{syntax_word(words_for_raund)} в раунде"]
+       "#{words_for_round} #{syntax_word(words_for_round)} в раунде"]
     end
 
     def rhymes
@@ -42,28 +42,28 @@ module Battles
 
     private
 
-    def syntax_word(amount)
-      Russian.p(amount, 'слово', 'слова', 'слов')
+    def syntax_word(number)
+      Russian.p(number, 'слово', 'слова', 'слов')
     end
 
-    def amount_battles
+    def total_battles
       speeches.size
     end
 
-    def amount_words
+    def total_words
       speeches.flat_map(&:words).size
     end
 
-    def amount_bad_words
-      speeches.map(&:amount_bad_words).sum
+    def total_bad_words
+      speeches.sum(&:total_bad_words)
     end
 
-    def amount_raunds
-      speeches.map(&:raunds).sum
+    def total_rounds
+      speeches.sum(&:rounds)
     end
 
-    def words_for_raund
-      (amount_words / amount_raunds.to_f).round
+    def words_for_round
+      (total_words / total_rounds.to_f).round
     end
 
     def consider_word(word)
