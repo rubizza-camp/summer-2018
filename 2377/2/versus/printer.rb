@@ -1,11 +1,13 @@
 require 'terminal-table'
 # Prints the information given in form of arrays
 class Printer
-  def print_first_level(num, rappers)
+  def initialize(rappers)
+    @rappers = rappers
+  end
+
+  def print_first_level(num)
     table = Terminal::Table.new do |tab|
-    num.times do |number|
-      tab << rappers[number].create_row
-    end
+    create_rows(num, tab)
  end
     puts table
   end
@@ -13,9 +15,17 @@ class Printer
   def print_second_level(num, hash)
     rows = []
     num.times do |number|
-      rows << [hash.keys[number], "#{hash[hash.keys[number]]} words"]
+      rows << [word(hash, number), amount(hash, number)]
     end
     create_table(rows)
+  end
+
+  def word(hash, number)
+    return @word = hash.keys[number]
+  end
+
+  def amount(hash, number)
+    return @amount = "#{hash[hash.keys[number]]} words"
   end
 
   def create_table(rows)
@@ -23,5 +33,11 @@ class Printer
       tab.rows = rows
     end
     puts table
+  end
+
+  def create_rows(num, tab)
+    num.times do |number|
+      tab << @rappers[number].create_row
+    end
   end
 end

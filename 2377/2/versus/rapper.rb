@@ -22,13 +22,11 @@ class Rapper
   end
 
   def fav_words
-    anlz = WordAnalizer.new
-    @battles.each do |battle|
-      anlz.find_favourite_words(battle)
-    end
-    return anlz.fav_words
+    anlz = WordAnalizer.new(@battles)
+    return anlz.fav_words_count
   end
 
+  # :reek:TooManyStatements
   def create_row
     row = []
     row << name
