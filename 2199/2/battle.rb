@@ -16,8 +16,11 @@ class Battle
   end
 
   def rounds_count
-    rounds_count = text.scan(/Раунд \d/).length
-    rounds_count.zero? ? 1 : rounds_count
+    round_word_in_text_count.zero? ? 1 : round_word_in_text_count
+  end
+
+  def round_word_in_text_count
+    @round_word_in_text_count ||= text.scan(/Раунд \d/).length
   end
 
   private
