@@ -38,24 +38,29 @@ module Versus
   end
 
   def self.rapper_list(list_of_names)
-    RAPPERS_NAMES.each_key { |name| rapper_list_check(name, list_of_names) }
-    list_of_names.sort.uniq!
+    RAPPERS_NAMES.each_key do |name|
+      rapper_list_check(name, list_of_names)
+    end
+    list_of_names.sort.uniq
   end
 
-  def self.file_name_check(filename)
-    filename[0, filename.index(/ против | vs | VS /)] if filename.match?(/ против | vs | VS /)
+  def self.file_name_check(file)
+    file.split(/ против | vs | VS /)[0]
   end
 
   def self.collect_all_files
-    FileList.new('*против*', '*vs*', '*VS*').exclude('*.rb')
+    Dir.chdir(Dir.pwd + '/rap_battles')
+    Dir.glob('*').to_a
   end
+
+  @files = collect_all_files
 
   def self.collect_all_names
     array = []
-    collect_all_files.each do |filename|
-      array <<  file_name_check(filename.strip!)
+    @files.each do |filename|
+      array <<  file_name_check(filename.strip)
     end
-    array.sort.uniq!
+    array.sort.uniq
   end
 
   def self.bad_words_filter(filename)
@@ -65,11 +70,14 @@ module Versus
         .select { |word| word.match(/[а-яА-Я]+[*][а-я]+/) || RussianObscenity.obscene?(word) }
   end
 
+  def self.name_check_condition(filename, name)
+    file_name_check(filename.strip) == name
+  end
+
   def self.count_bad_words(name)
     counts = []
-    collect_all_files.each do |filename|
-      next unless filename.include?(name)
-      counts << bad_words_filter(filename)
+    @files.each do |filename|
+      counts << bad_words_filter(filename) if name_check_condition(filename, name)
     end
     counts.flatten.count
   end
@@ -80,13 +88,15 @@ module Versus
 
   def self.collect_all_texts(name)
     battle_texts = []
-    collect_all_files.each { |filename| battle_texts << File.read(filename) if filename.match?(name) }
+    @files.each { |filename| battle_texts << File.read(filename) if name_check_condition(filename, name) }
     battle_texts
   end
 
   def self.count_all_words(name)
     words_count = 0
-    collect_all_texts(name).each { |battle| words_count += battle.split.count }
+    collect_all_texts(name).each do |battle|
+      words_count += battle.split.count
+    end
     words_count
   end
 
@@ -96,7 +106,10 @@ module Versus
 
   def self.find_battles(name)
     all_battles = []
-    collect_all_files.each { |filename| all_battles << filename.match(name) }
+    @files.each do |filename|
+      next unless name_check_condition(filename, name)
+      all_battles << filename
+    end
     all_battles.compact.count
   end
 
