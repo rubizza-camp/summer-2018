@@ -5,11 +5,12 @@ require 'russian'
 require 'yaml'
 require_relative 'data_storage'
 require_relative 'raper'
-require_relative 'utility_methods'
 require_relative 'list_of_rapers'
-require_relative 'print_table'
-require_relative 'print_top_words'
-require_relative 'raper_decorator'
+require_relative 'helper'
+require_relative 'battle'
+require_relative 'table_printer'
+require_relative 'top_words_printer'
+require_relative 'row_presenter'
 
 options = { 'top-bad-words' => nil, 'top-words' => 30, 'name' => nil }
 
@@ -35,6 +36,6 @@ end
 
 parser.parse!
 
-PrintTable.new(options['top-bad-words']) unless options['top-bad-words'].nil?
+TablePrinter.new(options['top-bad-words']) unless options['top-bad-words'].nil?
 
-PrintTopWords.new(options['top-words'], options['name']) unless options['name'].nil?
+TopWordsPrinter.new(options['top-words'], options['name']) unless options['name'].nil?

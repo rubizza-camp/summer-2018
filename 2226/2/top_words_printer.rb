@@ -1,5 +1,5 @@
 # This class print top words to the terminal
-class PrintTopWords
+class TopWordsPrinter
   def initialize(top_words, raper_name)
     @top_words = top_words
     @name = raper_name
@@ -9,7 +9,7 @@ class PrintTopWords
 
   def print_top_words(top_words, name)
     if @rapers_storage.include?(name)
-      UtilityMethods.the_most_used_words(top_words, name).each do |elem|
+      Raper.new(name).the_most_used_words(top_words).each do |elem|
         puts "#{elem[0]} - #{elem[1]} #{Russian.p(elem.last, 'раз', 'раза', 'раз')}"
       end
     else

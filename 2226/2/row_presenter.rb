@@ -1,5 +1,5 @@
 # Class for raper decorator
-class RaperDecorator < Raper
+class RowPresenter < Raper
   def initialize(raper)
     @raper = raper
     show_raper_info
