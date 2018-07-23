@@ -1,4 +1,4 @@
-# Process input data from the console
+# This is class Console
 class Console
   attr_reader :options
 
@@ -6,6 +6,20 @@ class Console
     @options = {}
     parse_console
   end
+
+  def process
+    battle_info = BattleInfo.new
+    if @options[:top_bad_words]
+      battle_info.the_most_obscene_rappers(@options[:top_bad_words].to_i)
+    elsif @options[:name] && @options[:top_words]
+      battle_info.find_favorite_words(@options[:name],
+                                      @options[:top_words].to_i)
+    else
+      battle_info.find_favorite_words(@options[:name])
+    end
+  end
+
+  private
 
   def parse_console
     OptionParser.new do |opts|
@@ -17,50 +31,16 @@ class Console
     end.parse!
   end
 
-  # This method smells of :reek:FeatureEnvy
   def chech_opts(opts, param, my_key)
-    opts.on("#{param}=NAME") do |val|
-      @options[my_key] = if val.to_i.zero?
-                           val
-                         else
-                           val.to_i
-                         end
+    opts.on("#{param}=NAME") do |option|
+      @options[my_key] = option
     end
   end
 
   def console_help(opts)
-    opts.on('-h', '--help', 'Displays Help') { show_help(opts) }
-  end
-
-  def show_help(str)
-    puts str
-    exit
-  end
-
-  def process
-    if @options[:top_bad_words]
-      fetch_top_bad_words
-    elsif Raper.raper?(@options[:name])
-      raper_find
-    else
-      raper_not_find
+    opts.on('-h', '--help', 'Displays Help') do
+      puts opts
+      exit
     end
-  end
-
-  private
-
-  def fetch_top_bad_words
-    Raper.the_most_obscene_rappers(@options[:top_bad_words])
-  end
-
-  def raper_find
-    raper = Raper.new(@options[:name])
-    raper.fetch_files
-    raper.show_favorite_words(@options[:top_words])
-  end
-
-  def raper_not_find
-    puts "Рэпер #{options[:name]} не известен мне. Зато мне известны:"
-    Raper.show_all_names
   end
 end
