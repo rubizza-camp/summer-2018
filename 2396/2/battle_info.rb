@@ -8,7 +8,7 @@ class BattleInfo
 
   def find_favorite_words(raper_name, top_words = 30)
     if rapers_names.include? raper_name
-      FavoriteWordsCounter.new(rapers.find do |raper|
+      FavoriteWords.new(rapers.find do |raper|
         raper.name == raper_name
       end, top_words).show
     else
@@ -24,24 +24,10 @@ class BattleInfo
   end
 
   def rapers
-    rapers_names.map do |raper_name|
-      Raper.new(raper_name, Helper.find_rapper_battles(battles, raper_name))
-    end
+    RaperListObjects.new(rapers_names).list_rapers
   end
 
   def rapers_names
-    names = []
-    Dir.chdir(Battle::FOLDER) do
-      Dir.glob('*против*').map do |name|
-        names.push(Helper.find_names(name)).delete('')
-      end
-    end
-    Helper.merge_similar_names(names.flatten.uniq)
-  end
-
-  def battles
-    Dir.chdir(Battle::FOLDER) do
-      Dir.glob('*против*').map { |name| Battle.new(name, File.read(name)) }
-    end
+    RaperList.new.names
   end
 end

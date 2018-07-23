@@ -1,5 +1,5 @@
 # This is class FavoriteWordsCounter
-class FavoriteWordsCounter
+class FavoriteWords
   include Helper
   FILE_PRONOUNS = 'pronouns.json'.freeze
   PRONOUNS      = JSON.parse(File.read(FILE_PRONOUNS))
@@ -23,15 +23,10 @@ class FavoriteWordsCounter
   end
 
   def correct_words
-    words = (all_words - PRONOUNS).join(' ')
-    Helper.clearing_text_from_garbage(words)
+    Helper.clearing_text_from_garbage(text_battles) - PRONOUNS
   end
 
-  def all_words
-    files.tr("\n", ' ').downcase.strip.split
-  end
-
-  def files
+  def text_battles
     @battles.map(&:text).join(' ')
   end
 end

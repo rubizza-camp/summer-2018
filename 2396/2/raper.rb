@@ -28,10 +28,10 @@ class Raper
   def show
     [
       name,
-      Helper.formatting_word_battle(count_battles),
-      Helper.formatting_word_obscence_word(count_bad_words),
-      Helper.formatting_word_say(bad_words_per_round) + ' на баттл',
-      Helper.formatting_word_say(average_count_words) + ' в раунде'
+      RaperHelper.formatting_word_battle(count_battles),
+      RaperHelper.formatting_word_obscence_word(count_bad_words),
+      RaperHelper.formatting_word_say(bad_words_per_round) + ' на баттл',
+      RaperHelper.formatting_word_say(average_count_words) + ' в раунде'
     ]
   end
 end
