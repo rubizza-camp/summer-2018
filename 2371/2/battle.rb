@@ -1,5 +1,4 @@
 require_relative 'constants'
-
 # The Battle responsible for battle info
 class Battle
   def initialize(battle_text)
@@ -8,8 +7,8 @@ class Battle
 
   def bad_words
     all_words = @battle_text.scan(/[а-яА-Я]+/i)
-    (all_words - (all_words - CURSE_WORDS_DICT)) \
-    + @battle_text.scan(/\W[а-яА-Я]*\*+[а-яА-Я]*\W/i).flatten
+    star_words = @battle_text.scan(/\W[а-яА-Я]*\*+[а-яА-Я]*\W/i).flatten
+    (all_words - (all_words - CURSE_WORDS_DICT)) + star_words
   end
 
   def words_per_round

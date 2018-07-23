@@ -20,7 +20,7 @@ class Author
   end
 
   def bad_words_per_battles
-    bad_words.size.to_f / @battles.size
+    @battles.any? ? (bad_words.size.to_f / @battles.size) : 0
   end
 
   def words_percent_per_rounds
