@@ -1,16 +1,17 @@
 module Rap
-  class RhymesPairsMethods
+  class RhymesPairsListWithExcluded
     attr_reader :excluded_object
-    def initialize(excluded_object)
+    def initialize(objects_array, excluded_object)
+      @objects_array = objects_array
       @excluded_object = excluded_object
+      @list = []
     end
 
-    def all_rhymes_pairs_without_excluded(rhymes_objects)
-      rhymes_pairs_list = []
-      rhymes_objects.each do |rhyme_object|
-        rhymes_pairs_list << rhyme_object.rhymes if rhyme_object != excluded_object
+    def list_without_excluded
+      @objects_array.each do |rhyme_object|
+        @list << rhyme_object.rhymes if rhyme_object != @excluded_object
       end
-      rhymes_pairs_list.flatten
+      @list.flatten
     end
   end
 end
