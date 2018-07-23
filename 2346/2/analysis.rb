@@ -2,7 +2,7 @@ require 'pathname'
 require_relative 'rapper'
 require_relative 'plagiat'
 require_relative 'bad_rappers_hash'
-require_relative 'rappers_hash_with_dictionary'
+require_relative 'rappers_hash_for_top_words'
 
 module Rap
   class Analysis
@@ -17,7 +17,7 @@ module Rap
     end
 
     def self.second_level(name, quantity)
-      rappers_hash = RappersHashWithDictionary.new
+      rappers_hash = RappersHashForTopWords.new
       rappers_hash.result_for_second(name, quantity)
     end
 
