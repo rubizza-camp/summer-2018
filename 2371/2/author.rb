@@ -16,14 +16,14 @@ class Author
   end
 
   def bad_words
-    @battles.map(&:curse_words).flatten
+    @battles.map(&:bad_words).flatten
   end
 
   def bad_words_per_battles
     bad_words.size.to_f / @battles.size
   end
 
-  def words_per_battles_rounds
-    @battles.map(&:words_per_round).inject(0, &:+)
+  def words_percent_per_rounds
+    @battles.map(&:words_per_round)
   end
 end

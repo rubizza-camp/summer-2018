@@ -1,12 +1,11 @@
 require_relative 'constants'
-# FilesReader responsible for reading from files
-class FilesReader
+# The FilesParser responsible for parse text files
+class FilesParser
   def initialize(files)
     @files = files
-    @threads = []
   end
 
-  def files_content
+  def parse_files
     @files.map do |file|
       next unless File.file?("./texts/#{file}")
       {

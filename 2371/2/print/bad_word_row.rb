@@ -10,6 +10,6 @@ class BadWordRow < Row
      "#{@author.battles.size} батлов",
      "#{@author.bad_words.size} нецензурных слов",
      "#{format('%.2f', @author.bad_words_per_battles)} слова на баттл",
-     "#{@author.words_per_battles_rounds} слова в раунде"]
+     "#{@author.words_percent_per_rounds.inject(0, &:+)} слова в раунде"]
   end
 end

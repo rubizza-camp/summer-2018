@@ -7,7 +7,7 @@ ARGV << '-h' if ARGV.empty?
 option_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: rap_battles_controller.rb [options]'
   opts.on('--top-bad-words=number', 'Top bad words') do |number|
-    raise BAD_WORDS_WARN if number[/^\d+$/i].nil? \
+    raise BAD_WORDS_ERROR if number[/^\d+$/i].nil? \
  || number.empty? || ARGV.any?
     @controller.show_bad_words_rating(number) unless ARGV.any?
   end
@@ -31,7 +31,7 @@ option_parser = OptionParser.new do |opts|
 end
 
 begin
-  raise NO_DIRECTORY unless File.directory?('./texts/')
+  raise NO_DIRECTORY_ERROR unless File.directory?('./texts/')
   @controller = RapBattlesController.new
   @controller.upload_files(Dir.entries('./texts/').reject { |item| item =~ /^\./i })
   option_parser.parse! ARGV
