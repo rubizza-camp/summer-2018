@@ -1,4 +1,3 @@
-# :reek:InstanceVariableAssumption
 # class Battle to collect information
 class Battle
   def initialize(filename)

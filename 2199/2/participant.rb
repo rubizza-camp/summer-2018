@@ -2,14 +2,13 @@
 class Participant
   attr_reader :name
 
-  def initialize(name)
+  def initialize(name, battles = [])
     @name = name
-    @battles = []
+    @battles = battles
   end
 
   def add_battle(battle)
-    @bad_words_count = nil
-    @battles << battle
+    Participant.new(@name, @battles + [battle])
   end
 
   def table_row
