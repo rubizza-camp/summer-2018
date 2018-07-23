@@ -1,4 +1,5 @@
 require 'optparse'
+require_relative 'constants'
 require_relative 'rap_battles_controller'
 
 ARGV << '-h' if ARGV.empty?
@@ -6,7 +7,7 @@ ARGV << '-h' if ARGV.empty?
 option_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: rap_battles_controller.rb [options]'
   opts.on('--top-bad-words=number', 'Top bad words') do |number|
-    raise BAD_WORD_COMMAND_INFO if number[/^\d+$/i].nil? \
+    raise BAD_WORDS_WARN if number[/^\d+$/i].nil? \
  || number.empty? || ARGV.any?
     @controller.show_bad_words_rating(number) unless ARGV.any?
   end

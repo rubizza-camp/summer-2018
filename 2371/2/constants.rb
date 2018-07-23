@@ -10,10 +10,12 @@ ALL_COMMAND_INFO = %(
 - Command for search bad words --top-bad-words=<<number>>
 - Command for search favorite words --top-words=<<number>> --name=<<name>>
 ).freeze
-BAD_WORD_COMMAND_INFO = %(
+BAD_WORDS_WARN = %(
 Warning: Command for search bad words --top-bad-words=<<number>>
 ).freeze
-FAVORITE_WORDS_INFO = %(
+FAV_WORDS_WARN = %(
 Warning: Command for search favorite words --top-words=<<number>> --name=<<name>>
 ).freeze
 TOO_MANY_ARGS = "Warning: Too many arguments. \n" + ALL_COMMAND_INFO
+NO_AUTHOR_WARN = 'Warning: No authors found'.freeze
+NO_CONTENT_WARN = 'Warning: No content found'.freeze
