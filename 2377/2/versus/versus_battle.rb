@@ -4,10 +4,10 @@ require_relative 'rapper'
 # Class collects data about battles and rappers
 class VersusBattle
   attr_reader :rappers
+  EXP = /((\w|\d|.|\s)*?)(?=против|[vV][Ss] )/
   def initialize
     @rappers = []
     @files = Dir.glob('*[^.rb]')
-    @exp = /((\w|\d|.|\s)*?)(?=против|[vV][Ss] )/
   end
 
   def create_rapper_array
@@ -31,7 +31,7 @@ class VersusBattle
   end
 
   def rapper_check(filename)
-    @rappers.any? { |raper| raper.name == filename[@exp] }
+    @rappers.any? { |raper| raper.name == filename[EXP] }
   end
 
   def rapper_exists_cause(filename)
@@ -40,9 +40,8 @@ class VersusBattle
   end
 
   def battles_for_rappers(filename)
-    current ||= @rappers.find { |raper| raper.name == filename[@exp] }
-    btl = Battle.new(filename)
-    current.battles.push(btl)
+    current ||= @rappers.find { |raper| raper.name == filename[EXP] }
+    current.battles.push(Battle.new(filename))
   end
 
   def find_favourite_words(rapper)
