@@ -18,15 +18,7 @@ class Versus
 
   def run
     top_bad(@to_do[:top_bad_words])
-    # top_words(@to_do[:top_words], @to_do[:name])
   end
-
-  # def top_words(num_top, rapper_name)
-  #   if num_top != 0 && rapper_name == ''
-  #     puts 'ERROR: no --name found'
-  #     exit
-  #   end
-  # end
 
   def top_bad(num_top = 300)
     BattlersTable.new(@battlers, num_top).print
@@ -45,7 +37,7 @@ class Versus
   end
 
   def fill_battlers_names_array
-    @all_battles_files.flat_map { |battle_file_path| Battle.new(battle_file_path).extract_battlers_names }
+    @all_battles_files.flat_map { |battle_file_path| Battle.new(battle_file_path).battlers_names }
   end
 end
 

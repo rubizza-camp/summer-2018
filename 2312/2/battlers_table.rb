@@ -2,6 +2,7 @@ require 'terminal-table'
 
 # BattlersTable prints a table of data, you provide to it
 class BattlersTable
+  attr_reader :num_top, :battlers
   def initialize(battlers, num_top)
     @battlers = battlers
     @counter = -1
@@ -10,17 +11,20 @@ class BattlersTable
   end
 
   def print
-    if @num_top.zero?
-      puts ''
-      exit
-    end
-    create_table
-    puts Terminal::Table.new rows: @table[0...@num_top]
+    terminate_with('ERROR: top number is zero') if num_top.zero?
+
+    create_table!
+    puts Terminal::Table.new rows: @table[0...num_top]
   end
 
   private
 
-  def create_table
+  def terminate_with(message)
+    puts message
+    exit
+  end
+
+  def create_table!
     @battlers.sort_by { |_name, info| info.stats.rapper_stats[:bad_words_num] }.reverse.to_h.keys.each do |name|
       @counter += 1
       fill_table(name)
@@ -28,7 +32,7 @@ class BattlersTable
   end
 
   def fill_table(name)
-    info = @battlers[name]
+    info = battlers[name]
     @table[@counter] = [name]
     bad_words_num = info.stats.rapper_stats[:bad_words_num]
     @table[@counter] << "#{info.overall[:battles_num]} battles" << "#{bad_words_num} bad words"
