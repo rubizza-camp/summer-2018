@@ -22,10 +22,10 @@ unless option_bad_words.nil?
 end
 
 unless @option_name.nil?
-  option_words = 30 if option_words.nil?
+  option_words ||= 30
   current = ver.rappers.find { |txt| txt.name == " #{@option_name} " }
-  if !current.nil?
-    p.print_second_level(option_words.to_i, current.fav_words)
+  if current
+    p.print_second_level(option_words.to_i, ver.find_favourite_words(current))
   else
     puts "I don't know #{@option_name} but I know:"
     ver.rappers.each do |r|

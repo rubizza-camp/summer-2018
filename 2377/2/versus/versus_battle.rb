@@ -38,4 +38,10 @@ class VersusBattle
     btl = Battle.new(filename)
     current.battles.push(btl)
   end
+
+  def find_favourite_words(rapper)
+    analyze = WordAnalyzer.new(rapper)
+    analyze.find_favourite_words
+  end
+    
 end

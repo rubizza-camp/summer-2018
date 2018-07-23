@@ -1,5 +1,5 @@
 require_relative 'battle'
-require_relative 'word_analizer'
+require_relative 'word_analyzer'
 require 'russian_obscenity'
 # This class keeps the information about rapper
 class Rapper
@@ -21,19 +21,22 @@ class Rapper
     @battles.sum(&:count_words_per_round)
   end
 
-  def fav_words
-    anlz = WordAnalizer.new(@battles)
-    anlz.fav_words_count
+  def words
+    array = []
+    @battles.each do |battle|
+      array << battle.words
+    end
+    array.flatten
   end
 
   # :reek:TooManyStatements
   def create_row
     row = []
-    row << name
-    row << "#{@battles.size} battles"
-    row << "#{bad_words} bad words"
-    row << "#{words_per_battle} words per battle"
-    row << "#{words_per_round} words per round"
+    row = [name,
+    "#{@battles.size} battles",
+    "#{bad_words} bad words",
+    "#{words_per_battle} words per battle",
+    "#{words_per_round} words per round"]
     row
   end
 end
