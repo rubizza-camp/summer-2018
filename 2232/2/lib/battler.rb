@@ -8,8 +8,8 @@ class Battler
     @params = {
       battles: texts.size,
       curses: curses,
-      curses_per_battle: count_curses(curses, texts.size),
-      words_per_round: count_words(texts)
+      curses_per_battle: average_curses(curses, texts.size),
+      words_per_round: average_words(texts)
     }
   end
 
@@ -19,7 +19,7 @@ class Battler
 
   private
 
-  def count_curses(curses, battles)
+  def average_curses(curses, battles)
     (curses.to_f / battles).round(2)
   end
 
@@ -28,7 +28,7 @@ class Battler
     change_text.scan('<CR>').size + change_text.count('*')
   end
 
-  def count_words(texts)
+  def average_words(texts)
     texts.join(' ').split.size / (ROUND_IN_BATTLE * texts.size)
   end
 end
