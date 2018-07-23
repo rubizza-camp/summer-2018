@@ -16,7 +16,7 @@ module Rap
       words.each do |word|
         dictionary.push(word) unless exclude_array.include?(word)
       end
-      dictionary.print(quantity)
+      dictionary.result(quantity)
     end
   end
 end

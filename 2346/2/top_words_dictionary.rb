@@ -10,8 +10,8 @@ module Rap
       dict.key?(word) ? @dict[word] += 1 : @dict[word] = 1
     end
 
-    def print(quantity)
-      dict.sort_by { |word| word[1] }.last(quantity).reverse_each { |elem| puts "\"#{elem[0]}\" - #{elem[1]} раз" }
+    def result(quantity)
+      @dict.sort_by { |word| word[1] }.last(quantity).reverse
     end
   end
 end

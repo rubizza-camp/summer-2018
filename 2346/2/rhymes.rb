@@ -1,5 +1,5 @@
 require_relative 'last_words_finder'
-require_relative 'rhymes_pairs_methods'
+require_relative 'rhymes_pairs_list_with_excluded'
 
 module Rap
   class Rhymes

@@ -58,9 +58,10 @@ module Rap
       all_words_amount.to_f / rounds_amount
     end
 
-    def print
+    def to_s
       str = name.ljust(23) + '| ' + CorrectStrings.full_string(battles_amount, bad_words_amount, average_bad_for_battle)
-      puts str + CorrectStrings.average_rounds(average_words_for_rounds)
+      str += CorrectStrings.average_rounds(average_words_for_rounds)
+      str
     end
 
     memoize :all_words, :bad_words, :bad_words_amount, :average_bad_for_battle

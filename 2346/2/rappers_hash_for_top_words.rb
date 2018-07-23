@@ -21,8 +21,9 @@ module Rap
     end
 
     def unknown_rapper(name)
-      puts "Рэпер #{name} мне не известен. Зато мне известны: "
-      rappers_hash.keys.each { |key| puts key }
+      str = "Рэпер #{name} мне не известен. Зато мне известны: "
+      rappers_hash.keys.each { |key| str += "\n" + key }
+      str
     end
   end
 end
