@@ -1,9 +1,10 @@
 require_relative 'counters'
+require_relative 'service'
 # The module RapersCounters is responsible for moduling hash with
 # needed keys and values for class Raper to initializing.
 module RapersCounters
   include Counters
-  PATH_FOLDER = 'texts'.freeze
+
   def add_raper(raper)
     titles_of_the_current_raper = find_rapers_titles(raper)
     Raper.new(moduling_hash(raper, titles_of_the_current_raper))
@@ -35,7 +36,7 @@ module RapersCounters
   # I think it will be better to paste this code here in couse of small project
   def find_rapers_titles(raper)
     rapers_titles = []
-    Dir.chdir(PATH_FOLDER) do
+    Dir.chdir(Service.path) do
       Dir.glob("*#{raper}*").each do |title|
         rapers_titles << title if title.split('против').first.include? raper
       end

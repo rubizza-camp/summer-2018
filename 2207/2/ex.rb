@@ -20,7 +20,7 @@ def read_files_with_buttles(battle)
 #      bad_words << word if RussianObscenity.obscene?(word)
 #    end
 #    bad_words.count
-  file.split.each_with_object([]) { |word1, arr| arr << word1 if RussianObscenity.obscene?(word1) }.count
+  file.split.each_with_object([]) { |word1, arr| arr << word1  }
   end
 a = read_files_with_buttles('1')
 p count_bad_words a

@@ -4,16 +4,19 @@ require_relative 'counters'
 
 class Service
 	attr_accessor :rapers, :path
-
+  @@path = 'texts'
 	def initialize
-		@path = 'texts'
 		@rapers = []
 	end
+
+def self.path
+  @@path
+end
 
 def find_rapers
   rapers_names_only ||= begin
     rapers_names_only = []
-    Dir.chdir(self.path) do
+    Dir.chdir(@@path) do
       Dir.glob('*против*').each do |title|
         rapers_names_only << title.split(' против').first.strip
       end
