@@ -1,7 +1,5 @@
 # This is class BattleInfo
 class BattleInfo
-  include Helper
-
   def the_most_obscene_rappers(top_words)
     puts Terminal::Table.new rows: sorted_rapers.first(top_words).map(&:show)
   end

@@ -8,12 +8,12 @@ class BadWordsCounter
   end
 
   def count
-    files.split.select { |word| check_bad_words(word) }.count
+    texts.split.select { |word| check_bad_words(word) }.count
   end
 
   private
 
-  def files
+  def texts
     @battles.map(&:text).join(' ')
   end
 

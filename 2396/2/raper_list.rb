@@ -9,7 +9,7 @@ class RaperList
 
   def rapers_names
     names = []
-    Dir.chdir(Battle::FOLDER) do
+    Dir.chdir(BattleReader::FOLDER) do
       Dir.glob('*против*').map do |name|
         names.push(RaperListHelper.find_names(name))
       end

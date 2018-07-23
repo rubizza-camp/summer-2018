@@ -8,7 +8,7 @@ class Raper
   end
 
   def count_battles
-    Dir.glob("#{Battle::FOLDER}/*#{name}*").reject do |file|
+    Dir.glob("#{BattleReader::FOLDER}/*#{name}*").reject do |file|
       File.directory? file
     end.count
   end
