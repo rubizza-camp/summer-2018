@@ -21,7 +21,7 @@ module Rap
     end
 
     def result_for_second(name, quantity)
-      possible_key = find_rapper_key(name)
+      possible_key = RapperKeyFinder.find_rapper_key(rappers_hash, name)
       if possible_key
         array_with_exceptions
         count_top_words(rappers_hash[possible_key], quantity)
