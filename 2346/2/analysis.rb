@@ -24,8 +24,10 @@ module Rap
     def self.third_level
       all_paths = Rap.find_files
       rhymes_from_all_battles = []
-      all_paths.each { |path| rhymes_from_all_battles << Plagiat.search_rhymes(path.to_s) }
-      Plagiat.print(rhymes_from_all_battles)
+      all_paths.each do |path|
+        rhymes_from_all_battles << Rhymes.new(path).search_rhymes
+      end
+      Plagiat.result(rhymes_from_all_battles)
     end
   end
 
