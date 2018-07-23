@@ -4,7 +4,6 @@ require 'terminal-table'
 require './TopBadWordsCounter.rb'
 require './BattlerMostUsableWordsCounter.rb'
 require './row.rb'
-require 'pry-rails'
 
 options = { name: '', top_bad_words: 0, top_words: 30 }
 OptionParser.new do |opts|
