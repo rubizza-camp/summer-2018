@@ -13,10 +13,10 @@ class Artist
   def create_table_row
     [
       @battler_name,
-      battles_number.to_s + ' батлов',
-      count_bad_words.to_s + ' нецензурных слов',
-      bad_words_in_battle.round(2).to_s + ' слов на батл',
-      words_in_round.round(2).to_s + ' слов в рануде'
+      "#{battles_number} батлов",
+      "#{count_bad_words} нецензурных слов",
+      "#{bad_words_in_battle.round(2)} слов на батл",
+      "#{words_in_round.round(2)} слов в рануде"
     ]
   end
 
@@ -27,7 +27,7 @@ class Artist
   private
 
   def bad_words_in_battle
-    count_bad_words.to_f / battles_number
+    (count_bad_words.to_f / battles_number != 0 ? battles_number : 1)
   end
 
   def words_count
