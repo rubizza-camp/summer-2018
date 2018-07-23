@@ -12,7 +12,7 @@ class VersusBattle
 
   def create_rapper_array
     @files.each do |filename|
-      uniq_rappers(filename)
+      add_rappers(filename)
     end
   end
 
@@ -26,11 +26,17 @@ class VersusBattle
     @rappers = @rappers.sort_by { |rpr| -rpr.bad_words }
   end
 
-  def uniq_rappers(filename)
-    unless @rappers.any? { |raper| raper.name == filename[@exp] }
-      rpr = Rapper.new(filename)
-      @rappers.push(rpr)
-    end
+  def add_rappers(filename)
+    rapper_exists_cause(filename) unless rapper_check(filename)
+  end
+
+  def rapper_check(filename)
+    @rappers.any? { |raper| raper.name == filename[@exp] }
+  end
+
+  def rapper_exists_cause(filename)
+    rpr = Rapper.new(filename)
+    @rappers.push(rpr)
   end
 
   def battles_for_rappers(filename)
@@ -43,5 +49,4 @@ class VersusBattle
     analyze = WordAnalyzer.new(rapper)
     analyze.find_favourite_words
   end
-    
 end

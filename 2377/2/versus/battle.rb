@@ -1,6 +1,6 @@
 # This class keeps the data of one battle
 class Battle
-  Exp = /((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/
+  EXP = /((\d [Рр]аунд)|([Рр]аунд \d))(.|\w|\s)*/
   attr_reader :filename, :words
   def initialize(filename)
     @filename = filename
@@ -17,19 +17,17 @@ class Battle
     count_words / rounds
   end
 
-  #:reek:FeatureEnvy
   def count_words
-    words_array = line_array.delete_if { |line| line[Exp] }
-    (words_array.inject([]) { |arr, line| arr + line.split }).size
+    @words.count
   end
 
   def words_make(filename)
     words = File.read(filename)
-    return @words = words.split
+    @words = words.split
   end
 
   def count_rounds
-    rounds = @line_array.count { |line| line[Exp] }
+    rounds = @line_array.count { |line| line[EXP] }
     rounds = 1 if rounds.zero?
     rounds
   end

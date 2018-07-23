@@ -6,8 +6,6 @@ class WordAnalyzer
     @fav_words = {}
     @dictionary = []
     @words = rapper.words
-    @battles = rapper.battles
-    @rapper = rapper
   end
 
   def sort_fav_words
@@ -31,6 +29,6 @@ class WordAnalyzer
   end
 
   def fav_words_count
-    @fav_words = prepared_words.each_with_object(Hash.new 0) { |word, hash| hash[word] += 1 }
+    @fav_words = prepared_words.each_with_object(Hash.new(0)) { |word, hash| hash[word] += 1 }
   end
 end

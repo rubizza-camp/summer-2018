@@ -31,12 +31,10 @@ class Rapper
 
   # :reek:TooManyStatements
   def create_row
-    row = []
-    row = [name,
-    "#{@battles.size} battles",
-    "#{bad_words} bad words",
-    "#{words_per_battle} words per battle",
-    "#{words_per_round} words per round"]
-    row
+    [name,
+     "#{@battles.size} battles",
+     "#{bad_words} bad words",
+     "#{words_per_battle} words per battle",
+     "#{words_per_round} words per round"]
   end
 end
