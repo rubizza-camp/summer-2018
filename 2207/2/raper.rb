@@ -1,4 +1,4 @@
-require_relative 'RapersCounters'
+require_relative 'rapers_counters'
 
 # The class Raper is responsible for models of rapers wich a saved and processed later
 # This method smells of :reek:TooManyInstanceVariables

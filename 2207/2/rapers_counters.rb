@@ -1,4 +1,4 @@
-require_relative 'BattleCounters'
+require_relative 'counters'
 # The module RapersCounters is responsible for moduling hash with
 # needed keys and values for class Raper to initializing.
 module RapersCounters
