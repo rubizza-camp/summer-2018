@@ -1,15 +1,15 @@
 require_relative 'Counters'
 require_relative 'Participant'
-
-# :reek:UtilityFunction
+require_relative 'FindModule'
 # Participant Service
 class ParticipantService
+  include FindModule
   PATH_FOLDER = 'Rapbattle'.freeze
   def add_participants(participant)
     participants_titles = find_participants_titles(participant)
     Participant.new(
       name: participant,
-      battles:  participants_titles.size,
+      battles:  participants_titles,
       bad_words: bad_words(participant),
       bad_in_round: bad_in_round(participant, participants_titles),
       words_in_round: words_in_round(participant)
@@ -26,14 +26,5 @@ class ParticipantService
 
   def words_in_round(participant)
     Counters.count_normal(find_participants_titles(participant))
-  end
-
-  def find_participants_titles(participant)
-    Dir.chdir(PATH_FOLDER) do
-      Dir.glob("*#{participant}*").each_with_object([]) do |title, array_files|
-        array_files << title if title.split('против')
-                                     .first.include?(participant)
-      end
-    end
   end
 end

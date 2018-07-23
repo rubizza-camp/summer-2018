@@ -1,12 +1,14 @@
+require_relative 'ParticipantsStorage'
 # :reek:FeatureEnvy
 # :reek:NestedIterators
 # :reek:UtilityFunction
 # :reek:TooManyStatements
-# :reek:IrresponsibleModule
-# PopularWords
+
+# PopularWords find most popular words
 class PopularWords
   def hash_all_words(name)
-    search_battles(name).each_with_object(Hash.new(0)) do |word, word_count|
+    ParticipantsStorage.new.battles_by_name(name)
+                       .each_with_object(Hash.new(0)) do |word, word_count|
       File.open("Rapbattle/#{word}", 'r').each_line do |line|
         next if line["/Раунд \d/i"]
         line.split(' ').select { |each_word| wort_test(each_word) }
@@ -31,12 +33,7 @@ class PopularWords
     prepare_hash(raper_name).sort_by { |_, count| count }
   end
 
-  def search_battles(name)
-    Dir.entries('Rapbattle/')
-       .select { |files| /\b#{name} (против|vs)\b/i =~ files }
-  end
-
   def wort_test(word)
-    !File.open('Предлоги.txt', 'r', &:read).include?(word)
+    !File.open('Предлоги.yaml', 'r', &:read).include?(word)
   end
 end

@@ -1,5 +1,6 @@
 require_relative 'BattleAnalyzer'
 require 'optparse'
+require 'terminal-table'
 
 analyzer = BattleAnalyzer.new
 OptionParser.new do |parser|
@@ -10,5 +11,12 @@ OptionParser.new do |parser|
     parser.on('--name=') do |name|
       analyzer.partipicant_words(name, top_words.to_i)
     end
+  end
+  parser.on('--help') do
+    rows = [
+      'To find best battler use: --top-bad-words=',
+      'To find most popular battler words use: --top-words= with --name='
+    ]
+    puts rows
   end
 end.parse!
