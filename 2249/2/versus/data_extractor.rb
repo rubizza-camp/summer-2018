@@ -14,7 +14,7 @@ class DataExtractor
   end
 
   def extract_data
-    extract_artist = lambda do |artist, battles|
+    extract_artist = lambda do |(artist, battles)|
       @extracted_data << ArtistHashGenerator.run(artist, battles)
     end
     fetch_top_artists_battles.each(&extract_artist)
@@ -24,7 +24,7 @@ class DataExtractor
 
   def fetch_top_artists_battles
     grouped_battles = @all_battles.group_by(&:artist)
-    battle_sort_rule = lambda do |_, battles|
+    battle_sort_rule = lambda do |(_, battles)|
       - battles.map(&:obscene_words_count).reduce(&:+)
     end
     Hash[grouped_battles.sort_by(&battle_sort_rule)].first(@top_artists_limit)
