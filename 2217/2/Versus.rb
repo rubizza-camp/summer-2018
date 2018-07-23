@@ -2,7 +2,7 @@ require 'rake'
 require 'russian'
 require 'russian_obscenity'
 require 'optparse'
-require 'terminal-table'
+require_relative 'Pronomens'
 
 # rappers name synonyms
 RAPPERS_NAMES = {
@@ -50,7 +50,8 @@ module Versus
   end
 
   def self.collect_all_files
-    Dir.chdir(Dir.pwd + '/rap_battles')
+    Dir.pwd
+    Dir.chdir('rap_battles')
     Dir.glob('*').to_a
   end
 
@@ -64,15 +65,15 @@ module Versus
     array.sort.uniq
   end
 
+  def self.name_check_condition(filename, name)
+    file_name_check(filename.strip) == name
+  end
+
   def self.bad_words_filter(filename)
     File.read(filename)
         .downcase.tr(',.?&quot;!', '')
         .split(' ')
         .select { |word| word.match(/[а-яА-Я]+[*][а-я]+/) || RussianObscenity.obscene?(word) }
-  end
-
-  def self.name_check_condition(filename, name)
-    file_name_check(filename.strip) == name
   end
 
   def self.count_bad_words(name)
@@ -84,17 +85,44 @@ module Versus
     counts.flatten.count
   end
 
+  def self.top_word_filter(filename)
+    File.read(filename)
+        .downcase.tr('–,.?&quot;!', '')
+        .split(' ')
+        .select { |word| word.match(/S*/) && !Pronomens.exclude_pronomens(word) }
+        .group_by { |word| word }
+        .map { |key, value| [key, value.size] }
+        .sort_by { |___, key| -key }
+  end
+
+  def self.count_top_words(name)
+    counts = {}
+    @files.each do |filename|
+      next unless name_check_condition(filename, name)
+      counts = top_word_filter(filename)
+    end
+    counts
+  end
+
   def self.average_bad_words(name)
-    (count_bad_words(name) / find_battles(name).to_f).round(2)
+    (count_bad_words(name) / count_battles(name).to_f).round(2)
   end
 
   def self.collect_all_texts(name)
     battle_texts = []
     @files.each do |filename|
       next unless name_check_condition(filename, name)
-      battle_texts << File.read(filename)
+      battle_texts << File.read(filename) if File.exist?(filename)
     end
     battle_texts
+  end
+
+  def self.count_rounds(name)
+    rounds = 1
+    collect_all_texts(name).each do |text|
+      rounds += text.scan(/[Р|р]аунд [1|2|3]/).count
+    end
+    rounds
   end
 
   def self.count_all_words(name)
@@ -106,39 +134,15 @@ module Versus
   end
 
   def self.find_average_round_words(name)
-    count_all_words(name) / (collect_all_texts(name).count * 3)
+    count_all_words(name) / (count_rounds(name) * collect_all_texts(name).count)
   end
 
-  def self.find_battles(name)
+  def self.count_battles(name)
     all_battles = []
     @files.each do |filename|
       next unless name_check_condition(filename, name)
       all_battles << filename
     end
     all_battles.compact.count
-  end
-
-  def self.battle_hash
-    hash = rapper_list(collect_all_names).each_with_object(Hash.new(0)) do |rapper, total_bad_words|
-      rapper = rapper
-      total_bad_words[rapper] += count_bad_words(rapper)
-    end
-    hash.sort_by { |_rapper, total_bad_words| total_bad_words }
-  end
-
-  def self.syntax_output(number)
-    return Russian.p(number, 'слово', 'слова', 'слов', 'слова') if number.class == Float
-    Russian.p(number, 'слово', 'слова', 'слов')
-  end
-
-  def self.output_table(name, bad_words)
-    average_bad_words = average_bad_words(name)
-    average_round_words = find_average_round_words(name)
-    find_battles = find_battles(name)
-    [name,
-     "#{find_battles} #{Russian.p(find_battles, 'батл', 'батла', 'батлов')}",
-     "#{bad_words} нецензурных #{syntax_output(bad_words)}",
-     "#{average_bad_words} #{syntax_output(average_bad_words)} на батл",
-     "#{average_round_words} #{syntax_output(average_round_words)} в раунде"]
   end
 end
