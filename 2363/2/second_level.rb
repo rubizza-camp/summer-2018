@@ -32,8 +32,8 @@ class TopWordsParser
   end
 
   def parse_words_of_battler(file)
-    words = File.read(file).split(/Раунд 1|Раунд 2|Раунд 3/).join.downcase.split(/[, \.:?!\n\r]+/)
-    words.each do |word|
+    words = File.read(file).downcase.split(/раунд 1|раунд 2|раунд 3/).join.split(/[, \.:?!\n\r]+/)
+    words.delete_if { |word| word.eql?('') }.each do |word|
       @data[word] = @data.key?(word) && word.size > 4 ? @data[word] + 1 : 1
     end
   end
