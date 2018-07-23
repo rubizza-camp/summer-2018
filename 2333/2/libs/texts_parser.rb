@@ -1,5 +1,3 @@
-require 'json'
-
 # BattleParser class
 class TextsParser
   def initialize

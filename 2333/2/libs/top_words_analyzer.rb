@@ -1,5 +1,4 @@
 require_relative 'handler'
-require 'terminal-table'
 require_relative './analyzer_printer.rb'
 require_relative './names_searcher.rb'
 
@@ -13,7 +12,7 @@ class TopWordsAnalyzer
   end
 
   def top_words
-    exit unless names_include_name?
+    AnalyzerPrinter.print_rappers_names(names, @name) unless names_include_name?
     counter = texts_wo_stopwords.each_with_object(Hash.new(0)) { |word, hash| hash[word.downcase] += 1 }
     AnalyzerPrinter.print_top_words(counter, @take_value)
   end
@@ -21,8 +20,7 @@ class TopWordsAnalyzer
   private
 
   def names_include_name?
-    names_searcher = NamesSearcher.new(@rappers, @name)
-    names_searcher.search_name
+    NamesSearcher.new(@rappers, @name).search_name
   end
 
   def texts_wo_stopwords

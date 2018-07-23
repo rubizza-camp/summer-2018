@@ -1,5 +1,4 @@
 require_relative 'handler'
-require 'terminal-table'
 require_relative './analyzer_printer.rb'
 require_relative './names_searcher.rb'
 

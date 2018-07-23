@@ -1,5 +1,3 @@
-require_relative './analyzer_printer.rb'
-
 class NamesSearcher
   def initialize(rappers, selected_name)
     @rappers = rappers
@@ -12,7 +10,6 @@ class NamesSearcher
              when true
                true
              when false
-               AnalyzerPrinter.print_rappers_names(names, @name)
                false
              end
     result

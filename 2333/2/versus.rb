@@ -2,6 +2,8 @@ require_relative 'libs/parameters_parser.rb'
 require_relative 'libs/handler.rb'
 require_relative 'libs/top_bad_words_analyzer.rb'
 require_relative 'libs/top_words_analyzer.rb'
+require 'bundler'
+Bundler.require
 
 parameters = ParametersParser.new.options
 rappers = Handler.create_rappers_array

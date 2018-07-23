@@ -1,4 +1,3 @@
-require 'terminal-table'
 require_relative './top_bad_words_analyzer.rb'
 require_relative './top_words_analyzer.rb'
 
@@ -39,5 +38,6 @@ module AnalyzerPrinter
   def self.print_rappers_names(rappers_names, name)
     puts "Рэпер #{name} не известен мне. Зато мне известны:"
     rappers_names.each { |item| puts item }
+    exit
   end
 end
