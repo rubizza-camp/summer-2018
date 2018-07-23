@@ -24,14 +24,6 @@ class Battler
     all_battles_text.split.count
   end
 
-  def bad_words_count
-    sum_bad_words = 0
-    bad_words.each do |bad_word|
-      sum_bad_words += all_battles_text.gsub(bad_word).count
-    end
-    sum_bad_words
-  end
-
   def words_in_battle
     @words_in_battle ||= all_battles_words_count / battles_count
   end
@@ -40,27 +32,12 @@ class Battler
     @words_in_raund ||= all_battles_words_count / (battles_count * 3)
   end
 
-  def text_without_preposition
-    all_texts = all_battles_text.downcase!
-    prepositions_list = File.read("#{FOLDER_PATH}/prepositions").split(',')
-    prepositions_list.each do |preposition|
-      all_texts.gsub!(/#{preposition}[аояиеёю ]/, '')
-    end
-    all_texts
-  end
-
-  private
-
   def all_battles_text
     text = ''
     all_battles.each do |file_name|
       text << IO.read("#{FOLDER_PATH}/Texts/#{file_name}")
     end
-    text.gsub!(/^\s+|\n|\r|\s+$|-|–|,|\.|!|\?/, ' ')
-  end
-
-  def bad_words
-    @bad_words ||= File.read("#{FOLDER_PATH}/bad").split(',')
+    text.gsub!(/^\s+|\n|\r|\s+$|-|–|,|\.|!|\?|&quot|:|;|\)|\(/, '') # \*
   end
 
   def all_battles
