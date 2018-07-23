@@ -1,6 +1,7 @@
 class TopWordsAnalyzer
-  def initialize(battles, words)
-    @battles = battles
+  attr_reader :words
+
+  def initialize(words)
     @words = words
   end
 
@@ -12,8 +13,8 @@ class TopWordsAnalyzer
 
   def make_counts_of_top_words
     counts_of_top_words = {}
-    @words.select { |word| word.size > 4 }.each do |word|
-      counts_of_top_words[word] = @words.count(word) unless counts_of_top_words.include?(word)
+    words.select { |word| word.size > 4 }.each do |word|
+      counts_of_top_words[word] = words.count(word) unless counts_of_top_words.include?(word)
     end
     counts_of_top_words
   end

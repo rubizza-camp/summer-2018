@@ -8,6 +8,8 @@ require_relative 'top_words_analyzer'
 require_relative 'battle'
 require_relative 'bad_words_table'
 require_relative 'rapper'
+require_relative 'bad_words_task'
+require_relative 'top_words_task'
 
 # get env variables
 # --------------------------------------------------------------------------------------------
@@ -34,40 +36,20 @@ parser.parse!
 if options.values.all?(&:nil?)
   puts 'Wrong number of parameters'
 else
-  participant_bad_words = {}
-  participant_names = []
+  participants = []
+  File.open('participants', 'r').each_line { |line| participants << line.chop! }
   input_vars = options.reject { |_key, value| value.nil? }
-
-  file_with_names = File.open('participants', 'r')
-  file_with_names.each_line { |line| participant_names << line.chop! }
-  file_with_names.close
 
   # first level
   # --------------------------------------------------------------------------------------------
 
   if input_vars.include?(:top_bad_words)
-    until options[:top_bad_words] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/ &&
-          Integer(options[:top_bad_words]) <= participant_names.size
+    until num_of_top =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/ &&
+          Integer(num_of_top) <= participants.size
       print 'Enter correct integer Number: '
-      options[:top_bad_words] = gets.chomp
+      input_vars[:top_bad_words] = gets.chomp
     end
-
-    participant_names.each do |name|
-      battle_texts = {}
-      battle_words = []
-      participant = Rapper.new(name)
-      participant.battles.each do |battle_title|
-        battle = Battle.new(battle_title)
-        battle_texts[battle_title] = battle.text
-        battle_words += battle.words
-      end
-      analyzer = BadWordsAnalyzer.new(battle_texts, battle_words)
-      participant_bad_words[name] = analyzer.analyze_bad
-    end
-
-    columns = participant_bad_words.min.flatten.size
-    table = BadWordsTable.new(participant_bad_words, Integer(options[:top_bad_words]), columns)
-    table.print(:console)
+    BadWordsTask.new(input_vars[:top_bad_words]).run_bad_words_analysis
   end
   # -------------------------------------------------------------------------------------------
 
@@ -77,24 +59,11 @@ else
     options[:top_words] = 30 if options[:top_words].nil? || options[:top_bad_words] == ''
     options[:name] = options[:name].tr('_', ' ')
 
-    if participant_names.include?(options[:name])
-      battle_texts = {}
-      battle_words = []
-      participant = Rapper.new(options[:name])
-      participant.battles.each do |battle_title|
-        battle = Battle.new(battle_title)
-        battle_texts[battle_title] = battle.text
-        battle_words += battle.words
-      end
-      analyzer = TopWordsAnalyzer.new(battle_texts, battle_words)
-      top_words = analyzer.analyze_top
-      Integer(options[:top_words]).times do
-        word_with_count = top_words.shift
-        puts "#{word_with_count[0]} - #{word_with_count[1]} раз"
-      end
+    if participants.include?(options[:name])
+      TopWordsTask.new(input_vars[:top_words], options[:name]).run_top_words_analysis
     else
       puts 'Неизвестное имя ' + options[:name] + '. Вы можете ввести одно из следующих имён: '
-      participant_names.each { |name| puts name }
+      participants.each { |name| puts name }
     end
   end
   # -------------------------------------------------------------------------------------------
