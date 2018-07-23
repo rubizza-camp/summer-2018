@@ -23,14 +23,10 @@ class Parser
     File.open(file_name, 'r') { |file| parse_battle_state(file) } if File.exist?(file_name)
   end
 
+  # that method work woth open file, continues to parse_stats
   def parse_battle_state(file)
-    text = file.read.split(/Раунд 1|Раунд 2|Раунд 3/)
-    { words: text.join.downcase.split(/[, \.:?!\n\r]+/), rounds: count_rounds(text) }
-  end
-
-  # that siparate method for simple method parse_battle_state
-  def count_rounds(text)
-    size = text.size
-    size > 1 ? size - 1 : size
+    text = file.read.downcase.split(/раунд 1|раунд 2|раунд 3/)
+    text.delete_if { |part_of_text| part_of_text.eql?('') }
+    { words: text.join.downcase.split(/[, \.:?!\n\r]+/).delete_if { |word| word.eql?('') }, rounds: text.size }
   end
 end
