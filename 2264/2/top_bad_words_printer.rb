@@ -1,10 +1,9 @@
 # This class is used for printing table in terminal
-class TablePrinter
+class TopBadWordsPrinter
   def initialize(top_bad_words)
     @top_bad_words = top_bad_words
     @rapper = RappersList.find_all_rappers.map { |rapper| RapperData.new(rapper) }
-                         .sort_by { |word| -word.count_bad_words }
-                         .first(@top_bad_words.to_i)
+                         .sort_by(&:count_bad_words).reverse.first(@top_bad_words.to_i)
     print_table_to_terminal
   end
 

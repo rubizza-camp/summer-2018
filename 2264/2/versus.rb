@@ -3,13 +3,13 @@ require 'terminal-table'
 require_relative 'storage'
 require_relative 'rapper_data'
 require_relative 'rappers_list'
-require_relative 'table_printer'
+require_relative 'top_bad_words_printer'
 require_relative 'row_presenter'
 
 options = { 'top-bad-words' => nil }
 
 parser = OptionParser.new do |opts|
-  opts.on('--top_bad_words=number') do |number|
+  opts.on('--top-bad-words=number') do |number|
     options['top-bad-words'] = number
   end
 
@@ -21,4 +21,4 @@ end
 
 parser.parse!
 
-TablePrinter.new(options['top-bad-words']) unless options['top-bad-words'].nil?
+TopBadWordsPrinter.new(options['top-bad-words']) unless options['top-bad-words'].nil?

@@ -1,5 +1,5 @@
-require './storage'
-require './rappers_list'
+require_relative 'storage'
+require_relative 'rappers_list'
 # class for rapper's data processing
 class RapperData
   attr_reader :rapper_name
@@ -15,7 +15,11 @@ class RapperData
   end
 
   def count_avg_battles
-    count_all_battles / 2
+    if count_all_battles.zero?
+      0
+    else
+      count_all_battles / 2
+    end
   end
 
   def count_bad_words
