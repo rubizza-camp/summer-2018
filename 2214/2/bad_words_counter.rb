@@ -2,9 +2,8 @@ require 'russian_obscenity'
 require_relative 'battle'
 
 class BadWordsCounter
-  def initialize(battles, battler_name)
+  def initialize(battles)
     @battles = battles
-    @battler_name = battler_name
   end
 
   def count

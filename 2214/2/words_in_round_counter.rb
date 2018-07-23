@@ -1,13 +1,11 @@
 class WordsInRoundCounter
   ROUNDS_IN_BATTLE = 3
-  def initialize(battles, battler_name, count_of_battles)
+  def initialize(battles)
     @battles = battles
-    @battler_name = battler_name
-    @count_of_battles = count_of_battles
   end
 
   def count
-    number_of_words / (@count_of_battles * ROUNDS_IN_BATTLE)
+    number_of_words / (@battles.size * ROUNDS_IN_BATTLE)
   end
 
   private

@@ -11,11 +11,11 @@ class Battler
   end
 
   def number_of_battles
-    Dir.glob("#{BATTLES_FOLDER}/*#{@name}*").select { |title| title.split('против').first.include? @name }.count
+    @battles.size
   end
 
   def number_of_bad_words
-    BadWordsCounter.new(@battles, @name).count
+    BadWordsCounter.new(@battles).count
   end
 
   def bad_words_per_round
@@ -23,7 +23,7 @@ class Battler
   end
 
   def average_number_of_words
-    WordsInRoundCounter.new(@battles, @name, number_of_battles).count
+    WordsInRoundCounter.new(@battles).count
   end
 
   def describe_yourself
