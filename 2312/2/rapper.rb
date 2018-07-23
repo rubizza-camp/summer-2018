@@ -15,8 +15,9 @@ class Rapper
 
     def collect_stats
       @rapper.battles.each do |battle_file_path|
-        rapper_stats[:all_words_num] += all_words_said_in(battle_file_path).size
-        rapper_stats[:bad_words_num] += bad_words_said_in(battle_file_path)
+        lyrics = Lyrics.new(battle_file_path)
+        rapper_stats[:all_words_num] += lyrics.all_words_said.size
+        rapper_stats[:bad_words_num] += lyrics.bad_words_said
       end
     end
 
@@ -30,16 +31,8 @@ class Rapper
     end
 
     def calculate_bad_words_per_battle
-     bad_words_num = rapper_stats[:bad_words_num]
+      bad_words_num = rapper_stats[:bad_words_num]
       rapper_stats[:bad_words_per_battle] = (bad_words_num.to_f / @rapper.overall[:battles_num]).round(2)
-    end
-
-    def all_words_said_in(battle_file_path)
-      Lyrics.new(battle_file_path).lyrics_from_battle.split
-    end
-
-    def bad_words_said_in(battle_file_path)
-      all_words_said_in(battle_file_path).select { |word| Word.new(word).obscene? }.count
     end
   end
 

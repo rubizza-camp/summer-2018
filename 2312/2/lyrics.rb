@@ -9,4 +9,12 @@ class Lyrics
   def lyrics_from_battle
     File.open(battle_file_path, 'r').select { |line_text| line_text }.join(' ')
   end
+
+  def all_words_said
+    lyrics_from_battle.split
+  end
+
+  def bad_words_said
+    all_words_said.select { |word| Word.new(word).obscene? }.count
+  end
 end

@@ -24,6 +24,8 @@ class BattlersTable
     exit
   end
 
+  def create_table; end
+
   def create_table!
     @battlers.sort_by { |_name, info| info.stats.rapper_stats[:bad_words_num] }.reverse.to_h.keys.each do |name|
       @counter += 1
