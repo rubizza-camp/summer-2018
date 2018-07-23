@@ -2,22 +2,21 @@ require 'russian_obscenity'
 class Artist
   attr_reader :name, :battle_list
 
+  def initialize(name)
+    @name = name
+    @battle_list = []
+  end
+
   def add_battle(battle)
     @battle_list << battle
   end
 
   def bad_words_capacity
-    counter = 0
-    @battle_list.each do |battle|
-      counter += bad_words_in_battle(battle)
-    end
-    counter
+    @battle_list.inject(0) { |result, battle| result + bad_words_in_battle(battle) }
   end
 
   def words_in_battle_average
-    counter = 0
-    @battle_list.each { |battle| counter += battle.count }
-    counter / battle_capacity
+    @battle_list.sum(&:count) / battle_capacity
   end
 
   def words_in_round_average
@@ -26,11 +25,6 @@ class Artist
 
   def battle_capacity
     @battle_list.size
-  end
-
-  def initialize(name)
-    @name = name
-    @battle_list = []
   end
 
   private

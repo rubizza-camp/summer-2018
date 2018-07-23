@@ -13,7 +13,7 @@ module Parser
   end
 
   def self.parse_name(file)
-    file = file.slice(FILE_NAME_LENGTH, HelperDAO.read_from_file(file).length)
+    file = file.slice(FILE_NAME_LENGTH, File.readlines(file).length)
     file.split('против')[0]
   end
 
@@ -26,7 +26,7 @@ module Parser
   end
 
   def self.parse_alias_list
-    indata_from_file = HelperDAO.read_from_file(ALIAS_FILENAME)
+    indata_from_file = File.readlines(ALIAS_FILENAME)
     alias_name = []
     indata_from_file.each_with_index do |ally, index|
       alias_name[index] = ally.gsub(/ { 2,}\n/, '')
