@@ -9,7 +9,7 @@ class PopularWordsCounter
   end
 
   def count
-    popular_words.first(@top_words).map { |popular_word| puts "#{popular_word.word} - #{popular_word.quantity} раз" }
+    popular_words.first(@top_words).map { |popular_word| "#{popular_word.word} - #{popular_word.quantity} раз" }
   end
 
   private
@@ -39,6 +39,6 @@ class PopularWordsCounter
   end
 
   def prepositions
-    File.read(PREPOSITIONS_FILE).split("\n")
+    @prepositions ||= File.read(PREPOSITIONS_FILE).split("\n")
   end
 end

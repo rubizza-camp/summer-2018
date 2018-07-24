@@ -1,5 +1,3 @@
-require 'russian_obscenity'
-
 class Battle
   ROUNDS_IN_BATTLE = 3
   attr_reader :title, :text

@@ -1,5 +1,7 @@
 require_relative 'battle_expert'
 require 'optparse'
+require 'bundler'
+Bundler.require
 
 restorator = BattleExpert.new
 OptionParser.new do |parser|
