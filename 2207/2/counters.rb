@@ -4,11 +4,11 @@ require_relative 'service'
 
 module Counters
   # This method smells of :reek:UtilityFunction
-  # I think it will be better to paste this code here in couse of small project
   def read_files_with_buttles(battle)
     Dir.chdir(Service.path) { File.read(battle) }
   end
 
+  # This method smells of :reek:TooManyStatements
   def count_normal(battles)
     unnessasry_symbols = /[.!-?,:]/
     words = 0
@@ -22,6 +22,7 @@ module Counters
     count_words_per_rounds(words, lines)
   end
 
+  # This method smells of :reek:UtilityFunction
   def count_words_per_rounds(words, lines)
     revelant_lines = lines.find_all { |line| line.include?('Раунд') }.count
     revelant_lines = 1 if revelant_lines.zero?

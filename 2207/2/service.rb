@@ -1,7 +1,9 @@
 require_relative 'raper'
 require_relative 'counters'
+# The class Service is responsible for main deff's and variables that are used in another classes
 
 class Service
+  # This method smells of :reek:Attribute
   attr_accessor :rapers
 
   def initialize
@@ -12,6 +14,7 @@ class Service
     @path = 'texts'
   end
 
+  # This method smells of :reek:UtilityFunction
   def find_rapers
     rapers_names_only ||= begin
       rapers_names_only = []
@@ -37,6 +40,7 @@ class Service
     puts table
   end
 
+  # This method smells of :reek:UtilityFunction
   def get_participant_as_row(raper)
     row = [raper.name, "#{raper.battles} батлов"]
     row += ["#{raper.bad_words} нецензурных слов"]
