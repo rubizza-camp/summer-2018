@@ -1,6 +1,7 @@
 require_relative 'battler.rb'
-# Contains all methods without instance
-module ReadFromFile
+
+# Contains methods, which read text from file and process filenames
+module ReadFileDataAndFilenames
   def self.sorted_battlers
     battlers.sort_by!(&:number_of_bad_words).reverse
   end

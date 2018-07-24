@@ -1,3 +1,4 @@
+# Generate row, which will be used to generate output string
 module BattlerAsRow
   def self.get_battler_as_row(battler)
     row = []

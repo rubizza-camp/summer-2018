@@ -1,6 +1,7 @@
 require_relative 'bad_words_counter'
 require_relative 'total_words_in_round_counter'
 
+# Battler class. Collects info about each battler
 class Battler
   attr_reader :name
   def initialize(name, battles)

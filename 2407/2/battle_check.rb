@@ -1,11 +1,12 @@
 require 'terminal-table'
-require_relative 'read_from_file_helper.rb'
+require_relative 'read_file_data_and_filenames_helper.rb'
 require_relative 'battler_as_row_helper.rb'
 
-# Check battles
+# Work with battles depending on got options
+# (cause I've completed only one task, we process only one option)
 class BattleCheck
   def describe_battlers(top_bad_words)
-    show_top_battlers(ReadFromFile.sorted_battlers, top_bad_words)
+    show_top_battlers(ReadFileDataAndFilenames.sorted_battlers, top_bad_words)
   end
 
   private

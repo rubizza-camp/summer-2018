@@ -1,6 +1,6 @@
-require 'russian_obscenity'
 require_relative 'rap_battle'
 require_relative 'word'
+
 # Counts obscene words
 class BadWordsCounter
   def self.count(battles, battler_name)
