@@ -1,17 +1,12 @@
-require './parser.rb'
+require './first_level.rb'
+require './second_level.rb'
 require 'optparse'
 
 OptionParser.new do |opts|
-  opts.on('--top-bad-words=') do |bad|
-    task = Parser.new
-    task.top_bad_words_values
-    task.print_table(bad)
-  end
+  opts.on('--top-bad-words=') { |bad| FirstLevel.new(bad).print_table }
   opts.on('--top-words=') do |most|
-    task = Parser.new
     opts.on('--name=') do |battler_name|
-      task.name_value(battler_name)
-      task.name_check(most)
+      SecondLevel.new(most, battler_name).name_check
     end
   end
 end.parse!

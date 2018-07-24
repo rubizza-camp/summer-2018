@@ -1,16 +1,15 @@
+require './rapper.rb'
+require './battle.rb'
+
 # This class is needed to find most popular words from text files
 class TopWord
   attr_reader :battler
 
-  def initialize(battler)
-    @battler = battler
+  def initialize(name)
+    @battler = Rapper.new(name)
     @pretexts = []
     @words = []
-    @top_words = {}
-  end
-
-  def dir_count
-    Dir[File.join("./rap-battles/#{@battler}/", '**', '*')].count { |file| File.file?(file) }
+    @hash = @battler.favourite_words
   end
 
   def clear_words(line)
@@ -20,15 +19,15 @@ class TopWord
     end
   end
 
-  def check_words_in_text(text)
-    File.new("./rap-battles/#{@battler}/#{text}").each do |line|
+  def check_words_in_text(number)
+    Battle.new(@battler.name, number).file.each do |line|
       clear_words(line)
     end
   end
 
   def check_all_words
-    1.upto(dir_count) do |text|
-      check_words_in_text(text)
+    1.upto(@battler.battle_count) do |number|
+      check_words_in_text(number)
     end
   end
 
@@ -39,17 +38,9 @@ class TopWord
   def top_words_counter
     while @words.any?
       check = @words.first
-      @top_words[check] = 0
-      @words.each { |word| @top_words[check] += 1 if word == check && !@pretexts.include?(word) }
+      @hash[check] = 0
+      @words.each { |word| @hash[check] += 1 if word == check && !@pretexts.include?(word) }
       @words.delete(check)
-    end
-  end
-
-  def res(value)
-    @top_words = (@top_words.sort_by { |_key, val| val }).reverse
-    0.upto(value - 1) do |index|
-      word = @top_words[index]
-      puts word[0] + ' - ' + word[1].to_s + ' раз(а)'
     end
   end
 
@@ -57,5 +48,13 @@ class TopWord
     check_all_words
     pretexts_value
     top_words_counter
+  end
+
+  def res(value)
+    most_words = (@hash.sort_by { |_key, val| val }).reverse
+    0.upto(value - 1) do |index|
+      word = most_words[index]
+      puts word[0] + ' - ' + word[1].to_s + ' раз(а)'
+    end
   end
 end

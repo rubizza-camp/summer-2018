@@ -1,51 +1,44 @@
-require './find_obscenity.rb'
+require './obscenity.rb'
 
 # This class is needed for first level of Task 2
-class TopBad
+class TopBadWords
   attr_reader :battlers, :top_obscenity
 
   def initialize
     @battlers = []
     @top_obscenity = {}
-    @dir_count = 0
-    @words_count = 0
   end
 
   def battlers_names
-    file = File.new('./battlers')
-    file.each { |line| @battlers << line.delete("\n") }
+    File.new('./battlers').each { |line| @battlers << line.delete("\n") }
   end
 
-  def dir_count(battler)
-    @dir_count = Dir[File.join("./rap-battles/#{battler}/", '**', '*')].count { |file| File.file?(file) }
+  # I don't know how don't use "check." twice
+  # This method smells of :reek:FeatureEnvy
+  def top_obscenity_values(check, name)
+    check.check_battles_for_obscenity
+    @top_obscenity[name] = check.rapper.obscenity.size
   end
 
   def top_obscenity_check
-    0.upto(battlers.size - 1) do |index|
-      name = @battlers[index]
-      check = Obscenity.new(name)
-      check.check_battles_for_obscenity
-      top_obscenity[name] = check.obscenity.size
-    end
+    battlers_names
+    @battlers.each { |name| top_obscenity_values(Obscenity.new(name), name) }
+    (@top_obscenity.sort_by { |_key, val| val }).reverse
   end
 
-  def words_in_text(battler, text)
-    File.new("./rap-battles/#{battler}/#{text}").each do |line|
-      line.split.each { @words_count += 1 }
-    end
+  def obscenity_per_battle(name)
+    battler = Rapper.new(name)
+    @top_obscenity[name] / battler.battle_count
   end
 
-  def average_words_in_round(battler)
-    @words_count = 0
-    dir_count(battler)
-    1.upto(@dir_count) do |text|
-      words_in_text(battler, text)
+  # This method is needed in TopBadWords class, so it doesn't depend on instance state
+  # This method smells of :reek:UtilityFunction
+  def words_per_round(name, words = 0)
+    battler = Rapper.new(name)
+    count = battler.battle_count
+    1.upto(count) do |number|
+      words += Battle.new(battler.name, number).words_count
     end
-    @words_count / (@dir_count * 3)
-  end
-
-  def average_bad_words_in_battle(battler)
-    dir_count(battler)
-    top_obscenity[battler] / @dir_count
+    words / (count * 3)
   end
 end
