@@ -13,11 +13,14 @@ class TopWordsAnalyzer
 
   def top_words
     AnalyzerPrinter.print_rappers_names(names, @name) unless names_include_name?
-    counter = texts_wo_stopwords.each_with_object(Hash.new(0)) { |word, hash| hash[word.downcase] += 1 }
-    AnalyzerPrinter.print_top_words(counter, @take_value)
+    AnalyzerPrinter.print_top_words(hash_of_top_words, @take_value)
   end
 
   private
+
+  def hash_of_top_words
+    texts_wo_stopwords.each_with_object(Hash.new(0)) { |word, hash| hash[word.downcase] += 1 }
+  end
 
   def names_include_name?
     NamesSearcher.new(@rappers, @name).search_name
