@@ -1,10 +1,7 @@
-require_relative 'counters'
 require_relative 'service'
 # The module RapersCounters is responsible for moduling hash with
 # needed keys and values for class Raper to initializing.
 module RapersCounters
-  include Counters
-
   def add_raper(raper)
     titles_of_the_current_raper = find_rapers_titles(raper)
     Raper.new(moduling_hash(raper, titles_of_the_current_raper))
