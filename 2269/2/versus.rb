@@ -1,10 +1,14 @@
 require 'ru_propisju'
 require 'yaml'
-require_relative 'raper'
-require_relative 'total_words'
-require_relative 'top_bad'
-require_relative 'rapers_list'
-require_relative 'top_word_counter'
+require_relative 'model/rapper'
+require_relative 'model/battles_info'
+require_relative 'controller/top_bad_controller'
+require_relative 'controller/top_word_controller'
+require_relative 'helpers/top_word_helper'
+require_relative 'helpers/top_bad_helper'
+require_relative 'view/pluralizer'
+require_relative 'view/top_bad_view'
+require_relative 'view/top_word_view'
 
 # rubocop:disable Metrics/BlockNesting
 destination = Dir.pwd + '/text'
@@ -19,7 +23,7 @@ if !ARGF.argv[0].nil?
   end
 
   if param[0].eql? '--top-bad-words'
-    top_bad_word_rapers count, destination
+    TopBadWordsController.new(destination, count).top_bad_word_rappers
   elsif param[0].eql? '--top-words'
     if !ARGF.argv[1].nil?
       second_param = ARGF.argv[1].split(/=/)
@@ -28,19 +32,19 @@ if !ARGF.argv[0].nil?
         exit(false)
       end
       r_name = second_param[1]
-      top_word_count destination, r_name, count
+      TopWordController.new(destination, r_name, count).check_rapper_name
     else
       STDERR.puts("\nAborted! Wrong parameter \"--name\" missed.\n")
       exit(false)
     end
   elsif param[0].eql? '--name'
-    top_word_count destination, param[1], 30
+    TopWordController.new(destination, param[1], 30).check_rapper_name
   elsif param[0].eql? '--help'
-    puts "\nCommand --name=<name> show top 30 the most often found words of Raper <name>"
+    puts "\nCommand --name=<name> show top 30 the most often found words of Rapper <name>"
     puts 'Also using command --top-words=<count> with --name=<name> shows' \
-         ' top <count> the most often found words of Raper <name>'
+         ' top <count> the most often found words of Rapper <name>'
     puts 'Usage: ruby versus.rb --name=Galat or ruby versus.rb --top-words=10 --name=Galat'
-    puts "\nCommand --top-bad-words=<count> will show top <count> of most bad words Rapers"
+    puts "\nCommand --top-bad-words=<count> will show top <count> of most bad words Rappers"
     puts 'Usage: ruby versus.rb --top-bad-words=5'
     puts
   else
