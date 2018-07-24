@@ -1,3 +1,4 @@
 source 'https://rubygems.org/'
 gem 'russian_obscenity'
+gem 'terminal-table'
 gem 'trollop'
