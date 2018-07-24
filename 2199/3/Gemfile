@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'shotgun'
+gem 'redis'
+gem 'ohm'
+
+group :development do
+  gem 'pry'
+end
