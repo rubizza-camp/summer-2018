@@ -1,12 +1,12 @@
-require_relative 'helper'
-require_relative 'constants'
+require_relative 'service'
+
+REGEX_FOR_NAMES = /#|против|vs|VS|aka/
 
 # Class for working with Battles and Artist class
 class Handler
-  include Helper
   attr_reader :rappers
   def initialize
-    @rappers = battlers
+    @rappers = Service.new.battlers
   end
 
   def sort_top_rappers(number)
