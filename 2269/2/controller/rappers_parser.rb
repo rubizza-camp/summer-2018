@@ -1,3 +1,4 @@
+# This module creates a Rappers and makes it initiating
 module RappersParser
   def get_rappers_list(destination)
     hash = {}
