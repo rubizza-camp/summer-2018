@@ -1,8 +1,8 @@
 # Create rows with Russian words
 class RapperRowPresenter
-  def initialize(name, statistic)
-    @statistic = statistic
-    @name = name
+  def initialize(row)
+    @row = row
+    @name ||= @row[0]
   end
 
   def make_rows
@@ -34,18 +34,18 @@ class RapperRowPresenter
   end
 
   def battles_count_for_raper
-    @statistic[:count]
+    @row[1]
   end
 
   def bad_word_count
-    @statistic[:bad_words_count]
+    @row[2]
   end
 
   def avg_bad_words
-    @statistic[:avg_bad_words]
+    @row[3]
   end
 
   def count_words_in_round
-    @statistic[:count_words_in_rounds]
+    @row[4]
   end
 end

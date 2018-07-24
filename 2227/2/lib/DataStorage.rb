@@ -1,26 +1,23 @@
 # Data storage with battles
 class DataStorage
+  PATH_OF_THE_FOLDER = 'rap-battles2/*'.freeze
+  REGEXP_PATH = %r{^(rap-battles2/){1}.*?}
+
   def initialize
-    @battles = Dir.glob('rap-battles2/*')
-    @battles_of_rappers = battles_of_rappers
+    @battles = Dir.glob(PATH_OF_THE_FOLDER)
   end
 
   def find_names_of_the_rappers
-    all_rappers = @battles_of_rappers.each_with_object([]) do |(file, _text), names|
-      names << file.split(/(против | vs)/i).first
+    all_rappers = @battles.each_with_object([]) do |(file, _text), names|
+      names << file.split(REGEXP_PATH)[2].split(/(против | vs)/i).first
     end
     all_rappers.map(&:strip).uniq
   end
 
-  def battles_of_rappers
-    @battles.each_with_object({}) do |file, text|
-      file_name = file.split(%r{^(rap-battles2/){1}.*?})[2]
-      text[file_name] = File.read(file)
-      text
-    end
-  end
-
   def find_all_battles(name)
-    @battles_of_rappers.select { |file_name| file_name.match(/^#{name}/) }
+    @battles.each_with_object([]) do |file, text|
+      file_name = file.split(REGEXP_PATH)[2]
+      text << File.read(file) if file_name.match?(/^#{name}/)
+    end
   end
 end

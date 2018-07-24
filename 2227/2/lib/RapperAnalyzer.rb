@@ -2,25 +2,26 @@
 class RapperAnalyzer
   DEFAULT_ROUNDS_COUNT = 3
 
-  def initialize(name, data)
-    @data = data
-    @all_battles = data.find_all_battles(name)
-    @battles_text = @all_battles.values.join(' ')
+  def initialize(name, texts)
+    @name = name
+    @texts = texts
+    @battles_text ||= @texts.join(' ')
   end
 
-  def fetch_statistic
-    {
-      count: number_of_battles,
-      bad_words_count: bad_words_counter,
-      avg_bad_words: avg_bad_words_in_battle,
-      count_words_in_rounds: count_words_in_rounds
-    }
+  def fetch_stats
+    [
+      @name,
+      number_of_battles,
+      bad_words_counter,
+      avg_bad_words_in_battle,
+      count_words_in_rounds
+    ]
   end
 
   private
 
   def number_of_battles
-    @all_battles.size
+    @texts.size
   end
 
   def bad_words_counter
@@ -32,13 +33,12 @@ class RapperAnalyzer
   end
 
   def rounds_of_rappers
-    rounds = @battles_text.scan(/Раунд\s\d/).size
+    rounds ||= @battles_text.scan(/Раунд\s\d/).size
     rounds.zero? ? DEFAULT_ROUNDS_COUNT : rounds
   end
 
   def count_words_in_rounds
-    words = battles_words.size
-    (words.to_f / rounds_of_rappers).round(2)
+    (battles_words.size.to_f / rounds_of_rappers).round(2)
   end
 
   def battles_words
@@ -46,7 +46,7 @@ class RapperAnalyzer
   end
 
   def count_bad_words
-    words_without_star = battles_words.reject { |word| word[/[*]/] }
-    @battles_text.count('*') + words_without_star.select { |word| RussianObscenity.obscene?(word) }.size
+    words_without_star ||= battles_words.reject { |word| word[/[*]/] }
+    @battles_text.count('*') + words_without_star.count { |word| RussianObscenity.obscene?(word) }
   end
 end

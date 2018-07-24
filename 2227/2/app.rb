@@ -2,6 +2,7 @@ require 'optparse'
 require 'terminal-table'
 require 'russian_obscenity'
 require 'russian'
+require 'pry'
 
 Dir[File.join('lib', '*.rb')].each { |file| require_relative file }
 
@@ -14,4 +15,4 @@ parser = OptionParser.new do |opts|
 end
 
 parser.parse!
-puts TableOfStatistic.new(options['top-bad-words']).make_table unless options['top-bad-words'].nil?
+puts TableOfStatistic.new(options['top-bad-words']).make_table
