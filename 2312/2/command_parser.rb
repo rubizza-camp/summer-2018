@@ -1,4 +1,4 @@
-# this class here only because of reek.
+# this class parses commands and says what to_do
 class Command
   def initialize(command, parameter)
     @command = command

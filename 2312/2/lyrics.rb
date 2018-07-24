@@ -1,4 +1,3 @@
-require './line'
 # this class is needed to return the whole text of file as string
 class Lyrics
   attr_reader :battle_file_path
