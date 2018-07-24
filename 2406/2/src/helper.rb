@@ -25,4 +25,8 @@ module Helper
   def range_correction(range = DEFAULT_RANGE)
     Integer(range)
   end
+
+  def self.battle_adder(file)
+    Helper.exclude_garbage(Helper.delete_round_name_lines(File.readlines(file)))
+  end
 end

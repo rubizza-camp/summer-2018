@@ -12,7 +12,7 @@ module CommandProccessor
   def bad_words_command(*args)
     range = Helper.range_correction(args[0])
     raise ArgumentError, 'Number is out of range.' unless (1..100).cover?(range)
-    base_of_artists = HelperDAO.load_artist_list_from_file.sort_by(&:bad_words_capacity).reverse.uniq
+    base_of_artists = HelperDAO.load_artist_list_from_file.sort_by(&:bad_words_capacity).reverse
     puts create_table(base_of_artists, range)
   end
 

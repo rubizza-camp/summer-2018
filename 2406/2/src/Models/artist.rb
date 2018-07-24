@@ -1,4 +1,3 @@
-require 'russian_obscenity'
 class Artist
   attr_reader :name, :battle_list
 
@@ -12,7 +11,7 @@ class Artist
   end
 
   def bad_words_capacity
-    @battle_list.inject(0) { |result, battle| result + bad_words_in_battle(battle) }
+    @battle_list.inject(0) { |result, battle| result + Parser.bad_words_in_battle(battle) }
   end
 
   def words_in_battle_average
@@ -25,11 +24,5 @@ class Artist
 
   def battle_capacity
     @battle_list.size
-  end
-
-  private
-
-  def bad_words_in_battle(battle)
-    battle.count { |word| word.include?('*') || RussianObscenity.obscene?(word) }
   end
 end
