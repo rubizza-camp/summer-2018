@@ -9,7 +9,7 @@ class WordAnalyzer
   end
 
   def sort_fav_words
-    @fav_words = @fav_words.sort_by { |_key, value| -value }.to_h
+    fav_words_count.sort_by { |_key, value| -value }.to_h
   end
 
   def find_favourite_words
@@ -18,12 +18,12 @@ class WordAnalyzer
   end
 
   def dictionary
-    dict = File.readlines('dictionary.yml').inject { |str, line| str << line }
+    dict ||= File.readlines('dictionary.yml').inject { |str, line| str << line }
     @dictionary = dict.split
   end
 
   def prepared_words
-    words = @words.map(&:downcase)
+    words ||= @words.map(&:downcase)
     words.map! { |word| word[/[A-Za-zА-Яа-яёЁ0-9\*]*/] }
     words.delete_if { |word| dictionary.include?(word) || word == '' }
   end

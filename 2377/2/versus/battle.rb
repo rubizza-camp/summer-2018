@@ -27,7 +27,7 @@ class Battle
   end
 
   def count_rounds
-    rounds = @line_array.count { |line| line[EXP] }
+    rounds = line_array.count { |line| line[EXP] }
     rounds = 1 if rounds.zero?
     rounds
   end

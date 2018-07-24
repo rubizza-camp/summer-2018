@@ -43,9 +43,4 @@ class VersusBattle
     current ||= @rappers.find { |raper| raper.name == filename[EXP] }
     current.battles.push(Battle.new(filename))
   end
-
-  def find_favourite_words(rapper)
-    analyze = WordAnalyzer.new(rapper)
-    analyze.find_favourite_words
-  end
 end

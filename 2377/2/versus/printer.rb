@@ -24,6 +24,7 @@ class Printer
     @word = hash.keys[number]
   end
 
+  #:reek:FeatureEnvy
   def amount(hash, number)
     @amount = "#{hash[hash.keys[number]]} words"
   end
