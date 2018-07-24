@@ -1,5 +1,3 @@
-require_relative 'bad_words_counter'
-require_relative 'words_in_round_counter'
 require_relative 'battle'
 
 class Battler
@@ -15,7 +13,7 @@ class Battler
   end
 
   def number_of_bad_words
-    BadWordsCounter.new(@battles).count
+    @battles.map(&:bad_words_count).reduce(:+)
   end
 
   def bad_words_per_round
@@ -23,7 +21,7 @@ class Battler
   end
 
   def average_number_of_words
-    WordsInRoundCounter.new(@battles).count
+    @battles.map(&:words_in_round).reduce(:+) / battles.size
   end
 
   def describe_yourself

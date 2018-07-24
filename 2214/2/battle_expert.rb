@@ -23,7 +23,7 @@ class BattleExpert
   private
 
   def sorted_battlers
-    battlers.sort_by(&:bad_words_per_round).reverse
+    @sorted_battlers ||= battlers.sort_by(&:bad_words_per_round).reverse
   end
 
   def battlers
