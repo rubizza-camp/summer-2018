@@ -2,7 +2,6 @@
 class RowPresenter < Raper
   def initialize(raper)
     @raper = raper
-    show_raper_info
   end
 
   def russian_battles
@@ -13,7 +12,7 @@ class RowPresenter < Raper
     [@raper.raper_name.to_s,
      "#{@raper.number_of_battles} #{russian_battles}",
      "#{@raper.number_of_swear_words} нецензурных слов",
-     "#{@raper.average_number_swearing_words_in_battle.round(2)} слов на баттл",
+     "#{@raper.average_number_swearing_words_in_battles.round(2)} слов на баттл",
      "#{@raper.average_number_words_in_round} слова в раунде"]
   end
 end

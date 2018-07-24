@@ -1,5 +1,5 @@
 # This class is used for printing table to the terminal
-class TablePrinter
+class TopBadWordsPrinter
   def initialize(top_bad_words)
     @top_bad_words = top_bad_words
     @raper = ListOfRapers.list_all_rapers.map { |raper| Raper.new(raper) }

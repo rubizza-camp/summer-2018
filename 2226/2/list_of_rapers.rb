@@ -5,7 +5,7 @@ module ListOfRapers
   end
 
   def self.filter_rapers
-    DataStorage.show_all_data.inject([]) do |array, (file_name, _file_content)|
+    DataStorage.new.show_all_data.inject([]) do |array, (file_name, _file_content)|
       filtered_data = file_name.sub(/ротив_/, '').sub(/_\(.*/, '')
       array << filtered_data.sub(%r/^rap-battles\/_/, '').sub(/_$/, '').split('_п')
     end

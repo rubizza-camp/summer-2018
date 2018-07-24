@@ -4,11 +4,11 @@ require 'optparse'
 require 'russian'
 require 'yaml'
 require_relative 'data_storage'
+require_relative 'helper'
 require_relative 'raper'
 require_relative 'list_of_rapers'
-require_relative 'helper'
 require_relative 'battle'
-require_relative 'table_printer'
+require_relative 'top_bad_words_printer'
 require_relative 'top_words_printer'
 require_relative 'row_presenter'
 
@@ -36,6 +36,6 @@ end
 
 parser.parse!
 
-TablePrinter.new(options['top-bad-words']) unless options['top-bad-words'].nil?
+TopBadWordsPrinter.new(options['top-bad-words']) unless options['top-bad-words'].nil?
 
 TopWordsPrinter.new(options['top-words'], options['name']) unless options['name'].nil?
