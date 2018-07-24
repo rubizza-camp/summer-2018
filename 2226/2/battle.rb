@@ -17,8 +17,7 @@ class Battle
 
   def number_of_rounds
     rounds = @text.scan(/Раунд \w/).size
-    return rounds unless rounds.zero?
-    1
+    rounds.zero? ? 1 : rounds
   end
 
   def average_number_words_in_round
