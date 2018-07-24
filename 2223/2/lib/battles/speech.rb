@@ -4,7 +4,7 @@ module Battles
   class Speech
     SNOW_RHYME = 1
     CROSS_RHYME = 2
-    DEFAULT_SIZE_KEY_WORDS = 5
+    DEFAULT_SIZE_KEY_WORDS = 3
     DEFAULT_NUMBER_ROUNDS = 3
 
     attr_reader :rounds, :text
@@ -27,8 +27,14 @@ module Battles
       text.to_s.scan(/[[:word:]]+/)
     end
 
-    def key_words
-      words.delete_if { |word| word.size < DEFAULT_SIZE_KEY_WORDS }
+    def total_words
+      words.size
+    end
+
+    def key_words(unnecessary_words)
+      words.reject do |word|
+        word.size < DEFAULT_SIZE_KEY_WORDS || unnecessary_words.include?(word)
+      end
     end
 
     def rhymes
@@ -45,9 +51,10 @@ module Battles
     private
 
     def convert_text(text)
-      text.split("\n").map do |line|
-        line.gsub(/&quot;/, '')
-      end.compact.map(&:strip).delete_if(&:empty?)
+      text.split("\n").each_with_object([]) do |line, valid_text|
+        valid_line = line.gsub(/&quot;/, '').strip
+        valid_text << valid_line unless valid_line.empty?
+      end
     end
 
     def last_word(line)

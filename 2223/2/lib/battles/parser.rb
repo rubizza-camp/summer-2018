@@ -8,11 +8,10 @@ module Battles
     end
 
     def initialize
-      @texts = Hash.new { |hash, key| hash[key] = [] }
+      @texts = parse_files
     end
 
     def rappers
-      parse_files
       create_rappers
     end
 
@@ -21,7 +20,8 @@ module Battles
     attr_accessor :texts
 
     def parse_files
-      Dir['rap-battles/*'].each do |path|
+      empty_texts = Hash.new { |hash, key| hash[key] = [] }
+      Dir['rap-battles/*'].each_with_object(empty_texts) do |path, texts|
         name = File.basename(path).split(/против|VS|vs/).first.strip
         texts[name] << File.read(path)
       end

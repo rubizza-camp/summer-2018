@@ -1,4 +1,3 @@
-require 'morphy'
 require 'russian'
 
 module Battles
@@ -15,13 +14,8 @@ module Battles
     end
 
     def popular_words
-      words = speeches.flat_map(&:key_words)
-      select_popular_words(words)
-    end
-
-    def select_popular_words(words)
-      words.each_with_object(Hash.new(0)) do |word, popular_words|
-        popular_words[consider_word(word)] += 1
+      key_words.each_with_object(Hash.new(0)) do |word, popular_words|
+        popular_words[word] += 1
         popular_words
       end.sort_by(&:last).to_h
     end
@@ -51,7 +45,7 @@ module Battles
     end
 
     def total_words
-      speeches.flat_map(&:words).size
+      speeches.sum(&:total_words)
     end
 
     def total_bad_words
@@ -66,10 +60,11 @@ module Battles
       (total_words / total_rounds.to_f).round
     end
 
-    def consider_word(word)
-      Morphy.new.query(word).first.normal_form
-    rescue NoMethodError
-      word
+    def key_words
+      unnecessary_words = File.read('lib/battles/unnecessary_words.txt').split(',')
+      speeches.flat_map do |speech|
+        speech.key_words(unnecessary_words)
+      end
     end
   end
 end
