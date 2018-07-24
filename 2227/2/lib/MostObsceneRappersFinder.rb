@@ -1,14 +1,12 @@
 # Data Analysis
 class MostObsceneRappersFinder
-  def initialize(number)
-    @data = DataStorage.new
-    @number = number
+  def initialize
+    @data_read = DataStorage.new
   end
 
-  def stats_of_rappers
-    @data
+  def most_obscene_rappers
+    @data_read
       .find_names_of_the_rappers
-      .each_with_object([]) { |name, row| row << RapperAnalyzer.new(name, @data.find_all_battles(name)).fetch_stats }
-      .sort_by { |stats| stats[2] }.reverse.first(@number.to_i)
+      .each_with_object([]) { |name, row| row << RapperAnalyzer.new(name, @data_read.find_all_battles(name)) }
   end
 end

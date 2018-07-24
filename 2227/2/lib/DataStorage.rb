@@ -9,7 +9,7 @@ class DataStorage
 
   def find_names_of_the_rappers
     all_rappers = @battles.each_with_object([]) do |(file, _text), names|
-      names << file.split(REGEXP_PATH)[2].split(/(против | vs)/i).first
+      names << file.split(REGEXP_PATH)[2].split(/(против | vs)/i).first.strip
     end
     all_rappers.map(&:strip).uniq
   end

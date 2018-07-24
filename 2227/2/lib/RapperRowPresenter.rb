@@ -1,13 +1,12 @@
 # Create rows with Russian words
 class RapperRowPresenter
-  def initialize(row)
-    @row = row
-    @name ||= @row[0]
+  def initialize(rapper)
+    @rapper = rapper
   end
 
   def make_rows
     [
-      @name,
+      @rapper.name,
       battles_count_for_raper_string,
       bad_words_count_string,
       avg_bad_words_string,
@@ -34,18 +33,18 @@ class RapperRowPresenter
   end
 
   def battles_count_for_raper
-    @row[1]
+    @rapper.number_of_battles
   end
 
   def bad_word_count
-    @row[2]
+    @rapper.bad_words_counter
   end
 
   def avg_bad_words
-    @row[3]
+    (@rapper.bad_words_counter / @rapper.number_of_battles.to_f).round(2)
   end
 
   def count_words_in_round
-    @row[4]
+    (@rapper.battles_words.size.to_f / @rapper.rounds_of_rappers).round(2)
   end
 end
