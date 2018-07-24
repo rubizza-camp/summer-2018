@@ -11,10 +11,10 @@ module Counters
   # This method smells of :reek:TooManyStatements
   def count_normal(battles)
     unnessasry_symbols = /[.!-?,:]/
-    words = 0
+    words = []
     lines = []
     battles.each_with_object([]) do |bat, _|
-      words += read_files_with_buttles(bat).gsub(unnessasry_symbols, ' ').strip.split.count
+      words += read_files_with_buttles(bat).gsub(unnessasry_symbols, ' ').strip.split
     end
     battles.each do |battle|
       lines = Dir.chdir(Service.path) { File.readlines(battle) }
@@ -26,7 +26,7 @@ module Counters
   def count_words_per_rounds(words, lines)
     revelant_lines = lines.find_all { |line| line.include?('Раунд') }.count
     revelant_lines = 1 if revelant_lines.zero?
-    words / revelant_lines
+    words.select! { |word| word.size > 3 }.count / revelant_lines
   end
 
   def count_bad(battles)
