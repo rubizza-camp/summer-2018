@@ -1,10 +1,13 @@
 require 'russian'
+require 'terminal-table'
 require_relative 'Versus'
+
+RAPPERS_LIST = Versus.rapper_list(Versus.collect_all_names)
 
 # module BattleTable
 module BattleTable
   def self.top_bad_word_hash
-    hash = Versus.rapper_list(Versus.collect_all_names).each_with_object(Hash.new(0)) do |rapper, total_bad_words|
+    hash = RAPPERS_LIST.each_with_object(Hash.new(0)) do |rapper, total_bad_words|
       rapper = rapper
       total_bad_words[rapper] += Versus.count_bad_words(rapper)
     end
@@ -32,6 +35,17 @@ module BattleTable
   end
 
   def self.top_word_table(word, count)
-    [word, "#{count} #{Russian.p(count, 'раз', 'раза', 'раз')}"]
+    "#{word} - #{count} #{Russian.p(count, 'раз', 'раза', 'раз')}"
+  end
+
+  def self.top_word_options(name, number = 30)
+    if RAPPERS_LIST.include?(name) && Versus.check_name_synonym(name)
+      top_word_hash(name).reverse[0...number.to_i]
+                         .to_h
+                         .each { |word, count| puts top_word_table(word, count) }
+    else
+      puts "Рэпер #{name} мне не известен. Зато известны:"
+      puts RAPPERS_LIST
+    end
   end
 end

@@ -30,6 +30,10 @@ RAPPERS_NAMES = {
 
 # module Versus
 module Versus
+  def self.check_name_synonym(name)
+    RAPPERS_NAMES.each_value.select { |rapper_name| rapper_name.include?(name) }.empty?
+  end
+
   def self.rapper_list_check(name, array)
     array.product(RAPPERS_NAMES[name]) do |rapper_name, synonym|
       next unless synonym == rapper_name
@@ -50,9 +54,8 @@ module Versus
   end
 
   def self.collect_all_files
-    Dir.pwd
     Dir.chdir('rap_battles')
-    Dir.glob('*').to_a
+    FileList.new('*')
   end
 
   @files = collect_all_files
@@ -71,7 +74,7 @@ module Versus
 
   def self.bad_words_filter(filename)
     File.read(filename)
-        .downcase.tr(',.?&quot;!', '')
+        .downcase.tr('–,.?&quot;!', '')
         .split(' ')
         .select { |word| word.match(/[а-яА-Я]+[*][а-я]+/) || RussianObscenity.obscene?(word) }
   end
@@ -89,7 +92,7 @@ module Versus
     File.read(filename)
         .downcase.tr('–,.?&quot;!', '')
         .split(' ')
-        .select { |word| word.match(/S*/) && !Pronomens.exclude_pronomens(word) }
+        .select { |word| word.match(/(\p{L}+)/) && !Pronomens.exclude_pronomens(word) }
         .group_by { |word| word }
         .map { |key, value| [key, value.size] }
         .sort_by { |___, key| -key }
@@ -119,17 +122,13 @@ module Versus
 
   def self.count_rounds(name)
     rounds = 1
-    collect_all_texts(name).each do |text|
-      rounds += text.scan(/[Р|р]аунд [1|2|3]/).count
-    end
+    collect_all_texts(name).each { |text| rounds += text.scan(/[Р|р]аунд [1|2|3]/).count }
     rounds
   end
 
   def self.count_all_words(name)
     words_count = 0
-    collect_all_texts(name).each do |battle|
-      words_count += battle.split.count
-    end
+    collect_all_texts(name).each { |battle| words_count += battle.split.count }
     words_count
   end
 
