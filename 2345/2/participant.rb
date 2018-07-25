@@ -10,12 +10,8 @@ class RapperUniqueName
   end
 
   def rapper_name
-    battler = File.basename(@filename).strip
-    name = battler[0...battler.index(/(против|aka|VS\b)/i)].strip
-    ALIASES.find do |_, aliases|
-      @find_key_aliases = aliases if aliases.include?(name) == true
-    end
-    ALIASES.key(@find_key_aliases)
+    name = @filename.split(/(против|aka|VS\b)/i).first.split('/').last.strip
+    ALIASES.find { |_, aliase| aliase if aliase.include?(name) == true }.first
   end
 end
 
