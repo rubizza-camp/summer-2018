@@ -5,26 +5,30 @@ require_relative 'constants'
 
 # :reek:TooManyInstanceVariables
 class TextHandler
-  def initialize(top)
+  def initialize(top, name)
     @battles_count = {}
     @bad_words_counter = {}
     @words_per_battle_counter = {}
     @words_per_round_counter = {}
     @average_words_per_round_counter = {}
+    @words_counter = {}
     @top = top
+    @name = name
   end
-
+  # rubocop:disable Layout/EmptyLineBetweenDefs
+  # :reek:NilCheck
   def show_result
     calculation
-    show_table
+    if @name.nil?
+      show_table
+    else
+      show_favorite_word
+    end
   end
+  # rubocop:enable Layout/EmptyLineBetweenDefs
 
   private
 
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   # :reek:TooManyStatements
   # :reek:NilCheck
   # :reek:NestedIterators
@@ -40,11 +44,17 @@ class TextHandler
 
       lines = File.readlines("#{TEXTS_PATH}/#{file}")
 
-      words_from_text = lines.join.tr("\n", ' ').delete('.,;').split
+      words_from_text = lines.join.tr("\n", ' ').delete('.,;!?').split
 
       bad_words_count = words_from_text.select do |word|
         RussianObscenity.obscene?(word) || word.include?('*')
       end.count
+
+      if @words_counter[rapper_name]
+        @words_counter[rapper_name] += words_from_text
+      else
+        @words_counter[rapper_name] = words_from_text
+      end
 
       if @bad_words_counter[rapper_name]
         @bad_words_counter[rapper_name] += bad_words_count
@@ -70,11 +80,9 @@ class TextHandler
       @average_words_per_round_counter[name] = @words_per_round_counter[name] / (@battles_count[name] * 3)
     end
   end
-
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
   # :reek:TooManyStatements
+
+  # rubocop:disable Metrics/MethodLength
   def show_table
     rows = []
 
@@ -94,8 +102,34 @@ class TextHandler
     )
     puts table
   end
+
+  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Metrics/AbcSize
+  # :reek:TooManyStatements
+  def show_favorite_word
+    if RAPPER_NAMES[@name]
+      counter_array = (@words_counter[@name] - SHORT_WORDS).group_by { |name| name }.map { |name, counter| [name, counter.count] }
+      list_of_words = Hash[counter_array].sort_by { |_, counter| counter }.reverse
+
+      list_of_words.first(@top).each do |pair|
+        puts "#{pair[0]} - #{pair[1]}\n"
+      end
+    else
+      puts "Рэпер #{@name} не известен мне. Зато мне известны:"
+      RAPPER_NAMES.keys.sample(5).each do |name|
+        puts "#{name}\n"
+      end
+    end
+  end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Metrics/AbcSize
 end
 
-top = (ARGV[0] || '--top-bad-words=100').split('=').last.to_i
-TextHandler.new(top).show_result
+name_argument = ARGV.find { |argv| argv =~ /name/ }
+top_argument = ARGV.find { |argv| argv =~ /top/ }
+
+top = top_argument.split('=').last.to_i if top_argument
+rapper_name = name_argument.split('=').last if name_argument
+
+TextHandler.new(top || 30, rapper_name).show_result

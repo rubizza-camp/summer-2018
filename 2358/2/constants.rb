@@ -1,4 +1,8 @@
+# :reek:NilCheck
 TEXTS_PATH = "#{Dir.pwd}/texts".freeze
+# rubocop:disable Metrics/LineLength
+SHORT_WORDS = %w[в на и я с не ни по под от у ты что Я И ТЫ как это Но - тебя но меня он А мне за все бы был кто так же его то Это тебе Ты а про вы мой Он тут Что из есть у здесь нет Как к Если Не там даже Вы для Ты ф про вы мой Он тут Что из у Как к Не там Вы где для В до всё мы или – У То *** раз Вот Мы еще со их Ну о без].freeze
+# rubocop:enable Metrics/LineLength
 RAPPER_NAMES = {
   'Billy Milligan' => /Milligan/,
   'Galat' => /Galat|Галат/,
