@@ -8,11 +8,15 @@ class VersusBattle
   def initialize
     @rappers = []
     @files = Dir.glob('*[^.rb]')
+    @hash = {}
   end
 
   def create_rapper_array
     @files.each do |filename|
-      add_rappers(filename)
+      next if rapper_check(filename)
+      rapper = Rapper.new(filename)
+      @hash[rapper.name] = rapper
+      @rappers << rapper
     end
   end
 
@@ -23,20 +27,22 @@ class VersusBattle
   end
 
   def sort_rappers
-    @rappers = @rappers.sort_by { |rpr| -rpr.bad_words }
+    @rappers.sort_by { |rpr| -rpr.bad_words }
   end
 
+  private
+
   def add_rappers(filename)
-    rapper_exists_cause(filename) unless rapper_check(filename)
+    rapper_exists?(filename) unless rapper_check(filename)
   end
 
   def rapper_check(filename)
-    @rappers.any? { |raper| raper.name == filename[EXP] }
+    @hash.any? { |key, _value| key == filename[EXP] }
   end
 
-  def rapper_exists_cause(filename)
-    rpr = Rapper.new(filename)
-    @rappers.push(rpr)
+  def rapper_exists?(filename)
+    rapper = Rapper.new(filename)
+    @rappers.push(rapper)
   end
 
   def battles_for_rappers(filename)

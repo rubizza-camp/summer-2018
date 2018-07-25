@@ -9,12 +9,11 @@ ver = VersusBattle.new
 
 ver.create_rapper_array
 ver.create_battle_array
-ver.sort_rappers
 
-p = Printer.new(ver.rappers)
+p = Printer.new(ver.sort_rappers)
 
 unless option_bad_words.nil?
-  if option_bad_words.to_i < ver.rappers.size
+  if option_bad_words.to_i < ver.sort_rappers.size
     p.print_first_level(option_bad_words.to_i)
   else
     puts 'Too much.'
@@ -23,13 +22,13 @@ end
 
 unless @option_name.nil?
   option_words ||= 30
-  current = ver.rappers.find { |txt| txt.name == " #{@option_name} " }
+  current = ver.sort_rappers.find { |txt| txt.name == " #{@option_name} " }
   analyze = WordAnalyzer.new(current)
   if current
     p.print_second_level(option_words.to_i, analyze.find_favourite_words)
   else
     puts "I don't know #{@option_name} but I know:"
-    ver.rappers.each do |r|
+    ver.sort_rappers.each do |r|
       puts r.name
     end
   end

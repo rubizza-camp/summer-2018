@@ -21,13 +21,8 @@ class Rapper
     @battles.sum(&:count_words_per_round)
   end
 
-  #:reek:FeatureEnvy
   def words
-    array = []
-    @battles.each do |battle|
-      array << battle.words
-    end
-    array.flatten
+    @battles.map(&:words).flatten
   end
 
   def create_row
