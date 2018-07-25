@@ -41,10 +41,10 @@ class RapperRowPresenter
   end
 
   def avg_bad_words
-    (@rapper.bad_words_counter / @rapper.number_of_battles.to_f).round(2)
+    @rapper.avg_bad_words_in_battle.round(2)
   end
 
   def count_words_in_round
-    (@rapper.battles_words.size.to_f / @rapper.rounds_of_rappers).round(2)
+    @rapper.count_words_in_rounds.round(2)
   end
 end
