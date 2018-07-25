@@ -1,39 +1,47 @@
-require_relative 'ParticipantsStorage'
-# :reek:FeatureEnvy
-# :reek:NestedIterators
-# :reek:UtilityFunction
-# :reek:TooManyStatements
-
-# PopularWords find most popular words
+require_relative 'WordWithQuantity'
+require_relative 'Participant'
+# Class find most popular words of one participant
 class PopularWords
-  def hash_all_words(name)
-    ParticipantsStorage.new.battles_by_name(name)
-                       .each_with_object(Hash.new(0)) do |word, word_count|
-      File.open("Rapbattle/#{word}", 'r').each_line do |line|
-        next if line["/Раунд \d/i"]
-        line.split(' ').select { |each_word| wort_test(each_word) }
-            .select do |term|
-          word_count[term] += 1
-        end
-      end
+  def initialize(battles, top_words)
+    @battles = battles
+    @top_words = top_words
+  end
+
+  def count
+    popular_words.first(@top_words)
+                 .map { |word| "#{word.word} - #{word.quantity} раз" }
+  end
+
+  private
+
+  def popular_words
+    @popular_words ||= words_with_quantity.sort_by(&:quantity).reverse
+  end
+
+  def words_with_quantity
+    @words_with_quantity ||= uniq_usefull_words.map do |word|
+      WordWithQuantity
+        .new(word, usefull_words.count(word))
     end
   end
 
-  def prepare_hash(raper_name)
-    hash = hash_all_words(raper_name).keys.join(' ')
-                                     .downcase
-                                     .gsub(/[.,!?:;«»<>&'()] /, ' ')
-                                     .split
-    hash.each_with_object(Hash.new(0)) do |word, word_count|
-      word_count[word] += 1
-    end
+  def uniq_usefull_words
+    @uniq_usefull_words ||= usefull_words.uniq
   end
 
-  def sort_hash(raper_name)
-    prepare_hash(raper_name).sort_by { |_, count| count }
+  def usefull_words
+    @usefull_words ||= all_words.reject { |word| prepositions.include? word }
   end
 
-  def wort_test(word)
-    !File.open('Предлоги.yaml', 'r', &:read).include?(word)
+  def all_words
+    @all_words ||= files.gsub(/[\p{P}]/, ' ').downcase.strip.split
+  end
+
+  def files
+    @files ||= @battles.map(&:words).join(' ')
+  end
+
+  def prepositions
+    @prepositions ||= File.read('Предлоги.yaml')
   end
 end

@@ -1,19 +1,28 @@
-require_relative 'ParticipantService'
-require_relative 'FindModule'
-# Participants Storage
+require_relative 'Battle'
+require_relative 'Participant'
+require_relative 'ParticipantsNameLoader'
+require_relative 'BattleNameLoader'
+# Storage Class with all participants
 class ParticipantsStorage
-  include FindModule
-  PATH_FOLDER = 'Rapbattle'.freeze
   attr_reader :participants
   def initialize
     @participants = []
-    find_participants.each do |name|
-      @participants.push(ParticipantService.new.add_participants(name))
+    ParticipantsNameLoader.new.participant_names.uniq.each do |name|
+      @participants.push(Participant.new(name, battles_of_participant(name)))
     end
-    @participants.sort_by! { |participant| participant.words[1] }.reverse!
+    @participants.sort_by!(&:bad_per_round).reverse!
   end
 
   def battles_by_name(name)
     @participants.find { |participant| participant.name == name }.battles
+  end
+
+  # :reek:UtilityFunction
+  def battles_of_participant(name)
+    battles = []
+    BattleNameLoader.new(name).battle_names.each do |battle_name|
+      battles.push(Battle.new(battle_name))
+    end
+    battles
   end
 end
