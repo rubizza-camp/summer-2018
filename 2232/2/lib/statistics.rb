@@ -1,7 +1,9 @@
 require_relative 'helpers/battles_helper'
+require_relative 'helpers/tabular_output'
 
 class Statistics
   include BattlesHelper
+  include TabularOutput
 
   BATTLE_HEADINGS = ['Battler', 'Number of battles', 'Number of curses', 'Curses in battle', 'Words in part'].freeze
   WORD_HEADINGS = ['Battler', 'Top words'].freeze

@@ -1,11 +1,11 @@
 class TopWord
-  attr_reader :word, :count
-  def initialize(word, count)
+  attr_reader :word, :appearances
+  def initialize(word, appearances)
     @word = word
-    @count = count
+    @appearances = appearances
   end
 
   def show
-    [@word, @count]
+    [@word, @appearances]
   end
 end

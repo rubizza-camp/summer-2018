@@ -1,11 +1,11 @@
 require_relative 'directory_helper'
 require_relative '../battler'
 require_relative '../top_word'
+require_relative 'top_word_params'
 
 module BattlesHelper
   include DirectoryHelper
-
-  PREPOSITIONS = 'prepositions'.freeze
+  include TopWordParams
 
   def top_words(name)
     text_bat = text_battler(name)
@@ -14,17 +14,12 @@ module BattlesHelper
       puts battlers
       []
     else
-      words_battler(text_bat.join(' '))
+      initialize_top_words(text_bat.join(' '))
     end
   end
 
   def top_battlers
-    battler = battlers.each_with_object([]) { |el, arr| arr << initialize_battler(el) }
-    battler.sort_by { |el| el.params[:curses_per_battle] }.reverse
-  end
-
-  def tabular_output(rows_arr, headings)
-    puts Terminal::Table.new(headings: headings, rows: rows_arr.map(&:show))
+    @top_battlers ||= battlers.sort_by { |el| el.params[:curses_per_battle] }.reverse
   end
 
   private
@@ -34,24 +29,7 @@ module BattlesHelper
   end
 
   def battlers
-    DirectoryHelper.take_all_battles.map { |el| name_battler(el) }.uniq
-  end
-
-  def name_battler(title)
-    title.split('против')[0].strip
-  end
-
-  def words_battler(text_bat)
-    prepositions = File.read(PREPOSITIONS).split(',')
-    words = text_bat.split.uniq.each_with_object([]) do |el, arr|
-      arr << TopWord.new(el, text_bat.split.count(el)) unless prepositions.include?(el)
-    end
-    words.sort_by(&:count).reverse
-  end
-
-  def text_battler(name)
-    DirectoryHelper.take_all_battles.each_with_object([]) do |el, arr|
-      arr << DirectoryHelper.take_text_battler(el) if name_battler(el).eql?(name)
-    end
+    battler = DirectoryHelper.take_all_battles.map { |battle| name_battler(battle) }.uniq
+    battler.each_with_object([]) { |battle, battles| battles << initialize_battler(battle) }
   end
 end
