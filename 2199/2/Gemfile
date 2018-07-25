@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'OptionParser'
+gem 'russian'
+gem 'russian_obscenity'
+gem 'terminal-table'
+
+group :development do
+  gem 'pry'
+end
