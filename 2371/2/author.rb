@@ -7,12 +7,8 @@ class Author
     @battles = []
   end
 
-  def name?(name)
-    @name.include?(name) || name.include?(@name)
-  end
-
-  def add_battle(battle)
-    @battles << battle
+  def add_battles(battle)
+    @battles += battle
   end
 
   def bad_words

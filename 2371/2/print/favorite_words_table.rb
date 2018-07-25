@@ -6,6 +6,6 @@ class FavoriteWordsTable < Table
   end
 
   def rows
-    ['favorite words info']
+    puts 'in progress'
   end
 end

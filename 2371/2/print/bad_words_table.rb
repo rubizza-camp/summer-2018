@@ -7,7 +7,7 @@ class BadWordsTable < Table
   end
 
   def rows
-    data = @authors.sort_by { |author| -author.bad_words.size }.map do |author|
+    data = @authors.map do |author|
       BadWordRow.new(author).to_a
     end
     data.any? ? data : [[NO_AUTHORS]]
