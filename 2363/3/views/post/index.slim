@@ -1,0 +1,15 @@
+div
+  h1 align='center' = @post.link
+div
+  table class='table table-dark'
+    thead
+      tr
+        th Comments
+        th Rate
+    tbody
+      - @post.comments.each do |comment|
+        tr
+          td
+            = comment.text
+          td
+            = comment.rating

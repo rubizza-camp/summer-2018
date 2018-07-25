@@ -1,0 +1,5 @@
+gem 'shotgun'
+gem 'thin'
+--servers=thin
+padrino sintra models 
+gem sitekick мультипоточность

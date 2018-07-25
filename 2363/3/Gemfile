@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+ruby '2.5.1'
+
+gem 'ohm'
+gem 'pry'
+gem 'rake'
+
+gem 'shotgun'
+
+gem 'json'
+gem 'sinatra'
+
+gem 'mechanize'
+gem 'slim'

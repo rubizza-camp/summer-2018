@@ -1,0 +1,23 @@
+div align='center'
+  h1 Rating comments 
+div
+  table class='table table-dark'
+    thead
+      tr
+        th class='align-middle' Links
+        th class='align-middle'
+        th class='align-middle'
+        th class='align-middle' Rate
+    tbody
+      - @posts.each do |post|
+        tr
+          td class='align-middle'
+            a href="post/#{post.id}" = post.link
+          td class='align-middle'
+            form action='post/delete/#{post.id}' method='post'
+              button type='submit' class='btn btn-outline-light' onclick="return confirm('Delete this post?')" Delete
+          td class='align-middle'
+            form action='add' method='post'
+              button type='submit' value="#{post.link}" name='link' class='btn btn-outline-light' Update
+          td class='align-middle'
+            = post.rating
