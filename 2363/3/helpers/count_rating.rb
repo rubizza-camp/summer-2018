@@ -4,6 +4,7 @@ require 'net/https'
 require 'uri'
 require 'json'
 
+# Instance use the most time in prepare request because
 # This class get array of comments and return rating for every comment
 class CountRating
   ACESS_KEY = env['ACCESS_KEY']
@@ -13,20 +14,20 @@ class CountRating
 
   def initialize
     @uri = URI(URI + PATH)
-    @data = { 'documents': [] }
+    @data = { documents: [] }
   end
 
   def run(comments)
     prepare_data(comments)
-    prepare_request
+    @request = prepare_request
     prepare_output_data(send_request)
   end
 
   private
 
   def prepare_data(comments)
-    comments.zip((0...comments.size)).each do |comment|
-      @data[:documents] << { 'id' => comment.last.to_s, 'language' => 'ru', 'text' => comment.first }
+    comments.each_with_index do |comment, index|
+      @data[:documents] << { 'id' => index.to_s, 'language' => 'ru', 'text' => comment }
     end
   end
 
@@ -44,9 +45,8 @@ class CountRating
 
   # prepare data fro api
   def prepare_request
-    @request = Net::HTTP::Post.new(uri)
-    @request['Content-Type'] = 'application/json'
-    @request['Ocp-Apim-Subscription-Key'] = ACESS_KEY
-    @request.body = data.to_json
+    request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => ACESS_KEY)
+    request.body = data.to_json
+    request
   end
 end

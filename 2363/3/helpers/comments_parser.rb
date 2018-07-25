@@ -5,8 +5,8 @@ require 'mechanize'
 
 # This get lilk of post onliner.by and return comments from this post
 class CommentsParser
-  API_PATH = 'https://comments.api.onliner.by/news/tech.post/'
-  API_PARAMS = '/comments?limit=50&_=0.9841189675826583'
+  API_PATH = 'https://comments.api.onliner.by/news/tech.post/'.freeze
+  API_PARAMS = '/comments?limit=50&_=0.9841189675826583'.freeze
   attr_reader :agent
 
   def initialize
