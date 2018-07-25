@@ -9,12 +9,9 @@ class FileReader
   # :reek:NestedIterators
   # :reek:TooManyStatements
   def get_all_text(files)
-    text = ''
-    files.each do |file_name|
-      fh = open "data/#{file_name.gsub(/:[()"'*.-]/) { |sym| '\\' + sym }.chomp}"
-      text += fh.read
-      fh.close
+    files.inject('') do |text, file_name|
+      fh = open("data/#{file_name.gsub(/:[()"'*.-]/) { |sym| '\\' + sym }.chomp}")
+      text + fh.read
     end
-    text
   end
 end

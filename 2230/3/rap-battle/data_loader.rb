@@ -5,11 +5,9 @@ class DataLoader
 
   def initialize
     @data = []
-    # @rapper_names = []
   end
 
   def load_data
-    # @rapper_names = load_rapper_names
     @data = build_data
   end
 
@@ -51,9 +49,15 @@ class DataLoader
       bad_words_count = RussianObscenity.find(text).size
       words_per_battle = bad_words_count.fdiv(battles_count).round(2)
       words_per_stage = words_count.fdiv(battles_count).fdiv(3).round(0)
-      # rubocop:disable Metrics/LineLength
-      data << { name: rapper_name, text: text, battles_count: battles_count, words_count: words_count, bad_words_count: bad_words_count, words_per_battle: words_per_battle, words_per_stage: words_per_stage }
-      # rubocop:enable Metrics/LineLength
+      data << {
+        name:             rapper_name,
+        text:             text,
+        battles_count:    battles_count,
+        words_count:      words_count,
+        bad_words_count:  bad_words_count,
+        words_per_battle: words_per_battle,
+        words_per_stage:  words_per_stage
+      }
     end
     data
   end
