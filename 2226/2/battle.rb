@@ -1,9 +1,8 @@
-# This class is used to process raper data
+# This class is used to process rapper data
 class Battle
   SWEAR_WORDS = YAML.load_file('config.yml')['SWEAR_WORDS_ARRAY'].join('|')
 
-  def initialize(name_of_battle, text)
-    @name_of_battle = name_of_battle
+  def initialize(text)
     @text = text
   end
 
