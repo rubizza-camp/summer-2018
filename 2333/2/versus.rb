@@ -1,17 +1,17 @@
-require_relative 'libs/parameters_parser.rb'
-require_relative 'libs/handler.rb'
-require_relative 'libs/top_bad_words_analyzer.rb'
-require_relative 'libs/top_words_analyzer.rb'
+Dir.glob('./{libs}/*.rb').each { |file| require file }
 require 'bundler'
 Bundler.require
 
-parameters = ParametersParser.new.options
-rappers = Handler.create_rappers_array
+parameters = ParametersParser.parse
+rapper_registry = RapperRegistry.new
 
 if parameters[:top_bad_words]
-  analyzer = TopBadWordsAnalyzer.new(rappers, parameters[:top_bad_words])
+  analyzer = TopBadWordsAnalyzer.new(rapper_registry.rappers, parameters[:top_bad_words])
   analyzer.top_bad_words
-elsif parameters[:name]
-  analyzer = TopWordsAnalyzer.new(rappers, parameters[:name], parameters[:top_words])
+elsif parameters[:name] && rapper_registry.search_name(parameters[:name])
+  analyzer = TopWordsAnalyzer.new(rapper_registry.rappers, parameters[:name], parameters[:top_words])
   analyzer.top_words
+else
+  puts "Рэпер #{parameters[:name]} не известен мне. Зато мне известны:"
+  rapper_registry.names.each { |item| puts item }
 end

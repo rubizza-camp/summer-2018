@@ -1,8 +1,6 @@
-require_relative 'handler'
-require_relative './analyzer_printer.rb'
-require_relative './names_searcher.rb'
+require_relative './top_bad_words_printer.rb'
 
-# VersusBattle text analyzer
+# Class that analyzes rappers
 class TopBadWordsAnalyzer
   def initialize(rappers, take_value)
     @rappers = rappers
@@ -10,7 +8,7 @@ class TopBadWordsAnalyzer
   end
 
   def top_bad_words
-    AnalyzerPrinter.print_top_bad_words(top_sorted_rappers)
+    TopBadWordsPrinter.new(top_sorted_rappers).print_top_bad_words
   end
 
   private

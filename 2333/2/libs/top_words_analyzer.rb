@@ -1,8 +1,6 @@
-require_relative 'handler'
-require_relative './analyzer_printer.rb'
-require_relative './names_searcher.rb'
+require_relative './top_words_printer.rb'
 
-# VersusBattle text analyzer
+# Class that analyzes rappers
 # :reek:ControlParameter
 class TopWordsAnalyzer
   def initialize(rappers, selected_name, take_value)
@@ -12,8 +10,7 @@ class TopWordsAnalyzer
   end
 
   def top_words
-    AnalyzerPrinter.print_rappers_names(names, @name) unless names_include_name?
-    AnalyzerPrinter.print_top_words(hash_of_top_words, @take_value)
+    TopWordsPrinter.new(hash_of_top_words, @take_value).print_top_words
   end
 
   private
@@ -22,11 +19,7 @@ class TopWordsAnalyzer
     texts_wo_stopwords.each_with_object(Hash.new(0)) { |word, hash| hash[word.downcase] += 1 }
   end
 
-  def names_include_name?
-    NamesSearcher.new(@rappers, @name).search_name
-  end
-
   def texts_wo_stopwords
-    Handler.delete_prepositions(@rappers, @name)
+    @rappers.select { |rapper| rapper.name == @name }.first.delete_stopwords_from_texts
   end
 end

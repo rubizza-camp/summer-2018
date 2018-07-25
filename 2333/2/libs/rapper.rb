@@ -14,7 +14,7 @@ class Rapper
   end
 
   def battles_words
-    @battles.join(' ').split(/[^[а-яА-Я*ёЁa-zA-Z]]+/)
+    @battles_words ||= @battles.join(' ').split(/[^[а-яА-Я*ёЁa-zA-Z]]+/)
   end
 
   def bad_words_on_battle
@@ -25,9 +25,14 @@ class Rapper
     battles_words.count / (@battles.count * ROUNDS_ON_BATTLE)
   end
 
+  def delete_stopwords_from_texts
+    prepositions = File.read('prepositions.txt').split(',').map!(&:upcase)
+    battles_words.reject! { |word| prepositions.include?(word.upcase) }
+  end
+
   private
 
   def unique_bad_words
-    RussianObscenity.find(@battles.join(' '))
+    @unique_bad_words ||= RussianObscenity.find(@battles.join(' '))
   end
 end

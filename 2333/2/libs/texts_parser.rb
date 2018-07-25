@@ -1,4 +1,4 @@
-# BattleParser class
+# # Class that parse text files to hash
 class TextsParser
   def initialize
     @hash = Hash.new { |key, value| key[value] = [] }
