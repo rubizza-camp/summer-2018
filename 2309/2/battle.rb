@@ -1,29 +1,22 @@
+require 'pry'
+
 # Class one battle
 class Battle
-
   def initialize(title)
     @title = title
   end
 
-  def bad_words
-    File.read('bad_words').split(', ')
-  end
+  OBSCENE_WORDS = File.read('bad_words').split(', ')
 
-  def read_battle
-    text = File.read(@title)
-    text = text.downcase
-    text = text.scan(/[а-яёa-z*]+/)
+  def words
+    @words ||= File.read(@title).downcase.scan(/[а-яёa-z*]+/)
   end
 
   def bad_words_count
-    @bad_words_count ||= read_battle.count { |word| word.include?('*') || bad_words.include?(word) }
+    @bad_words_count ||= words.count { |word| word.include?('*') || OBSCENE_WORDS.include?(word) }
   end
 
   def sum_all_words
-    @sum_all_words ||= read_battle.count
+    @sum_all_words ||= words.count
   end
 end
-
-a = Battle.new('rap-battles/ Oxxxymiron VS Гнойный aka Слава КПСС (VERSUS VS SLOVOSPB)')
-puts a.sum_all_words.inspect
-puts a.bad_words_count.inspect
