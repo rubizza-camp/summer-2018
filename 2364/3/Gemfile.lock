@@ -58,11 +58,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  json!
-  mechanize!
-  ohm!
-  shotgun!
-  sinatra!
+  json
+  mechanize
+  ohm
+  shotgun
+  sinatra
 
 BUNDLED WITH
    1.16.2

@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
     erb :article_view
   end
 
-  post '/article/delete/:id' do
+  delete '/articles/:id/delete' do
     @articles = Article.all
     @article = @articles[params[:id]]
     @article.delete
