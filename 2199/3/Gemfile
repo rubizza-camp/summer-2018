@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
-gem 'shotgun'
-gem 'redis'
+gem 'capybara'
 gem 'ohm'
-
+gem 'poltergeist'
+gem 'redis'
+gem 'shotgun'
+gem 'sinatra'
 group :development do
   gem 'pry'
 end
