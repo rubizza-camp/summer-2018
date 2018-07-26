@@ -4,8 +4,7 @@ require_relative 'search_battles.rb'
 
 # Class one raper
 class Raper
-  attr_reader :all_words, :bad_words, :sum_battles
-  
+  attr_reader :all_words, :bad_words
   def initialize(name, spis)
     @name = name
     @battles = spis
