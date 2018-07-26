@@ -4,7 +4,8 @@ require 'terminal-table'
 require './TopBadWordsCounter.rb'
 require './BattlerMostUsableWordsCounter.rb'
 require './row.rb'
-require './outputtopbadwords.rb'
+
+# rubocop:disable Style/MultilineBlockChain
 
 options = { name: '', top_bad_words: 0, top_words: 30 }
 OptionParser.new do |opts|
@@ -24,7 +25,9 @@ end.parse!
 BATTLERS_NAMES_LIST = Battler.battler_names_list.freeze
 
 if options[:top_bad_words] > 0
-  all_information_about_battlers = OutputTopBadWords.out
+  all_information_about_battlers = BATTLERS_NAMES_LIST.map do |name|
+    Battler.new(name).all_information_about_battler
+  end.sort_by { |key| key[:bad_words_count] }.reverse
   rows = all_information_about_battlers.first(options[:top_bad_words]).inject([]) do |row, name|
     row << Row.new(name[:name],
                    name[:battles_count],
@@ -53,3 +56,4 @@ else
   puts BATTLERS_NAMES_LIST.pop(3)
   puts '...'
 end
+# rubocop:enable Style/MultilineBlockChain

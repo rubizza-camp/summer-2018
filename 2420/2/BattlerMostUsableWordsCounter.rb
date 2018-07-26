@@ -13,7 +13,6 @@ class BattlerMostUsableWordsCounter
                             .each_with_object(Hash.new(0)) do |word, counter|
       counter[word] += 1
     end.to_a.sort_by { |_word, count| count }
-    counter
   end
 
   private
