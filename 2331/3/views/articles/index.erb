@@ -1,0 +1,21 @@
+<h1>Articles</h1>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th colspan=2>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each_with_index do |article, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><a href=<%= article.link %>><%= article.title %></a></td>
+        <td><a><%= article.rating %></a></td>
+        <td><a href=<%= "/articles/#{article.id}" %>><span class="glyphicon glyphicon-search"></span></a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

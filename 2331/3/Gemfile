@@ -1,0 +1,13 @@
+source 'https://rubygems.org'
+
+gem 'json'
+gem 'mechanize'
+gem 'ohm'
+gem 'rake'
+gem 'shotgun'
+gem 'sinatra'
+gem 'thin'
+
+group :development do
+  gem 'pry'
+end

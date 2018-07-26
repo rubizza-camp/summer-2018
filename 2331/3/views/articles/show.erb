@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h2><%= @article.title %></h2>
+</div>
+
+<a href="/articles/<%= @article.id %>/edit" class="btn btn-info">Edit article</a> |
+<a href="/articles/<%= @article.id %>/delete" class="btn btn-danger">Delete article</a>
+
+
+<h3>Comments</h3>
+
+<ul class="media-list">
+  <% @comments.each do |comment| %>
+    <li class="media">
+      <div class="media-body">
+        <div class="well well-lg">
+          <h4 class="media-heading text-uppercase reviews"><%= comment.author %></h4>
+          <p class="media-comment">
+            <%= comment.text %>
+          </p>
+          <div style="font-size:18px">Рейтинг: <%= comment.rating %></div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

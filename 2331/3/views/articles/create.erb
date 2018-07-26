@@ -1,0 +1,10 @@
+<h1>New article</h1>
+
+<form action="/articles" method="post">
+  <div class="form-group">
+    <label for="article">Article's link</label>
+    <input type="text" class="form-control" id="article" aria-describedby="emailHelp" title="Example: https://tech.onliner.by/2018/07/26/eksperiment-biosfera-2" placeholder="Input link" name="article" value="" pattern="^(http|https):\/\/\w+\.onliner.+" autofocus>
+    <small id="emailHelp" class="form-text text-muted">Link to be processed</small>
+  </div>
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
