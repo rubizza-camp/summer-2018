@@ -25,11 +25,9 @@ module Counters
   end
 
   def count_bad(battles)
-    bad_words = 0
-    battles.each do |battle|
-      bad_words += count_bad_words(read_files_with_buttles(battle))
+    battles.inject(0) do |sum, battle|
+      sum + count_bad_words(read_files_with_buttles(battle))
     end
-    bad_words
   end
 
   # This method smells of :reek:UtilityFunction
