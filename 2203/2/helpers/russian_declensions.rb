@@ -1,5 +1,4 @@
 require 'russian'
-require './top_words_statistic.rb'
 
 # Prepares the output of statistics in the desired declension.
 class RussianDeclensions

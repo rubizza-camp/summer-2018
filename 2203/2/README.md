@@ -5,7 +5,7 @@ Regular setup
 * `rvm` либо `rbenv`
 * `Ruby`
 * [Bundler](https://bundler.io/)
-* [Архив с текстами](https://drive.google.com/file/d/150aw6AaogixRlPuI6Cn6wVhVJKYWkj-w/view?usp=sharing)
+* [Архив с текстами](https://drive.google.com/open?id=1Vc4s-sFQYgZiRyCx3zkPqT3S0LO5uATF)
 
 ----
 
