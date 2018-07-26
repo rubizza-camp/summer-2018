@@ -4,3 +4,10 @@ gem 'sinatra'
 gem 'slim'
 gem 'sass'
 gem 'redis'
+gem 'json'
+gem 'thin'
+
+group :development do
+  gem 'pry'
+  gem 'shotgun'
+end

@@ -9,17 +9,19 @@ html
   body
 
     h1 Detail for article
-    h3 #{@article.name}
-    h3 #{@article.rate}
+    h3 Name: #{@article.name}
+    h3 Rate: #{@article.rate}
     a href=@article.link #{@article.link}
     hr
     h2 Comments list
 
     - unless @article.comment_list.empty?
-      table
+      table border='1'
+        tr
+          th.name = 'Comment text'
+          th.name = 'Comment rate'
         - @article.comment_list.each_with_index do |comment, id|
           tr
-            td.name = comment.name
             td.description = comment.description
             td.rate = comment.rate
 

@@ -15,10 +15,14 @@ html
     br
       - unless @article_list.empty?
         table
+          tr
+            th.name = 'Name'
+            th.name = 'Link'
+            th.name = 'Rate'
           - @article_list.each_with_index do |article, id|
             tr
               td.name: a href="/articles/#{id}" #{article.name}
-              td.link = article.link
+              td.link: a href="#{article.link}" #{article.link}
               td.rate = article.rate
 
       - else
