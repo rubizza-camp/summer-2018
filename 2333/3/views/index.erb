@@ -1,0 +1,26 @@
+<div>
+  <h1 align='center'>Article rating table</h1>
+</div>
+<div>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">Link</th>
+        <th scope="col">Update</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @articles.each_with_index do |article, index| %>
+      <tr>
+        <td><%=(index+1).to_s%></td>
+        <td><a href="articles/<%=article.id%>"><%=article.link%></a></td>
+        <td>Update</td>
+        <td><%=article.rating.to_s%></td>
+      </tr>
+      <% end -%>
+      </tr>
+    </tbody>
+  </table>
+</div>
