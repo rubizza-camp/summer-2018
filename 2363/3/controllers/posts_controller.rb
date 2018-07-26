@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require 'slim'
-
 # Class posts controller
 class PostsController < ApplicationController
   get '/' do
-    @posts = Post.all
+    @posts = Post.all.sort_by(:rating).reverse!
     slim :'post/show'
   end
 
@@ -14,6 +12,7 @@ class PostsController < ApplicationController
   end
 
   post '/add' do
+    redirect '/' unless params[:link].include?('tech.onliner.by')
     Post.all.each do |post|
       post.delete if post.link == params[:link]
     end
