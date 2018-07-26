@@ -8,11 +8,7 @@ class BadWordsCounter
   end
 
   def run
-    sum_bad_words = 0
-    load_bad_words.each do |bad_word|
-      sum_bad_words += text.gsub(bad_word).count
-    end
-    sum_bad_words
+    load_bad_words.inject(0) { |counter, bad_word| counter + text.gsub(bad_word).count }
   end
 
   private

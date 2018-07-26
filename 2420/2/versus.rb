@@ -20,10 +20,6 @@ class Battler
     @battles_count ||= all_battles.count
   end
 
-  def all_battles_words_count
-    all_battles_text.split.count
-  end
-
   def words_in_battle
     @words_in_battle ||= all_battles_words_count / battles_count
   end
@@ -43,5 +39,11 @@ class Battler
   def all_battles
     Dir.chdir("#{FOLDER_PATH}/Texts/")
     @all_battles ||= Dir.glob([" #{name}*", "#{name}*"])
+  end
+
+  private
+
+  def all_battles_words_count
+    all_battles_text.split.count
   end
 end

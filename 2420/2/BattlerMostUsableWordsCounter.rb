@@ -21,9 +21,6 @@ class BattlerMostUsableWordsCounter
   def text_without_preposition
     all_texts = text.downcase!
     prepositions_list = File.read("#{FOLDER_PATH}/prepositions").split(',')
-    prepositions_list.each do |preposition|
-      all_texts.gsub!(/#{preposition}[аояиеёю ]/, '')
-    end
-    all_texts
+    prepositions_list.inject(all_texts) { |texts, preposition| texts.gsub(/#{preposition}[аояиеёю ]/, '') }
   end
 end
