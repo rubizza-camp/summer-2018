@@ -8,16 +8,14 @@ class Raper
   def initialize(name, spis)
     @name = name
     @battles = spis
-    @all_words = 0
-    @bad_words = 0
   end
 
-  def count_all_words
-    @battles.each { |battle| @all_words += battle.sum_all_words }
+  def all_words
+    @all_words = @battles.sum { |battle| battle.sum_all_words }
   end
 
-  def count_bad_words
-    @battles.each { |battle| @bad_words += battle.bad_words_count }
+  def bad_words
+    @bad_words = @battles.sum { |battle| battle.bad_words_count }
   end
 
   def sum_battles
