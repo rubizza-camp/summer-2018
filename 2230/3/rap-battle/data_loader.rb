@@ -1,14 +1,14 @@
 require './file_reader.rb'
 
 class DataLoader
-  attr_reader :data
+  attr_reader :result
 
   def initialize
-    @data = []
+    @result = []
   end
 
   def load_data
-    @data = build_data
+    @result = build_data
   end
 
   private
@@ -39,9 +39,8 @@ class DataLoader
   # rubocop:disable Metrics/AbcSize
   # :reek:TooManyStatements
   def build_data
-    rappers_list.each do |rapper_name|
+    rappers_list.inject([]) do |data, rapper_name|
       rapper_name = rapper_name.sub(/,.*/, '')
-
       files = get_file_list(rapper_name)
       text = FileReader.new.read(files)
       battles_count = files.size
@@ -59,7 +58,6 @@ class DataLoader
         words_per_stage:  words_per_stage
       }
     end
-    data
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
