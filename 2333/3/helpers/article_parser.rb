@@ -1,5 +1,4 @@
-require 'mechanize'
-require 'json'
+# frozen_string_literal: true
 
 # The class that parse url
 class ArticleParser

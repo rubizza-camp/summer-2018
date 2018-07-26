@@ -1,4 +1,5 @@
-require 'ohm'
+# frozen_string_literal: true
+
 require_relative 'comment.rb'
 
 # article model for ohm

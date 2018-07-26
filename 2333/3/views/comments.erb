@@ -11,13 +11,13 @@
       </tr>
     </thead>
     <tbody>
-      <%- @article.comments.each_with_index do |comment, index| %>
+      <% @article.comments.each_with_index do |comment, index| %>
       <tr>
         <td><%=(index+1).to_s%></td>
         <td><%=comment.text%></td>
         <td><%=comment.rating.to_s%></td>
       </tr>
-      <% end -%>
+      <% end %>
       </tr>
     </tbody>
   </table>

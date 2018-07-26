@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 require_relative 'application_controller.rb'
-require 'ohm'
 require 'erb'
 
 # articles controller

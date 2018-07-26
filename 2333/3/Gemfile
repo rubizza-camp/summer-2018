@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
-gem 'json'
-gem 'mechanize'
-gem 'ohm'
-gem 'shotgun'
-gem 'sinatra'
+source 'https://rubygems.org'
+ruby '2.5.1'
 
-group :development do
-  gem 'pry'
+gem 'pry', group: :development
+
+group :development, :production do
+  gem 'json'
+  gem 'mechanize'
+  gem 'ohm'
+  gem 'puma'
+  gem 'rake'
+  gem 'shotgun'
+  gem 'sinatra'
 end
