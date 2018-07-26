@@ -1,0 +1,174 @@
+---
+detectors:
+  FeatureEnvy:
+    exclude:
+    - AboutControlStatements#test_break_statement_returns_values
+    - AboutControlStatements#test_next_statement
+    - AboutControlStatements#test_while_statement
+    - AboutModules#test_module_methods_can_affect_instance_variables_in_the_object
+    - AboutProxyObjectProject#test_proxy_can_record_more_than_just_tv_objects
+    - AboutProxyObjectProject#test_proxy_counts_method_calls
+    - AboutProxyObjectProject#test_proxy_records_messages_sent_to_tv
+    - AboutProxyObjectProject#test_proxy_reports_methods_have_been_called
+    - AboutProxyObjectProject#test_tv_methods_still_perform_their_function
+    - TelevisionTest#test_can_set_the_channel
+    - TelevisionTest#test_edge_case_on_off
+    - TelevisionTest#test_it_also_turns_off
+    - TelevisionTest#test_it_turns_on
+    - AboutDiceProject#test_dice_values_do_not_change_unless_explicitly_rolled
+    - AboutDiceProject#test_dice_values_should_change_between_rolls
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutDiceProject#test_you_can_roll_different_numbers_of_dice
+    - AboutHashes#test_default_value_is_the_same_object
+    - AboutHashes#test_default_value_with_block
+    - triangle
+    - AboutClasses#test_attr_accessor_will_automatically_define_both_read_and_write_accessors
+    - AboutClasses#test_attr_reader_will_automatically_define_an_accessor
+    - AboutClasses#test_instance_variables_can_be_set_by_assigning_to_them
+    - AboutClasses#test_you_can_create_accessor_methods_to_return_instance_variables
+    - AboutClasses#test_you_can_politely_ask_for_instance_variable_values
+    - AboutObjects#test_clone_creates_a_different_object
+  RepeatedConditional:
+    exclude:
+    - AboutControlStatements
+  TooManyStatements:
+    exclude:
+    - initialize
+    - AboutControlStatements#test_break_statement
+    - AboutControlStatements#test_if_statements_return_values
+    - AboutControlStatements#test_next_statement
+    - AboutMethods#test_calling_global_methods_with_wrong_number_of_arguments
+    - score
+    - AboutExceptions#test_rescue_clause
+    - AboutProxyObjectProject#test_proxy_counts_method_calls
+    - TelevisionTest#test_edge_case_on_off
+    - AboutTrueAndFalse#test_everything_else_is_treated_as_true
+    - AboutDiceProject#test_dice_values_should_change_between_rolls
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutHashes#test_default_value
+    - AboutHashes#test_default_value_is_the_same_object
+    - AboutHashes#test_default_value_with_block
+    - AboutTriangleProject2#test_illegal_triangles_throw_exceptions
+    - AboutClasses#test_instance_variables_cannot_be_accessed_outside_the_class
+    - AboutIteration#test_all_iteration_methods_work_on_any_collection_not_just_arrays
+    - AboutIteration#test_break_works_with_each_style_iterations
+    - AboutIteration#test_collect_transforms_elements_of_an_array
+    - AboutIteration#test_inject_will_blow_your_mind
+    - AboutScope#test_you_can_reference_nested_classes_using_the_scope_operator
+    - AboutArrays#test_accessing_array_elements
+    - AboutArrays#test_array_literals
+    - AboutArrays#test_pushing_and_popping_arrays
+    - AboutArrays#test_shifting_arrays
+    - AboutArrays#test_slicing_arrays
+  UncommunicativeVariableName:
+    exclude:
+    - AboutControlStatements#test_break_statement
+    - AboutControlStatements#test_break_statement_returns_values
+    - AboutControlStatements#test_next_statement
+    - AboutControlStatements#test_while_statement
+    - AboutBlocks#test_blocks_can_be_assigned_to_variables_and_called_explicitly
+    - AboutBlocks#test_methods_can_take_an_explicit_block_argument
+    - AboutBlocks#test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
+    - score
+    - AboutStrings#test_strings_are_unique_objects
+    - AboutStrings#test_use_backslash_for_those_hard_cases
+    - AboutStrings#test_use_flexible_quoting_to_handle_really_hard_cases
+    - AboutHashes#test_default_value
+    - AboutHashes#test_hash_is_unordered
+    - AboutRegularExpressions#test_character_classes_give_options_for_a_character
+    - AboutSymbols#test_identical_symbols_are_a_single_internal_object
+    - AboutSymbols#test_symbols_can_be_compared
+    - AboutIteration#test_inject_will_blow_your_mind
+  DuplicateMethodCall:
+    exclude:
+    - AboutMethods#test_calling_global_methods_with_wrong_number_of_arguments
+    - AboutModules#test_module_methods_can_affect_instance_variables_in_the_object
+    - score
+    - AboutExceptions#test_exceptions_inherit_from_exception
+    - AboutProxyObjectProject#test_proxy_counts_method_calls
+    - AboutProxyObjectProject#test_proxy_reports_methods_have_been_called
+    - TelevisionTest#test_edge_case_on_off
+    - TelevisionTest#test_it_also_turns_off
+    - AboutDiceProject#test_dice_values_do_not_change_unless_explicitly_rolled
+    - AboutDiceProject#test_dice_values_should_change_between_rolls
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutDiceProject#test_you_can_roll_different_numbers_of_dice
+    - AboutHashes#test_default_value_is_the_same_object
+    - AboutHashes#test_default_value_with_block
+    - AboutHashes#test_hash_keys
+    - AboutHashes#test_hash_values
+    - AboutTriangleProject2#test_illegal_triangles_throw_exceptions
+    - AboutClasses#test_instance_variables_can_be_set_by_assigning_to_them
+    - AboutIteration#test_collect_transforms_elements_of_an_array
+  TooManyMethods:
+    exclude:
+    - AboutMethods
+    - AboutStrings
+    - AboutRegularExpressions
+    - AboutClasses
+    - AboutClassMethods
+  UncommunicativeParameterName:
+    exclude:
+    - AboutMethods#method_with_defaults
+    - AboutMethods#my_method_in_the_same_class
+    - my_global_method
+  UtilityFunction:
+    exclude:
+    - AboutMethods#my_method_in_the_same_class
+    - my_global_method
+    - AboutToStr#acts_like_a_string?
+    - AboutIteration#as_name
+    - AboutMessagePassing::AllMessageCatcher#method_missing
+  UncommunicativeMethodName:
+    exclude:
+    - AboutScoringProject#test_score_of_a_single_roll_of_1_is_100
+    - AboutScoringProject#test_score_of_a_single_roll_of_5_is_50
+    - AboutScoringProject#test_score_of_a_triple_1_is_1000
+    - AboutDiceProject#test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+    - AboutSandwichCode#count_lines2
+    - AboutSandwichCode#count_lines3
+    - AboutSandwichCode#find_line2
+    - AboutSandwichCode#test_counting_lines2
+    - AboutSandwichCode#test_finding_lines2
+    - AboutClassMethods::Dog#self.class_method2
+  Attribute:
+    exclude:
+    - Proxy#messages
+    - Television#channel
+    - AboutClasses::Dog5#name
+    - AboutClassMethods::Dog#name
+  ControlParameter:
+    exclude:
+    - Proxy#initialize
+    - AboutTrueAndFalse#truth_value
+  InstanceVariableAssumption:
+    exclude:
+    - Television
+    - DiceSet
+    - AboutClasses
+  NilCheck:
+    exclude:
+    - AboutNil#test_nil_has_a_few_methods_defined_on_it
+  UncommunicativeModuleName:
+    exclude:
+    - AboutTriangleProject2
+    - AboutClasses::Dog2
+    - AboutClasses::Dog3
+    - AboutClasses::Dog4
+    - AboutClasses::Dog5
+    - AboutClasses::Dog6
+    - AboutClasses::Dog7
+    - AboutClassMethods::Dog2
+  ManualDispatch:
+    exclude:
+    - AboutToStr#acts_like_a_string?
+    - AboutSymbols#test_symbols_do_not_have_string_methods
+    - AboutMessagePassing#test_catching_messages_makes_respond_to_lie
+    - AboutMessagePassing#test_classes_can_be_asked_if_they_know_how_to_respond
+    - AboutMessagePassing#test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
+  NestedIterators:
+    exclude:
+    - AboutIteration#test_all_iteration_methods_work_on_any_collection_not_just_arrays
+  IrresponsibleModule:
+    exclude:
+    - AboutClassMethods::Dog

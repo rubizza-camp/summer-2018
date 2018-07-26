@@ -1,0 +1,12 @@
+dist
+.project_env.rc
+.path_progress
+.rvmrc
+.ruby-version
+*.rbc
+.idea/*
+koans/neo.rb
+koans/path_to_enlightenment.rb
+koans/koans.watchr
+rakelib/*
+*~
