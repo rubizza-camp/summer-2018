@@ -33,7 +33,7 @@ module RapersCounters
   # I think it will be better to paste this code here in couse of small project
   def find_rapers_titles(raper)
     rapers_titles = []
-    Dir.chdir(Service.path) do
+    Dir.chdir(Service::PATH) do
       Dir.glob("*#{raper}*").each do |title|
         rapers_titles << title if title.split('против').first.include? raper
       end

@@ -6,19 +6,17 @@ class Service
   # This method smells of :reek:Attribute
   attr_accessor :rapers
 
+PATH = 'texts'.freeze
+
   def initialize
     @rapers = []
-  end
-
-  def self.path
-    @path = 'texts'
   end
 
   # This method smells of :reek:UtilityFunction
   def find_rapers
     rapers_names_only ||= begin
       rapers_names_only = []
-      Dir.chdir(Service.path) do
+      Dir.chdir(PATH) do
         Dir.glob('*против*').each do |title|
           rapers_names_only << title.split(' против').first.strip
         end

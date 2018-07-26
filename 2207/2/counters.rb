@@ -7,13 +7,13 @@ module Counters
   UNNESSESARY_SYMBOLS = /[.!-?,:]/
   # This method smells of :reek:UtilityFunction
   def read_files_with_buttles(battle)
-    Dir.chdir(Service.path) { File.read(battle) }
+    Dir.chdir(Service::PATH) { File.read(battle) }
   end
 
   def count_normal(battles)
     count_hash = battles.each_with_object({ words: [], lines: [] }) do |bat, hsh|
       hsh[:words] << read_files_with_buttles(bat).gsub(UNNESSESARY_SYMBOLS, ' ').strip.split
-      hsh[:lines] << Dir.chdir(Service.path) { File.readlines(bat) }
+      hsh[:lines] << Dir.chdir(Service::PATH) { File.readlines(bat) }
     end
     count_words_per_rounds(count_hash)
   end
