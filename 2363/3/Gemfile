@@ -3,11 +3,14 @@
 source 'https://rubygems.org'
 ruby '2.5.1'
 
-gem 'json'
-gem 'mechanize'
-gem 'ohm'
 gem 'pry', group: :development
-gem 'rake'
-gem 'shotgun'
-gem 'sinatra'
-gem 'slim'
+
+group :development, :production do
+  gem 'json'
+  gem 'mechanize'
+  gem 'ohm'
+  gem 'rake'
+  gem 'shotgun'
+  gem 'sinatra'
+  gem 'slim'
+end
