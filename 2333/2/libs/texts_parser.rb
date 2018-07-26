@@ -1,7 +1,7 @@
 # # Class that parse text files to hash
 class TextsParser
   def initialize
-    @hash = Hash.new { |key, value| key[value] = [] }
+    @hash = Hash.new([])
   end
 
   def self.name_split(file)

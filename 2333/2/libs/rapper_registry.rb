@@ -1,14 +1,11 @@
-require_relative 'rapper.rb'
-
-# Class that creates a rappers array
+# The class that search rappers in array of rappers
 class RapperRegistry
-  attr_reader :rappers
-  def initialize
-    @rappers = create_rappers_array
+  def initialize(rappers)
+    @rappers = rappers
   end
 
   def select_rapper(name)
-    rappers.select { |rapper| rapper.name == name }
+    @rappers.select { |rapper| rapper.name == name }
   end
 
   def search_name(name)
@@ -17,16 +14,5 @@ class RapperRegistry
 
   def names
     @rappers.map(&:name)
-  end
-
-  private
-
-  def create_rappers_array
-    new_rappers_array = []
-    versus_json = JSON.parse(File.read('data.json'))
-    versus_json.each do |name, battles|
-      new_rappers_array << Rapper.new(name, battles)
-    end
-    new_rappers_array
   end
 end
