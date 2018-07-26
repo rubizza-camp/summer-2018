@@ -32,13 +32,13 @@ class PostsController < ApplicationController
     slim :'post/index'
   end
 
-  post '/post/delete/:id' do
+  delete '/post/delete/:id' do
     @post = Post.all[params[:id]]
     @post.delete
     redirect '/'
   end
 
-  post '/post/delete_all' do
+  delete '/post/delete_all' do
     Post.all.each(&:delete)
     redirect '/'
   end

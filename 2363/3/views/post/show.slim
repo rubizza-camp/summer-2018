@@ -15,7 +15,7 @@ div
             a href="post/#{post.id}" = post.link
           td class='align-middle'
             form action='post/delete/#{post.id}' method='post'
-              button type='submit' class='btn btn-outline-light' onclick="return confirm('Delete this post?')" Delete
+              button type='submit' id='hidden' name='_method' value='delete' class='btn btn-outline-light' onclick="return confirm('Delete this post?')" Delete
           td class='align-middle'
             form action='add' method='post'
               button type='submit' value="#{post.link}" name='link' class='btn btn-outline-light' Update
