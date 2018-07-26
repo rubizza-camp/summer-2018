@@ -1,0 +1,7 @@
+source 'https://rubygems.org' do
+  gem 'json'
+  gem 'mechanize'
+  gem 'ohm'
+  gem 'shotgun'
+  gem 'sinatra'
+end
