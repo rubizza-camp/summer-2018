@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+gem 'json'
+gem 'mechanize'
+gem 'ohm'
+gem 'shotgun'
+gem 'sinatra'
+
+group :development do
+  gem 'pry'
+end
