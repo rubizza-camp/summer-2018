@@ -24,8 +24,8 @@ module Counters
     hash[:words].flatten.select! { |word| word.size > 3 }.count / revelant_lines
   end
 
-  def count_bad(battles)
-    battles.inject(0) do |sum, battle|
+  def count_bad
+    @titles.inject(0) do |sum, battle|
       sum + count_bad_words(read_files_with_buttles(battle))
     end
   end
