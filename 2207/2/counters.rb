@@ -3,7 +3,6 @@ require_relative 'service'
 # The module Counters is responsible for counting words in text which done to him
 
 module Counters
-  
   UNNESSESARY_SYMBOLS = /[.!-?,:]/
   # This method smells of :reek:UtilityFunction
   def read_files_with_buttles(battle)
@@ -11,7 +10,7 @@ module Counters
   end
 
   def count_normal(battles)
-    count_hash = battles.each_with_object({ words: [], lines: [] }) do |bat, hsh|
+    count_hash = battles.each_with_object(words: [], lines: []) do |bat, hsh|
       hsh[:words] << read_files_with_buttles(bat).gsub(UNNESSESARY_SYMBOLS, ' ').strip.split
       hsh[:lines] << Dir.chdir(Service::PATH) { File.readlines(bat) }
     end
