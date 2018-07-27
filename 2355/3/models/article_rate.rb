@@ -13,9 +13,7 @@ class ArticleRate
   def all_comments_rate
     docs = []
     @article.comments.each do |comment|
-      docs << { 'id' => 1,
-                'language' => 'ru',
-                'text' => comment.text.to_s }
+      docs << { 'id' => 1, 'language' => 'ru', 'text' => comment.text.to_s }
     end
     documents = { 'documents': docs }
     TextAnalytics.new(documents).analyze['documents']
