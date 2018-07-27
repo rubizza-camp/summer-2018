@@ -1,10 +1,9 @@
 module Models
   class Comment
-    attr_reader :id, :description
+    attr_reader :description
     attr_accessor :rate
 
-    def initialize(id, description, rate)
-      @id = id
+    def initialize(description, rate)
       @description = description
       @rate = rate
     end

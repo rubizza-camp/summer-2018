@@ -10,8 +10,7 @@ module Models
       @id = id
       @name = name
       @link = link
-      @comment_list = []
-      comment_list.each { |comment| add_comment(comment) }
+      @comment_list = comment_list
     end
 
     def rate

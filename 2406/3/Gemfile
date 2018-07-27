@@ -6,6 +6,7 @@ gem 'sass'
 gem 'redis'
 gem 'json'
 gem 'thin'
+gem 'mechanize'
 
 group :development do
   gem 'pry'
