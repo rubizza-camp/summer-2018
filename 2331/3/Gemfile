@@ -4,10 +4,10 @@ gem 'json'
 gem 'mechanize'
 gem 'ohm'
 gem 'rake'
-gem 'shotgun'
 gem 'sinatra'
 gem 'thin'
 
 group :development do
   gem 'pry'
+  gem 'shotgun'
 end

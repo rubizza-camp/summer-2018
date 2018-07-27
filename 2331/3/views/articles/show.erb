@@ -2,8 +2,11 @@
   <h2><%= @article.title %></h2>
 </div>
 
-<a href="/articles/<%= @article.id %>/edit" class="btn btn-info">Edit article</a> |
-<a href="/articles/<%= @article.id %>/delete" class="btn btn-danger">Delete article</a>
+<a href="/articles/<%= @article.id %>/edit" class="btn btn-info">Edit Article</a> |
+<form action="/articles/<%= @article.id %>" method="post" style="display: inline">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Article" class="btn btn-danger">
+</form>
 
 
 <h3>Comments</h3>

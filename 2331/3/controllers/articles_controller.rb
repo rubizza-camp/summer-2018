@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
     erb :'articles/edit'
   end
 
-  get '/:id/delete' do
+  delete '/:id' do
     Article[params[:id]].delete
     redirect to '/'
   end
