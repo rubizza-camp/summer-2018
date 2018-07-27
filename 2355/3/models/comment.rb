@@ -7,7 +7,7 @@ class Comment
   def initialize(text)
     @text = text
     docs = { 'id' => 1, 'language' => 'ru', 'text' => text }
-    documents = { 'documents': [docs] }
+    documents = { 'documents'=> [docs] }
     @rate = (TextAnalytics.new(documents).analyze['documents'][0]['score'] * 200 - 100).to_i
   end
 end
