@@ -1,4 +1,5 @@
 require 'dotenv/load'
+# analyze comment
 class CommentAnalyzer
   ACCESS_KEY = ENV['ACCESS_KEY']
   AZURE_ENDPOINT = ENV['AZURE_ENDPOINT']
@@ -9,7 +10,7 @@ class CommentAnalyzer
 
   def analyze
     JSON.parse(run_request.body)['documents'].each_with_object([]) do |result, store|
-      document = documents.find { |document| document[:id].to_s == result['id'] }
+      document = documents.find { |doc| doc[:id].to_s == result['id'] }
       store << {
         text: document[:text],
         rating: result['score'] * 200 - 100
@@ -31,12 +32,12 @@ class CommentAnalyzer
 
   def documents
     @documents ||= @texts.map do |text|
-      {id: text.object_id, language: 'ru', text: text}
+      { id: text.object_id, language: 'ru', text: text }
     end
   end
 
   def serialized_texts
-    {documents: documents}.to_json
+    { documents: documents }.to_json
   end
 
   def run_request

@@ -1,15 +1,21 @@
 require 'sinatra'
 require 'pry'
-
+# class ApplicationController
 class ApplicationController < Sinatra::Base
   set views: 'views/'
 
   get '/' do
+    @pages = Page.all
     erb :index
   end
 
   get '/new' do
     erb :new
+  end
+
+  get '/show/:id' do
+    @page = Page[params[:id]]
+    erb :show
   end
 
   post '/analyze' do

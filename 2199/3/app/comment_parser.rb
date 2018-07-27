@@ -1,3 +1,4 @@
+# parse node and find text and rating
 class CommentParser
   def initialize(node)
     @node = node

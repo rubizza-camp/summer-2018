@@ -1,3 +1,4 @@
+# Page model
 class Page < Ohm::Model
   attribute :link
   collection :comments, 'Comment'

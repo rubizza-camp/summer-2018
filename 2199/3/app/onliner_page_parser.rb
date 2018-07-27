@@ -18,19 +18,17 @@ class OnlinerPageParser
     attempts = 0
     begin
       browser.visit(@link)
-    rescue StandardError => e
+    rescue StandardError => exception
       attempts += 1
       sleep(2 * attempts)
-      if attempts <= 3
-        retry
-      else
-        raise e
-      end
+      retry if attempts <= 3
+      raise exception
     end
   end
 
   def show_all_comments
-    browser.find('.news-form__control_condensed .news-form__button').click
+    browser.find('.button-style.button-style_subsidiary.button-style_big.news-form__button'\
+      '.news-form__button_width_full.news-form__button_font-weight_semibold').click
     sleep(5)
   end
 
