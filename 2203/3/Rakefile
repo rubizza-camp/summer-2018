@@ -1,4 +1,0 @@
-require 'sinatra/asset_pipeline/task'
-require_relative './onliner'
-
-Sinatra::AssetPipeline::Task.define! Onliner

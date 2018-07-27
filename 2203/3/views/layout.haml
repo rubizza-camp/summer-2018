@@ -1,10 +1,18 @@
-!!!
-%html
-  %head
-    %title Comment Analyzer
-    = stylesheet_tag 'app'
-    %link(href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css')
-    %link{ :type => "image/png", :href => image_path("favicon.ico"), :rel => "shortcut icon" }
-    %meta{:name => 'viewport', :content => 'width=device-width; initial-scale=1; user-scalable=0;'}
-  %body
-    %main= yield
+%head
+  %link{ :href => "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css",:rel => "stylesheet" }
+  %script{:src => "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"}
+  %script{:src => "//code.jquery.com/jquery-1.11.1.min.js"}
+%body
+  .navbar
+    .navbar-inner
+      .container
+        %a.brand{ :href => "/" } OnlinerParser
+        .nav-collapse
+          %ul.nav.pull-right
+            %li.divider-vertical
+            %li
+              %a{ :href => "/articles/new" }
+                %span.glyphicon.glyphicon-plus
+                %b New article
+  .container
+    = yield

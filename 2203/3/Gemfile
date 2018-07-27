@@ -1,10 +1,15 @@
 source 'https://rubygems.org'
 
 gem 'haml'
+gem 'json'
 gem 'mechanize'
 gem 'ohm'
-gem 'redis'
-gem 'scss'
+gem 'rake'
+gem 'sass'
 gem 'sinatra'
-gem 'sinatra-asset-pipeline'
-gem 'sinatra-static-assets'
+gem 'thin'
+
+group :development do
+  gem 'pry'
+  gem 'shotgun'
+end

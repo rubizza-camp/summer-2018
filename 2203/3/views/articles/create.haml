@@ -1,0 +1,7 @@
+%h1 New article
+%form{:action => "/articles", :method => "post"}
+  .form-group
+    %label{:for => "article"} Article's link
+    %input#article.form-control{"aria-describedby" => "emailHelp", :autofocus => "", :name => "article", :pattern => "^(http|https):\\/\\/\\w+\\.onliner.+", :placeholder => "Input link", :title => "Example: https://tech.onliner.by/2018/07/26/eksperiment-biosfera-2", :type => "text", :value => ""}/
+    %small#emailHelp.form-text.text-muted Link to be processed
+  %button.btn.btn-success{:type => "submit"} Add

@@ -1,6 +1,7 @@
-require_relative './onliner'
+require 'bundler'
+Bundler.require
 
-Post.redis = Redic.new('redis://127.0.0.1:6379/0')
-Comment.redis = Redic.new('redis://127.0.0.1:6379/1')
+Dir.glob('./{controllers,helpers,models}/*.rb').each { |file| require_relative file }
 
-run Onliner
+map('/articles') { run ArticlesController }
+map('/') { run ApplicationController }
