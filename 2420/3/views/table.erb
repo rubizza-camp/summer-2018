@@ -1,0 +1,17 @@
+<CENTER>
+  <h1>Добавьте новый URL: </h1>
+  <form action="/table" method="POST">
+    <input type="text" name="new_url" />
+    <input type="submit" />
+  </form>
+  <table BORDER CELLPADDING=10 CELLSPACING=0>
+   <% Article.all.each do |article| %>
+      <tr>
+        <td><a href='#'><%= article.url %></a></td>
+        <td><%= article.article_rating %></td>
+        <td>
+          <a href=<%= "/analysis/#{article.id}" %>>Линка</a>
+        </td>
+      </tr>
+  <%end%>
+</CENTER>

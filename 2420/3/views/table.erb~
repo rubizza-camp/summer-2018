@@ -1,0 +1,21 @@
+
+<% provide(:title, "Table") %>
+<table border="6" cellspacing="0" cellpadding="15" width="90%" height="130">
+ <% LINKS.each do |link| %>
+    <tr>
+      <td><a href="URL"><%= Ohm.redis.call "GET", link %></a></td>
+      <td>ахуительная ячейка</td>
+    </tr>
+  <%end%>
+
+
+
+
+<h1>Добавьте новый URL  </h1>
+
+<form action="/table" method="POST">
+
+  <input type="text" name="new_url" />
+  <input type="submit" />
+
+</form>

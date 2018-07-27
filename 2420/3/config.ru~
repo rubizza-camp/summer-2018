@@ -1,0 +1,11 @@
+require 'sinatra/base'
+require 'ohm'
+
+
+
+Dir.glob('./{helpers,controllers}/*.rb').each { |file|
+	require file }
+
+map('/') { run ApplicationController }
+map('/table') { run TableController }
+map('/analysis') { run AnalysisController }
