@@ -1,5 +1,5 @@
 require 'bundler'
-Bundler.require
+Bundler.require(:default)
 
 use Rack::MethodOverride
 Dir.glob('./{helpers,controllers,models}/*.rb').each { |file| require file }
