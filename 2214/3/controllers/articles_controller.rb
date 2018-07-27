@@ -22,12 +22,12 @@ class ArticlesController < ApplicationController
     slim :show_article
   end
 
-  post '/:id' do
+  delete '/:id' do
     Article.all[params[:id]].delete
     redirect '/articles'
   end
 
-  post '/' do
+  delete '/' do
     Article.all.each(&:delete)
     redirect '/articles'
   end
