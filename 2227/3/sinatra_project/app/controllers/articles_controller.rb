@@ -1,5 +1,7 @@
 # Controller Sinatra
-
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+# This method smells of :reek:DuplicateMethodCall
+# This method smells of :reek:TooManyStatements
 module ArticlesController
   def self.registered(app)
     app.get '/article/create' do
@@ -24,3 +26,4 @@ module ArticlesController
     end
   end
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -1,3 +1,4 @@
+# rubocop:disable Lint/AmbiguousBlockAssociation:
 Bundler.require(:default)
 
 (Dir['./app/lib/*.rb'] + Dir['./app/models/*.rb'] + Dir['./app/controllers/*.rb']).each do |file|
@@ -15,3 +16,4 @@ class SinatraProject < Sinatra::Base
 end
 
 run SinatraProject
+# rubocop:enable Lint/AmbiguousBlockAssociation:
