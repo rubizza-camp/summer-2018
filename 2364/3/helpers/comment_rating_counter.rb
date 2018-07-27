@@ -23,9 +23,8 @@ class CommentRatingCounter
 
   def create_answer
     response = create_response
-    JSON.parse(response.body)['documents'].each_with_object([]) do |document, ratings|
-      ratings << ((document['score'] * 200).to_i - 100)
-    end
+    counting_score = ->(document) { (document['score'] * 200).to_i - 100 }
+    JSON.parse(response.body)['documents'].map(&counting_score)
   end
 
   def create_response
@@ -45,7 +44,8 @@ class CommentRatingCounter
   def create_request
     @request = Net::HTTP::Post.new(uri)
     request['Content-Type'] = 'application/json'
-    request['Ocp-Apim-Subscription-Key'] = ACESS_KEY
+    access_key = YAML.load_file(File.join(Dir.pwd, 'keys.yml'))['access_key']
+    request['Ocp-Apim-Subscription-Key'] = access_key
     request.body = documents.to_json
   end
 end

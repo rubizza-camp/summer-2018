@@ -19,9 +19,8 @@ class CommentsParser
   def parse_comments_from_page
     resp = parse_comments
     comments = JSON.parse(resp.body)['comments']
-    comments.each_with_object([]) do |element, texts|
-      texts << element['text'].tr("\n", ' ')
-    end
+    create_text = ->(comment) { comment['text'].tr("\n", ' ') }
+    comments.map(&create_text)
   end
 
   def parse_comments

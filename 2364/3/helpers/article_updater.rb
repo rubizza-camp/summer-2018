@@ -4,11 +4,11 @@ class ArticleUpdater
 
   def initialize(article)
     @article = article
-    @texts = CommentsParser.new(article.link).run
-    @ratings = CommentRatingCounter.new(texts).run
   end
 
   def run
+    @texts = CommentsParser.new(article.link).run
+    @ratings = CommentRatingCounter.new(texts).run
     update_article_title
     create_article_stat
     update_article_rating

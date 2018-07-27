@@ -1,4 +1,4 @@
-Bundler.require(:default)
+Bundler.require(:default, :development)
 
 Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
 
