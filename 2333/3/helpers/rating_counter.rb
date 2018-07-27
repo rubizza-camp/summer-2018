@@ -30,7 +30,7 @@ class RatingCounter
 
   def prepare_data_for_request
     @comments.each_with_index do |comment, index|
-      @data[:documents] << { id: index.to_s, language: 'ru', text: comment}
+      @data[:documents] << { id: index.to_s, language: 'ru', text: comment }
     end
   end
 
