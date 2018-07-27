@@ -1,2 +1,2 @@
-require_relative 'comment_analyzer'
-CommentAnalyzer.run!
+require_relative './onliner'
+Onliner.run!

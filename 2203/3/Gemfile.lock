@@ -94,7 +94,6 @@ DEPENDENCIES
   haml
   mechanize
   ohm
-  rake
   redis
   scss
   sinatra

@@ -1,4 +1,4 @@
 require 'sinatra/asset_pipeline/task'
-require './commen_analyzer'
+require_relative './onliner'
 
-Sinatra::AssetPipeline::Task.define! CommentAnalyzer
+Sinatra::AssetPipeline::Task.define! Onliner

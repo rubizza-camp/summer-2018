@@ -8,7 +8,3 @@ gem 'scss'
 gem 'sinatra'
 gem 'sinatra-asset-pipeline'
 gem 'sinatra-static-assets'
-
-group :development do
-  gem 'rake'
-end

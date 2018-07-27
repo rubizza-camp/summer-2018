@@ -1,0 +1,15 @@
+.page.indexPage
+  .title
+    %h1 Posts
+
+  %table
+    %tr
+      %td Ссылки
+      %td Рейтинг
+      %td Комментарии
+    - posts.each do |post|
+      %tr
+        %td= post.link
+        %td= post.rating
+        %td
+          %a{:href => "/posts/comments/#{post.id}"} comments

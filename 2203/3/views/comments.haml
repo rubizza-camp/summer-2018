@@ -1,0 +1,11 @@
+.page.indexPage
+  .title
+    %h1 Comment Analyzer
+  %table
+    %tr
+      %td Комментарий
+      %td Рейтинг
+    - @comments.each do |comment|
+      %tr
+        %td= comment.comment_text
+        %td= comment.rating
