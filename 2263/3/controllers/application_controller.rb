@@ -1,52 +1,51 @@
 require 'sinatra'
 require 'ohm'
+require 'pry'
+require_relative '/home/alexandr/MyFolder/projects/onliner_analizer/helpers/database_models.rb'
 
+# Main controller
 class ApplicationController < Sinatra::Base
-	set :views, File.expand_path(File.join(__FILE__, '../../views'))
+  set :views, File.expand_path(File.join(__FILE__, '../../views'))
 
-	get '/' do
-		@article = Article
-		erb :main_view
-	end
+  get '/' do
+    @articles = Article.all
+    erb :main_view
+  end
 
-	post '/addlink' do
-		link = OnlinerLink.new(params[:link])
-		if link.verified? 
-      comments = LinkExplorer.new(link, 'de0f5ae352a34914b6134a4fe9a06040').explore
+  post '/addlink' do
+    link = OnlinerLink.new(params[:link])
+    if link.verified?
+      comments = LinkExplorer.new(link, File.read('./.key')).explore
       article_sentiment = article_sentiment(comments)
-      @article = add_to_redis_model(link, comments, article_sentiment)
-			erb :main_view
-		else
-			erb :wrong_link
-		end
-	end
+      add_to_redis_model(link, comments, article_sentiment)
+      @articles = Article.all
+      erb :main_view
+    else
+      erb :wrong_link
+    end
+  end
 
-	post '/cleardb' do
-		Ohm.redis.call("FLUSHALL")
-		@links = Ohm.redis.call("LRANGE", "links", 0, -1)
-		erb :main_view
-	end
+  post '/cleardb' do
+    Ohm.redis.call('FLUSHALL')
+    @articles = Article.all
+    erb :main_view
+  end
+
+  get '/analysis/:id' do
+    @comments = Article[params[:id]].comments
+    erb :analysis
+  end
 end
 
 def article_sentiment(comments)
-  comments.inject { |sum, comment| sum + comment.comment } / comments.count
+  comments.inject(0) { |sum, comment| sum + comment.sentiment } / comments.count
 end
 
 def add_to_redis_model(link, comments, sentiment)
-  article = Article.create(:link => link.link, :sentiment => sentiment)
-  comments.each { |com| article.comments.push(Comment.create(:body => com.comment, :sentiment => com.sentiment)) }
+  article = Article.create(link: link.link, sentiment: sentiment)
+  comments.each do |com|
+    comdb = CommentDB.create(body: com.comment, sentiment: com.sentiment)
+    article.comments.push(comdb)
+  end
   article
 end
-
-
-
-#comments = Parser.new('https://tech.onliner.by/2018/07/24/russkie-xakery').comments
-#values = comments.each_with_object([]) { |comment, array| array << AZURESentimentAnalyzer.new('de0f5ae352a34914b6134a4fe9a06040').analyze(comment) }
-#puts values
-
-
-
-
-#Ohm.redis = Redic.new("redis://127.0.0.1:6379")
-#Ohm.redis.call "RPUSH", "links", params[:link]
-#Ohm.redis.call "LRANGE", "links", 0, -1

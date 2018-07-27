@@ -1,24 +1,23 @@
 <html>
-	<form action="/addlink" method="POST">
-			Input link: <input type="text" name="link">
-		<input type="submit" value="Submit">
-	</form>
+  <form action="/addlink" method="POST">
+      Input link: <input type="text" name="link">
+    <input type="submit" value="Submit">
+  </form>
 
-	<head>
-		<title> Table </title>
-	</head>
-	<body>
-		<table border="6" cellspacing="0" cellpadding="15" width="90%" height="130">
-    <% require 'database_models' %>
-			<% while true %>
-				<tr>
-					<td><%= element %></td>
-				<tr/>
-			<%end%>
-		</table>
-	</body>
+  <head>
+    <title> Table </title>
+  </head>
+  <body>
+    <table border="6" cellspacing="0" cellpadding="15" width="90%" height="130">
+      <% @articles.each do |article| %>
+        <tr>
+          <td><a href=<%= "/analysis/#{article.id}" %>><%= article.link %></a></td><td><%= article.sentiment %></td>
+        <tr/>
+      <% end %>
+    </table>
+  </body>
+  
+  <form action="/cleardb" method="POST">
+    <br><input type="submit" value="Clear database">
+  </form>
 </html>
-
-<form action="/cleardb" method="POST">
-	<br><input type="submit" value="Clear database">
-</form>

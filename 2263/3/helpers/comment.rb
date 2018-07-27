@@ -1,3 +1,4 @@
+# Comment class
 class Comment
   attr_reader :comment, :sentiment
 
@@ -7,7 +8,7 @@ class Comment
   end
 
   def good?
-    @sentiment >= 0 ? true : false
+    @sentiment >= 0
   end
 
   private
