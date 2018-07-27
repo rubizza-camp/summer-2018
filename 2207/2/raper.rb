@@ -6,29 +6,27 @@ require_relative 'counters'
 
 class Raper
   include Counters
-  attr_reader :name, :battles, :titles, :bad_words, :bad_in_round, :words_in_round
+  attr_reader :name, :titles
   def initialize(name_of_raper)
     @name = name_of_raper
-    @battles ||= find_rapers_titles.size
-    @titles ||= find_rapers_titles
-    @bad_words ||= bad_words
-    @bad_in_round ||= bad_in_round
-    @words_in_round ||= words_in_round
+    @titles = find_rapers_titles
   end
 
-  # rubocop:disable Lint/DuplicateMethods
+  def battles
+    @battles ||= find_rapers_titles.size
+  end
+
   def bad_in_round
-    (bad_words.to_f / @titles.size).round(2)
+    @bad_in_round ||= (bad_words.to_f / @titles.size).round(2)
   end
 
   def bad_words
-    count_bad
+    @bad_words ||= count_bad
   end
 
   def words_in_round
-    count_normal(@titles)
+    @words_in_round ||= count_normal(@titles)
   end
-  # rubocop:enable Lint/DuplicateMethods
 
   def self.add_raper(name_of_raper)
     Raper.new(name_of_raper)
