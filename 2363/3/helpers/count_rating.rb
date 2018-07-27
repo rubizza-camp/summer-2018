@@ -7,19 +7,18 @@ require 'json'
 # Instance use the most time in prepare request because
 # This class get array of comments and return rating for every comment
 class CountRating
-  ACESS_KEY = env['ACCESS_KEY']
-  URI = 'https://westcentralus.api.cognitive.microsoft.com'
-  PATH = '/text/analytics/v2.0/sentiment'
+  URI = 'https://westcentralus.api.cognitive.microsoft.com'.freeze
+  PATH = '/text/analytics/v2.0/sentiment'.freeze
   attr_reader :data, :uri, :request
 
-  def initialize
+  def initialize(comments, api_key)
     @uri = URI(URI + PATH)
     @data = { documents: [] }
+    prepare_data(comments)
+    @request = prepare_request(api_key)
   end
 
-  def run(comments)
-    prepare_data(comments)
-    @request = prepare_request
+  def run
     prepare_output_data(send_request)
   end
 
@@ -38,14 +37,14 @@ class CountRating
   end
 
   def prepare_output_data(response)
-    JSON.parse(response.body)['documents'].each_with_object([]) do |data, rating|
-      rating << ((data['score'] * 200).to_i - 100)
+    JSON.parse(response.body)['documents'].map do |data|
+      ((data['score'] * 200).to_i - 100)
     end
   end
 
   # prepare data fro api
-  def prepare_request
-    request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => ACESS_KEY)
+  def prepare_request(api_key)
+    request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => api_key)
     request.body = data.to_json
     request
   end

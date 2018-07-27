@@ -20,8 +20,8 @@ class PostsController < ApplicationController
     Post.all.each do |post|
       post.delete if post.link == params[:link]
     end
-    comments = CommentsParser.new.run(params[:link])
-    rating = CountRating.new.run(comments)
+    comments = CommentsParser.new(params[:link]).run
+    rating = CountRating.new(comments, settings.access_key).run
     post = Post.create link: params[:link], rating: rating.sum / rating.size
     comments.zip(rating).each do |obj|
       post.comments.add(Comment.create(text: obj.first, rating: obj.last))
