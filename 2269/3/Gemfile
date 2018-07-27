@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'mechanize'
+gem 'ohm'
+gem 'shotgun'
+gem 'sidekiq'
+gem 'sinatra'
+gem 'thin'
