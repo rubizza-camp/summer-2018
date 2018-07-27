@@ -2,7 +2,6 @@ class HTMLParser
   require 'mechanize'
   require_relative '../../models/article'
   require_relative '../../models/comment'
-  require_relative '../../analyzer/azure_analyzer'
 
   def self.to_article(link)
     @agent = Mechanize.new
@@ -18,9 +17,6 @@ class HTMLParser
   def self.comment_list(link, id)
     result_comments = []
     hash_from_json(link, id)['comments'].each { |comment_hash| result_comments << Models::Comment.new(comment_hash['text'], 0) }
-    # Parse mark from azure
-    azure_analyzer = Analyzer::AzureAnalyzer.new
-    result_comments.each { |comment| comment = azure_analyzer.execute(comment) }
     result_comments
   end
 

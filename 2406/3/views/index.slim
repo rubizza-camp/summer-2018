@@ -23,7 +23,7 @@ html
             tr
               td.name: a href="/articles/#{id}" #{article.name}
               td.link: a href="#{article.link}" #{article.link}
-              td.rate = article.rate
+              td.rate = article.rate.round(3)
 
       - else
         p
