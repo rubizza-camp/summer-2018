@@ -16,9 +16,9 @@ class ArticlesController < ApplicationController
 
   # create a new article
   post '/new' do
-    obj = ArticleHelper.new(params[:link])
-    @article = Article.create title: obj.title, link: params[:link], rating: obj.rating
-    obj.comments.map do |comment|
+    article_parse = ArticleHelper.new(params[:link])
+    @article = Article.create(title: article_parse.title, link: params[:link], rating: article_parse.rating)
+    article_parse.comments.map do |comment|
       @article.comments.add(Comment.create(text: comment.text, author: comment.author, rating: comment.rating))
     end
     erb :show
