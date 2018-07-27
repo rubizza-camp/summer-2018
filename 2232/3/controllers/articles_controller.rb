@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
   end
 
   # show article
-  get '/show/:id' do
+  get '/:id' do
     @article = Article.all[params[:id]]
     erb :show
   end
