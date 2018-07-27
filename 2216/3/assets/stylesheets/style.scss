@@ -1,71 +1,95 @@
-html { 
- position:relative; 
- min-height:100%;
-}
+$body-color: rgb(219, 232, 175);
+$header-and-footer-color: rgb(158, 203, 168);
+$text-color: rgb(251, 255, 201);
+$error-text-color: rgb(255, 0, 0);
+$table-color: rgb(0, 0, 0);
 
-html, body, main {
+html {
+  position: relative;
+  min-height: 100%;
   width: 100%;
   height: 100%;
-  background-color: #dbe8af;
+  background-color: $body-color;
 }
 
-header, footer {
-  background-color: #9ecba8;
-  height: 10%
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $body-color;
+}
+
+header {
+  background-color: $header-and-footer-color;
+  height: 10%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 footer {
   position: fixed;
   bottom: 0;
-  width: 100%; 
-}
-
-body, header, footer, main, h1 {
+  width: 100%;
+  background-color: $header-and-footer-color;
+  height: 10%;
   margin: 0;
   padding: 0;
+  text-align: center;
+}
+
+main{
+  width: 100%;
+  height: 100%;
+  background-color: $body-color;
+  text-align: center;
 }
 
 .copyright {
   padding: 2%;
-  color: #fbffc9;
-}
-
-main, header, footer {
-  text-align: center;
+  color: $text-color;
 }
 
 h1 {
+  margin: 0;
+  padding: 0;
   font-size: 200%;
   padding-top: 1%;
-  color: #fbffc9;
+  color: $text-color;
 }
 
 .content {
-  margin: 15%  
+  margin: 15%;
 }
 
-table, th, td {
-    border: 1px solid black;
+th {
+  border: 1px solid $table-color;
+}
+
+td {
+  border: 1px solid $table-color;
 }
 
 table {
   border-collapse: collapse;
   margin: 0 auto;
+  border: 1px solid $table-color;
 }
 
 form {
-  padding-top: 5%  
+  padding-top: 5%;
 }
 
-#look_sub {
-  width: 30%
+.look_sub {
+  width: 30%;
 }
 
-#address {
-  width: 50%
+.address {
+  width: 50%;
 }
 
-.error_message {
+.error-message {
   padding-top: 3%;
-  color: red
+  color: $error-text-color;
 }
