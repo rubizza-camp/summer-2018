@@ -23,18 +23,16 @@ class Azure
     end
   end
 
-  def connection
-    @connection ||= Faraday.new(URI)
+  def response
+    connection.post PATH, { documents: documents }.to_json
   end
 
-  def response
-    headers = { 'Content-Type' => 'application/json',
-                'Ocp-Apim-Subscription-Key' => File.read('settings/azure_key.txt') }
-    connection.post do |request|
-      request.url PATH
-      request.headers headers
-      request.body = { documents: documents }.to_json
-    end
+  def connection
+    headers = {
+      'Content-Type' => 'application/json',
+      'Ocp-Apim-Subscription-Key' => File.read('settings/azure_key.txt')
+    }
+    Faraday.new(URI, headers: headers)
   end
 
   def documents
