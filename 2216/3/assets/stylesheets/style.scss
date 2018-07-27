@@ -5,19 +5,19 @@ $error-text-color: rgb(255, 0, 0);
 $table-color: rgb(0, 0, 0);
 
 html {
-  position: relative;
-  min-height: 100%;
-  width: 100%;
-  height: 100%;
   background-color: $body-color;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
 }
 
 body {
+  background-color: $body-color;
+  height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  background-color: $body-color;
 }
 
 header {
@@ -29,34 +29,34 @@ header {
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   background-color: $header-and-footer-color;
+  bottom: 0;
   height: 10%;
   margin: 0;
   padding: 0;
+  position: fixed;
   text-align: center;
+  width: 100%;
 }
 
-main{
-  width: 100%;
-  height: 100%;
+main {
   background-color: $body-color;
+  height: 100%;
   text-align: center;
+  width: 100%;
 }
 
 .copyright {
-  padding: 2%;
   color: $text-color;
+  padding: 2%;
 }
 
 h1 {
+  color: $text-color;
+  font-size: 200%;
   margin: 0;
   padding: 0;
-  font-size: 200%;
   padding-top: 1%;
-  color: $text-color;
 }
 
 .content {
@@ -72,16 +72,16 @@ td {
 }
 
 table {
+  border: 1px solid $table-color;
   border-collapse: collapse;
   margin: 0 auto;
-  border: 1px solid $table-color;
 }
 
 form {
   padding-top: 5%;
 }
 
-.look_sub {
+.look-sub {
   width: 30%;
 }
 
@@ -90,6 +90,6 @@ form {
 }
 
 .error-message {
-  padding-top: 3%;
   color: $error-text-color;
+  padding-top: 3%;
 }
