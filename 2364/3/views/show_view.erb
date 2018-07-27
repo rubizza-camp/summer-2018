@@ -1,0 +1,15 @@
+<%= erb :base %>
+<body class='container'>
+<h1 align='center'>IT articles rating counter</h1>
+<table class="table">
+   <caption>Links</caption>
+   <tr>
+    <th>Link</th>
+    <th>Rating</th>
+   </tr>
+   <% @articles.each do |article| %>
+       <tr><td><p><a href='/article/<%= article.id %>'><%= article.title %></a></p></td><td><%= article.rating %></td></tr>
+   <% end %>
+  </table>
+<p><a href='/article/add' class='btn btn-primary'>Add link</a></p>
+</body>
