@@ -14,6 +14,7 @@ class OnlinerPageParser
     @browser ||= Capybara.current_session
   end
 
+  # :reek:TooManyStatements
   def visit_page
     attempts = 0
     begin

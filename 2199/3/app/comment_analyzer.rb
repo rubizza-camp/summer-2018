@@ -8,6 +8,8 @@ class CommentAnalyzer
     @texts = texts
   end
 
+  # :reek:NestedIterators
+  # rubocop:disable Metrics/AbcSize
   def analyze
     JSON.parse(run_request.body)['documents'].each_with_object([]) do |result, store|
       document = documents.find { |doc| doc[:id].to_s == result['id'] }
@@ -17,11 +19,13 @@ class CommentAnalyzer
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def endpoint
     @endpoint ||= URI(AZURE_ENDPOINT)
   end
 
+  # :reek:FeatureEnvy
   def request
     request = Net::HTTP::Post.new(endpoint)
     request['Content-Type'] = 'application/json'
