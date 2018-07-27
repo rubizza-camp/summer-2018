@@ -6,11 +6,11 @@ class ArticlesController < ApplicationController
     slim :index
   end
 
-  get '/add' do
+  get '/new' do
     slim :add
   end
 
-  post '/add' do
+  post '/new' do
     article = ArticleCreator.new(params[:link])
     article_db = Article.create link: params[:link], rating: article.rating
     article.comments.map { |coment| article_db.comments.add(Comment.create(text: coment.text, rating: coment.rating)) }
