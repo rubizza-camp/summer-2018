@@ -1,32 +1,47 @@
-require_relative 'data_store'
-class CommentsAnalyzer
-  attr_reader :text
+require 'dotenv/load'
+class CommentAnalyzer
+  ACCESS_KEY = ENV['ACCESS_KEY']
+  AZURE_ENDPOINT = ENV['AZURE_ENDPOINT']
 
-  def initialize(text)
-    @text = text
+  def initialize(texts)
+    @texts = texts
   end
 
-  def analyze(text)
-
-    count_rating(rating)
+  def analyze
+    JSON.parse(run_request.body)['documents'].each_with_object([]) do |result, store|
+      document = documents.find { |document| document[:id].to_s == result['id'] }
+      store << {
+        text: document[:text],
+        rating: result['score'] * 200 - 100
+      }
+    end
   end
 
-  def count_rating(rating)
-    (rating * 2) - 100
+  def endpoint
+    @endpoint ||= URI(AZURE_ENDPOINT)
+  end
+
+  def request
+    request = Net::HTTP::Post.new(endpoint)
+    request['Content-Type'] = 'application/json'
+    request['Ocp-Apim-Subscription-Key'] = ACCESS_KEY
+    request.body = serialized_texts
+    request
+  end
+
+  def documents
+    @documents ||= @texts.map do |text|
+      {id: text.object_id, language: 'ru', text: text}
+    end
+  end
+
+  def serialized_texts
+    {documents: documents}.to_json
+  end
+
+  def run_request
+    https = Net::HTTP.new(endpoint.host, endpoint.port)
+    https.use_ssl = true
+    https.request(request)
   end
 end
-
-=begin
-def parse_page(article)
-  article = Nokogiri::HTML(open(article_url))
-  comments = []
-  comments << article.html()
-end
-
-def analyze_comment(comment)
-  session = Capybara::Session.new(:selenium)
-  session.visit('https://azure.microsoft.com/en-u¡¡s/services/cognitive-services/text-analytics/?v=18.05')
-  session.fill_in('InputText', with: comment)
-  session.click_button('Analyze')
-end
-=end

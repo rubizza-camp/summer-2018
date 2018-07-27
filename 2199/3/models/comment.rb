@@ -1,5 +1,5 @@
 class Comment < Ohm::Model
   attribute :text
   attribute :rating
-  reference :page, Page
+  reference :page, 'Page'
 end

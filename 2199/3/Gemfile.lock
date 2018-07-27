@@ -12,6 +12,7 @@ GEM
       xpath (~> 3.1)
     cliver (0.3.2)
     coderay (1.1.2)
+    dotenv (2.4.0)
     hiredis (0.6.1)
     method_source (0.9.0)
     mini_mime (1.0.0)
@@ -62,6 +63,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  dotenv
   ohm
   poltergeist
   pry

@@ -1,4 +1,9 @@
 class Page < Ohm::Model
-  attribute :title
-  collection :comments, Comment
+  attribute :link
+  collection :comments, 'Comment'
+  index :link
+
+  def rating
+    comments.sum { |comment| comment.rating.to_f } / comments.count
+  end
 end

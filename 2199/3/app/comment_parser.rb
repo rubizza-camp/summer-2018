@@ -4,7 +4,7 @@ class CommentParser
   end
 
   def text
-    @text ||= @node.find('.news-comment__speech p').text
+    @text ||= @node.all('.news-comment__speech > div > p').map(&:text).reduce(&:+)
   end
 
   def rating

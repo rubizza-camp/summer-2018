@@ -14,15 +14,34 @@ class OnlinerPageParser
     @browser ||= Capybara.current_session
   end
 
+  def visit_page
+    attempts = 0
+    begin
+      browser.visit(@link)
+    rescue StandardError => e
+      attempts += 1
+      sleep(2 * attempts)
+      if attempts <= 3
+        retry
+      else
+        raise e
+      end
+    end
+  end
+
+  def show_all_comments
+    browser.find('.news-form__control_condensed .news-form__button').click
+    sleep(5)
+  end
+
   def top_comment_texts
-    browser.visit(@link)
-    binding.pry
-    browser.find('.news-comment__all-button_visible').click
+    visit_page
+    show_all_comments
     top_comments.map(&:text)
   end
 
   def comment_nodes
-    browser.all('.news-comment__unit').drop(1)
+    browser.all('[id^="comment-"]').drop(1)
   end
 
   def comments
