@@ -6,26 +6,40 @@ require 'erb'
 # articles controller
 class ArticlesController < ApplicationController
   get '/' do
+    redirect '/articles'
+  end
+
+  get '/articles' do
     @articles = Article.all
     erb :index
   end
 
-  get '/add' do
+  get '/articles/add' do
     erb :add_article
   end
 
-  post '/add' do
-    comments = CommentsParser.new(params[:link]).texts_from_comments
-    article = Article.create(link: params[:link], rating: 50)
-    comments.each do |comment|
-      article.comments.add(Comment.create(text: comment['text'], rating: 50))
+  post '/articles/add' do
+    Article.all.each do |article|
+      article.delete if article.link == params[:link]
     end
-    redirect '/'
+    ArticleBuilder.new(params[:link], settings.access_key).create_article
+    redirect '/articles'
   end
 
   get '/articles/:id' do
     @articles = Article.all
     @article = @articles[params[:id]]
     erb :comments
+  end
+
+  delete '/articles/:id' do
+    @article = Article.all[params[:id]]
+    @article.delete
+    redirect '/articles'
+  end
+
+  delete '/articles' do
+    Article.all.each(&:delete)
+    redirect '/articles'
   end
 end

@@ -3,14 +3,18 @@
 source 'https://rubygems.org'
 ruby '2.5.1'
 
-gem 'pry', group: :development
+group :development do
+  gem 'pry'
+  gem 'shotgun'
+end
 
 group :development, :production do
+  gem 'config'
   gem 'json'
   gem 'mechanize'
   gem 'ohm'
   gem 'puma'
   gem 'rake'
-  gem 'shotgun'
   gem 'sinatra'
+  gem 'sinatra-config-file'
 end

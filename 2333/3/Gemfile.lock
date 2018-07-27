@@ -1,13 +1,54 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (5.2.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    backports (3.11.3)
     coderay (1.1.2)
+    concurrent-ruby (1.0.5)
+    config (1.7.0)
+      activesupport (>= 3.0)
+      deep_merge (~> 1.2.1)
+      dry-validation (>= 0.10.4)
     connection_pool (2.2.2)
+    deep_merge (1.2.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    dry-configurable (0.7.0)
+      concurrent-ruby (~> 1.0)
+    dry-container (0.6.0)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.1, >= 0.1.3)
+    dry-core (0.4.7)
+      concurrent-ruby (~> 1.0)
+    dry-equalizer (0.2.1)
+    dry-inflector (0.1.2)
+    dry-logic (0.4.2)
+      dry-container (~> 0.2, >= 0.2.6)
+      dry-core (~> 0.2)
+      dry-equalizer (~> 0.2)
+    dry-types (0.13.2)
+      concurrent-ruby (~> 1.0)
+      dry-container (~> 0.3)
+      dry-core (~> 0.4, >= 0.4.4)
+      dry-equalizer (~> 0.2)
+      dry-inflector (~> 0.1, >= 0.1.2)
+      dry-logic (~> 0.4, >= 0.4.2)
+    dry-validation (0.12.1)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.1, >= 0.1.3)
+      dry-core (~> 0.2, >= 0.2.1)
+      dry-equalizer (~> 0.2)
+      dry-logic (~> 0.4, >= 0.4.0)
+      dry-types (~> 0.13.1)
     hiredis (0.6.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    i18n (1.0.1)
+      concurrent-ruby (~> 1.0)
     json (2.1.0)
     mechanize (2.7.6)
       domain_name (~> 0.5, >= 0.5.1)
@@ -23,6 +64,8 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
+    minitest (5.11.3)
+    multi_json (1.13.1)
     mustermann (1.0.2)
     nest (3.1.1)
       redic
@@ -53,9 +96,22 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.3)
       tilt (~> 2.0)
+    sinatra-config-file (1.0)
+      sinatra-contrib
+    sinatra-contrib (2.0.3)
+      activesupport (>= 4.0.0)
+      backports (>= 2.8.2)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.0.3)
+      sinatra (= 2.0.3)
+      tilt (>= 1.3, < 3)
     stal (0.3.0)
       redic (~> 1.5)
+    thread_safe (0.3.6)
     tilt (2.0.8)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
@@ -65,6 +121,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  config
   json
   mechanize
   ohm
@@ -73,6 +130,7 @@ DEPENDENCIES
   rake
   shotgun
   sinatra
+  sinatra-config-file
 
 RUBY VERSION
    ruby 2.5.1p57

@@ -1,6 +1,9 @@
 <div>
-  <h1 align='center'>Comments rating table</h1>
+  <h3 align='center'><%= @article.link%></h1>
 </div>
+<form action='<%= @article.id%>' method='post'>
+  <button name='_method' class="btn btn-primary" value='delete'>Delete article</button>
+</form>
 <div>
   <table class="table">
     <thead>
