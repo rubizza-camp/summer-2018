@@ -17,13 +17,13 @@ body
 
 table
 {
-    border: 1px solid black;
+    border: 2px solid rgb(114, 164, 0);
 }
 
-a
-{
+a {
   text-decoration: none
 }
+
 a:link {
     color: black;
 }
