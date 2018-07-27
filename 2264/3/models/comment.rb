@@ -1,4 +1,4 @@
 class Link < Ohm::Model
-  attribute :title
+  attribute :text
   attribute :rating
 end
