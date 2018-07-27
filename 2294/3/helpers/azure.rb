@@ -17,15 +17,15 @@ class PackCreator
 end
 
 # Forms azure body for request
-class AzureHash 
+class AzureHash
   def initialize
     @pack = PackCreator.new.create_hash_of_comments
   end
 
   def form_hash
-    data = {'documents' => []}
+    data = { 'documents' => [] }
     @pack.each_with_index do |comment, index|
-       data['documents'] << {'id' => (index + 1).to_s, 'text' => comment.message} 
+      data['documents'] << { 'id' => (index + 1).to_s, 'text' => comment.message }
     end
     data
   end

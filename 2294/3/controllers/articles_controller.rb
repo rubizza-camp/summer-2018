@@ -7,9 +7,9 @@ class ArticleController < ApplicationController
   end
 
   not_found do
-      status 404
-      erb :not_found
-    end
+    status 404
+    erb :not_found
+  end
 
   get '/registration' do
     @title = 'Registration'

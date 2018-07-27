@@ -1,11 +1,11 @@
 # A sample Gemfile
 source 'https://rubygems.org'
 gem 'mechanize'
-gem 'pry'
-gem 'shotgun'
-gem 'thin'
-gem 'sinatra'
 gem 'ohm'
+gem 'pry'
 gem 'redis'
 gem 'reek', require: false
 gem 'rubocop', require: false
+gem 'shotgun'
+gem 'sinatra'
+gem 'thin'
