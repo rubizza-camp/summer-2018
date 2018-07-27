@@ -7,12 +7,10 @@ class ArticleCreator
   end
 
   def rating
-    comments.map { |comment| comment.rating }.reduce(:+) / comments.size
+    comments.map(&:rating).reduce(:+) / comments.size
   end
 
   def comments
     @comments ||= CommentsCreator.new(@link).create
   end
 end
-
-puts ArticleCreator.new('https://people.onliner.by/opinions/2018/07/13/o-gendernom-ravenstve').rating

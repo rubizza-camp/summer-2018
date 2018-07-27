@@ -1,10 +1,11 @@
 require 'uri'
 require 'json'
-require 'faraday'
+require 'net/https'
 
 class TextChecker
-  ACCESS_KEY = '47faf0afe2b04cf281f861ba8856901a'.freeze
+  ACCESS_KEY = 'HackerManDetected'.freeze
   LINK = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'.freeze
+  URL = URI(LINK)
   def initialize(texts)
     @texts = texts
   end
@@ -16,12 +17,15 @@ class TextChecker
   private
 
   def response
-    Faraday.new.post do |request|
-      request.url LINK
-      request.headers['Content-Type'] = 'application/json'
-      request.headers['Ocp-Apim-Subscription-Key'] = ACCESS_KEY
-      request.body = document.to_json
+    Net::HTTP.start(URL.host, URL.port, use_ssl: URL.scheme == 'https') do |http|
+      http.request(request_preparation)
     end
+  end
+
+  def request_preparation
+    request = Net::HTTP::Post.new(URL, 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => ACCESS_KEY)
+    request.body = document.to_json
+    request
   end
 
   def document
