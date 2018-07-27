@@ -1,0 +1,83 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    concurrent-ruby (1.0.5)
+    connection_pool (2.2.2)
+    daemons (1.2.6)
+    domain_name (0.5.20180417)
+      unf (>= 0.0.5, < 1.0.0)
+    eventmachine (1.2.5)
+    hiredis (0.6.1)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    mechanize (2.7.6)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0)
+      mime-types (>= 1.17.2)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (>= 2.5.2)
+      nokogiri (~> 1.6)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    mini_portile2 (2.3.0)
+    mustermann (1.0.2)
+    nest (3.1.1)
+      redic
+    net-http-digest_auth (1.4.1)
+    net-http-persistent (3.0.0)
+      connection_pool (~> 2.2)
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
+    ntlm-http (0.1.1)
+    ohm (3.1.1)
+      nest (~> 3)
+      redic (~> 1.5.0)
+      stal
+    rack (2.0.5)
+    rack-protection (2.0.1)
+      rack
+    redic (1.5.0)
+      hiredis
+    redis (4.0.1)
+    shotgun (0.9.2)
+      rack (>= 1.0)
+    sidekiq (5.1.3)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
+    sinatra (2.0.1)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.1)
+      tilt (~> 2.0)
+    stal (0.3.0)
+      redic (~> 1.5)
+    thin (1.7.2)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
+    tilt (2.0.8)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
+    webrobots (0.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mechanize
+  ohm
+  rack
+  redis
+  shotgun
+  sidekiq
+  sinatra
+  thin
+
+BUNDLED WITH
+   1.16.2
