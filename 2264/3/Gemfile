@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
-group :development do
-  gem 'sinatra'
-  gem 'thin'
-  gem 'shotgun'
-  gem 'json'
-  gem 'mechanize'
-  gem 'ohm'
-end
+gem 'sinatra'
+gem 'thin'
+gem 'shotgun'
+gem 'json'
+gem 'mechanize'
+gem 'ohm'
+gem 'pry'
+gem 'pry-nav'
