@@ -1,0 +1,24 @@
+<div class="row justify-content-md-center">
+  <h1>Articles</h1>
+</div>
+<table>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <div class="list-group">
+          <td>
+            <a method="GET" href='/articles/show/<%= article.id %>' class="list-group-item list-group-item-action"><%= article.title %>
+              <span class="badge badge-dark bage-lg badge-pill"><%= article.rating %></span>
+            </a>
+          </td>
+          <td><a class="btn btn-outline-dark" href='<%= article.link %>'>Original</a></td>
+          <td>
+            <form action='/articles/<%= article.id %>' method='post'>
+              <button type='submit' id='hidden' name='_method' value='delete' class='btn btn-outline-dark' onclick="return confirm('Delete article?')">Delete</button>
+            </form>
+          </td>
+        </div>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
