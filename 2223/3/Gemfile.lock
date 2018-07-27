@@ -44,7 +44,6 @@ GEM
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
-    rake (12.3.1)
     redic (1.5.0)
       hiredis
     redis (4.0.1)
@@ -75,7 +74,6 @@ DEPENDENCIES
   mechanize
   ohm
   pry
-  rake
   redis
   shotgun
   sinatra
