@@ -1,0 +1,15 @@
+main[role="main"]
+  section.jumbotron.text-center
+    .container
+      - Ohm.redis.call "FLUSHALL"
+      - Ohm.redis.call "SET" "articles_count" "0"
+      .alert.alert-success[role="alert"]
+        h3.jumbotron-heading
+          |  All articles have been deleted!
+      p.lead.text-muted
+        | Choose what you want to do
+      p
+        a.btn.btn-primary.my-2[href="/add"]
+          | Add new article
+        a.btn.btn-primary.my-2[href="/"]
+          | Return to main page

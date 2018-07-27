@@ -1,0 +1,46 @@
+main[role="main"]
+  section.jumbotron.text-center
+    .container
+      h1.jumbotron-heading
+        | There are analyzed articles:
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th
+              | #
+            th
+              | Article(Link)
+            th
+              | Raiting
+            th
+              | About
+        tbody
+          - if "#{Ohm.redis.call 'GET', 'articles_count'}".to_i == 0
+            tr
+              th[scope="row"]
+                | There
+              td
+                |  are
+              td
+                | NO
+              td
+                | articles
+          - "#{Ohm.redis.call 'GET', 'articles_count'}".to_i.times do |j|
+            tr
+              th[scope="row"]
+                | #{j + 1}
+              td
+                a[href="#{Ohm.redis.call 'GET', 'article' + "#{j + 1}"}"]
+                  |  #{Ohm.redis.call 'GET', 'article' + "#{j + 1}"}
+              td
+                | #{Ohm.redis.call 'GET', 'article' + "#{j + 1}" + '_rate'}
+              td
+                a[href="/show/#{j + 1}"]
+                  |  >
+      p.lead.text-muted
+        | Choose what you want to do
+      p
+        a.btn.btn-primary.my-2[href="/add"]
+          | Add new article
+        a.btn.btn-primary.my-2[href="/annihilate"]
+          | Delete all articles
