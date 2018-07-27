@@ -14,7 +14,7 @@ module DAO
     end
 
     def select_by_id(id)
-      HashParser::ArticleHashParser.parse_hash(JSON.parse(@redis.get id))
+      HashParser::ArticleHashParser.parse_hash(JSON.parse(@redis.get(id)))
     end
 
     def select_all
@@ -24,6 +24,7 @@ module DAO
     end
 
     private
+
     def size
       @redis.dbsize
     end

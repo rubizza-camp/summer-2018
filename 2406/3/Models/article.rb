@@ -1,10 +1,8 @@
 module Models
-
   class Article
     MAX_COMMENTS_CAPACITY = 50
 
-    attr_reader :comment_list
-    attr_accessor :id, :name, :link
+    attr_reader :comment_list, :id, :name, :link
 
     def initialize(id, name, link, comment_list)
       @id = id
@@ -14,7 +12,7 @@ module Models
     end
 
     def rate
-      @comment_list.sum(&:rate)/@comment_list.size.to_f
+      @comment_list.sum(&:rate) / @comment_list.size.to_f
     end
 
     def add_comment(comment)
