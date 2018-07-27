@@ -1,0 +1,74 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.2)
+    connection_pool (2.2.2)
+    domain_name (0.5.20180417)
+      unf (>= 0.0.5, < 1.0.0)
+    hiredis (0.6.1)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    json (2.1.0)
+    mechanize (2.7.6)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0)
+      mime-types (>= 1.17.2)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (>= 2.5.2)
+      nokogiri (~> 1.6)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
+    method_source (0.9.0)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    mini_portile2 (2.3.0)
+    mustermann (1.0.2)
+    nest (3.1.1)
+      redic
+    net-http-digest_auth (1.4.1)
+    net-http-persistent (3.0.0)
+      connection_pool (~> 2.2)
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
+    ntlm-http (0.1.1)
+    ohm (3.1.1)
+      nest (~> 3)
+      redic (~> 1.5.0)
+      stal
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    rack (2.0.5)
+    rack-protection (2.0.3)
+      rack
+    redic (1.5.0)
+      hiredis
+    shotgun (0.9.2)
+      rack (>= 1.0)
+    sinatra (2.0.3)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.3)
+      tilt (~> 2.0)
+    stal (0.3.0)
+      redic (~> 1.5)
+    tilt (2.0.8)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
+    webrobots (0.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json
+  mechanize
+  ohm
+  pry
+  shotgun
+  sinatra
+
+BUNDLED WITH
+   1.16.1

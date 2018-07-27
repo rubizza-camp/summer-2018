@@ -1,0 +1,31 @@
+<%= erb :application %>
+<body>
+	<h1>Articles Analyser</h1>
+	<table>
+	  <tr>
+	    <th>Link</th>
+	    <th>Rating</th>
+	  </tr>
+	  <% @articles.each do |article| %>
+	    <tr>
+	      <td>
+	       	<div>
+	       	 	<a href='/article/<%= article.id %>'>
+	       	 	 	<%= article.title %>
+	       	 	</a>
+	       	</div>
+	      </td>
+	      <td>
+	        <%= article.rating %>
+	      </td>
+	    </tr>
+	  <% end %>
+	</table>
+	<br/>
+	<br/>
+	<div>
+		<a href='/article/add'>
+		  Add new link
+		</a>
+	</div>
+</body>
