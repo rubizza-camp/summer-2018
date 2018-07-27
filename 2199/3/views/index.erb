@@ -1,4 +1,4 @@
-<a href="/new">Analyse new link!! </a>
+<a href="/pages/new">Analyse new link!! </a>
 <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -10,7 +10,7 @@
   <tbody>
     <% @pages.each do |page| %>
       <tr>
-        <td><a href="<%= url("/show/#{page.id}") %>"><%= page.id %></a></td>
+        <td><a href="<%= url("/pages/#{page.id}") %>"><%= page.id %></a></td>
         <td><a href="<%= page.link %>"><%= page.link %></a></td>
         <td><%= page.rating %></td>
       </tr>

@@ -5,20 +5,24 @@ class ApplicationController < Sinatra::Base
   set views: 'views/'
 
   get '/' do
+    redirect '/pages'
+  end
+
+  get '/pages' do
     @pages = Page.all
     erb :index
   end
 
-  get '/new' do
+  get '/pages/new' do
     erb :new
   end
 
-  get '/show/:id' do
+  get '/pages/:id' do
     @page = Page[params[:id]]
     erb :show
   end
 
-  post '/analyze' do
+  post '/pages' do
     link = params[:link]
     @page = Page.find(link: link).first
     unless @page
