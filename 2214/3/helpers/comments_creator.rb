@@ -1,7 +1,3 @@
-require_relative 'specific_comment'
-require_relative 'comments_parser'
-require_relative 'text_checker'
-
 class CommentsCreator
   def initialize(link)
     @link = link

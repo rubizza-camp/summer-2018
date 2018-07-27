@@ -1,6 +1,3 @@
-require_relative 'comments_creator'
-require_relative 'specific_comment'
-
 class ArticleCreator
   def initialize(link)
     @link = link
