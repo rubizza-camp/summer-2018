@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'faraday'
+gem 'mechanize'
+gem 'ohm'
+gem 'pry'
+gem 'redis'
+gem 'shotgun'
+gem 'sinatra'
+gem 'thin'

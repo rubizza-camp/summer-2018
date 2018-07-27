@@ -1,0 +1,6 @@
+<h1><%= @article.name%></h1>
+<% @article.comments.each do |comment|%>
+    <p>
+      <%= comment.text%></a>| <%= comment.rating.value%>
+    </p>
+<% end %>
