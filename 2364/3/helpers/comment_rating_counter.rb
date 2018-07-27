@@ -4,7 +4,6 @@ require 'json'
 
 # Counts rating of comments
 class CommentRatingCounter
-  ACESS_KEY = 'sfdfds'.freeze
   URI = 'https://westcentralus.api.cognitive.microsoft.com'.freeze
   PATH = '/text/analytics/v2.0/sentiment'.freeze
 
@@ -44,7 +43,7 @@ class CommentRatingCounter
   def create_request
     @request = Net::HTTP::Post.new(uri)
     request['Content-Type'] = 'application/json'
-    access_key = YAML.load_file(File.join(Dir.pwd, 'keys.yml'))['access_key']
+    access_key = YAML.load_file(File.join(Dir.pwd, 'config.yml'))['access_key']
     request['Ocp-Apim-Subscription-Key'] = access_key
     request.body = documents.to_json
   end
