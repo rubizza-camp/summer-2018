@@ -1,6 +1,10 @@
 # Triangle Project Code.
 # :reek:UncommunicativeParameterName
 # :reek:UncommunicativeVariableName
+<<<<<<< HEAD
+# :reek:TooManyStatements
+=======
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -14,12 +18,20 @@
 # and
 #   about_triangle_project_2.rb
 #
+<<<<<<< HEAD
+# :reek:FeatureEnvy
+def triangle_raise_error(side_a, side_b, side_c)
+  triangle_sides = [side_a, side_b, side_c].sort
+  raise TriangleError if triangle_sides.first <= 0
+  raise TriangleError if triangle_sides.take(2).sum <= triangle_sides.last
+=======
 # :reek:TooManyStatements
 # :reek:FeatureEnvy
 def validate_sides(side_a, side_b, side_c)
   triangle_sides = [side_a, side_b, side_c].sort
   raise TriangleError unless triangle_sides.first.positive?
   raise TriangleError if triangle_sides.first(2).sum <= triangle_sides.last
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
 end
 
 # :reek:FeatureEnvy

@@ -23,7 +23,10 @@ class AboutTrueAndFalse < Neo::Koan
     assert_equal :false_stuff, truth_value(nil)
   end
 
+<<<<<<< HEAD
+=======
   # :reek:TooManyStatements
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
   def test_everything_else_is_treated_as_true
     assert_equal :true_stuff, truth_value(1)
     assert_equal :true_stuff, truth_value(0)

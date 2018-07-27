@@ -42,8 +42,12 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
   # :reek:UtilityFunction
   # :reek:ManualDispatch
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)

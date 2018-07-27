@@ -25,4 +25,7 @@ RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 3000
+<<<<<<< HEAD
+=======
 
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6

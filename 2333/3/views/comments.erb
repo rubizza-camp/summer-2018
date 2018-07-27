@@ -1,0 +1,27 @@
+<div>
+  <h3 align='center'><%= @article.link%></h1>
+</div>
+<form action='<%= @article.id%>' method='post'>
+  <button name='_method' class="btn btn-primary" value='delete'>Delete article</button>
+</form>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @article.comments.each_with_index do |comment, index| %>
+      <tr>
+        <td><%=(index+1).to_s%></td>
+        <td><%=comment.text%></td>
+        <td><%=comment.rating.to_s%></td>
+      </tr>
+      <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

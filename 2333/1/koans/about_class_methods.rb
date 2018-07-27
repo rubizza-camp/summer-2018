@@ -1,8 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This method smells of :reek:TooManyMethods
+<<<<<<< HEAD
+=======
 # :reek:Attribute
 # :reek:UncommunicativeMethodName
 # :reek:UncommunicativeModuleName
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -51,22 +54,38 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+<<<<<<< HEAD
+  class DogTwo
+=======
   class Dog2
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
     def wag
       :instance_level_wag
     end
   end
 
+<<<<<<< HEAD
+  def DogTwo.wag
+=======
   def Dog2.wag
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
+<<<<<<< HEAD
+    assert_equal :class_level_wag, DogTwo.wag
+  end
+
+  def test_class_methods_are_independent_of_instance_methods
+    fido = DogTwo.new
+=======
     assert_equal :class_level_wag, Dog2.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
     fido = Dog2.new
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
     assert_equal :instance_level_wag, fido.wag
     assert_equal :class_level_wag, Dog2.wag
   end
@@ -74,14 +93,28 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
+<<<<<<< HEAD
+    attr_reader :name
+  end
+  # rubocop:disable Style/TrivialAccessors
+  def Dog.name
+    @name
+  end
+  # rubocop:enable Style/TrivialAccessors
+=======
     attr_accessor :name
   end
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
     fido.name = 'Fido'
     assert_equal 'Fido', fido.name
+<<<<<<< HEAD
+    assert_equal nil, Dog.name
+=======
     assert_equal 'AboutClassMethods::Dog', Dog.name
+>>>>>>> 98854c3a3bb162c2f852337aec1327c755e7c7f6
   end
 
   # ------------------------------------------------------------------
