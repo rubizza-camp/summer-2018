@@ -1,15 +1,15 @@
 require './api/text_analytics.rb'
-require './comments.rb'
+require './comments_reader.rb'
 
 # This class add rating to each comment
 class CommentsRating
-  attr_reader :comments, :api_rating, :comments_rating, :rating
+  attr_reader :response_from_azure, :api_rating, :comments_rating, :rating, :comments_array
 
-  def initialize(link)
-    @comments   = Comments.new(link).comments_list
-    @api_rating = TextAnalytic.new(comments).json['documents']
+  def initialize(response_from_azure, comments_array)
+    @api_rating = response_from_azure['documents']
+    @comments_array  = comments_array
     @comments_rating = {}
-    comments_score
+    calculate_comments_ratings
     @rating = { post_rating: post_rating,
                 comments_ratings: comments_rating,
                 comments_id: comments_ids }
@@ -23,16 +23,14 @@ class CommentsRating
     (rating / comments_rating.size).to_i
   end
 
-  def comments_score
+  def calculate_comments_ratings
     api_rating.each do |comment|
-      id = comment['id']
+      id = comment['id'].to_i
       comments_rating[id.to_i] = (comment['score'] * 200 - 100).to_i
     end
   end
 
   def comments_ids
-    (0...api_rating.size).each_with_object({}) { |id, hash| hash[id] = comments[id] }
+    (0...api_rating.size).each_with_object({}) { |id, hash| hash[id] = comments_array[id] }
   end
 end
-
-puts CommentsRating.new('https://tech.onliner.by/2018/07/21/plane-9').rating

@@ -13,7 +13,7 @@ class TextAnalytic
   end
 
   def json
-    JSON request_respond.body
+    JSON.parse request_respond.body
   end
 
   private

@@ -1,7 +1,7 @@
-require './parser.rb'
+require './onliner_parser'
 
 # This class extracts comments from json
-class Comments
+class CommentsReader
   attr_reader :link, :comments_list
 
   def initialize(link)
@@ -12,6 +12,6 @@ class Comments
   private
 
   def search_comments
-    Parser.new(link).json['comments'].map { |comment| comment['text'] }
+    OnlinerParser.new(link).json['comments'].map { |comment| comment['text'] }
   end
 end

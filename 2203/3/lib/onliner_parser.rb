@@ -2,7 +2,7 @@ require 'mechanize'
 require 'json'
 
 # This class search post id from link to after send this id and get json with comments
-class Parser
+class OnlinerParser
   attr_reader :link, :json
 
   COMMENTS_LIMIT = 50
