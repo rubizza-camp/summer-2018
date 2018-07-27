@@ -3,7 +3,6 @@ require 'uri'
 require 'json'
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
-# class Analytics
 class Analytics
   attr_reader :text
 
@@ -19,7 +18,7 @@ class Analytics
 
     uri = URI(uri + path)
 
-    documents = { 'documents': [{ 'id' => '1', 'language' => 'ru', 'text' => text }] }
+    documents = { 'documents': [{ 'id': '1', 'language': 'ru', 'text': text }] }
     request = Net::HTTP::Post.new(uri)
     request['Content-Type'] = 'application/json'
     request['Ocp-Apim-Subscription-Key'] = access_key
