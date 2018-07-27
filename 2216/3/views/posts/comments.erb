@@ -1,0 +1,13 @@
+<h2>Comments</h2>
+<table>
+  <tr>
+    <td>Comments</td>
+    <td>Scores</td>
+  </tr>
+  <% @comments.each do |comment|%>
+    <tr>
+      <td><%= comment.comment_text%></td>
+      <td><%= comment.score%></td>
+    </tr>
+  <% end%>
+</table>

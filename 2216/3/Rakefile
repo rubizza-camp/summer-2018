@@ -1,0 +1,4 @@
+require 'sinatra/asset_pipeline/task'
+require_relative './controllers/application_controller'
+
+Sinatra::AssetPipeline::Task.define! ApplicationController

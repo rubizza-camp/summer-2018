@@ -1,0 +1,11 @@
+<div class=content>
+  <form method="post" action="/">
+    <label for="address">Input address:</label>
+    <input id="address" type="text" name="address" value="">
+    <input id="add_sub" type="submit" name="add" value="Add">
+  </form>
+  <div class="error_message"><%= error_text%></div>
+  <form method="post" action="/posts/articles">
+    <input id="look_sub" type="submit" name="look" value="Look analysis">
+  </form>
+</div>
