@@ -1,4 +1,4 @@
-require_relative 'comment'
+require_relative 'specific_comment'
 require_relative 'comments_parser'
 require_relative 'text_checker'
 
@@ -8,7 +8,7 @@ class CommentsCreator
   end
 
   def create
-    comments_as_strings.map.with_index { |text, index| Comment.new(text, ratings_of_comments[index]) }
+    comments_as_strings.map.with_index { |text, index| SpecificComment.new(text, ratings_of_comments[index]) }
   end
 
   private

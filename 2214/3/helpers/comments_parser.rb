@@ -1,5 +1,5 @@
 require 'json'
-require_relative 'comment'
+require 'mechanize'
 
 class CommentsParser
   def initialize(link)

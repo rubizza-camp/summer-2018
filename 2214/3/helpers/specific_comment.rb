@@ -1,4 +1,4 @@
-class Comment
+class SpecificComment
   attr_reader :text, :rating
   def initialize(text, rating)
     @text = text
