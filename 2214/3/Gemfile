@@ -11,4 +11,3 @@ gem 'redis'
 gem 'shotgun'
 gem 'sinatra'
 gem 'slim'
-
