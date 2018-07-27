@@ -30,16 +30,15 @@ class ArticlesController < ApplicationController
     erb :show
   end
 
-  # I could not use the DELETE route(https://gist.github.com/victorwhy/45bb5637cd3e7e879ace). If you read this :) HELP
   # delete article
-  post '/:id' do
+  delete '/:id' do
     article = Article.all[params[:id]]
     article.delete
     redirect '/articles'
   end
 
   # delete all articles
-  post '/' do
+  delete '/' do
     Article.all.each(&:delete)
     redirect '/articles'
   end
