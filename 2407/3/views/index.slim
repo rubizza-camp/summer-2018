@@ -1,0 +1,19 @@
+nav class="navbar"
+    a сlass="navbar-brand"
+      h1 OnlinerArticlesAssestments
+    a class="btn btn-primary btn-lg" href="/articles/add" role="button" Add an article
+.container
+  table class='table table table'
+    thead class='thead-dark'
+      tr
+        th Links
+        th Rating
+    tbody
+      - @articles.each do |article|
+        tr
+          td
+            a href="articles/#{article.id}"  = article.link
+          td
+            = article.rating
+  form action='/articles' method='post'
+    button type='submit' id='hidden' name='_method' value='delete' class='btn btn-warning btn-lg' onclick="return confirm('Are you really sure that you want to delete all articles?')" Delete all articles
