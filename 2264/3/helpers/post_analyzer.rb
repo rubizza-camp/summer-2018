@@ -1,3 +1,4 @@
+# class is used for analyzing onliner's posts
 class PostAnalyser
   attr_reader :post, :text_body, :ratings
 

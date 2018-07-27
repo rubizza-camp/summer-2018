@@ -1,7 +1,6 @@
 require 'sinatra'
-
+# controller for posts
 class PostsController < ApplicationController
-
   get '/posts/new' do
     erb :'post/new'
   end
@@ -29,4 +28,3 @@ class PostsController < ApplicationController
     redirect '/posts'
   end
 end
-
