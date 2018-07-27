@@ -8,18 +8,18 @@ class PostsController < ApplicationController
 
   get '/posts' do
     @posts = Post.all
-
     erb :'post/index'
-
   end
 
-  get '/posts/:id' do
+  get '/post/:id' do
+    @posts = Post.all
     @post = @posts[params[:id]]
     erb :'post/show'
   end
 
   post '/posts' do
-    @post = Post.create link: params[:link]
+    post = Post.create link: params[:link]
+    PostAnalyser.new(post).launch
     redirect '/posts'
   end
 

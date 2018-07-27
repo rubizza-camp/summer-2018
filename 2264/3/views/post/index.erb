@@ -12,10 +12,14 @@
       <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td><%= post.link %></a></td>
+          <td><a href='/post/<%= post.id %>'><%= post.title %></a></td>
+          <td><%= post.rating %></td>
         </tr>
       <% end %>
       </tbody>
     </table>
+  </div>
+  <div>
+    <a href='/post/new'>Add new post</a>
   </div>
 </div>
