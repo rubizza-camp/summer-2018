@@ -8,3 +8,4 @@ require 'mechanize'
 Dir.glob('./{controllers, dao, models}/*.rb').each { |file| require_relative file }
 map('/') { run ApplicationController }
 map('/articles/') { run DetailController }
+map('/errors/') { run ErrorController }
