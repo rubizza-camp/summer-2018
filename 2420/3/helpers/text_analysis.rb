@@ -3,8 +3,7 @@ require 'uri'
 require 'json'
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
+# class Analytics
 class Analytics
   attr_reader :text
 
@@ -20,9 +19,7 @@ class Analytics
 
     uri = URI(uri + path)
 
-    documents = { 'documents': [
-      { 'id' => '1', 'language' => 'ru', 'text' => text }
-    ] }
+    documents = { 'documents': [{ 'id' => '1', 'language' => 'ru', 'text' => text }] }
     request = Net::HTTP::Post.new(uri)
     request['Content-Type'] = 'application/json'
     request['Ocp-Apim-Subscription-Key'] = access_key
@@ -37,5 +34,3 @@ class Analytics
     (information[0] + '.' + information[1]).to_f
   end
 end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
