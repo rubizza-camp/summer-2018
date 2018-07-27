@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>All links</title>
+  </head>
+  <body>
+    <form action='/comments_analysis/:id' method='post'>
+    <%Link.all.each.with_index do |a,i|%>
+      <a href=<%= "/comments_analysis/#{a.id}" %>><%= a.address %></a>
+      <p><%= a.rate %></p>
+    <%end%>
+    </form>
+  </body>
+</html>
+

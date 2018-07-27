@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>All links</title>
+  </head>
+  <body>
+    <form action='/comments_analysis/:id' method='post'>
+      <p>The 3th task</p>
+    <%@comments.each do |c|%>
+      <p><%= c.text %> 
+    <%end%>
+    </form>
+  </body>
+</html>
+
