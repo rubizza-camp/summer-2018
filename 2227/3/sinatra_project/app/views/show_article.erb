@@ -1,0 +1,65 @@
+<head>
+  <meta charset='UTF-8' />
+  <title>Articles</title>
+  <style type="text/css">
+
+    h1{
+      text-align: center;
+    }
+
+    .title{
+      text-decoration:none;color:#234b7b;
+    }
+
+    .title:hover{
+      color:Red;
+    }
+
+    .link {
+      font: bold 11px Arial;
+      text-decoration: none;
+      background-color: #EEEEEE;
+      color: #333333;
+      padding: 2px 6px 2px 6px;
+      border-top: 1px solid #CCCCCC;
+      border-right: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+      border-left: 1px solid #CCCCCC;
+      display:inline-block;
+      margin-right:5px;
+    }
+
+    body{
+      width:auto;
+      padding:0 10px;
+      font-size:11px;
+      font-family:"Arial";
+    }
+
+    table {
+      border-width: medium;
+    }
+
+    td {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Articles</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Link</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <% @articles.each do |article| %>
+       <tr><td><p><a class="title" href='/article/<%= article.id %>'><%= article.title %></a></p></td><td><%= article.rating %></td></tr>
+    <% end %>
+  </table>
+  <p><a class="link" href='/article/create'>Add link</a></p>
+</body>
+
