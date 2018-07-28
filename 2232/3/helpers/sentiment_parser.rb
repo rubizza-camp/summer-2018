@@ -1,28 +1,33 @@
 require 'uri'
 require 'net/https'
 
-module SentimentParser
-  ACCESS_KEY = '***'.freeze
+class SentimentParser
+  ACCESS_KEY = YAML.load_file(File.join(Dir.pwd, 'config.yml'))['access_key']
   URL = URI('https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment')
 
-  def create_sentiments(comments)
-    response = Net::HTTP.start(URL.host, URL.port, use_ssl: URL.scheme == 'https') do |http|
-      http.request(create_request(comments))
+  def initialize(comments)
+    @comments = comments
+  end
+
+  def call
+    response = Faraday.new.post(URL) do |req|
+      req = header(req)
+      req.body = documents
     end
     JSON(response.body)['documents']
   end
 
   private
 
-  def create_request(comments)
-    request = Net::HTTP::Post.new(URL, 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => ACCESS_KEY)
-    request.body = documents(comments)
-    request
+  def header(req)
+    req.headers['Content-Type'] = 'application/json'
+    req.headers['Ocp-Apim-Subscription-Key'] = ACCESS_KEY
+    req
   end
 
-  def documents(comments)
-    texts = comments.map do |author, text|
-      { 'id' => author, 'language' => 'ru', 'text' => text }
+  def documents
+    texts = @comments.map.with_index do |comment, index|
+      { 'id' => index, 'language' => 'ru', 'text' => comment[1] }
     end
     { 'documents' => texts }.to_json
   end

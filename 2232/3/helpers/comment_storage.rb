@@ -1,4 +1,4 @@
-class CommentHelper
+class CommentStorage
   attr_reader :text, :rating, :author
 
   def initialize(author, text, rating)

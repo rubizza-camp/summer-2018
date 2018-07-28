@@ -2,6 +2,7 @@ require_relative 'application_controller'
 
 class ArticlesController < ApplicationController
   set :views, File.expand_path('../views/articles', __dir__)
+  include ViewsHelper
 
   # show all articles
   get '/' do
@@ -16,7 +17,7 @@ class ArticlesController < ApplicationController
 
   # create a new article
   post '/new' do
-    article_parse = ArticleHelper.new(params[:link])
+    article_parse = ArticleParser.new(params[:link])
     @article = Article.create(title: article_parse.title, link: params[:link], rating: article_parse.rating)
     article_parse.comments.map do |comment|
       @article.comments.add(Comment.create(text: comment.text, author: comment.author, rating: comment.rating))

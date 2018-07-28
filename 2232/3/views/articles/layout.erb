@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active" method='post'>
-              <form action='/articles/new' method='get'>
+              <form action=<%= new_article %> method='get'>
                 <button type='submit' id='hidden' name='_method' value='get' class='btn btn-outline-dark btn-lg btn-block' >Add article</button>
               </form>
               <form action='/articles' method='post'>
