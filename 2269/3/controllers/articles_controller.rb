@@ -15,7 +15,8 @@ class ArticlesController < ApplicationController
 
   # show
   get '/:id' do
-    params[:id]
+    @article = Article[params[:id]]
+    erb :'/articles/show'
   end
 
   # create
@@ -24,13 +25,10 @@ class ArticlesController < ApplicationController
     redirect '/'
   end
 
-  # put
-  put '/:id' do
-    params[:id]
-  end
-
   # delete
   delete '/:id' do
-    params[:id]
+    Article[params[:id]].comments.each(&:delete)
+    Article[params[:id]].delete
+    redirect '/'
   end
 end

@@ -22,7 +22,7 @@ class ArticleHelper
       comment = Comment.create(content: content, rate: ratings[index])
       @article.comments.add(comment)
     end
-    article_rate = (ratings.sum / comments.size).to_i
+    article_rate = (ratings.sum / contents.size).to_i
     @article.update(rating: article_rate)
   end
 end

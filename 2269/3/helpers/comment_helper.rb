@@ -13,12 +13,13 @@ class CommentHelper
     response = agent.get(url)
     comments = []
     JSON.parse(response.body)['comments'].each { |elem| comments << elem['text'].tr("\n", ' ') }
+    comments
   end
 
   def retrieve_rating(comments)
     @data = { documents: [] }
     comments.each_with_index do |comment, index|
-      @data[:documents] << { 'id' => index.to_s, 'language' => 'ru', 'text' => comment[:text] }
+      @data[:documents] << { 'id' => index.to_s, 'language' => 'ru', 'text' => comment }
     end
     calculate_rating
   end
@@ -28,7 +29,7 @@ class CommentHelper
     response = send_request(url)
     rating = []
     JSON.parse(response.body)['documents'].map do |value|
-      rating << (value['score'].to_i * 200 - 100)
+      rating << ((value['score'] * 200).round(0) - 100)
     end
     rating
   end
@@ -40,10 +41,9 @@ class CommentHelper
   end
 
   def build_request(url)
-    key = YAML.safe_load(File.open('config.yml').read)['api_key']
+    key = File.read('api_key')
     request = Net::HTTP::Post.new(url, 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => key)
     request.body = @data.to_json
     request
   end
 end
-

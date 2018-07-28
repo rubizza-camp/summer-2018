@@ -3,14 +3,26 @@
 <table class="table">
   <tr>
     <th>ID</th>
-    <th>Link</th>
+    <th>
+      <div align="center">Article's title</div>
+    </th>
     <th>Rating</th>
+    <th><div align="center">Actions</div></th>
   </tr>
   <% @articles.each do |article| %>
     <tr>
       <td><%= article.id %></td>
-      <td><p><a href='/articles/<%= article.id %>'><%= article.title %></a></p></td>
-<!--      <td><%#= article.rating %></td>-->
+      <td><div align="center"><%= article.title %></div></td>
+      <td><%= article.rating %></td>
+      <td>
+        <div align="center">
+        <form action="/articles/<%= article.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <a href='/articles/<%= article.id %>' class='btn btn-info'>Show</a>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        </div>
+      </td>
     </tr>
   <% end %>
 </table>
