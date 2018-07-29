@@ -9,20 +9,27 @@ class AZURESentimentAnalyzer
     @uri = URI('https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment')
   end
 
-  def analyze(comment)
-    request = form_request(comment)
+  def analyze(comments)
+    request = form_request(comments)
     response = send_request(request)
-    sentiment(response)
+    sentiment_list(response)
   end
 
   private
 
-  def form_request(comment)
+  def form_request(comments)
     request = Net::HTTP::Post.new(@uri)
     request['Content-Type'] = 'application/json'
     request['Ocp-Apim-Subscription-Key'] = @access_key
-    request.body = { 'documents': [{ 'id' => '1', 'text' => comment }] }.to_json
+    request.body = form_request_body(comments)
     request
+  end
+
+  def form_request_body(comments)
+    counter = 0
+    comments.each_with_object({ 'documents': [] }) do |comment, body|
+      body[:documents] << { 'id' => counter += 1, 'text' => comment}
+    end.to_json
   end
 
   def send_request(request)
@@ -32,8 +39,8 @@ class AZURESentimentAnalyzer
     JSON.pretty_generate(JSON(response.body))
   end
 
-  def sentiment(response)
+  def sentiment_list(response)
     response_hash = JSON.parse(response)
-    response_hash['documents'][0]['score']
+    response_hash['documents'].each_with_object([]) { |info, sentiment_list| sentiment_list << info['score']}
   end
 end

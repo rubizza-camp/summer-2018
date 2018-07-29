@@ -2,7 +2,7 @@
 class Comment
   attr_reader :comment, :sentiment
 
-  def initialize(comment, sentiment)
+  def initialize(comment, sentiment = 0.5)
     @comment = comment
     @sentiment = transform_sentiment(sentiment)
   end
