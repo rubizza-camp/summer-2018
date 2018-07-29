@@ -11,7 +11,7 @@ require_relative 'Parser'
 # Make Quere
 
 class PostQuery
-  attr_accessor :request
+  attr_reader :request
   def initialize(link)
     @access_key = '8af30e06989641a7bab5f00d678b9c4d'
     @uri = URI('https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment')
@@ -34,12 +34,14 @@ class PostQuery
     all_comments_texts << comment
   end
 
+  # rubocop: disable Lint/UselessSetterCall
   def make_request
     request = Net::HTTP::Post.new(@uri)
     request['Content-Type'] = 'application/json'
     request['Ocp-Apim-Subscription-Key'] = @access_key
     request.body = @documents.to_json
   end
+  # rubocop: enable Lint/UselessSetterCall
 
   def become_response
     make_request

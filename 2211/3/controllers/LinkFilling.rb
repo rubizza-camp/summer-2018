@@ -17,6 +17,7 @@ class LinkFIlling
     @link = link
   end
 
+  # rubocop: disable Style/RedundantParentheses
   def all_comments_rates
     scores = []
     (JSON(@response))['documents'].each do |elem|
@@ -35,4 +36,5 @@ class LinkFIlling
   def comment_rate_calculate(index)
     ((JSON(@response))['documents'][index]['score']) * 200 - 100
   end
+  # rubocop: enable Style/RedundantParentheses
 end
