@@ -1,4 +1,0 @@
-require 'sinatra/asset_pipeline/task'
-require './commen_analyzer'
-
-Sinatra::AssetPipeline::Task.define! CommentAnalyzer

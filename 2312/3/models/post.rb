@@ -1,5 +1,8 @@
+# Post model
 class Post < Ohm::Model
   attribute :link
-  attribute :post_rating
-  collection :comment, :Comment
+  attribute :title
+  attribute :rating
+  unique :link
+  collection :comments, :Comment
 end
