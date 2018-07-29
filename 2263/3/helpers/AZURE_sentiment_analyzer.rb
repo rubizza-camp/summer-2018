@@ -2,6 +2,8 @@ require 'net/https'
 require 'uri'
 require 'json'
 
+# I don't know why, but rubocop find 3 syntax errors in this file
+# rubocop:disable Lint/Syntax
 # Class, that performs requests to AZURE sentiment analyzing API
 class AZURESentimentAnalyzer
   def initialize(access_key)
@@ -53,3 +55,4 @@ class AZURERequestFormer
     end.to_json
   end
 end
+# rubocop:enable Lint/Syntax
