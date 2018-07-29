@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>All links</title>
+  </head>
+  <body>
+    <%Link.all.each do |a|%>
+      <a href=<%= "/comments_analysis/#{a.id}" %> target="_blank"><%= a.address %></a>
+      <p><%= a.rate %></p>
+    <%end%>
+    <p><a href=<%= "/add" %>>add new links</a></p>
+  </body>
+</html>
