@@ -10,27 +10,12 @@ class AZURESentimentAnalyzer
   end
 
   def analyze(comments)
-    request = form_request(comments)
+    request = AZURERequestFormer.new(@uri, @access_key).form(comments)
     response = send_request(request)
     sentiment_list(response)
   end
 
   private
-
-  def form_request(comments)
-    request = Net::HTTP::Post.new(@uri)
-    request['Content-Type'] = 'application/json'
-    request['Ocp-Apim-Subscription-Key'] = @access_key
-    request.body = form_request_body(comments)
-    request
-  end
-
-  def form_request_body(comments)
-    counter = 0
-    comments.each_with_object({ 'documents': [] }) do |comment, body|
-      body[:documents] << { 'id' => counter += 1, 'text' => comment}
-    end.to_json
-  end
 
   def send_request(request)
     response = Net::HTTP.start(@uri.host, @uri.port, use_ssl: @uri.scheme == 'https') do |http|
@@ -41,6 +26,30 @@ class AZURESentimentAnalyzer
 
   def sentiment_list(response)
     response_hash = JSON.parse(response)
-    response_hash['documents'].each_with_object([]) { |info, sentiment_list| sentiment_list << info['score']}
+    response_hash['documents'].each_with_object([]) { |info, sentiment_list| sentiment_list << info['score'] }
+  end
+end
+
+# Class, that forms request to AZURE
+class AZURERequestFormer
+  def initialize(uri, key)
+    @request = Net::HTTP::Post.new(uri)
+    @key = key
+  end
+
+  def form(comments)
+    @request['Content-Type'] = 'application/json'
+    @request['Ocp-Apim-Subscription-Key'] = @key
+    form_request_body(comments)
+    @request
+  end
+
+  private
+
+  def form_request_body(comments)
+    counter = 0
+    @request.body = comments.each_with_object('documents': []) do |comment, body|
+      body[:documents] << { 'id' => counter += 1, 'text' => comment }
+    end.to_json
   end
 end
