@@ -1,0 +1,19 @@
+<dir>
+	<h2 align="center"><%= @article.link %></h2>
+</dir>
+<table class="table table-white">
+	<thead>
+		<tr>
+			<th>Comments</th>
+			<th>Rating of comments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= @article.comments.each do |comment|%>
+			<tr>
+				<td><%= comment.text %></td>
+				<td><%= comment.rating %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
