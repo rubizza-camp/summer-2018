@@ -29,7 +29,7 @@ class AZURESentimentAnalyzer
     response = Net::HTTP.start(@uri.host, @uri.port, use_ssl: @uri.scheme == 'https') do |http|
       http.request(request)
     end
-    JSON::pretty_generate(JSON(response.body))
+    JSON.pretty_generate(JSON(response.body))
   end
 
   def sentiment(response)
