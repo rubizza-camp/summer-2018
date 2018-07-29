@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
   set :views, File.expand_path(File.join(__FILE__, '../../views'))
 
   get '/' do
-    @articles = Article.all
+    @articles = ArticleModel.all
     erb :main_view
   end
 
@@ -16,36 +16,45 @@ class ApplicationController < Sinatra::Base
     link = OnlinerLink.new(params[:link])
     if link.verified?
       comments = LinkExplorer.new(link, File.read('./.key')).explore
-      article_sentiment = article_sentiment(comments)
-      add_to_redis_model(link, comments, article_sentiment)
-      @articles = Article.all
+      ModelsManager.new(link, comments).add_to_model
+      @articles = ArticleModel.all
       erb :main_view
     else
       erb :wrong_link
     end
   end
 
-  post '/cleardb' do
+  get '/cleardb' do
     Ohm.redis.call('FLUSHALL')
-    @articles = Article.all
+    @articles = ArticleModel.all
     erb :main_view
   end
 
   get '/analysis/:id' do
-    @comments = Article[params[:id]].comments
+    @comments = ArticleModel[params[:id]].comments
     erb :analysis
   end
 end
 
-def article_sentiment(comments)
-  comments.inject(0) { |sum, comment| sum + comment.sentiment } / comments.count
-end
-
-def add_to_redis_model(link, comments, sentiment)
-  article = Article.create(link: link.link, sentiment: sentiment)
-  comments.each do |com|
-    comdb = CommentDB.create(body: com.comment, sentiment: com.sentiment)
-    article.comments.push(comdb)
+# Class, that contol redis models
+class ModelsManager
+  def initialize(link, comments)
+    @link = link.link
+    @comments = comments
   end
-  article
+
+  def add_to_model
+    article = ArticleModel.create(link: @link, sentiment: article_sentiment)
+    @comments.each do |comment|
+      comment_db = CommentModel.create(body: comment.comment, sentiment: comment.sentiment)
+      article.comments.push(comment_db)
+    end
+    article
+  end
+
+  private
+
+  def article_sentiment
+    @comments.inject(0) { |sum, comment| sum + comment.sentiment } / @comments.count
+  end
 end
