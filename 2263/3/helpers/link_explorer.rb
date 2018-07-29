@@ -1,5 +1,7 @@
 # Class that performs parsing and analyzing comments, takes link to an articke and AZURE key
 class LinkExplorer
+  attr_reader :link, :key
+
   def initialize(link_obj, key_for_azure)
     @link = link_obj
     @key = key_for_azure

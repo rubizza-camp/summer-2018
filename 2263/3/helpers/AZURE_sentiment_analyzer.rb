@@ -4,6 +4,8 @@ require 'json'
 
 # Class, that performs requests to AZURE sentiment analyzing API
 class AZURESentimentAnalyzer
+  attr_reader :access_key, :uri
+
   def initialize(access_key)
     @access_key = access_key
     @uri = URI('https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment')
@@ -32,6 +34,8 @@ end
 
 # Class, that forms request to AZURE
 class AZURERequestFormer
+  attr_reader :key
+  
   def initialize(uri, key)
     @request = Net::HTTP::Post.new(uri)
     @key = key

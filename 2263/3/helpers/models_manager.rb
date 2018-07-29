@@ -1,5 +1,7 @@
 # Class, that contol redis models
 class ModelsManager
+  attr_reader :link, :comments
+
   def initialize(link, comments)
     @link = link.link
     @comments = comments

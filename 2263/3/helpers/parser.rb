@@ -5,6 +5,8 @@ require 'json'
 
 # Class, that takes first 50 comments from given Onliner page
 class Parser
+  attr_reader :link
+
   def initialize(link_obj)
     @link = link_obj
   end
