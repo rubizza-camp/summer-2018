@@ -1,8 +1,8 @@
 require 'dotenv/load'
 # analyze comment
-class CommentAnalyzer
+class CommentsAnalyzer
   ACCESS_KEY = ENV['ACCESS_KEY']
-  AZURE_ENDPOINT = ENV['AZURE_ENDPOINT']
+  AZURE_ENDPOINT = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'.freeze
 
   def initialize(texts)
     @texts = texts
@@ -21,17 +21,17 @@ class CommentAnalyzer
   end
   # rubocop:enable Metrics/AbcSize
 
-  def endpoint
-    @endpoint ||= URI(AZURE_ENDPOINT)
+  def azure_endpoint
+    @azure_endpoint ||= URI(AZURE_ENDPOINT)
   end
 
   # :reek:FeatureEnvy
   def request
-    request = Net::HTTP::Post.new(endpoint)
-    request['Content-Type'] = 'application/json'
-    request['Ocp-Apim-Subscription-Key'] = ACCESS_KEY
-    request.body = serialized_texts
-    request
+    Net::HTTP::Post.new(azure_endpoint).tap do |request|
+      request['Content-Type'] = 'application/json'
+      request['Ocp-Apim-Subscription-Key'] = ACCESS_KEY
+      request.body = serialized_texts_json
+    end
   end
 
   def documents
@@ -40,12 +40,12 @@ class CommentAnalyzer
     end
   end
 
-  def serialized_texts
+  def serialized_texts_json
     { documents: documents }.to_json
   end
 
   def run_request
-    https = Net::HTTP.new(endpoint.host, endpoint.port)
+    https = Net::HTTP.new(azure_endpoint.host, azure_endpoint.port)
     https.use_ssl = true
     https.request(request)
   end

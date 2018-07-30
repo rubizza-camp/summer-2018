@@ -26,8 +26,8 @@ class ApplicationController < Sinatra::Base
     link = params[:link]
     @page = Page.find(link: link).first
     unless @page
-      comment_texts = OnlinerPageParser.new(link).top_comment_texts
-      comments_with_score = CommentAnalyzer.new(comment_texts).analyze
+      comment_texts = OnlinerPage.new(link).top_comment_texts
+      comments_with_score = CommentsAnalyzer.new(comment_texts).analyze
       @page = Page.create(link: link)
       comments_with_score.each do |comment_data|
         Comment.create(comment_data.merge(page: @page))

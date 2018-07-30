@@ -3,7 +3,7 @@ require_relative '../app/comment_parser'
 require_relative 'capybara_initializer'
 
 # class for parsing
-class OnlinerPageParser
+class OnlinerPage
   COMMENTS_TO_TAKE = 50
 
   def initialize(link)
