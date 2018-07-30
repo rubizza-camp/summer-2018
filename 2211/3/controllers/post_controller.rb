@@ -1,12 +1,11 @@
+require 'sinatra'
 require_relative 'models/LinkFilling'
 require_relative 'models/Parser'
 require_relative 'models/PostQuere'
 
-# Articles
+# controller fir posts
 
-class ArticlesController < Sinatra::Base
-  set :views, File.expand_path(File.join(__FILE__, '../../views'))
-
+class PostsController < Sinatra::Base
   get '/' do
     erb :index
   end
