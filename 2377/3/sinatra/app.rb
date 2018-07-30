@@ -38,5 +38,5 @@ class MyApp < Sinatra::Base
 
   # $0 is the executed file
   # __FILE__ is the current file
-  run! if __FILE__ == $0
+  run! if $PROGRAM_NAME == __FILE__
 end

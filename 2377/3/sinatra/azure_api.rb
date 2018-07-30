@@ -1,4 +1,3 @@
-# rubocop:disable Style/UnneededInterpolation
 require 'net/https'
 require 'uri'
 require 'json'
@@ -13,20 +12,21 @@ class TextAnalytics
 
     request = Net::HTTP::Post.new(uri)
     request['Content-Type'] = 'application/json'
-    access_key = YAML.load_file(File.join(Dir.pwd, 'config.yml'))['access_key']
     request['Ocp-Apim-Subscription-Key'] = access_key
-    
     request.body = documents.to_json
-
     response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       http.request request
     end
-    comment.update score: convert((JSON response.body)['documents'][0]['score'])
+    @value = (JSON response.body)['documents'][0]['score']
+    comment.update score: convert
   end
 
-  def convert(value)
-    x = 1 / value
-    200 / x - 100
+  def convert
+    proportion = 1 / @value
+    200 / proportion - 100
+  end
+
+  def access_key
+    @access_key = YAML.load_file(File.join(Dir.pwd, 'config.yml'))['access_key']
   end
 end
-# rubocop:enable Style/UnneededInterpolation
