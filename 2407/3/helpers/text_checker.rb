@@ -27,11 +27,10 @@ class TextChecker
     request.body = document.to_json
     request
   end
-  # rubocop:disable Lint/UnneededCopDisableDirective
-  # rubocop:disable Lint/Syntax
+
   def document
-    { 'documents': @texts.map.with_index { |text, index| { 'id' => index.to_s, 'language' => 'ru', 'text' => text } } }
+    { 'documents': @texts.map.with_index do |text, index|
+                     { 'id' => index.to_s, 'language' => 'ru', 'text' => text }
+                   end }
   end
-  # rubocop:enable Lint/Syntax
-  # rubocop:enable Lint/UnneededCopDisableDirective
 end
