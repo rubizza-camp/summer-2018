@@ -24,6 +24,6 @@ class AZURESentimentAnalyzer
 
   def sentiment_list(response)
     response_hash = JSON.parse(response)
-    response_hash['documents'].each_with_object([]) { |info, sentiment_list| sentiment_list << info['score'] }
+    response_hash['documents'].map { |info| info['score'] }
   end
 end

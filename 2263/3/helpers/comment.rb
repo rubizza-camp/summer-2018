@@ -7,10 +7,6 @@ class Comment
     @sentiment = transform_sentiment(sentiment)
   end
 
-  def good?
-    @sentiment >= 0
-  end
-
   private
 
   def transform_sentiment(sentiment)
