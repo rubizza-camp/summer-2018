@@ -1,4 +1,5 @@
 require_relative 'comments_parser'
+require_relative 'comments_analyzer'
 
 class ArticleParser
   attr_reader :link
@@ -16,7 +17,8 @@ class ArticleParser
   end
 
   def comments
-    @comments ||= CommentsParser.new(page, link).call
+    untreated_comments = CommentsParser.new(page, link).comments
+    @comments ||= CommentsAnalyzer.new(untreated_comments).analyze
   end
 
   private
