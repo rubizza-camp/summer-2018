@@ -1,7 +1,3 @@
-require 'net/https'
-require 'uri'
-require 'json'
-
 # Class, that performs requests to AZURE sentiment analyzing API
 class AZURESentimentAnalyzer
   attr_reader :access_key, :uri

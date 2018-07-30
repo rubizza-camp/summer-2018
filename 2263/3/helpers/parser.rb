@@ -1,8 +1,3 @@
-require 'mechanize'
-require 'net/https'
-require 'uri'
-require 'json'
-
 # Class, that takes first 50 comments from given Onliner page
 class Parser
   attr_reader :link

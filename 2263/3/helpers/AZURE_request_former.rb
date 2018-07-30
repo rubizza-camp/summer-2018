@@ -19,7 +19,7 @@ class AZURERequestFormer
   def form_request_body(comments)
     counter = 0
     @request.body = comments.each_with_object('documents' => []) do |comment, body|
-      body[:documents] << { 'id' => counter += 1, 'text' => comment }
+      body['documents'] << { 'id' => counter += 1, 'text' => comment }
     end.to_json
   end
 end
