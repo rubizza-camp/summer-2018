@@ -26,25 +26,20 @@ class ArticlesController < ApplicationController
 		rating_s = RatingCounter.new(comments, settings.access_key).run
 		article = Article.create link: params[:link], rating: rating_s.sum / rating_s.size\
 		comments.zip(rating).each do |object|
-			article.comments.add(Comment.create(text: obj.first, rating: obj.last))
+			article.comments.add(Comment.create(text: object.first, rating: object.last))
 		end
-		refirect '/articles'
+		redirect '/articles'
 	end
 
-	get 'articles/:id' do
-		@articles = Articles.all
-		@article = @articles[params[:id]]
+	delete 'articles/:id' do
+		@article = Articles.all[params[:id]]
+		@article.delete
 		erb :'articel/index'
 	end
 
 	delete '/articles' do
 		Article.all.each(&:delete)
-		redirect '/articles'
+			redirect '/articles'
+		end
 	end
-end	
-
-
-
-get '/add' do ### ------> ? 
-	erb :'article/add'
 end
