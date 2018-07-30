@@ -1,11 +1,8 @@
-require 'sinatra'
-require_relative 'models/LinkFilling'
-require_relative 'models/Parser'
-require_relative 'models/PostQuere'
+require 'sinatra/config_file'
 
-# controller fir posts
+# controller for posts
 
-class PostsController < Sinatra::Base
+class PostsController < ApplicationController
   get '/' do
     erb :index
   end
@@ -16,8 +13,6 @@ class PostsController < Sinatra::Base
 
   post '/add' do
     @link = PostQuery.new(params[:link]).query
-    @addresses = Link.all.map(&:address)
-    @rates = Link.all.map(&:rate)
     erb :show
   end
 
