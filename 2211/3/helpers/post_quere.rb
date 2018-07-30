@@ -34,7 +34,7 @@ class PostQuery
 
   def make_request
     request = Net::HTTP::Post.new(@uri)
-    request.set_form_data('Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => @access_key)
+    request.set_form_data('Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => settings.access_key)
     @documents.to_json
   end
 
