@@ -12,6 +12,7 @@ group :development, :production do
   gem 'json'
   gem 'mechanize'
   gem 'ohm'
+  gem 'parser', '2.4.0.2'
   gem 'rake'
   gem 'sinatra'
   gem 'sinatra-config-file', '~> 1.0'
