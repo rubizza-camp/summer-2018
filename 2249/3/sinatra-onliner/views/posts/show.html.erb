@@ -22,11 +22,11 @@
             </td>
             <td class="align-middle">
                 <form action="posts/<%= ::Temple::Utils.escape_html((post.id)) %>" method="post">
-                    <button class="btn btn-outline-light" id="hidden" name="_method" onclick="return confirm(&#39;Delete this post?&#39;)" type="submit" value="delete">Delete</button>
+                    <button class="btn btn-outline-light" id="hidden" name="_method" onclick="return confirm('Delete this post?')" type="submit" value="delete">Delete</button>
                 </form>
             </td>
             <td class="align-middle">
-                <form action="posts" method="post">
+                <form action="" method="post">
                     <button class="btn btn-outline-light" name="link" type="submit" value="<%= ::Temple::Utils.escape_html((post.link)) %>">Update</button>
                 </form>
             </td>
