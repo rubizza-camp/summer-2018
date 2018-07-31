@@ -2,15 +2,16 @@
 
 source 'https://rubygems.org'
 ruby '2.5.0'
-gem 'pry', group: :development
-gem 'shotgun', group: :development
-group :development, :production do
-  gem 'config'
-  gem 'json'
-  gem 'mechanize'
-  gem 'ohm'
-  gem 'rake'
-  gem 'sinatra'
-  gem 'sinatra-config-file', '~> 1.0'
-  gem 'slim'
+
+group :development do
+  gem 'pry'
+  gem 'shotgun'
 end
+
+gem 'config'
+gem 'json'
+gem 'mechanize'
+gem 'ohm'
+gem 'rake'
+gem 'sinatra'
+gem 'sinatra-config-file', '~> 1.0'
