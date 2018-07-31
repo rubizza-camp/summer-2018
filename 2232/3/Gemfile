@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+gem 'faraday'
+
+gem 'mechanize', '2.7.5'
+
+gem 'ohm'
+
+gem 'sinatra'
+
+gem 'slim', '~> 3.0', '>= 3.0.9'
+
+gem 'thin'
+
+gem 'redis'
+
+group :development do
+  gem 'shotgun'
+
+  gem 'reek'
+
+  gem 'rubocop'
+end

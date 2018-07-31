@@ -1,0 +1,15 @@
+<div class="row justify-content-md-center">
+  <h3><%= @article.title %></h3>
+</div>
+
+<br>
+
+<% @article.comments.each do |comment| %>
+  <ul class="list-group">
+    <h4><%= comment.author %></h4>
+    <li class="list-group-item"><%= comment.text %>
+      <span class="badge badge-dark bage-lg badge-pill"><%= comment.rating %></span>
+    </li>
+    <br>
+  </ul>
+<% end %>
