@@ -2,9 +2,10 @@ module Analyzer
   class AzureAnalyzer
     require 'uri'
     require 'net/https'
+
+    SECRET_FILE_NAME = 'keystore.yml'.freeze
     API_URL = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'.freeze
-    ACCESS_KEY = 'de8a560ccae541e08ec1a30dcdd191a4'.freeze
-    # Access key is stolen. Thank you, 2364
+    ACCESS_KEY = File.read(SECRET_FILE_NAME).freeze
     CONTENT_TYPE = 'application/json'.freeze
 
     def initialize
