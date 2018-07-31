@@ -8,10 +8,12 @@ group :development do
   gem 'shotgun'
 end
 
-gem 'config'
-gem 'json'
-gem 'mechanize'
-gem 'ohm'
-gem 'rake'
-gem 'sinatra'
-gem 'sinatra-config-file', '~> 1.0'
+group :development, :production do
+  gem 'config'
+  gem 'json'
+  gem 'mechanize'
+  gem 'ohm'
+  gem 'rake'
+  gem 'sinatra'
+  gem 'sinatra-config-file', '~> 1.0'
+end
