@@ -1,8 +1,3 @@
-require_relative '../models/article.rb'
-require_relative '../repository/article.rb'
-require_relative '../parsers/html_parser.rb'
-require_relative '../validators/input_validators'
-
 require 'uri'
 require 'net/https'
 

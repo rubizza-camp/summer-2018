@@ -1,8 +1,6 @@
 module Parser
   class HTMLParser
     require 'mechanize'
-    require_relative '../models/article'
-    require_relative '../models/comment'
 
     API_ADDRESS = 'https://comments.api.onliner.by/news/'.freeze
     MAX_COMMENTS = 50

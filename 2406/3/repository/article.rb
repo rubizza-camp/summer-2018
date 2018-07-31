@@ -1,8 +1,5 @@
 module Repository
   require 'json'
-  require_relative '../models/article.rb'
-  require_relative '../hash_serializer/article_hash_serializer'
-  require_relative '../analyzer/azure_analyzer'
 
   class Article
     def initialize(redis)

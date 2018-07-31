@@ -1,7 +1,5 @@
 module HashSerializer
   class ArticleHashSerializer
-    require_relative '../models/article'
-    require_relative 'comment_hash_serializer'
 
     def self.create_hash(article)
       tmp_list = []
