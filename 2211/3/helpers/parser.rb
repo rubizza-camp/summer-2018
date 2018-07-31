@@ -9,7 +9,6 @@ require 'json'
 # Parser
 
 class Parser
-  attr_reader :comments_uri
   COMMENTS_API = 'https://comments.api.onliner.by/news/tech.post/'
   COMMENTS_LIMIT = '/comments?limit=50'
   def initialize(link_obj)
@@ -17,7 +16,7 @@ class Parser
   end
 
   def comments
-    make_comments_list
+    comments_list
   end
 
   private
@@ -27,18 +26,18 @@ class Parser
   end
 
   def comments_page
-    Net::HTTP.get_response(make_comments_uri).body
+    Net::HTTP.get_response(comments_uri).body
   end
 
   def page_id
     Nokogiri::HTML(page_html).xpath('//span[@news_id]').to_s.match(/\d+/).to_s
   end
 
-  def make_comments_uri
+  def comments_uri
     URI.parse(COMMENTS_API + page_id + COMMENTS_LIMIT)
   end
 
-  def make_comments_list
+  def mments_list
     json_comments = JSON.parse(comments_page)
     json_comments['comments'].each_with_object([]) { |comment, array| array << comment['text'] }
   end
