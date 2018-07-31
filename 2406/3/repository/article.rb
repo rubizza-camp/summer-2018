@@ -7,7 +7,7 @@ module Repository
     end
 
     def save(article)
-      @redis.set size, HashSerializer::ArticleHashSerializer.create_hash(Analyzer::AzureAnalyzer.new.execute(article)).to_json
+      @redis.set size, ArticleHashSerializer.create_hash(Analyzer::AzureAnalyzer.new.execute(article)).to_json
     end
 
     def select_by_id(id)

@@ -1,6 +1,5 @@
 module HashSerializer
   class ArticleHashSerializer
-
     def self.create_hash(article)
       tmp_list = []
       article.comment_list.each { |comment| tmp_list << HashSerializer::CommentHashSerializer.create_hash(comment) }

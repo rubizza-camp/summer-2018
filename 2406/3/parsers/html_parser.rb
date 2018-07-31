@@ -2,7 +2,7 @@ module Parser
   class HTMLParser
     require 'mechanize'
 
-    API_ADDRESS = 'https://comments.api.onliner.by/news/'.freeze
+    API_PATH = 'https://comments.api.onliner.by/news/'.freeze
     MAX_COMMENTS = 50
 
     def self.to_article(link)
@@ -25,7 +25,7 @@ module Parser
     end
 
     def self.hash_from_json(link, id)
-      JSON.parse(@agent.get("#{API_ADDRESS}#{link[%r{https://(\w+)}, 1]}.post/#{id}/comments?limit=#{MAX_COMMENTS}").body)
+      JSON.parse(@agent.get("#{API_PATH}#{link[%r{https://(\w+)}, 1]}.post/#{id}/comments?limit=#{MAX_COMMENTS}").body)
     end
   end
 end
