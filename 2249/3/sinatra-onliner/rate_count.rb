@@ -7,8 +7,8 @@ require 'json'
 # Class gets array of comments
 
 class CountRating
-  URI = 'https://westcentralus.api.cognitive.microsoft.com'.freeze
-  PATH = '/text/analytics/v2.0/sentiment'.freeze
+  URI = 'https://westcentralus.api.cognitive.microsoft.com'
+  PATH = '/text/analytics/v2.0/sentiment'
   attr_reader :data, :uri, :request
 
   def initialize(comments, api_key)

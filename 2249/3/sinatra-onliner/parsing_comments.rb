@@ -7,8 +7,8 @@ require 'mechanize'
 
 class CommentsParser
   COMMENTS_LIMIT = 50
-  API_PATH = 'https://comments.api.onliner.by/news/tech.post/'.freeze
-  API_PARAMS = "/comments?limit=#{COMMENTS_LIMIT}&_=0.9841189675826583".freeze
+  API_PATH = 'https://comments.api.onliner.by/news/tech.post/'
+  API_PARAMS = "/comments?limit=#{COMMENTS_LIMIT}&_=0.9841189675826583"
   attr_reader :agent, :path
   def initialize(path)
     @path = path
