@@ -1,4 +1,4 @@
-require "sinatra/base"
+require 'sinatra/base'
 require_relative 'models/link'
 require_relative 'models/comment'
 require_relative 'parser'
@@ -8,7 +8,7 @@ require 'yaml'
 # Main class for application
 class MyApp < Sinatra::Base
   post '/get-link' do
-    link = Link.create :link => params[:link]
+    link = Link.create link: params[:link]
     please = Parser.new
     please.get_comments(link)
     please.parse_json(link)
@@ -16,11 +16,11 @@ class MyApp < Sinatra::Base
     link.comments.each do |comment|
       pray.analyse(comment)
     end
-    total = link.comments.inject(0) { |total, comment| total + comment.score.to_i } / link.comments.size
-    link.update :score => total
+    total = link.comments.inject(0) { |sum, comment| sum + comment.score.to_i } / link.comments.size
+    link.update score: total
     erb :active_page
   end
-  
+
   get '/' do
     erb :main
   end

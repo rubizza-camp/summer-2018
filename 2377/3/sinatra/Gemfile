@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "sinatra"
-gem "ohm"
-gem "mechanize"
+gem 'mechanize'
+gem 'ohm'
+gem 'sinatra'
 
 group :development do
-  gem "pry"
-  gem "shotgun"
+  gem 'pry'
+  gem 'shotgun'
 end
-

@@ -17,12 +17,11 @@ class TextAnalytics
     response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       http.request request
     end
-    @value = (JSON response.body)['documents'][0]['score']
-    comment.update score: convert
+    comment.update score: convert((JSON response.body)['documents'][0]['score'])
   end
 
-  def convert
-    proportion = 1 / @value
+  def convert(value)
+    proportion = 1 / value
     200 / proportion - 100
   end
 
