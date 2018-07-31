@@ -24,8 +24,8 @@ class LinkFilling
 
   def filling
     new_link = Link.create(address: @link.to_s, rate: Avr.new(all_comments_rates).avr.to_s)
-    @all_comments_texts.each_with_index do |com, index|
-      new_link.comments.push(Comment.create(text: com, rate: comment_rate_calculate(index).to_s))
+    @all_comments_texts.each_with_index do |comment, index|
+      new_link.comments.push(Comment.create(text: comment, rate: comment_rate_calculate(index).to_s))
     end
   end
 

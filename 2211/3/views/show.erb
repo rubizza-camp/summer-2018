@@ -7,7 +7,7 @@
     <%Link.all.each do |l|%>
       <a href=<%= "/comments_analysis/#{l.id}" %> target="_blank"><%= l.address %></a>
       <p><%= l.rate %></p>
-    <%end%>
+    <% end %>
     <p><a href=<%= "/add" %>>add new links</a></p>
   </body>
 </html>

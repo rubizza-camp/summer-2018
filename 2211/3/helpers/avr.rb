@@ -1,14 +1,14 @@
-# Avr
+# Average
 
 class Avr
   def initialize(all_rates)
     @all_rates = all_rates
-    @article_acore = 0
+    @article_score = 0
   end
 
   def avr
-    @all_rates.each { |score| @article_acore += score }
-    @article_acore /= @all_rates.size
-    @article_acore * 200 - 100
+    @all_rates.each { |score| @article_score += score }
+    @article_score /= @all_rates.size
+    @article_score * 200 - 100
   end
 end

@@ -6,8 +6,8 @@
   <body>
     <form action='/comments_analysis/:id' method='post'>
       <%@comments.each do |c|%>
-      <p><%= c.text %> <b>--</b> <%= c.rate %></p>
-    <%end%>
+        <p><%= c.text %> <b>--</b> <%= c.rate %></p>
+      <% end %>
     </form>
   </body>
 </html>

@@ -11,8 +11,8 @@ require_relative 'parser'
 # Make Quere
 
 class PostQuery
+  URI = URI('https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment')
   def initialize(link)
-    @uri = URI('https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment')
     @link = link
     @documents = {}
     @documents['documents'] = []
@@ -33,13 +33,13 @@ class PostQuery
   end
 
   def make_request
-    request = Net::HTTP::Post.new(@uri)
+    request = Net::HTTP::Post.new(URI)
     request.set_form_data('Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => settings.access_key)
     @documents.to_json
   end
 
   def become_response
-    Net::HTTP.start(@uri.host, @uri.port, use_ssl: @uri.scheme == 'https') do |http|
+    Net::HTTP.start(URI.host, URI.port, use_ssl: URI.scheme == 'https') do |http|
       http.request(make_request)
     end
   end

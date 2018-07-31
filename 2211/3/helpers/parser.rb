@@ -10,7 +10,9 @@ require 'json'
 
 class Parser
   attr_reader :comments_uri
-  def initialize(link_obj)
+  COMMENTS_API = 'https://comments.api.onliner.by/news/tech.post/'
+  COMMENTS_LIMIT = '/comments?limit=50'
+def initialize(link_obj)
     @link = link_obj
   end
 
@@ -33,7 +35,7 @@ class Parser
   end
 
   def make_comments_uri
-    URI.parse('https://comments.api.onliner.by/news/tech.post/' + page_id + '/comments?limit=50')
+    URI.parse(COMMENTS_API + page_id + COMMENTS_LIMIT)
   end
 
   def make_comments_list
