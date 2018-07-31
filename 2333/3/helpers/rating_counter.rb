@@ -7,13 +7,13 @@ require 'net/http'
 # the class that send request to Azure and get comments rating
 class RatingCounter
   URI = 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'
-
+  KEY = YAML.load_file('config.yml')['KEY']
   attr_reader :request, :uri
-  def initialize(comments, key)
+  def initialize(comments)
     @uri = URI(URI)
     @data = { documents: [] }
     @comments = comments
-    @request = create_post_request(key)
+    @request = create_post_request(KEY)
   end
 
   def rating
@@ -34,11 +34,11 @@ class RatingCounter
     end
   end
 
-  def create_post_request(key)
+  def create_post_request(access_key)
     prepare_data_for_request
     request = Net::HTTP::Post.new(uri,
                                   'Content-Type' => 'application/json',
-                                  'Ocp-Apim-Subscription-Key' => key)
+                                  'Ocp-Apim-Subscription-Key' => access_key)
     request.body = @data.to_json
     request
   end

@@ -5,9 +5,8 @@ require_relative 'rating_counter.rb'
 
 # The class that parse comments from article
 class CommentsParser
-  def initialize(url, key)
+  def initialize(url)
     @page = url
-    @key = key
   end
 
   def texts_with_rating
@@ -17,7 +16,7 @@ class CommentsParser
   private
 
   def comments_rating
-    RatingCounter.new(texts_from_comments.flatten, @key).rating
+    RatingCounter.new(texts_from_comments.flatten).rating
   end
 
   def texts_from_comments

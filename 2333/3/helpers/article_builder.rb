@@ -2,9 +2,8 @@
 
 # the class that creates an article
 class ArticleBuilder
-  def initialize(link, key)
+  def initialize(link)
     @link = link
-    @key = key
   end
 
   def create_article
@@ -19,6 +18,6 @@ class ArticleBuilder
   end
 
   def comments_with_rating
-    @comments_with_rating ||= CommentsParser.new(@link, @key).texts_with_rating
+    @comments_with_rating ||= CommentsParser.new(@link).texts_with_rating
   end
 end

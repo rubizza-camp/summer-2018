@@ -14,15 +14,15 @@ class ArticlesController < ApplicationController
     erb :index
   end
 
-  get '/articles/add' do
+  get '/articles/new' do
     erb :add_article
   end
 
-  post '/articles/add' do
+  post '/articles' do
     Article.all.each do |article|
       article.delete if article.link == params[:link]
     end
-    ArticleBuilder.new(params[:link], settings.access_key).create_article
+    ArticleBuilder.new(params[:link]).create_article
     redirect '/articles'
   end
 
