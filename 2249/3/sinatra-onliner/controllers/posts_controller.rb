@@ -9,11 +9,11 @@ class PostsController < ApplicationController
 
   get '/posts' do
     @posts = Post.all.sort_by(:rating).reverse!
-    erb :'post/show'
+    erb :'posts/show'
   end
 
   get '/posts/new' do
-    erb :'post/new'
+    erb :'posts/new'
   end
 
   post '/posts' do
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
   get '/posts/:id' do
     @posts = Post.all
     @post = @posts[params[:id]]
-    erb :'post/index'
+    erb :'posts/index'
   end
 
   delete '/posts/:id' do
