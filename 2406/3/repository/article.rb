@@ -1,20 +1,20 @@
-module DAO
+module Repository
   require 'json'
   require_relative '../models/article.rb'
-  require_relative '../parsers/hash_parser/article_hash_parser'
+  require_relative '../hash_serializer/article_hash_serializer'
   require_relative '../analyzer/azure_analyzer'
 
-  class ArticleDAO
+  class Article
     def initialize(redis)
       @redis = redis
     end
 
     def save(article)
-      @redis.set size, HashParser::ArticleHashParser.create_hash(Analyzer::AzureAnalyzer.new.execute(article)).to_json
+      @redis.set size, HashSerializer::ArticleHashSerializer.create_hash(Analyzer::AzureAnalyzer.new.execute(article)).to_json
     end
 
     def select_by_id(id)
-      HashParser::ArticleHashParser.parse_hash(JSON.parse(@redis.get(id)))
+      HashSerializer::ArticleHashSerializer.parse_hash(JSON.parse(@redis.get(id)))
     end
 
     def select_all

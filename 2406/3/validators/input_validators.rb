@@ -1,5 +1,5 @@
-module ErrorProcessor
-  class InputError
+module Validators
+  class InputValidators
     DOMAIN_NAME = 'onliner.by'.freeze
 
     def exist(article_list, link)

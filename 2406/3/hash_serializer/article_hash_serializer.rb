@@ -1,11 +1,11 @@
-module HashParser
-  class ArticleHashParser
-    require_relative '../../models/article'
-    require_relative 'comment_hash_parser'
+module HashSerializer
+  class ArticleHashSerializer
+    require_relative '../models/article'
+    require_relative 'comment_hash_serializer'
 
     def self.create_hash(article)
       tmp_list = []
-      article.comment_list.each { |comment| tmp_list << HashParser::CommentHashParser.create_hash(comment) }
+      article.comment_list.each { |comment| tmp_list << HashSerializer::CommentHashSerializer.create_hash(comment) }
       { id: article.id,
         name: article.name,
         link: article.link,
@@ -14,7 +14,7 @@ module HashParser
 
     def self.parse_hash(hash)
       tmp_array = []
-      hash['comment_list'].each { |value| tmp_array << HashParser::CommentHashParser.parse_hash(value) }
+      hash['comment_list'].each { |value| tmp_array << HashSerializer::CommentHashSerializer.parse_hash(value) }
       Models::Article.new(hash['id'],
                           hash['name'],
                           hash['link'],

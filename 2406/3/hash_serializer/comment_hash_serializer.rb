@@ -1,6 +1,6 @@
-module HashParser
-  class CommentHashParser
-    require_relative '../../models/comment'
+module HashSerializer
+  class CommentHashSerializer
+    require_relative '../models/comment'
     def self.create_hash(comment)
       { description: comment.description, rate: comment.rate }
     end

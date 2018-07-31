@@ -14,9 +14,5 @@ module Models
     def rate
       @comment_list.sum(&:rate) / @comment_list.size.to_f
     end
-
-    def add_comment(comment)
-      @comment_list << comment if comment_list.size <= 50
-    end
   end
 end
