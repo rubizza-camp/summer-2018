@@ -25,7 +25,7 @@ class MyApp < Sinatra::Base
   end
 
   post '/clear' do
-    Ohm.redis.call("FLUSHALL")
+    Ohm.redis.call('FLUSHALL')
     erb :active_page
   end
 
