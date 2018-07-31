@@ -12,7 +12,7 @@ class Parser
   attr_reader :comments_uri
   COMMENTS_API = 'https://comments.api.onliner.by/news/tech.post/'
   COMMENTS_LIMIT = '/comments?limit=50'
-def initialize(link_obj)
+  def initialize(link_obj)
     @link = link_obj
   end
 
