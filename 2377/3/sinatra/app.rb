@@ -11,7 +11,6 @@ class MyApp < Sinatra::Base
     link = Link.create link: params[:link]
     please = Parser.new
     please.get_comments(link)
-    please.parse_json(link)
     pray = TextAnalytics.new
     link.comments.each do |comment|
       pray.analyse(comment)
