@@ -6,13 +6,16 @@ class PostsController < ApplicationController
   get '/' do
     redirect '/posts'
   end
+
   get '/posts' do
     @posts = Post.all.sort_by(:rating).reverse!
-    slim :'post/show'
+    erb :'post/show'
   end
+
   get '/posts/new' do
-    slim :'post/new'
+    erb :'post/new'
   end
+
   post '/posts' do
     redirect '/posts' unless params[:link].include?('tech.onliner.by')
     Post.all.each do |post|
@@ -26,16 +29,19 @@ class PostsController < ApplicationController
     end
     redirect '/posts'
   end
+
   get '/posts/:id' do
     @posts = Post.all
     @post = @posts[params[:id]]
-    slim :'post/index'
+    erb :'post/index'
   end
+
   delete '/posts/:id' do
     @post = Post.all[params[:id]]
     @post.delete
     redirect '/posts'
   end
+
   delete '/posts' do
     Post.all.each(&:delete)
     redirect '/posts'
