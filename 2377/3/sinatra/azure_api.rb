@@ -22,7 +22,9 @@ class TextAnalytics
   end
 
   def documents(comment)
-    { 'documents': [{ 'id' => '1', 'language' => 'ru', 'text' => comment.comment.to_s }] }
+    documents = {}
+    documents['documents'] = [{ 'id' => '1', 'language' => 'ru', 'text' => comment.comment.to_s }]
+    documents
   end
 
   def request(comment)
