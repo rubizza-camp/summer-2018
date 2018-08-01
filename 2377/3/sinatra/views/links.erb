@@ -1,0 +1,19 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>analysis</title>
+ </head>
+ <body>
+  <table>
+      <%if @comments%>
+       <% @comments.each do |comment| %>
+        <tr>
+	  <td> <%=comment.comment%> </td>
+	  <td> <%=comment.score%> <td>
+       </tr>
+       <% end%>
+      <% end%>
+  </table>
+ </body>
+</html>
