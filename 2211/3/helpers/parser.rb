@@ -9,8 +9,14 @@ require 'json'
 # Parser
 
 class Parser
+<<<<<<< HEAD
   COMMENTS_API = 'https://comments.api.onliner.by/news/tech.post/'
   COMMENTS_LIMIT = '/comments?limit=50'
+=======
+  attr_reader :comments_uri
+  COMMENTS_API = 'https://comments.api.onliner.by/news/tech.post/'.freeze
+  COMMENTS_LIMIT = '/comments?limit=50'.freeze
+>>>>>>> edf11ba0e6b7714c3ea21e3ce2de39624a41164c
   def initialize(link_obj)
     @link = link_obj
   end
