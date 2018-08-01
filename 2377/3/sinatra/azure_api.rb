@@ -1,8 +1,7 @@
-# disable:InstanceVariableAssumption
-# disable:UtilityFunction
 require 'net/https'
 require 'uri'
 require 'json'
+require_relative 'converter'
 # Analysis via Azure API
 class TextAnalytics
   def initialize
@@ -13,12 +12,7 @@ class TextAnalytics
     response = Net::HTTP.start(@uri.host, @uri.port, use_ssl: @uri.scheme == 'https') do |http|
       http.request request(comment)
     end
-    comment.update score: convert((JSON response.body)['documents'][0]['score'])
-  end
-
-  def convert(value)
-    proportion = 1 / value
-    200 / proportion - 100
+    comment.update score: Converter.new(((JSON response.body)['documents'][0]['score'])).final_value
   end
 
   private
@@ -39,5 +33,3 @@ class TextAnalytics
     request
   end
 end
-# enable:InstanceVariableAssumption
-# enable:UtilityFunction
