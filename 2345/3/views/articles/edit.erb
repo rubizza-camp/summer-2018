@@ -1,0 +1,11 @@
+<h1>Edit article</h1>
+
+<form action="/articles/<%= @article.id %>" method="post">
+  <div class="form-group">
+    <label for="article">Article's link</label>
+    <input type="text" class="form-control" id="article" aria-describedby="emailHelp" placeholder="Input link" name="article" title="Example: https://tech.onliner.by/2018/07/26/eksperiment-biosfera-2" pattern="^(http|https):\/\/\w+\.onliner.+" value="<%= @article.link %>" autofocus>
+    <small id="emailHelp" class="form-text text-muted">Link to be edited</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+

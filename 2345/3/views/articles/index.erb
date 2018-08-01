@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title> Articles table </title>
+  </head>
+
+  <a href="/articles/new"> <b>New article</b></a>
+
+  <body>
+    <table border="1" cellspacing="0" cellpadding="10" width="40%">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th colspan=2>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @articles.each_with_index do |article, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><a href=<%= article.link %>><%= article.title %></a></td>
+            <td><a><%= article.rating %></a></td>
+            <td><a href=<%= "/articles/#{article.id}" %> >>>> </a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</html>
+

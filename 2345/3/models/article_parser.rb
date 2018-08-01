@@ -1,9 +1,7 @@
 require 'mechanize'
 
 class ArticleParser
-  include CommentHelper
-
-  def initialize(link = 'https://tech.onliner.by/2018/07/24/duglas-censor-martin')
+  def initialize(link = 'https://people.onliner.by/2018/07/23/vodol')
     @agent = Mechanize.new
     @article_link = link
   end
@@ -14,9 +12,9 @@ class ArticleParser
 
   def comments
     data['comments'].reverse.map do |comment|
-      { author: CommentHelper.author(comment),
-        text: CommentHelper.text(comment),
-        votes: CommentHelper.votes(comment) }
+      { author: CommentParser.author(comment),
+        text: CommentParser.text(comment),
+        votes: CommentParser.votes(comment) }
     end
   end
 
@@ -38,19 +36,3 @@ class ArticleParser
     @agent.get(@article_link).search('.news_view_count').attr('news_id').value
   end
 end
-
-module CommentHelper
-  def self.votes(options)
-    options['marks'].values.reduce(:+)
-  end
-
-  def self.author(options)
-    options['author']['name']
-  end
-
-  def self.text(options)
-    options['text']
-  end
-end
-
-
