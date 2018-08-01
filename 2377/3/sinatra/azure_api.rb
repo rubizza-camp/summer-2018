@@ -12,7 +12,7 @@ class TextAnalytics
     response = Net::HTTP.start(@uri.host, @uri.port, use_ssl: @uri.scheme == 'https') do |http|
       http.request request(comment)
     end
-    comment.update score: Converter.new(((JSON response.body)['documents'][0]['score'])).final_value
+    update_comment(comment, response)
   end
 
   private
@@ -25,6 +25,10 @@ class TextAnalytics
     documents = {}
     documents['documents'] = [{ 'id' => '1', 'language' => 'ru', 'text' => comment.comment.to_s }]
     documents
+  end
+
+  def update_comment(comment, response)
+    comment.update score: Converter.new(((JSON response.body)['documents'][0]['score'])).final_value
   end
 
   def request(comment)
