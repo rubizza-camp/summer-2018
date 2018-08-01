@@ -9,7 +9,6 @@ require 'json'
 # Parser
 
 class Parser
-  attr_reader :comments_uri
   COMMENTS_API = 'https://comments.api.onliner.by/news/tech.post/'.freeze
   COMMENTS_LIMIT = '/comments?limit=50'.freeze
   def initialize(link_obj)
