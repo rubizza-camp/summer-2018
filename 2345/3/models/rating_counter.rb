@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 class RatingCounter
-  URI = 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'.freeze
+  URI = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'.freeze
   ACCESS_KEY = IO.read(File.dirname(__FILE__) + '/pass').freeze
   attr_reader :request
 

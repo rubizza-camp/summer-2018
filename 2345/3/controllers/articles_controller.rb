@@ -21,11 +21,6 @@ class ArticlesController < ApplicationController
     erb :'/articles/show'
   end
 
-  get '/:id/edit' do
-    @article = Article[params[:id]]
-    erb :'articles/edit'
-  end
-
   delete '/:id' do
     Article[params[:id]].delete
     redirect to '/'
