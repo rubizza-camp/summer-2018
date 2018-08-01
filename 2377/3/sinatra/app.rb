@@ -29,10 +29,10 @@ class MyApp < Sinatra::Base
     erb :active_page
   end
 
-  get '/analysis/:id' do
+  get '/links/:id' do
     @comments = Link[params[:id]].comments
 
-    erb :analysis
+    erb :links
   end
 
   # $0 is the executed file

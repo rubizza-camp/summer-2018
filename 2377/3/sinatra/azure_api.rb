@@ -1,3 +1,5 @@
+# disable:InstanceVariableAssumption
+# disable:UtilityFunction
 require 'net/https'
 require 'uri'
 require 'json'
@@ -37,3 +39,5 @@ class TextAnalytics
     request
   end
 end
+# enable:InstanceVariableAssumption
+# enable:UtilityFunction
