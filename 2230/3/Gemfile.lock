@@ -1,0 +1,99 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (5.2.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    backports (3.11.3)
+    capybara (3.4.2)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      xpath (~> 3.1)
+    coderay (1.1.2)
+    concurrent-ruby (1.0.5)
+    daemons (1.2.6)
+    eventmachine (1.2.7)
+    hiredis (0.6.1)
+    i18n (1.0.1)
+      concurrent-ruby (~> 1.0)
+    method_source (0.9.0)
+    mini_mime (1.0.0)
+    mini_portile2 (2.3.0)
+    minitest (5.11.3)
+    multi_json (1.13.1)
+    mustermann (1.0.2)
+    nest (3.1.1)
+      redic
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
+    ohm (3.1.1)
+      nest (~> 3)
+      redic (~> 1.5.0)
+      stal
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    public_suffix (3.0.2)
+    rack (2.0.5)
+    rack-protection (2.0.3)
+      rack
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
+    redic (1.5.0)
+      hiredis
+    shotgun (0.9.2)
+      rack (>= 1.0)
+    sinatra (2.0.3)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.3)
+      tilt (~> 2.0)
+    sinatra-config-file (1.0)
+      sinatra-contrib
+    sinatra-contrib (2.0.3)
+      activesupport (>= 4.0.0)
+      backports (>= 2.8.2)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.0.3)
+      sinatra (= 2.0.3)
+      tilt (>= 1.3, < 3)
+    slim (3.0.9)
+      temple (>= 0.7.6, < 0.9)
+      tilt (>= 1.3.3, < 2.1)
+    stal (0.3.0)
+      redic (~> 1.5)
+    temple (0.8.0)
+    thin (1.7.2)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
+    thread_safe (0.3.6)
+    tilt (2.0.8)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    xpath (3.1.0)
+      nokogiri (~> 1.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  capybara
+  ohm
+  pry
+  shotgun
+  sinatra
+  sinatra-config-file
+  slim
+  thin
+
+BUNDLED WITH
+   1.16.3
