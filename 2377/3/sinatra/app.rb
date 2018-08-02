@@ -30,7 +30,6 @@ class MyApp < Sinatra::Base
 
   get '/clear' do
     Ohm.redis.call('FLUSHALL')
-    #erb :active_page
     redirect '/'
   end
 
