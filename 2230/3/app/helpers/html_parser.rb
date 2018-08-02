@@ -13,7 +13,7 @@ class HTMLParser
   end
 
   def run
-    page = Nokogiri::HTML(open(@article_url))
+    page = Nokogiri::HTML(URI.parse(@article_url).read)
     @article_title = page.css('title').text
     @comments_url = generate_comments_url(page.css('div#fast-comments app'))
   end
@@ -21,7 +21,8 @@ class HTMLParser
   private
 
   def generate_comments_url(page)
-    File.join(COMMENTS_API_BASE_PATH, '/', page.at('app')['project-name'], '/', page.at('app')['entity-type'], '/', page.at('app')['entity-id'], "/comments?limit=#{COMMENTS_COUNT}")
+    File.join(COMMENTS_API_BASE_PATH, '/', page.at('app')['project-name'], '/', page.at('app')['entity-type'], \
+              '/', page.at('app')['entity-id'], "/comments?limit=#{COMMENTS_COUNT}")
   end
 end
 
