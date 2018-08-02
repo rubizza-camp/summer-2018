@@ -1,0 +1,20 @@
+html
+  head
+    meta charset='utf-8'
+    title Добавление новой статьи
+  body
+    p Скопируйте URL любой статьи на onliner.by и вставьте в поле ниже
+    form action='../articles' method='post'
+      label for='article_new' Новый URL:
+      input type='text' name='article_new'
+      br
+      br
+      input type='submit' value='Отправить'
+
+      ul
+        li
+          a href='javascript:history.back()' Назад
+        li
+          a href='../articles' К списку статей
+        li
+          a href='/' На главную

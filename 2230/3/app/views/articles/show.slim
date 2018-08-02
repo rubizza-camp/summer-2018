@@ -1,0 +1,45 @@
+html
+  head
+    meta charset='utf-8'
+    title Список статей
+  body
+    h3 Список статей
+    p Выберете любую статью, чтобы увидеть на основании каких комментариев сформирован рейтинг
+    table border="1"
+      tr
+        th Название
+        th Ссылка на источник
+        th Рейтинг
+      - @articles.each do |article|
+        tr
+          td
+            a href='articles/#{article.id}' = article.title
+          td
+            a href='#{article.url}' = article.url
+          td
+            p #{article.rating}
+
+    ul
+      li 
+        a href='javascript:history.back()' Назад
+      li
+        a href='../articles/new' Добавить новую статью
+      li
+        a href='../articles' К списку статей
+      li
+        a href='/' На главную
+
+/
+      tr
+        td
+          a href='comments/1' Зубр нашёл себе тёлочку
+        td
+          a href='https://auto.onliner.by/2018/02/03/zubry' https://auto.onliner.by/2018/02/03/zubry
+        td -53
+      tr
+        td
+          a href='comments/2' Снова выросли цены на нефть
+        td
+          a href='https://auto.onliner.by/2018/05/25/belneftexim-6' https://auto.onliner.by/2018/05/25/belneftexim-6
+        td 15
+/!

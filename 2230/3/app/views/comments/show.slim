@@ -1,0 +1,37 @@
+html
+  head
+    meta charset='utf-8'
+    title Список комментариев
+  body
+    h3 Список комментариев
+    p Рейтинг сформирован от -100 до 100 при помощи сервисов Azure
+    table border='1'
+      tr
+        th Название
+        th Рейтинг
+      - @comments.each do |comment|
+        tr
+          td
+            p = comment.text
+          td
+            p = comment.rating
+
+    ul
+      li 
+        a href='javascript:history.back()' Назад
+      li
+        a href='../articles' К списку статей
+      li
+        a href='/' На главную
+
+/
+      tr
+        td
+          p Первонах
+        td
+          p -53
+      tr
+        td
+          p А вот я то в советские-то времена...
+        td 15
+/!
