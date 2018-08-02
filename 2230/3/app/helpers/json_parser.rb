@@ -3,14 +3,13 @@ require 'json'
 
 class JSONParser
   attr_reader :comments_url
-  attr_reader :comments
 
   def initialize(comments_url)
     @comments_url = comments_url
   end
 
   def comments
-    comments = send_comments_request
+    send_comments_request
   end
 
   private

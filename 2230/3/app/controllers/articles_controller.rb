@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
     comments = JSONParser.new(comments_url).comments
     rating = AzureSender.new(comments, settings.access_key).run
     article = Article.create \
-              url: params[:article_new], title: html_parser.article_title, rating: rating.sum / rating.size
+      url: params[:article_new], title: html_parser.article_title, rating: rating.sum / rating.size
     comments.zip(rating).each do |obj|
       Comment.create(text: obj.first, rating: obj.last, article: article)
     end
