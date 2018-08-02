@@ -7,7 +7,7 @@ require 'ohm'
 require 'yaml'
 # Main class for application
 class MyApp < Sinatra::Base
-  post '/get-link' do
+  post '/links/new' do
     link = Link.create link: params[:link]
     please = Parser.new
     please.get_comments(link)
@@ -17,6 +17,10 @@ class MyApp < Sinatra::Base
     end
     total = link.comments.inject(0) { |sum, comment| sum + comment.score.to_i } / link.comments.size
     link.update score: total
+    redirect '/links'
+  end
+
+  get '/links' do
     erb :active_page
   end
 
@@ -24,9 +28,10 @@ class MyApp < Sinatra::Base
     erb :main
   end
 
-  post '/clear' do
+  get '/clear' do
     Ohm.redis.call('FLUSHALL')
-    erb :active_page
+    #erb :active_page
+    redirect '/'
   end
 
   get '/links/:id' do
