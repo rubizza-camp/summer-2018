@@ -6,6 +6,6 @@ class ApplicationController < Sinatra::Base
   config_file '../../config.yml'
 
   get '/' do
-    slim :'index'
+    slim :index
   end
 end
