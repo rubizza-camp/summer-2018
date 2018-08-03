@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+  base href="/"
+  link rel="stylesheet" href="styles/style.css"
+
+    #content
+    title Detail for article #{@article.name}
+  body
+
+    h1 Detail for article
+    h3 Name: #{@article.name}
+    h3 Rate: #{@article.rate}
+    a href=@article.link #{@article.link}
+    hr
+    h2 Comments list
+
+    - unless @article.comment_list.empty?
+      table border='1'
+        tr
+          th.name = 'Comment text'
+          th.name = 'Comment rate'
+        - @article.comment_list.each_with_index do |comment, id|
+          tr
+            td.description = comment.description
+            td.rate = comment.rate
+
+    - else
+      p
+      | No comments found.
+    br
+    a href='/' Return to main page
+    hr
+| Copyright © 2018 Vereskovsky Stas

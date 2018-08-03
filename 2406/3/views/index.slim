@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+  link rel="stylesheet" href="styles/style.css"
+    title Onliner analyzer
+  body
+    h1 Onliner analyzer
+
+    #content
+    br
+    form action='/' method='post'
+      label Enter link to analyzer
+      input name='link' type='text'
+      input type='submit' value='Add link'
+    br
+      - unless @article_list.empty?
+        table border='1'
+          tr
+            th.name = 'Name'
+            th.name = 'Link'
+            th.name = 'Rate'
+          - @article_list.each_with_index do |article, id|
+            tr
+              td.name: a href="/articles/#{id}" #{article.name}
+              td.link: a href="#{article.link}" #{article.link}
+              td.rate = article.rate.round(3)
+
+      - else
+        p
+        | No articles found.  Please add some articles. Thank you!
+
+    br
+| Copyright © 2018 Vereskovsky Stas

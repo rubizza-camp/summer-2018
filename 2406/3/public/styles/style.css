@@ -1,0 +1,54 @@
+@@charset "UTF-8";
+*
+{
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+body
+{
+    color: #545454;
+    background: #e8e8e8;
+    font-size: 1.2em;
+    font-family: "Segoe UI", sans-serif;
+    line-height: 135%;
+}
+
+table
+{
+    border: 2px solid rgb(114, 164, 0);
+}
+
+a {
+  text-decoration: none
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: red;
+}
+
+a:active {
+    color: red;
+}
+
+label {
+  margin-right: 10px
+}
+
+input {
+  margin-right: 10px
+}
+
+input[type="text"]
+{
+    width:400px;
+}
