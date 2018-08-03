@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+ruby '2.5.0'
+
+group :development do
+  gem 'pry'
+  gem 'shotgun'
+end
+
+group :development, :production do
+  gem 'config'
+  gem 'json'
+  gem 'mechanize'
+  gem 'ohm'
+  gem 'rake'
+  gem 'sinatra'
+  gem 'sinatra-config-file', '~> 1.0'
+end

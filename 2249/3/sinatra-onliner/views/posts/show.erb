@@ -1,0 +1,40 @@
+<div align="center">
+    <h1>Rating comments </h1>
+</div>
+<div>
+    <table class="table table-dark">
+     <thead>
+        <tr>
+        <th class="align-middle">Links</th>
+        <th class="align-middle">
+        </th>
+        <th class="align-middle">
+        </th>
+        <th class="align-middle">Rate</th>
+        </tr>
+     </thead>
+     <tbody>
+        <% @posts.each do |post| %>
+        <tr>
+            <td class="align-middle">
+                <a href="posts/<%= ::Temple::Utils.escape_html((post.id)) %>"><%= ::Temple::Utils.escape_html((post.link)) %>
+                </a>
+            </td>
+            <td class="align-middle">
+                <form action="posts/<%= ::Temple::Utils.escape_html((post.id)) %>" method="post">
+                    <button class="btn btn-outline-light" id="hidden" name="_method" onclick="return confirm('Delete this post?')" type="submit" value="delete">Delete</button>
+                </form>
+            </td>
+            <td class="align-middle">
+                <form action="" method="post">
+                    <button class="btn btn-outline-light" name="link" type="submit" value="<%= ::Temple::Utils.escape_html((post.link)) %>">Update</button>
+                </form>
+            </td>
+            <td class="align-middle">
+                <%= ::Temple::Utils.escape_html((post.rating)) %>
+            </td>
+        </tr>
+        <% end %>
+     </tbody>
+    </table>
+</div>
