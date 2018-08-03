@@ -1,0 +1,13 @@
+main[role="main"]
+  section.jumbotron.text-left
+    .container
+      h3.jumbotron-heading
+        | Add new article
+      form.form-inline[method="post"]
+        .form-group.row
+          label.col-sm-2.col-form-label[for="link"]
+            | Link
+          .col-sm-10
+            input#link.form-control[type="text" name="link" placeholder="https://onliner.by/..."]
+        button.btn.btn-primary[type="submit" href="/"]
+          | Add

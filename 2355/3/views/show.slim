@@ -1,0 +1,29 @@
+main[role="main"]
+  section.jumbotron.text-center
+    .container
+      h1.jumbotron-heading
+        - id = yield
+        | #{Ohm.redis.call "GET", "article" + "#{id}"}
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th
+              | #
+            th
+              | Comment
+            th
+              | Rate
+        tbody
+          - "#{Ohm.redis.call "GET", "article" + "#{id}" + "_comments_count"}".to_i.times do |i|
+            - require_relative '../models/comment.rb'
+            - comment = Comment.new("#{Ohm.redis.call "GET", "article" + "#{id}" + "_comment" + "#{i + 1}"}")
+            tr
+              th
+                | #{i + 1}
+              th
+                - if i == 0
+                  | #{'Лучший комментарий: '} #{comment.text}
+                - else
+                  | #{comment.text}
+              th
+                | #{comment.rate}
