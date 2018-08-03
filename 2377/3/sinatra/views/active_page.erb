@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>analysis</title>
+  <style>
+   td {
+    text-align: center; /* Выравниваем текст по центру ячейки */
+   }
+  </style>
+ </head>
+ <body>
+  <form action="links/new" method="POST">
+    <p align="center">
+      <input name="link"> <input type="submit" value="тык">
+    </p>
+  </form>
+  <form action="/clear" method="GET">
+    <p align="center"><input type="submit" value="почистить"></p>
+  </form>
+  <table align="center" cellspacing=5>
+       <tr> <td><b>ваша ссылочка</b></td> <td><b>рейтинг</b></td></tr>
+      <%if Link.all%>
+       <% Link.all.each do |link| %>
+        <tr>
+	  <td> <%=link.link%> </td>
+	  <td> <%= link.score%> <td>
+          <td>
+            <a title="просто тыкни" href=<%= "/links/#{link.id}" %> target="_blank"> <input type="submit" value="почитать комменты"> </a>
+         </td>
+       </tr>
+       <% end%>
+      <% end%>
+  </table>
+ </body>
+</html>
+
+
