@@ -1,0 +1,18 @@
+<h1 align='center'><%= @article.title %></h1>
+<br>
+<table class="table">
+  <tr>
+    <th><div align="center">Comment text</div></th>
+    <th>Rating</th>
+  </tr>
+  <% @article.comments.each do |comment| %>
+  <tr>
+    <td><%= comment.content %></td>
+    <td><div align="center"><%= comment.rate %></div></td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<div align="center"><a href='/articles' class='btn btn-primary'>Back</a></div>
+<br>
+<br>

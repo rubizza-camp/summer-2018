@@ -1,0 +1,30 @@
+<h1 align='center'>Article's List</h1>
+<br>
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>
+      <div align="center">Article's title</div>
+    </th>
+    <th>Rating</th>
+    <th><div align="center">Actions</div></th>
+  </tr>
+  <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.id %></td>
+      <td><div align="center"><%= article.title %></div></td>
+      <td><%= article.rating %></td>
+      <td>
+        <div align="center">
+        <form action="/articles/<%= article.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <a href='/articles/<%= article.id %>' class='btn btn-info'>Show</a>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<div align="center"><a href='/articles/new' class='btn btn-primary'>Add Article</a></div>
