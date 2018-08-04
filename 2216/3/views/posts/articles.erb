@@ -1,0 +1,15 @@
+<h2>Articles</h2>
+<table>
+  <tr>
+    <td>Links</td>
+    <td>Scores</td>
+    <td>Comments</td>
+  </tr>
+  <% articles.each do |article|%>
+    <tr>
+      <td><%= article.link%></td>
+      <td><%= article.score%></td>
+      <td><a href='/posts/comments/<%=article.id%>'>comments</a></td>
+    </tr>
+  <% end%>
+</table>

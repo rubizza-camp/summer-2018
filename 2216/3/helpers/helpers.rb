@@ -1,0 +1,8 @@
+require_relative './helpers/link_verificator'
+require_relative './helpers/article_parser'
+require_relative './helpers/article'
+require_relative './helpers/comment'
+require_relative './helpers/rating'
+require_relative './helpers/request_maker'
+require_relative './helpers/azure_text_analytics'
+require_relative './helpers/record_maker'
