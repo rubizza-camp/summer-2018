@@ -1,0 +1,28 @@
+<div class="jumbotron">
+  <h2><%= @article.title %></h2>
+</div>
+
+<a href="/articles/<%= @article.id %>/edit" class="btn btn-info">Edit Article</a> |
+<form action="/articles/<%= @article.id %>" method="post" style="display: inline">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Article" class="btn btn-danger">
+</form>
+
+
+<h3>Comments</h3>
+
+<ul class="media-list">
+  <% @comments.each do |comment| %>
+    <li class="media">
+      <div class="media-body">
+        <div class="well well-lg">
+          <h4 class="media-heading text-uppercase reviews"><%= comment.author %></h4>
+          <p class="media-comment">
+            <%= comment.text %>
+          </p>
+          <div style="font-size:18px">Рейтинг: <%= comment.rating %></div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
