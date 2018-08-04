@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title> Articles table </title>
+  </head>
+
+  <form action="/addlink" method="POST">
+      <p align="center"> Input link: <input type="text" name="link">
+    <input type="submit" value="Submit">
+    </p>
+  </form>
+
+  <body>
+    <table align="center" border="1" cellspacing="0" cellpadding="10" width="40%">
+      <% @articles.each do |article| %>
+        <tr>
+          <td> <a href=<%= "/analysis/#{article.id}" %>> <%= article.link %> </a> </td> <td> <%= article.sentiment.to_i %> </td>
+        <tr/>
+      <% end %>
+    </table>
+  </body>
+  
+  <form action="/cleardb" method="GET">
+    <p align="center"> <input type="submit" value="Clear"> </p>
+  </form>
+</html>

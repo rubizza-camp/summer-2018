@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title> Comments table </title>
+  </head>
+
+  <body>
+    <table align="center" border="1" cellspacing="0" cellpadding="10" width="40%">
+      <tr>
+        <td> <b> Comment </b> </td> <td> <b> Sentiment </b> </td>
+      </tr>
+      <% @comments.range(0, -1).each do |comment| %>
+        <tr>
+          <td> <%= comment.body %> </td> <td> <%= comment.sentiment.to_i %> </td>
+        </tr>
+      <% end %>
+    </table>
+  </body>
+  
+  <form action="/" method="GET">
+    <p align="center"> <input type="submit" value="Back"> </p>
+  </form>
+</html>
