@@ -1,0 +1,17 @@
+<CENTER>
+  <h1>All comments</h1>
+  <table BORDER CELLPADDING=10 CELLSPACING=0>
+   <% for id in @first_id..@last_id %>
+      <tr>
+        <td><%= Comment[id].body %></td>
+        <td><%= Comment[id].comment_rating %></td>
+      </tr>
+    <%end%>
+
+    <form> 
+      <button>
+        <a href="/table"> Comeback
+        </a>
+      </button>
+    </form>
+  </CENTER>

@@ -1,0 +1,8 @@
+source 'http://rubygems.org'
+
+gem 'capybara'
+gem 'ohm'
+gem 'redis'
+gem 'selenium-webdriver'
+gem 'shotgun'
+gem 'sinatra'
