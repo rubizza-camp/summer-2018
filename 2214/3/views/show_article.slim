@@ -1,0 +1,24 @@
+div
+  table class="table"
+    thead align='middle'
+      tr
+        th
+          a class='btn btn-outline-dark' href="/articles" role="button" Вернуться назад
+        th
+          h1 = @article.link
+        th
+          form action="#{@article.id}" method='post'
+            button type='submit' id='hidden' name='_method' value='delete' class='btn btn-outline-dark' Удалить статью
+div
+  table class="table table-striped"
+    thead class="thead-dark"
+      tr
+        th Комментарии
+        th Рейтинг
+    tbody
+      - @article.comments.each do |comment|
+        tr
+          td
+            = comment.text
+          td
+            = comment.rating

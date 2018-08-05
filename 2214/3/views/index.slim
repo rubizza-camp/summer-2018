@@ -1,0 +1,20 @@
+p Здесь могла быть ваша реклама
+nav class="navbar bg-success"
+    a сlass="navbar-brand"
+      h1 OnlinerParser
+    a class="btn btn-primary btn-lg" href="/articles/new" role="button" Добавить статью
+.container
+  table class='table table-hover table-light'
+    thead class='thead-dark'
+      tr
+        th Ссылки
+        th Рейтинг
+    tbody
+      - @articles.each do |article|
+        tr class="table-light"
+          td
+            a href="articles/#{article.id}" class="list-group-item list-group-item-action" = article.link
+          td
+            = article.rating
+  form action='/articles' method='post'
+    button type='submit' id='hidden' name='_method' value='delete' class='btn btn-outline-dark btn-lg btn-block' onclick="return confirm('Вы хотите удалить все посты. Вы уверены?')" Удалить все статьи
