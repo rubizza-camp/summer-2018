@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title> Table with analyzed articles </title>
+  </head>
+
+  <h2><a href="/articles/new"> <b>New article</b></a></h2>
+
+  <h3><center>Table with analyzed articles</center></h3>
+
+  <body>
+    <table width="100%" border="3" cellspacing="0" cellpadding="10">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th colspan=2>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @articles.each_with_index do |article, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><a href=<%= article.link %>><%= article.title %></a></td>
+            <td><a><%= article.rating %></a></td>
+            <td><a href=<%= "/articles/#{article.id}" %> >>>> </a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>

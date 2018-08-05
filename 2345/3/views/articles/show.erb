@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title> Comments </title>
+  </head>
+
+  <div class="jumbotron">
+    <h2><%= @article.title %></h2>
+  </div>
+
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);" class="button1"> |
+  <form action="/articles/<%= @article.id %>" method="post" style="display: inline">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Article" class="btn btn-danger">
+  </form>
+
+  <h3><center>Comments of the selected article</center></h3>
+
+  <body>
+    <table border="3" cellspacing="0" cellpadding="10">
+      <thead>
+        <tr>
+          <th>Comment
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td>
+              <h4><%= comment.author %></h4>
+              <%= comment.text %>
+            </td>
+            <td><%= comment.rating %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>
