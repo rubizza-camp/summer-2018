@@ -1,0 +1,40 @@
+<%= erb :application %>
+<body>
+  <div>
+    <a href='<%=@article.link %>'>
+      <%=@article.link %>
+    </a>
+  </div>
+  <div>
+    <a href='/'>
+      Watch all articles
+    </a>
+  </div>
+  <div>
+    <form action="/articles/<%= @article.id %>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit"  onclick="return confirm('Do you realy need to delete this article?')" value="Delete article">
+    </form>
+  </div>
+  <h1>
+    <%= @article.title %>
+  </h1>
+  <table>
+    <tr>
+      <th>Comments</th>
+      <th>Ratings</th>
+    </tr>
+    <% @article.comments.each do |comment| %>
+      <tr>
+        <td>
+          <div>
+            <%= comment.text %>
+          </div>
+        </td>
+        <td>
+          <%= comment.rating %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</body>
