@@ -1,0 +1,11 @@
+<h1 class="text-center "><%= @post.title %></p></h1>
+<hr/>
+<table class="table bg-success table-striped">
+   <tr>
+    <th>Комментарий</th>
+    <th>Рейтинг</th>
+   </tr>
+   <% @post.comments.each do |comment| %>
+       <tr><td><p><%= comment.text %></a></p></td><td><%= comment.rating %></td></tr>
+   <% end %>
+</table>

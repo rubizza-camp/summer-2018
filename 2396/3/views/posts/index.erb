@@ -1,0 +1,35 @@
+<% if @posts.any? %>
+  <h1 class="text-center">Список статей с рейтингом</h1>
+  <table class="table table-striped bg-info">
+    <tr>
+      <th>Ссылка на статью</th>
+      <th>Рейтинг</th>
+      <th></th>
+      <th></th>
+    </tr>
+   <% @posts.each do |post| %>
+     <tr>
+       <td>
+         <p><a href='/posts/<%= post.id %>'><%= post.title %></a></p>
+       </td>
+       <td>
+         <%= post.rating %>
+       </td>
+       <td>
+       
+       	<form action="/posts/create" method="POST">
+          <!-- <a class="btn btn-success" href='/posts/<%= post.id %>'>Обновить</a> -->
+          <button class="btn btn-success" type="submit" value="<%= post.link %>" name="link">Обновить </button>
+        </form>
+       </td>
+       <td>
+         <a class="btn btn-danger" href='/posts/delete/<%= post.id %>' onclick="return confirm('Вы точно хотите удалить эту статью?')">Удалить</a>
+       </td>
+     </tr>
+   <% end %>
+  </table>
+<% else %>
+  </br>
+  </br>
+  <h3 class="text-center">К сожалению у Вас еще нет статей!</h3>
+<% end %>
