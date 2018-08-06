@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Название статьи</th>
+    <th scope="col">Рейтинг</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @articles.each do |article|%>
+    <tr>
+      <td><a href="/articles/<%= article.id%>"><%= article.name%></a></td>
+      <td><%= article.rating%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

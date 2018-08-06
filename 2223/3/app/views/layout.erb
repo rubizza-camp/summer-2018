@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-3"><a href="/articles/new">Проанализировать статью</a></div>
+      <div class="col-md-3 "><a href="/articles">История анализа статей</a></div>
+    </div>
+    <div class="row">
+      <div class=".col-md-6 .col-md-offset-3">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

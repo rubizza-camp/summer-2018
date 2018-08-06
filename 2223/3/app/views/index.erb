@@ -1,0 +1,17 @@
+<h3><%= @article.name%></h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Комментарий</th>
+    <th scope="col">Рейтинг</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @article.comments.each do |comment|%>
+      <tr>
+        <td><%= comment.text%></td>
+        <td><%= comment.rating.value%></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
