@@ -1,0 +1,39 @@
+<body>
+<div>
+  <a href='<%=@post.link %>'>
+    <%=@post.link %>
+  </a>
+</div>
+<div>
+  <a href='/'>
+    Watch all posts
+  </a>
+</div>
+<div>
+  <form action="/posts/<%= @post.id %>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit"  onclick="return confirm('Do you realy need to delete this post?')" value="Delete post">
+  </form>
+</div>
+<h1>
+  <%= @post.title %>
+</h1>
+<table>
+  <tr>
+    <th>Comments</th>
+    <th>Ratings</th>
+  </tr>
+  <% @post.comments.each do |comment| %>
+    <tr>
+      <td>
+        <div>
+          <%= comment.text %>
+        </div>
+      </td>
+      <td>
+        <%= comment.rating %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+</body>
