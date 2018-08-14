@@ -1,38 +1,28 @@
-require_relative 'raper.rb'
+require 'pry'
+require_relative 'parse_string.rb'
 
 # Class all rapers, collection of statistics
 class AllRapers
-  attr_reader :all_rapers, :sors_names
+  attr_reader :all_rapers
   def initialize
-    @sors_names = []
-    @names = []
-    @all_rapers = []
-  end
-
-  LIST_ALL_BATTLES = Dir['rap-battles/*']
-
-  def names
-    LIST_ALL_BATTLES.each do |file|
-      name = file.split(/ против | vs /i).first.split('/').last.strip
-      @names.push(name)
-    end
-    @names.uniq!
+    @all_rapers = {}
   end
 
   def create_all_rapers
-    names.each do |name|
-      search = SearchBattles.new(name)
+    LIST_ALL_BATTLES.each do |file|
+      search = SearchBattles.new(name = ParseString.new.search_name(file))
       search.count_battles
-      @all_rapers.push(Raper.new(name, search.list))
+      raper = Raper.new(name, search.list)
+      unless @all_rapers.key? name
+        @all_rapers[name] = raper
+      end
     end
   end
 
-  def bad_words
-    @all_rapers.each { |raper| raper.bad_words}
+  def sorting(limit)
+    @all_rapers.values.sort_by { |raper| - raper.bad_words }.first(limit)
   end
 
-  def sorting
-    @all_rapers.each { |raper| @sors_names.push([raper.bad_words, raper.name])}
-    @sors_names.sort! { |first, last| last <=> first }
-  end
+  private
+  LIST_ALL_BATTLES = Dir['rap-battles/*']
 end
