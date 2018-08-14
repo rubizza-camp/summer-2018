@@ -8,21 +8,18 @@ class AllRapers
     @all_rapers = {}
   end
 
+  LIST_ALL_BATTLES = Dir['rap-battles/*']
+
   def create_all_rapers
     LIST_ALL_BATTLES.each do |file|
       search = SearchBattles.new(name = ParseString.new.search_name(file))
       search.count_battles
       raper = Raper.new(name, search.list)
-      unless @all_rapers.key? name
-        @all_rapers[name] = raper
-      end
+      @all_rapers[name] = raper unless @all_rapers.key? name
     end
   end
 
   def sorting(limit)
     @all_rapers.values.sort_by { |raper| - raper.bad_words }.first(limit)
   end
-
-  private
-  LIST_ALL_BATTLES = Dir['rap-battles/*']
 end

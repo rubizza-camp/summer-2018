@@ -16,7 +16,6 @@ class Battle
     @sum_all_words ||= words.count
   end
 
-  private
   def words
     @words ||= File.read(@title).downcase.scan(/[а-яёa-z*]+/)
   end

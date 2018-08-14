@@ -5,7 +5,6 @@ require_relative 'table_rating.rb'
 
 # Class Input, processing input
 class Input
-  attr_reader :all_commands
   def initialize(user_commands)
     @user_commands = user_commands
   end
@@ -18,9 +17,10 @@ class Input
   end
 
   private
+
   def all_commands(parameter)
-    @all_commands = {'--top-bad-words': (TableRating.new(parameter).create_table).to_json,
-                     '--top-words': nil, '--name': nil}
+    @all_commands = { '--top-bad-words' => TableRating.new(parameter).create_table.to_json,
+                      '--top-words' => nil, '--name' => nil }
   end
 end
 

@@ -15,10 +15,9 @@ class TableRating
     top_rapers.each do |raper|
       @rows << TableRow.new(raper).row
     end
-    puts Terminal::Table.new :rows => @rows
+    puts Terminal::Table.new(rows: @rows)
   end
 
-  private
   def top_rapers
     rapers = AllRapers.new
     rapers.create_all_rapers

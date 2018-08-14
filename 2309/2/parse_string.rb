@@ -1,6 +1,6 @@
 # Class search name
 class ParseString
-  attr_reader :name, :split_one_command
+  attr_reader :name
   def search_name(title_battle)
     @name = title_battle.split(/ против | vs /i).first.split('/').last.strip
   end

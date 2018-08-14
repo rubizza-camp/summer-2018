@@ -3,13 +3,12 @@ require_relative 'raper.rb'
 
 # Class table row, show rating
 class TableRow
-  attr_reader :row
   def initialize(raper)
     @raper = raper
   end
 
   def row
-    @row = ["#{@raper.name}", "#{@raper.sum_battles} батлов", "#{@raper.bad_words} нецензурных слов",
-            "#{@raper.bad_words_in_battle} слова на баттл", "#{@raper.words_in_raund} слова в раунде"]
+    @row = [@raper.name.to_s, @raper.sum_battles.to_s + ' батлов', @raper.bad_words.to_s + ' нецензурных слов',
+            @raper.bad_words_in_battle.to_s + ' слова на баттл', @raper.words_in_raund.to_s + ' слова в раунде']
   end
 end
