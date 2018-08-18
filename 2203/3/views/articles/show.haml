@@ -1,0 +1,18 @@
+.jumbotron
+  %h2= @article.title
+%a.btn.btn-info{ :href => "/articles/#{@article.id}/edit" } Edit Article
+|
+%form{:action => "/articles/#{@article.id}", :method => "post", :style => "display: inline"}
+  %input{:name => "_method", :type => "hidden", :value => "DELETE"}/
+  %input.btn.btn-danger{:type => "submit", :value => "Delete Article"}/
+%h3 Comments
+%ul.media-list
+  - @comments.each do |comment|
+    %li.media
+      .media-body
+        .well.well-lg
+          %h4.media-heading.text-uppercase.reviews= comment.author
+          %p.media-comment
+            = comment.text
+          %div{ :style => "font-size:18px" }
+            Рейтинг: #{comment.rating}

@@ -1,0 +1,19 @@
+%h1 Articles
+%table.table.table-bordered.table-hover
+  %thead
+    %tr
+      %th #
+      %th Title
+      %th{ :colspan => "2" } Rating
+  %tbody
+    - @articles.each_with_index do |article, index|
+      %tr
+        %td= index + 1
+        %td
+          %a{ :href => "#{article.link}" }
+            #{article.title}
+        %td
+          %a= article.rating
+        %td
+          %a{ :href => "/articles/#{article.id}" }
+            %span.glyphicon.glyphicon-search
