@@ -1,5 +1,7 @@
 require 'pry'
+require_relative 'raper.rb'
 require_relative 'parse_string.rb'
+require_relative 'search_battles.rb'
 
 # Class all rapers, collection of statistics
 class AllRapers

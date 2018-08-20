@@ -1,29 +1,19 @@
 require 'pry'
-require 'json'
-require_relative 'parse_string.rb'
-require_relative 'table_rating.rb'
+require 'optparse'
+require 'terminal-table'
+require_relative 'all_rapers.rb'
 
-# Class Input, processing input
-class Input
-  def initialize(user_commands)
-    @user_commands = user_commands
+OptionParser.new do |parser|
+  parser.on('--top-bad-words=') do |parameter|
+    rapers = AllRapers.new
+    rapers.create_all_rapers
+    top_rapers = rapers.sorting(parameter.to_i)
+    puts Terminal::Table.new(rows: top_rapers.map(&:row))
   end
-
-  def do_command
-    @user_commands.each do |one_command|
-      command = ParseString.new.split_one_command(one_command)
-      all_commands(command[1].to_i)[command[0]]
-    end
-  end
-
-  private
-
-  def all_commands(parameter)
-    @all_commands = { '--top-bad-words' => TableRating.new(parameter).create_table.to_json,
-                      '--top-words' => nil, '--name' => nil }
-  end
-end
-
-argument = ARGV
-a = Input.new(argument)
-a.do_command
+  # parser.on('--top-words=') do |parameter|
+  #  v = SearchBattles.new(parameter).count_battles
+  #  c = Raper.new(parameter, v).top_words(5)
+  #  p v
+  #  p c
+  # end
+end.parse!
