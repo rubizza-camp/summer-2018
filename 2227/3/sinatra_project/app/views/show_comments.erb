@@ -1,0 +1,54 @@
+<head>
+  <meta charset='UTF-8' />
+  <title>Article comments</title>
+  <style type="text/css">
+    h1{
+      text-align: center;
+    }
+
+    a {
+      font: bold 11px Arial;
+      text-decoration: none;
+      background-color: #EEEEEE;
+      color: #333333;
+      padding: 2px 6px 2px 6px;
+      border-top: 1px solid #CCCCCC;
+      border-right: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+      border-left: 1px solid #CCCCCC;
+      display:inline-block;
+      margin-right:5px;
+    }
+
+    body{
+      width:auto;
+      padding:0 10px;
+      font-size:11px;
+      font-family:"Arial";
+    }
+
+    table {
+      border-width: medium;
+    }
+
+    td {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1><%= @article.title %></p></h1>
+  <a href='<%=@article.link %>'><%=@article.link %></a>
+  <a href='/'>Back</a>
+  <table class="table">
+   <tr>
+    <th>Комментарии</th>
+    <th>Рейтинг</th>
+   </tr>
+   <% @article.comments.each do |comment| %>
+       <tr><td><%= comment.text %></a></td><td><%= comment.rating %></td></tr>
+   <% end %>
+  </table>
+</body>
