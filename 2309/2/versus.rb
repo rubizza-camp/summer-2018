@@ -1,19 +1,11 @@
 require 'pry'
 require 'optparse'
-require 'terminal-table'
-require_relative 'all_rapers.rb'
+require_relative 'logic_performing_commands.rb'
 
 OptionParser.new do |parser|
   parser.on('--top-bad-words=') do |parameter|
-    rapers = AllRapers.new
-    rapers.create_all_rapers
-    top_rapers = rapers.sorting(parameter.to_i)
-    puts Terminal::Table.new(rows: top_rapers.map(&:row))
+    top_bad_words = CommandTopBadWords.new(parameter.to_i)
+    top_bad_words.top_rapers
+    top_bad_words.table_output
   end
-  # parser.on('--top-words=') do |parameter|
-  #  v = SearchBattles.new(parameter).count_battles
-  #  c = Raper.new(parameter, v).top_words(5)
-  #  p v
-  #  p c
-  # end
 end.parse!

@@ -8,20 +8,28 @@ class AllRapers
   attr_reader :all_rapers
   def initialize
     @all_rapers = {}
+    create_all_rapers
   end
 
   LIST_ALL_BATTLES = Dir['rap-battles/*']
 
   def create_all_rapers
     LIST_ALL_BATTLES.each do |file|
-      search = SearchBattles.new(name = ParseString.new.search_name(file))
-      search.count_battles
-      raper = Raper.new(name, search.list)
-      @all_rapers[name] = raper unless @all_rapers.key? name
+      list_battles(name_raper(file))
+      raper(@name_raper, @list_battles)
+      @all_rapers[@name_raper] = @raper unless @all_rapers.key? @name_raper
     end
   end
 
-  def sorting(limit)
-    @all_rapers.values.sort_by { |raper| - raper.bad_words }.first(limit)
+  def name_raper(title_battle)
+    @name_raper = ParseString.new.search_name(title_battle)
+  end
+
+  def list_battles(name)
+    @list_battles = SearchBattles.new(name).list
+  end
+
+  def raper(name, list)
+    @raper = Raper.new(name, list)
   end
 end
