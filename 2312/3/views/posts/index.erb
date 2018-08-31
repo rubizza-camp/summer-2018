@@ -1,0 +1,17 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Posts</th>
+      <th colspan=2>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each_with_index do |post, index| %>
+      <tr>
+        <td><a href=<%= post.link %>><%= post.title %></a></td>
+        <td><%= post.rating %></td>
+        <td><a href=<%= "/posts/#{post.id}" %>><span class="glyphicon glyphicon-search"></span></a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
